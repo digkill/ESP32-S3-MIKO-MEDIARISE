@@ -1,0 +1,10 @@
+{
+  "model_name": "my_custom_wake_word",
+  "wake_word": "ваше_слово",
+  "sample_rate": 16000,
+  "chunk_size": 512,
+  "description": "Описание вашей кастомной модели wake word",
+  "version": "1.0.0",
+  "author": "Ваше имя"
+}
+

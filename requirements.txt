@@ -1,0 +1,15 @@
+# Requirements for xiaozhi-esp32 project scripts
+# 
+# For wake word training audio conversion:
+#   pip install -r scripts/wake_word_training/requirements.txt
+#
+# For ESP-SR SDK training (clone esp-sr repo separately):
+#   git clone https://github.com/espressif/esp-sr.git
+#   cd esp-sr
+#   pip install -r requirements.txt
+
+# Audio processing dependencies (for convert_audio.py)
+soundfile>=0.10.0
+librosa>=0.9.0
+numpy>=1.20.0
+
