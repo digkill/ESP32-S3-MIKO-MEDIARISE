@@ -1,51 +1,133 @@
 #include "wifi_board.h"
 #include "codecs/no_audio_codec.h"
-#include "display/lcd_display.h"
-#include "system_reset.h"
+#include "display/display.h"
 #include "application.h"
-#include "button.h"
 #include "config.h"
+#include "assets/lang_config.h"
 
 #include <esp_log.h>
-#include "i2c_device.h"
 #include <driver/i2c_master.h>
 #include <driver/ledc.h>
 #include <wifi_station.h>
 #include <esp_lcd_panel_io.h>
 #include <esp_lcd_panel_ops.h>
-#include <esp_lcd_spd2010.h>
+#include <esp_lcd_panel_st7789.h>
 #include <esp_timer.h>
 #include "esp_io_expander_tca9554.h"
-#include "lcd_display.h"
 #include <iot_button.h>
+#include "simple_display.h"
+#include "freertos/task.h"
+#include <string>
+#include <cstring>
+#include <driver/gpio.h>
+#include <driver/spi_common.h>
 
 #define TAG "waveshare_lcd_1_46"
 
-// 在waveshare_lcd_1_46类之前添加新的显示类
-class CustomLcdDisplay : public SpiLcdDisplay {
-public:
-    static void rounder_event_cb(lv_event_t * e) {
-        lv_area_t * area = (lv_area_t *)lv_event_get_param(e);
-        uint16_t x1 = area->x1;
-        uint16_t x2 = area->x2;
+// Обертка для SimpleDisplay, реализующая интерфейс Display
+class SimpleDisplayWrapper : public Display {
+private:
+    SimpleDisplay* simple_display_;
+    TaskHandle_t animation_task_handle_;
+    bool locked_;
 
-        area->x1 = (x1 >> 2) << 2;          // round the start of coordinate down to the nearest 4M number
-        area->x2 = ((x2 >> 2) << 2) + 3;    // round the end of coordinate up to the nearest 4N+3 number
+    static void AnimationTask(void* param) {
+        SimpleDisplayWrapper* self = static_cast<SimpleDisplayWrapper*>(param);
+        // Небольшая задержка перед началом анимации
+        vTaskDelay(pdMS_TO_TICKS(500));
+        while (true) {
+            if (self->simple_display_) {
+                self->simple_display_->Update();
+            }
+            vTaskDelay(pdMS_TO_TICKS(100)); // Обновляем каждые 100ms
+        }
     }
 
-    CustomLcdDisplay(esp_lcd_panel_io_handle_t io_handle, 
-                    esp_lcd_panel_handle_t panel_handle,
-                    int width,
-                    int height,
-                    int offset_x,
-                    int offset_y,
-                    bool mirror_x,
-                    bool mirror_y,
-                    bool swap_xy) 
-        : SpiLcdDisplay(io_handle, panel_handle,
-                    width, height, offset_x, offset_y, mirror_x, mirror_y, swap_xy) {
-        DisplayLockGuard lock(this);
-        lv_display_add_event_cb(display_, rounder_event_cb, LV_EVENT_INVALIDATE_AREA, NULL);
+public:
+    SimpleDisplayWrapper(esp_lcd_panel_handle_t panel, int width, int height) 
+        : animation_task_handle_(nullptr), locked_(false) {
+        width_ = width;
+        height_ = height;
+        simple_display_ = new SimpleDisplay(panel, width, height);
+        if (simple_display_ && simple_display_->Init()) {
+            ESP_LOGI(TAG, "SimpleDisplay инициализирован");
+            // Создаем задачу для анимации глаз
+            xTaskCreate(AnimationTask, "eye_anim", 2048, this, 5, &animation_task_handle_);
+        } else {
+            ESP_LOGE(TAG, "Ошибка инициализации SimpleDisplay");
+        }
+    }
+
+    ~SimpleDisplayWrapper() {
+        if (animation_task_handle_) {
+            vTaskDelete(animation_task_handle_);
+        }
+        if (simple_display_) {
+            delete simple_display_;
+        }
+    }
+
+    virtual void SetStatus(const char* status) override {
+        ESP_LOGI(TAG, "SetStatus: %s", status ? status : "null");
+        // Обновляем эмоцию в зависимости от статуса
+        if (simple_display_ && status) {
+            if (strcmp(status, Lang::Strings::LISTENING) == 0) {
+                simple_display_->SetEmotion("happy");
+                simple_display_->SetSpeaking(false);
+            } else if (strcmp(status, Lang::Strings::STANDBY) == 0) {
+                simple_display_->SetEmotion("neutral");
+                simple_display_->SetSpeaking(false);
+            } else if (strcmp(status, Lang::Strings::SPEAKING) == 0) {
+                simple_display_->SetEmotion("neutral");
+                simple_display_->SetSpeaking(true);  // Включаем анимацию рта
+            } else if (strcmp(status, Lang::Strings::CONNECTING) == 0) {
+                simple_display_->SetEmotion("thinking");
+                simple_display_->SetSpeaking(false);
+            } else {
+                simple_display_->SetSpeaking(false);
+            }
+        }
+    }
+
+    virtual void ShowNotification(const char* notification, int duration_ms = 3000) override {
+        // Простая реализация - можно расширить
+    }
+
+    virtual void ShowNotification(const std::string &notification, int duration_ms = 3000) override {
+        ShowNotification(notification.c_str(), duration_ms);
+    }
+
+    virtual void SetEmotion(const char* emotion) override {
+        if (simple_display_ && emotion) {
+            simple_display_->SetEmotion(emotion);
+        }
+    }
+
+    virtual void SetChatMessage(const char* role, const char* content) override {
+        // Простая реализация - можно расширить
+    }
+
+    virtual void SetTheme(Theme* theme) override {
+        current_theme_ = theme;
+    }
+
+    virtual void UpdateStatusBar(bool update_all = false) override {
+        if (simple_display_) {
+            simple_display_->UpdateStatusBar();
+        }
+    }
+
+    virtual void SetPowerSaveMode(bool on) override {
+        // Простая реализация - можно расширить
+    }
+
+    virtual bool Lock(int timeout_ms = 0) override {
+        locked_ = true;
+        return true;
+    }
+
+    virtual void Unlock() override {
+        locked_ = false;
     }
 };
 
@@ -53,28 +135,25 @@ class CustomBoard : public WifiBoard {
 private:
     i2c_master_bus_handle_t i2c_bus_;
     esp_io_expander_handle_t io_expander = NULL;
-    LcdDisplay* display_;
+    esp_lcd_panel_handle_t panel_handle_ = nullptr;
+    Display* display_;
     button_handle_t boot_btn, pwr_btn;
     button_driver_t* boot_btn_driver_ = nullptr;
     button_driver_t* pwr_btn_driver_ = nullptr;
     static CustomBoard* instance_;
 
     void InitializeI2c() {
-        // Initialize I2C peripheral
-        i2c_master_bus_config_t i2c_bus_cfg = {
-            .i2c_port = (i2c_port_t)0,
-            .sda_io_num = I2C_SDA_IO,
-            .scl_io_num = I2C_SCL_IO,
-            .clk_source = I2C_CLK_SRC_DEFAULT,
-            .glitch_ignore_cnt = 7,
-            .flags = {
-                .enable_internal_pullup = 1,
-            },
-        };
-        ESP_ERROR_CHECK(i2c_new_master_bus(&i2c_bus_cfg, &i2c_bus_));
+        // I2C отключен (тачскрин не используется)
+        ESP_LOGI(TAG, "I2C disabled (touchscreen not used)");
+        i2c_bus_ = nullptr;
     }
     
     void InitializeTca9554(void) {
+        if (i2c_bus_ == nullptr) {
+            ESP_LOGW(TAG, "I2C bus not initialized, skipping TCA9554");
+            io_expander = NULL;
+            return;
+        }
         esp_err_t ret = esp_io_expander_new_i2c_tca9554(i2c_bus_, I2C_ADDRESS, &io_expander);
         if(ret != ESP_OK) {
             ESP_LOGW(TAG, "TCA9554 not found, continuing without IO expander");
@@ -117,48 +196,67 @@ private:
     }
 
     void InitializeSpi() {
-        ESP_LOGI(TAG, "Initialize QSPI bus");
+        ESP_LOGI(TAG, "Initialize SPI bus for ST7789");
 
-        const spi_bus_config_t bus_config = TAIJIPI_SPD2010_PANEL_BUS_QSPI_CONFIG(QSPI_PIN_NUM_LCD_PCLK,
-                                                                        QSPI_PIN_NUM_LCD_DATA0,
-                                                                        QSPI_PIN_NUM_LCD_DATA1,
-                                                                        QSPI_PIN_NUM_LCD_DATA2,
-                                                                        QSPI_PIN_NUM_LCD_DATA3,
-                                                                        QSPI_LCD_H_RES * 80 * sizeof(uint16_t));
-        ESP_ERROR_CHECK(spi_bus_initialize(QSPI_LCD_HOST, &bus_config, SPI_DMA_CH_AUTO));
+        const spi_bus_config_t bus_config = {
+            .mosi_io_num = DISPLAY_SPI_MOSI_PIN,
+            .miso_io_num = GPIO_NUM_NC,  // ST7789 не использует MISO
+            .sclk_io_num = DISPLAY_SPI_SCLK_PIN,
+            .quadwp_io_num = GPIO_NUM_NC,
+            .quadhd_io_num = GPIO_NUM_NC,
+            .max_transfer_sz = DISPLAY_WIDTH * DISPLAY_HEIGHT * sizeof(uint16_t),
+        };
+        ESP_ERROR_CHECK(spi_bus_initialize(DISPLAY_SPI_HOST, &bus_config, SPI_DMA_CH_AUTO));
+        ESP_LOGI(TAG, "SPI bus initialized");
     }
 
-    void InitializeSpd2010Display() {
+
+    void InitializeSt7789Display() {
         esp_lcd_panel_io_handle_t panel_io = nullptr;
         esp_lcd_panel_handle_t panel = nullptr;
 
-        ESP_LOGI(TAG, "Install panel IO");
+        ESP_LOGI(TAG, "Install ST7789 panel IO");
         
-        const esp_lcd_panel_io_spi_config_t io_config = SPD2010_PANEL_IO_QSPI_CONFIG(QSPI_PIN_NUM_LCD_CS, NULL, NULL);
-        ESP_ERROR_CHECK(esp_lcd_new_panel_io_spi((esp_lcd_spi_bus_handle_t)QSPI_LCD_HOST, &io_config, &panel_io));
+        esp_lcd_panel_io_spi_config_t io_config = {};
+        io_config.cs_gpio_num = DISPLAY_SPI_CS_PIN;
+        io_config.dc_gpio_num = DISPLAY_SPI_DC_PIN;
+        io_config.spi_mode = 0;
+        io_config.pclk_hz = DISPLAY_SPI_CLOCK_HZ;
+        io_config.trans_queue_depth = 10;
+        io_config.lcd_cmd_bits = 8;
+        io_config.lcd_param_bits = 8;
+        ESP_ERROR_CHECK(esp_lcd_new_panel_io_spi(DISPLAY_SPI_HOST, &io_config, &panel_io));
+        ESP_LOGI(TAG, "Panel IO created");
 
-        ESP_LOGI(TAG, "Install SPD2010 panel driver");
-        
-        spd2010_vendor_config_t vendor_config = {
-            .flags = {
-                .use_qspi_interface = 1,
-            },
+        ESP_LOGI(TAG, "Install ST7789 panel driver");
+        esp_lcd_panel_dev_config_t panel_config = {
+            .reset_gpio_num = DISPLAY_SPI_RST_PIN,
+            .rgb_ele_order = LCD_RGB_ELEMENT_ORDER_RGB,
+            .bits_per_pixel = 16,
         };
-        const esp_lcd_panel_dev_config_t panel_config = {
-            .reset_gpio_num = QSPI_PIN_NUM_LCD_RST,
-            .rgb_ele_order = LCD_RGB_ELEMENT_ORDER_RGB,     // Implemented by LCD command `36h`
-            .bits_per_pixel = QSPI_LCD_BIT_PER_PIXEL,    // Implemented by LCD command `3Ah` (16/18)
-            .vendor_config = &vendor_config,
-        };
-        ESP_ERROR_CHECK(esp_lcd_new_panel_spd2010(panel_io, &panel_config, &panel));
+        ESP_ERROR_CHECK(esp_lcd_new_panel_st7789(panel_io, &panel_config, &panel));
+        ESP_LOGI(TAG, "ST7789 panel created");
 
         esp_lcd_panel_reset(panel);
         esp_lcd_panel_init(panel);
-        esp_lcd_panel_disp_on_off(panel, true);
+        esp_lcd_panel_invert_color(panel, true);  // ST7789 обычно требует инверсию цвета
         esp_lcd_panel_swap_xy(panel, DISPLAY_SWAP_XY);
         esp_lcd_panel_mirror(panel, DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y);
-        display_ = new CustomLcdDisplay(panel_io, panel,
-                                    DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_OFFSET_X, DISPLAY_OFFSET_Y, DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y, DISPLAY_SWAP_XY);
+        esp_lcd_panel_disp_on_off(panel, true);
+        ESP_LOGI(TAG, "ST7789 panel initialized");
+
+        // Включаем подсветку
+        gpio_reset_pin(DISPLAY_SPI_BL_PIN);
+        gpio_set_direction(DISPLAY_SPI_BL_PIN, GPIO_MODE_OUTPUT);
+        gpio_set_level(DISPLAY_SPI_BL_PIN, 1);
+        ESP_LOGI(TAG, "Backlight enabled");
+
+        ESP_LOGI(TAG, "Initializing SimpleDisplay with robot eyes animation...");
+        panel_handle_ = panel;
+        
+        // Используем SimpleDisplay с анимацией глаз
+        display_ = new SimpleDisplayWrapper(panel, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+        ESP_LOGI(TAG, "SimpleDisplayWrapper initialized");
     }
  
     void InitializeButtonsCustom() {
@@ -231,15 +329,23 @@ public:
         InitializeI2c();
         InitializeTca9554();
         InitializeSpi();
-        InitializeSpd2010Display();
+        InitializeSt7789Display();
         InitializeButtons();
         GetBacklight()->RestoreBrightness();
     }
 
     virtual AudioCodec* GetAudioCodec() override {
+        static bool first_call = true;
         static NoAudioCodecSimplex audio_codec(AUDIO_INPUT_SAMPLE_RATE, AUDIO_OUTPUT_SAMPLE_RATE,
-            AUDIO_I2S_SPK_GPIO_BCLK, AUDIO_I2S_SPK_GPIO_LRCK, AUDIO_I2S_SPK_GPIO_DOUT, I2S_STD_SLOT_LEFT, AUDIO_I2S_MIC_GPIO_SCK, AUDIO_I2S_MIC_GPIO_WS, AUDIO_I2S_MIC_GPIO_DIN, I2S_STD_SLOT_RIGHT); // I2S_STD_SLOT_LEFT / I2S_STD_SLOT_RIGHT / I2S_STD_SLOT_BOTH
-
+            AUDIO_I2S_SPK_GPIO_BCLK, AUDIO_I2S_SPK_GPIO_LRCK, AUDIO_I2S_SPK_GPIO_DOUT, I2S_STD_SLOT_LEFT, 
+            AUDIO_I2S_MIC_GPIO_SCK, AUDIO_I2S_MIC_GPIO_WS, AUDIO_I2S_MIC_GPIO_DIN, I2S_STD_SLOT_RIGHT);
+        
+        if (first_call) {
+            ESP_LOGI(TAG, "Audio codec initialized: Input=%dHz, Output=%dHz", AUDIO_INPUT_SAMPLE_RATE, AUDIO_OUTPUT_SAMPLE_RATE);
+            ESP_LOGI(TAG, "Speaker: BCLK=%d, LRCK=%d, DOUT=%d", AUDIO_I2S_SPK_GPIO_BCLK, AUDIO_I2S_SPK_GPIO_LRCK, AUDIO_I2S_SPK_GPIO_DOUT);
+            ESP_LOGI(TAG, "Microphone: SCK=%d, WS=%d, DIN=%d", AUDIO_I2S_MIC_GPIO_SCK, AUDIO_I2S_MIC_GPIO_WS, AUDIO_I2S_MIC_GPIO_DIN);
+            first_call = false;
+        }
         return &audio_codec;
     }
 

@@ -3,6 +3,7 @@
 #include <esp_log.h>
 #include <cmath>
 #include <cstring>
+#include <cstdlib>
 
 #define TAG "NoAudioCodec"
 
@@ -205,13 +206,24 @@ NoAudioCodecSimplex::NoAudioCodecSimplex(int input_sample_rate, int output_sampl
     chan_cfg.id = (i2s_port_t)1;
     ESP_ERROR_CHECK(i2s_new_channel(&chan_cfg, nullptr, &rx_handle_));
     std_cfg.clk_cfg.sample_rate_hz = (uint32_t)input_sample_rate_;
+    // Для микрофона используем правый слот, 16 бит, моно
+    std_cfg.slot_cfg.data_bit_width = I2S_DATA_BIT_WIDTH_16BIT;
+    std_cfg.slot_cfg.slot_bit_width = I2S_SLOT_BIT_WIDTH_AUTO;
+    std_cfg.slot_cfg.slot_mode = I2S_SLOT_MODE_MONO;
     std_cfg.slot_cfg.slot_mask = mic_slot_mask;
+    std_cfg.slot_cfg.ws_width = I2S_DATA_BIT_WIDTH_16BIT;
+    std_cfg.slot_cfg.ws_pol = false;
+    std_cfg.slot_cfg.bit_shift = true;
     std_cfg.gpio_cfg.bclk = mic_sck;
     std_cfg.gpio_cfg.ws = mic_ws;
     std_cfg.gpio_cfg.dout = I2S_GPIO_UNUSED;
     std_cfg.gpio_cfg.din = mic_din;
+    // Попробуем инвертировать WS для микрофона (может потребоваться)
+    std_cfg.gpio_cfg.invert_flags.ws_inv = false;
+    ESP_LOGI(TAG, "Initializing MIC channel: sample_rate=%d, slot_mask=%d, bclk=%d, ws=%d, din=%d", 
+             input_sample_rate_, mic_slot_mask, mic_sck, mic_ws, mic_din);
     ESP_ERROR_CHECK(i2s_channel_init_std_mode(rx_handle_, &std_cfg));
-    ESP_LOGI(TAG, "Simplex channels created");
+    ESP_LOGI(TAG, "Simplex channels created - MIC channel initialized on I2S port 1");
 }
 
 int NoAudioCodec::Write(const int16_t* data, int samples) {
@@ -238,19 +250,67 @@ int NoAudioCodec::Write(const int16_t* data, int samples) {
 }
 
 int NoAudioCodec::Read(int16_t* dest, int samples) {
-    size_t bytes_read;
+    static int read_call_count = 0;
+    read_call_count++;
+    
+    if (rx_handle_ == nullptr) {
+        ESP_LOGE(TAG, "Read Failed: rx_handle_ is nullptr!");
+        return 0;
+    }
 
+    size_t bytes_read;
     std::vector<int32_t> bit32_buffer(samples);
-    if (i2s_channel_read(rx_handle_, bit32_buffer.data(), samples * sizeof(int32_t), &bytes_read, portMAX_DELAY) != ESP_OK) {
-        ESP_LOGE(TAG, "Read Failed!");
+    esp_err_t ret = i2s_channel_read(rx_handle_, bit32_buffer.data(), samples * sizeof(int32_t), &bytes_read, portMAX_DELAY);
+    if (ret != ESP_OK) {
+        ESP_LOGE(TAG, "Read Failed! Error: %s (0x%x)", esp_err_to_name(ret), ret);
+        return 0;
+    }
+
+    if (bytes_read == 0) {
+        if (read_call_count <= 10 || read_call_count % 100 == 0) {
+            ESP_LOGW(TAG, "Read: No data available (bytes_read=0), call_count=%d", read_call_count);
+        }
         return 0;
     }
 
     samples = bytes_read / sizeof(int32_t);
+    
+    // Логируем первые несколько вызовов с детальной диагностикой
+    if (read_call_count <= 5) {
+        ESP_LOGI(TAG, "Read: samples=%d, bytes_read=%u, raw_first_3=[0x%08x, 0x%08x, 0x%08x]", 
+                 samples, (unsigned int)bytes_read, 
+                 samples > 0 ? bit32_buffer[0] : 0,
+                 samples > 1 ? bit32_buffer[1] : 0,
+                 samples > 2 ? bit32_buffer[2] : 0);
+    }
+    
     for (int i = 0; i < samples; i++) {
         int32_t value = bit32_buffer[i] >> 12;
         dest[i] = (value > INT16_MAX) ? INT16_MAX : (value < -INT16_MAX) ? -INT16_MAX : (int16_t)value;
     }
+    
+    // Логируем статистику периодически
+    if (read_call_count <= 10 || read_call_count % 100 == 0) {
+        if (samples > 0) {
+            int16_t max_val = dest[0], min_val = dest[0];
+            int32_t sum = 0;
+            for (int i = 0; i < samples; i++) {
+                if (dest[i] > max_val) max_val = dest[i];
+                if (dest[i] < min_val) min_val = dest[i];
+                sum += abs(dest[i]);
+            }
+            int16_t avg = (int16_t)(sum / samples);
+            ESP_LOGI(TAG, "Read: samples=%d, range=[%d, %d], avg_abs=%d, call_count=%d", 
+                     samples, min_val, max_val, avg, read_call_count);
+            
+            // Если все значения одинаковые или близки к нулю - это проблема
+            if (max_val - min_val < 10 && abs(avg) < 100) {
+                ESP_LOGW(TAG, "WARNING: Microphone data appears static or silent! (range=%d, avg=%d)", 
+                         max_val - min_val, avg);
+            }
+        }
+    }
+    
     return samples;
 }
 

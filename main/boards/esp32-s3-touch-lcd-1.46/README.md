@@ -40,14 +40,25 @@ idf.py flash monitor
 
 ## 硬件配置
 
-- **显示屏**: 1.46" Touch LCD (240x320)
+- **显示屏**: 1.46" Touch LCD (240x320, SPD2010)
 - **触摸屏**: CST816D (I2C)
 - **I2C配置**: 
   - SDA: GPIO13
-  - SCL: GPIO15 (注意：与音频I2S MIC SCK共用，但使用不同时间)
+  - SCL: GPIO15
   - INT: GPIO4
+- **内置麦克风**: I2S接口 (встроенный микрофон)
+  - WS (LRCLK): GPIO2 (I2S_PIN_WS)
+  - SCK (BCLK): GPIO15 (I2S_PIN_BCK)
+  - DIN: GPIO39 (I2S_PIN_DIN)
+- **扬声器**: I2S接口
+  - DOUT: GPIO47
+  - BCLK: GPIO48
+  - LRCK: GPIO38
 
 ## 注意事项
 
 - I2C已配置内部上拉电阻，无需外部上拉
-- GPIO15同时用于I2C SCL和音频I2S MIC SCK，但它们在运行时不会冲突
+- GPIO15同时用于I2C SCL (тачскрин) 和 I2S MIC SCK (микрофон)
+- I2C和I2S使用不同的时间，因此不会产生冲突
+- 麦克风使用标准I2S接口，配置已验证工作正常
+- **Встроенный микрофон пины**: WS=GPIO2, SCK=GPIO15, DIN=GPIO39

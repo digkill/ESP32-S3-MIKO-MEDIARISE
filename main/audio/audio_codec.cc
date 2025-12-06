@@ -35,16 +35,22 @@ void AudioCodec::Start() {
     }
 
     if (tx_handle_ != nullptr) {
+        ESP_LOGI(TAG, "Enabling TX channel (speaker)");
         ESP_ERROR_CHECK(i2s_channel_enable(tx_handle_));
+    } else {
+        ESP_LOGW(TAG, "TX handle is nullptr, speaker channel not enabled");
     }
 
     if (rx_handle_ != nullptr) {
+        ESP_LOGI(TAG, "Enabling RX channel (microphone)");
         ESP_ERROR_CHECK(i2s_channel_enable(rx_handle_));
+    } else {
+        ESP_LOGW(TAG, "RX handle is nullptr, microphone channel not enabled");
     }
 
     EnableInput(true);
     EnableOutput(true);
-    ESP_LOGI(TAG, "Audio codec started");
+    ESP_LOGI(TAG, "Audio codec started - Input: %s, Output: %s", input_enabled_ ? "enabled" : "disabled", output_enabled_ ? "enabled" : "disabled");
 }
 
 void AudioCodec::SetOutputVolume(int volume) {

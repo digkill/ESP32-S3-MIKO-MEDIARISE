@@ -117,7 +117,9 @@ void Application::CheckAssetsVersion() {
     // Apply assets
     assets.Apply();
     display->SetChatMessage("system", "");
-    display->SetEmotion("microchip_ai");
+    // Показать стандартные глаза сразу после применения ассетов.
+    // Если спец-эмодзи нет в пакете, используем нейтральное лицо.
+    display->SetEmotion("neutral");
 }
 
 void Application::CheckNewVersion(Ota& ota) {
