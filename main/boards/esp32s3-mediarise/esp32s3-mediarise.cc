@@ -28,8 +28,10 @@
 #include "freertos/task.h"
 #include "power_manager.h"
 #include "simple_display.h"
+#include "servo_controller.h"
+#include "mcp_server.h"
 
-#define TAG "Spotpear_ESP32_S3_1_28_BOX"
+#define TAG "ESP32S3_MediaRise"
 
 LV_FONT_DECLARE(font_puhui_16_4);
 LV_FONT_DECLARE(font_awesome_16_4);
@@ -138,7 +140,7 @@ public:
 };
 
 
-class Spotpear_ESP32_S3_1_28_BOX : public WifiBoard {
+class ESP32S3_MediaRise : public WifiBoard {
 private:
     i2c_master_bus_handle_t codec_i2c_bus_ = nullptr;
     i2c_master_bus_handle_t i2c_bus_ = nullptr;
@@ -150,6 +152,7 @@ private:
     esp_lcd_panel_handle_t panel_ = nullptr;
     PowerManager* power_manager_ = nullptr;
     SimpleDisplay* simple_display_ = nullptr;  // Простой дисплей без LVGL
+    ServoController* servo_controller_ = nullptr;
 
     void InitializePowerSaveTimer() {
         rtc_gpio_init(GPIO_NUM_3);
@@ -233,7 +236,7 @@ private:
 
 
     static void touchpad_timer_callback(void* arg) {
-        auto* board = static_cast<Spotpear_ESP32_S3_1_28_BOX*>(arg);
+        auto* board = static_cast<ESP32S3_MediaRise*>(arg);
         if (!board || !board->cst816d_) return;
         static bool was_touched = false;
         static int64_t touch_start_time = 0;
@@ -543,7 +546,7 @@ private:
                  DISPLAY_MIRROR_Y ? "true" : "false",
                  DISPLAY_SWAP_XY ? "true" : "false");
         
-#if CONFIG_DISPLAY_TYPE_SIMPLE
+#if CONFIG_DISPLAY_TYPE_SIMPLE_MEDIARISE
         // Создаем простой дисплей для прямой отрисовки
         ESP_LOGI(TAG, "Создание SimpleDisplay (без LVGL)...");
         simple_display_ = new SimpleDisplay(panel_handle, DISPLAY_WIDTH, DISPLAY_HEIGHT);
@@ -590,8 +593,116 @@ private:
         });
     }
 
+    void InitializeServoController() {
+        ESP_LOGI(TAG, "Инициализация контроллера сервоприводов...");
+        servo_controller_ = new ServoController();
+        if (servo_controller_ && servo_controller_->Init()) {
+            ESP_LOGI(TAG, "Контроллер сервоприводов инициализирован успешно");
+        } else {
+            ESP_LOGE(TAG, "Ошибка инициализации контроллера сервоприводов");
+            if (servo_controller_) {
+                delete servo_controller_;
+                servo_controller_ = nullptr;
+            }
+        }
+    }
+
+    void RegisterMcpTools() {
+        if (!servo_controller_) {
+            ESP_LOGW(TAG, "ServoController не инициализирован, пропуск регистрации MCP инструментов");
+            return;
+        }
+
+        auto& mcp_server = McpServer::GetInstance();
+        ESP_LOGI(TAG, "Регистрация MCP инструментов для управления роботом...");
+
+        // Управление отдельным сервоприводом
+        mcp_server.AddTool("self.robot.set_servo",
+            "Управление сервоприводом робота. Устанавливает угол поворота для указанного сервопривода.\n"
+            "servo_num: номер сервопривода (1-10)\n"
+            "angle: угол поворота (0-180 градусов)",
+            PropertyList({
+                Property("servo_num", kPropertyTypeInteger, 1, 1, 10),
+                Property("angle", kPropertyTypeInteger, 90, 0, 180)
+            }),
+            [this](const PropertyList& properties) -> ReturnValue {
+                int servo_num = properties["servo_num"].value<int>();
+                int angle = properties["angle"].value<int>();
+                if (servo_controller_ && servo_controller_->SetServoAngle(servo_num, angle)) {
+                    ESP_LOGI(TAG, "Установлен сервопривод %d на угол %d", servo_num, angle);
+                    return true;
+                }
+                return false;
+            });
+
+        // Установка позы робота
+        mcp_server.AddTool("self.robot.set_pose",
+            "Установка позы робота. Выполняет предустановленную позу.\n"
+            "Доступные позы:\n"
+            "- home/reset: домашняя поза (все сервоприводы в среднее положение)\n"
+            "- wave/wave_hand: махать рукой\n"
+            "- dance/dancing: танец\n"
+            "- greet/greeting: приветствие (поднять руки)\n"
+            "- sad/sad_pose: грустная поза (опустить руки)\n"
+            "- happy/happy_pose: радостная поза (поднять руки вверх)",
+            PropertyList({
+                Property("pose", kPropertyTypeString)
+            }),
+            [this](const PropertyList& properties) -> ReturnValue {
+                std::string pose = properties["pose"].value<std::string>();
+                if (servo_controller_ && servo_controller_->SetPose(pose)) {
+                    ESP_LOGI(TAG, "Выполнена поза: %s", pose.c_str());
+                    return true;
+                }
+                return false;
+            });
+
+        // Управление несколькими сервоприводами одновременно
+        mcp_server.AddTool("self.robot.move_servos",
+            "Управление несколькими сервоприводами одновременно. "
+            "servos: строка с командами в формате 'S1:45,S2:120,S3:90' (сервопривод:угол,разделитель запятая)",
+            PropertyList({
+                Property("servos", kPropertyTypeString)
+            }),
+            [this](const PropertyList& properties) -> ReturnValue {
+                std::string servos_str = properties["servos"].value<std::string>();
+                std::vector<std::pair<int, int>> commands;
+                
+                // Парсинг строки вида "S1:45,S2:120,S3:90"
+                std::istringstream iss(servos_str);
+                std::string token;
+                bool all_ok = true;
+                
+                while (std::getline(iss, token, ',')) {
+                    // Удаляем пробелы
+                    token.erase(0, token.find_first_not_of(" \t"));
+                    token.erase(token.find_last_not_of(" \t") + 1);
+                    
+                    // Парсим "S1:45"
+                    if (token[0] == 'S' || token[0] == 's') {
+                        size_t colon_pos = token.find(':');
+                        if (colon_pos != std::string::npos) {
+                            int servo_num = std::stoi(token.substr(1, colon_pos - 1));
+                            int angle = std::stoi(token.substr(colon_pos + 1));
+                            commands.push_back({servo_num, angle});
+                        } else {
+                            all_ok = false;
+                        }
+                    }
+                }
+                
+                if (all_ok && servo_controller_ && servo_controller_->SetMultipleServos(commands)) {
+                    ESP_LOGI(TAG, "Установлено %zu сервоприводов", commands.size());
+                    return true;
+                }
+                return false;
+            });
+
+        ESP_LOGI(TAG, "MCP инструменты для управления роботом зарегистрированы");
+    }
+
 public:
-    Spotpear_ESP32_S3_1_28_BOX() : boot_button_(BOOT_BUTTON_GPIO) {
+    ESP32S3_MediaRise() : boot_button_(BOOT_BUTTON_GPIO) {
         // Сначала инициализировать I2C для сенсора и проверить/инициализировать сенсор (если сенсора нет, пропустить)
         InitializeCodecI2c_Touch();
         InitializeCst816DTouchPad();
@@ -643,9 +754,19 @@ public:
         // Инициализировать логику энергосбережения после того, как дисплей и подсветка готовы, чтобы избежать нулевых указателей
         InitializePowerSaveTimer();
         InitializePowerManager();
+
+        // Инициализировать управление сервоприводами
+        InitializeServoController();
+
+        // Регистрация MCP инструментов для управления роботом
+        RegisterMcpTools();
     }
 
-    ~Spotpear_ESP32_S3_1_28_BOX() {
+    ~ESP32S3_MediaRise() {
+        if (servo_controller_) {
+            delete servo_controller_;
+            servo_controller_ = nullptr;
+        }
         if (touchpad_timer_) {
             esp_timer_stop(touchpad_timer_);
             esp_timer_delete(touchpad_timer_);
@@ -711,6 +832,10 @@ public:
         return cst816d_;
     }
 
+    ServoController* GetServoController() {
+        return servo_controller_;
+    }
+
     virtual bool GetBatteryLevel(int& level, bool& charging, bool& discharging) override {
         if (!power_manager_) {
             level = 0;
@@ -738,4 +863,4 @@ public:
     }
 };
 
-DECLARE_BOARD(Spotpear_ESP32_S3_1_28_BOX);
+DECLARE_BOARD(ESP32S3_MediaRise);

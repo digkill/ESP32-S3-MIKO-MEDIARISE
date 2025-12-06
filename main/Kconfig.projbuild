@@ -414,6 +414,12 @@ choice BOARD_TYPE
     config BOARD_TYPE_SPOTPEAR_ESP32_S3_1_28_BOX
         bool "Spotpear ESP32-S3-1.28-BOX"
         depends on IDF_TARGET_ESP32S3
+    config BOARD_TYPE_ESP32S3_MEDIARISE
+        bool "ESP32S3-MediaRise (Robot Board)"
+        depends on IDF_TARGET_ESP32S3
+    config BOARD_TYPE_HZWDONE_ESP32_S3
+        bool "HZWDONE ESP32-S3 (2 inch display)"
+        depends on IDF_TARGET_ESP32S3
     config BOARD_TYPE_OTTO_ROBOT
         bool "ottoRobot"
         depends on IDF_TARGET_ESP32S3
@@ -577,6 +583,46 @@ choice DISPLAY_STYLE
     config USE_EMOTE_MESSAGE_STYLE
         bool "Emote animation style"
         depends on BOARD_TYPE_ESP_BOX_3 || BOARD_TYPE_ECHOEAR || BOARD_TYPE_LICHUANG_DEV_S3
+endchoice
+
+choice DISPLAY_TYPE_SPOTPEAR_1_28_BOX
+    depends on BOARD_TYPE_SPOTPEAR_ESP32_S3_1_28_BOX
+    prompt "Display Type for Spotpear ESP32-S3-1.28-BOX"
+    default DISPLAY_TYPE_LVGL
+    help
+        Select display implementation type for Spotpear ESP32-S3-1.28-BOX
+
+    config DISPLAY_TYPE_SIMPLE
+        bool "Simple Display (Direct drawing, no LVGL)"
+        help
+            Use SimpleDisplay for direct drawing without LVGL. 
+            Faster and simpler, but limited UI features.
+
+    config DISPLAY_TYPE_LVGL
+        bool "LVGL Display (Full UI with LVGL)"
+        help
+            Use LVGL display with full UI features and animations.
+            More features but requires more resources.
+endchoice
+
+choice DISPLAY_TYPE_MEDIARISE
+    depends on BOARD_TYPE_ESP32S3_MEDIARISE
+    prompt "Display Type for ESP32S3-MediaRise"
+    default DISPLAY_TYPE_SIMPLE_MEDIARISE
+    help
+        Select display implementation type for ESP32S3-MediaRise robot board
+
+    config DISPLAY_TYPE_SIMPLE_MEDIARISE
+        bool "Simple Display (Direct drawing, no LVGL)"
+        help
+            Use SimpleDisplay for direct drawing without LVGL. 
+            Recommended for robot animations and simple graphics.
+
+    config DISPLAY_TYPE_LVGL_MEDIARISE
+        bool "LVGL Display (Full UI with LVGL)"
+        help
+            Use LVGL display with full UI features and animations.
+            More features but requires more resources.
 endchoice
 
 choice WAKE_WORD_TYPE

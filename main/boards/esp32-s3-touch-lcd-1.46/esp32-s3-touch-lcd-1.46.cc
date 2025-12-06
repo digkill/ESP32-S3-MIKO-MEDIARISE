@@ -66,14 +66,23 @@ private:
             .sda_io_num = I2C_SDA_IO,
             .scl_io_num = I2C_SCL_IO,
             .clk_source = I2C_CLK_SRC_DEFAULT,
+            .glitch_ignore_cnt = 7,
+            .flags = {
+                .enable_internal_pullup = 1,
+            },
         };
         ESP_ERROR_CHECK(i2c_new_master_bus(&i2c_bus_cfg, &i2c_bus_));
     }
     
     void InitializeTca9554(void) {
         esp_err_t ret = esp_io_expander_new_i2c_tca9554(i2c_bus_, I2C_ADDRESS, &io_expander);
-        if(ret != ESP_OK)
-            ESP_LOGE(TAG, "TCA9554 create returned error");        
+        if(ret != ESP_OK) {
+            ESP_LOGW(TAG, "TCA9554 not found, continuing without IO expander");
+            io_expander = NULL;
+            return;
+        }
+
+        ESP_LOGI(TAG, "TCA9554 initialized successfully");
 
         // uint32_t input_level_mask = 0;
         // ret = esp_io_expander_set_dir(io_expander, IO_EXPANDER_PIN_NUM_0 | IO_EXPANDER_PIN_NUM_1, IO_EXPANDER_INPUT);               // 设置引脚 EXIO0 和 EXIO1 模式为输入 
@@ -84,15 +93,27 @@ private:
         // ret = esp_io_expander_print_state(io_expander);                                                                             // 打印引脚状态
 
         ret = esp_io_expander_set_dir(io_expander, IO_EXPANDER_PIN_NUM_0 | IO_EXPANDER_PIN_NUM_1, IO_EXPANDER_OUTPUT);                 // 设置引脚 EXIO0 和 EXIO1 模式为输出
-        ESP_ERROR_CHECK(ret);
+        if (ret != ESP_OK) {
+            ESP_LOGE(TAG, "Failed to set TCA9554 direction");
+            return;
+        }
         ret = esp_io_expander_set_level(io_expander, IO_EXPANDER_PIN_NUM_0 | IO_EXPANDER_PIN_NUM_1, 1);                                // 复位 LCD 与 TouchPad
-        ESP_ERROR_CHECK(ret);
+        if (ret != ESP_OK) {
+            ESP_LOGE(TAG, "Failed to set TCA9554 level");
+            return;
+        }
         vTaskDelay(pdMS_TO_TICKS(300));
         ret = esp_io_expander_set_level(io_expander, IO_EXPANDER_PIN_NUM_0 | IO_EXPANDER_PIN_NUM_1, 0);                                // 复位 LCD 与 TouchPad
-        ESP_ERROR_CHECK(ret);
+        if (ret != ESP_OK) {
+            ESP_LOGE(TAG, "Failed to set TCA9554 level");
+            return;
+        }
         vTaskDelay(pdMS_TO_TICKS(300));
         ret = esp_io_expander_set_level(io_expander, IO_EXPANDER_PIN_NUM_0 | IO_EXPANDER_PIN_NUM_1, 1);                                // 复位 LCD 与 TouchPad
-        ESP_ERROR_CHECK(ret);
+        if (ret != ESP_OK) {
+            ESP_LOGE(TAG, "Failed to set TCA9554 level");
+            return;
+        }
     }
 
     void InitializeSpi() {
