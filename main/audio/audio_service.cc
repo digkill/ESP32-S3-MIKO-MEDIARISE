@@ -1,6 +1,7 @@
 #include "audio_service.h"
 #include <esp_log.h>
 #include <cstring>
+#include <esp_task_wdt.h>
 
 #if CONFIG_USE_AUDIO_PROCESSOR
 #include "processors/afe_audio_processor.h"
@@ -188,10 +189,22 @@ bool AudioService::ReadAudioData(std::vector<int16_t>& data, int sample_rate, in
 }
 
 void AudioService::AudioInputTask() {
+    // Добавляем задачу в watchdog
+    esp_task_wdt_add(NULL);
+    
     while (true) {
+        // Сбрасываем watchdog перед блокировкой
+        esp_task_wdt_reset();
+        
+        // Используем таймаут вместо portMAX_DELAY, чтобы периодически сбрасывать watchdog
         EventBits_t bits = xEventGroupWaitBits(event_group_, AS_EVENT_AUDIO_TESTING_RUNNING |
             AS_EVENT_WAKE_WORD_RUNNING | AS_EVENT_AUDIO_PROCESSOR_RUNNING,
-            pdFALSE, pdFALSE, portMAX_DELAY);
+            pdFALSE, pdFALSE, pdMS_TO_TICKS(1000));
+        
+        // Если событие не получено, продолжаем цикл (сбросим watchdog)
+        if (bits == 0) {
+            continue;
+        }
 
         if (service_stopped_) {
             break;
@@ -204,6 +217,7 @@ void AudioService::AudioInputTask() {
 
         /* Used for audio testing in NetworkConfiguring mode by clicking the BOOT button */
         if (bits & AS_EVENT_AUDIO_TESTING_RUNNING) {
+            esp_task_wdt_reset(); // Сбрасываем watchdog
             if (audio_testing_queue_.size() >= AUDIO_TESTING_MAX_DURATION_MS / OPUS_FRAME_DURATION_MS) {
                 ESP_LOGW(TAG, "Audio testing queue is full, stopping audio testing");
                 EnableAudioTesting(false);
@@ -227,6 +241,7 @@ void AudioService::AudioInputTask() {
 
         /* Feed the wake word */
         if (bits & AS_EVENT_WAKE_WORD_RUNNING) {
+            esp_task_wdt_reset(); // Сбрасываем watchdog
             std::vector<int16_t> data;
             int samples = wake_word_->GetFeedSize();
             if (samples > 0) {
@@ -239,13 +254,24 @@ void AudioService::AudioInputTask() {
 
         /* Feed the audio processor */
         if (bits & AS_EVENT_AUDIO_PROCESSOR_RUNNING) {
+            // Сбрасываем watchdog перед обработкой
+            esp_task_wdt_reset();
+            
             std::vector<int16_t> data;
             int samples = audio_processor_->GetFeedSize();
             if (samples > 0) {
                 if (ReadAudioData(data, 16000, samples)) {
                     audio_processor_->Feed(std::move(data));
+                    // Увеличиваем задержку, чтобы дать AudioProcessorTask больше времени обработать данные
+                    // Это поможет избежать переполнения ringbuffer
+                    vTaskDelay(pdMS_TO_TICKS(5));
+                    esp_task_wdt_reset(); // Сбрасываем watchdog после задержки
                     continue;
                 }
+            } else {
+                // Если GetFeedSize вернул 0, небольшая задержка перед следующей попыткой
+                vTaskDelay(pdMS_TO_TICKS(10));
+                esp_task_wdt_reset(); // Сбрасываем watchdog после задержки
             }
         }
 

@@ -13,6 +13,7 @@
 #include <esp_lcd_panel_ops.h>
 #include <esp_lcd_panel_st7789.h>
 #include <esp_timer.h>
+#include <esp_task_wdt.h>
 #include "esp_io_expander_tca9554.h"
 #include <iot_button.h>
 #include "simple_display.h"
@@ -21,8 +22,143 @@
 #include <cstring>
 #include <driver/gpio.h>
 #include <driver/spi_common.h>
+#include <math.h>
+#include <algorithm>
 
 #define TAG "waveshare_lcd_1_46"
+
+namespace {
+
+constexpr uint8_t kQmi8658Addr = 0x6B;
+constexpr uint8_t kQmi8658WhoAmI = 0x00;
+constexpr uint8_t kQmi8658Ctrl1 = 0x02;
+constexpr uint8_t kQmi8658Ctrl2 = 0x03;
+constexpr uint8_t kQmi8658Ctrl3 = 0x04;
+constexpr uint8_t kQmi8658Ctrl5 = 0x06;
+constexpr uint8_t kQmi8658Ctrl7 = 0x08;
+constexpr uint8_t kQmi8658Status = 0x2D;
+constexpr uint8_t kQmi8658AxL = 0x35;
+constexpr float kShakeAxisThresholdG = 1.8f;
+constexpr int64_t kShakeCooldownUs = 4 * 1000 * 1000;
+
+}  // namespace
+
+class Qmi8658Sensor {
+public:
+    bool Init(i2c_master_bus_handle_t bus) {
+        if (!bus) {
+            ESP_LOGE(TAG, "QMI8658 Init: bus is null");
+            return false;
+        }
+        ESP_LOGI(TAG, "QMI8658 Init: Adding device to I2C bus...");
+        i2c_device_config_t dev_cfg = {
+            .device_address = kQmi8658Addr,
+            .scl_speed_hz = 400000,
+        };
+        esp_err_t ret = i2c_master_bus_add_device(bus, &dev_cfg, &device_);
+        if (ret != ESP_OK) {
+            ESP_LOGE(TAG, "Failed to add QMI8658 device: %s", esp_err_to_name(ret));
+            return false;
+        }
+        ESP_LOGI(TAG, "QMI8658 device added, reading WHO_AM_I...");
+        uint8_t who_am_i = 0;
+        if (!ReadRegs(kQmi8658WhoAmI, &who_am_i, 1) || who_am_i == 0x00) {
+            ESP_LOGE(TAG, "Failed to read QMI8658 WHO_AM_I (got 0x%02X), device may not be present", who_am_i);
+            i2c_master_bus_rm_device(device_);
+            device_ = nullptr;
+            return false;
+        }
+        ESP_LOGI(TAG, "QMI8658 WHO_AM_I: 0x%02X", who_am_i);
+
+        // Enable auto increment and oscillator.
+        uint8_t ctrl1 = 0x40;  // auto inc
+        if (!WriteReg(kQmi8658Ctrl1, ctrl1)) {
+            ESP_LOGE(TAG, "Failed to write QMI8658 Ctrl1");
+            i2c_master_bus_rm_device(device_);
+            device_ = nullptr;
+            return false;
+        }
+
+        // Accelerometer: 4G, 500Hz.
+        uint8_t ctrl2 = (0x04 << 4) | 0x04;
+        if (!WriteReg(kQmi8658Ctrl2, ctrl2)) {
+            ESP_LOGE(TAG, "Failed to write QMI8658 Ctrl2");
+            i2c_master_bus_rm_device(device_);
+            device_ = nullptr;
+            return false;
+        }
+
+        // Gyro: 256DPS, 500Hz.
+        uint8_t ctrl3 = (0x05 << 4) | 0x04;
+        if (!WriteReg(kQmi8658Ctrl3, ctrl3)) {
+            ESP_LOGE(TAG, "Failed to write QMI8658 Ctrl3");
+            i2c_master_bus_rm_device(device_);
+            device_ = nullptr;
+            return false;
+        }
+
+        // Enable LPF for acc/gyro.
+        if (!WriteReg(kQmi8658Ctrl5, 0x11)) {
+            ESP_LOGE(TAG, "Failed to write QMI8658 Ctrl5");
+            i2c_master_bus_rm_device(device_);
+            device_ = nullptr;
+            return false;
+        }
+
+        // Enable high speed clock and both sensors.
+        if (!WriteReg(kQmi8658Ctrl7, 0x43)) {
+            ESP_LOGE(TAG, "Failed to write QMI8658 Ctrl7");
+            i2c_master_bus_rm_device(device_);
+            device_ = nullptr;
+            return false;
+        }
+
+        accel_scale_ = 4.0f / 32768.0f;
+        return true;
+    }
+
+    bool ReadAccel(float& x, float& y, float& z) {
+        if (!device_) {
+            return false;
+        }
+        uint8_t buf[6];
+        if (!ReadRegs(kQmi8658AxL, buf, sizeof(buf))) {
+            return false;
+        }
+        int16_t raw_x = static_cast<int16_t>((buf[1] << 8) | buf[0]);
+        int16_t raw_y = static_cast<int16_t>((buf[3] << 8) | buf[2]);
+        int16_t raw_z = static_cast<int16_t>((buf[5] << 8) | buf[4]);
+        x = raw_x * accel_scale_;
+        y = raw_y * accel_scale_;
+        z = raw_z * accel_scale_;
+        return true;
+    }
+
+private:
+    bool WriteReg(uint8_t reg, uint8_t value) {
+        if (!device_) return false;
+        uint8_t data[2] = {reg, value};
+        // Таймаут 100ms для I2C операций
+        esp_err_t ret = i2c_master_transmit(device_, data, sizeof(data), pdMS_TO_TICKS(100));
+        if (ret != ESP_OK) {
+            ESP_LOGW(TAG, "QMI8658 WriteReg failed: %s (reg=0x%02X, val=0x%02X)", esp_err_to_name(ret), reg, value);
+        }
+        return ret == ESP_OK;
+    }
+
+    bool ReadRegs(uint8_t reg, uint8_t* data, size_t len) {
+        if (!device_) return false;
+        // Таймаут 100ms для I2C операций
+        esp_err_t ret = i2c_master_transmit_receive(device_, &reg, 1, data, len, pdMS_TO_TICKS(100));
+        if (ret != ESP_OK) {
+            ESP_LOGW(TAG, "QMI8658 ReadRegs failed: %s (reg=0x%02X)", esp_err_to_name(ret), reg);
+        }
+        return ret == ESP_OK;
+    }
+
+    i2c_master_dev_handle_t device_{nullptr};
+    float accel_scale_{1.0f};
+};
 
 // Обертка для SimpleDisplay, реализующая интерфейс Display
 class SimpleDisplayWrapper : public Display {
@@ -32,10 +168,15 @@ private:
     bool locked_;
 
     static void AnimationTask(void* param) {
+        // Добавляем задачу в watchdog
+        esp_task_wdt_add(NULL);
+        
         SimpleDisplayWrapper* self = static_cast<SimpleDisplayWrapper*>(param);
         // Небольшая задержка перед началом анимации
         vTaskDelay(pdMS_TO_TICKS(500));
         while (true) {
+            // Сбрасываем watchdog в цикле
+            esp_task_wdt_reset();
             if (self->simple_display_) {
                 self->simple_display_->Update();
             }
@@ -64,6 +205,12 @@ public:
         }
         if (simple_display_) {
             delete simple_display_;
+        }
+    }
+
+    void TriggerShakeEffect() {
+        if (simple_display_) {
+            simple_display_->TriggerDizzyEffect();
         }
     }
 
@@ -133,66 +280,29 @@ public:
 
 class CustomBoard : public WifiBoard {
 private:
-    i2c_master_bus_handle_t i2c_bus_;
-    esp_io_expander_handle_t io_expander = NULL;
+    i2c_master_bus_handle_t i2c_bus_ = nullptr;  // I2C отключен - тачскрин и IMU не используются
+    esp_io_expander_handle_t io_expander = nullptr;  // TCA9554 отключен
     esp_lcd_panel_handle_t panel_handle_ = nullptr;
-    Display* display_;
+    SimpleDisplayWrapper* simple_display_wrapper_ = nullptr;
+    Display* display_ = nullptr;
     button_handle_t boot_btn, pwr_btn;
     button_driver_t* boot_btn_driver_ = nullptr;
     button_driver_t* pwr_btn_driver_ = nullptr;
     static CustomBoard* instance_;
+    TaskHandle_t imu_task_handle_ = nullptr;
+    Qmi8658Sensor imu_sensor_;
+    int64_t last_shake_time_us_ = 0;
 
     void InitializeI2c() {
-        // I2C отключен (тачскрин не используется)
-        ESP_LOGI(TAG, "I2C disabled (touchscreen not used)");
+        // I2C полностью отключен - тачскрин и IMU не используются
+        ESP_LOGI(TAG, "I2C disabled (touchscreen and IMU not used)");
         i2c_bus_ = nullptr;
     }
     
     void InitializeTca9554(void) {
-        if (i2c_bus_ == nullptr) {
-            ESP_LOGW(TAG, "I2C bus not initialized, skipping TCA9554");
-            io_expander = NULL;
-            return;
-        }
-        esp_err_t ret = esp_io_expander_new_i2c_tca9554(i2c_bus_, I2C_ADDRESS, &io_expander);
-        if(ret != ESP_OK) {
-            ESP_LOGW(TAG, "TCA9554 not found, continuing without IO expander");
-            io_expander = NULL;
-            return;
-        }
-
-        ESP_LOGI(TAG, "TCA9554 initialized successfully");
-
-        // uint32_t input_level_mask = 0;
-        // ret = esp_io_expander_set_dir(io_expander, IO_EXPANDER_PIN_NUM_0 | IO_EXPANDER_PIN_NUM_1, IO_EXPANDER_INPUT);               // 设置引脚 EXIO0 和 EXIO1 模式为输入 
-        // ret = esp_io_expander_get_level(io_expander, IO_EXPANDER_PIN_NUM_0 | IO_EXPANDER_PIN_NUM_1, &input_level_mask);             // 获取引脚 EXIO0 和 EXIO1 的电平状态,存放在 input_level_mask 中
-
-        // ret = esp_io_expander_set_dir(io_expander, IO_EXPANDER_PIN_NUM_2 | IO_EXPANDER_PIN_NUM_3, IO_EXPANDER_OUTPUT);              // 设置引脚 EXIO2 和 EXIO3 模式为输出
-        // ret = esp_io_expander_set_level(io_expander, IO_EXPANDER_PIN_NUM_2 | IO_EXPANDER_PIN_NUM_3, 1);                             // 将引脚电平设置为 1
-        // ret = esp_io_expander_print_state(io_expander);                                                                             // 打印引脚状态
-
-        ret = esp_io_expander_set_dir(io_expander, IO_EXPANDER_PIN_NUM_0 | IO_EXPANDER_PIN_NUM_1, IO_EXPANDER_OUTPUT);                 // 设置引脚 EXIO0 和 EXIO1 模式为输出
-        if (ret != ESP_OK) {
-            ESP_LOGE(TAG, "Failed to set TCA9554 direction");
-            return;
-        }
-        ret = esp_io_expander_set_level(io_expander, IO_EXPANDER_PIN_NUM_0 | IO_EXPANDER_PIN_NUM_1, 1);                                // 复位 LCD 与 TouchPad
-        if (ret != ESP_OK) {
-            ESP_LOGE(TAG, "Failed to set TCA9554 level");
-            return;
-        }
-        vTaskDelay(pdMS_TO_TICKS(300));
-        ret = esp_io_expander_set_level(io_expander, IO_EXPANDER_PIN_NUM_0 | IO_EXPANDER_PIN_NUM_1, 0);                                // 复位 LCD 与 TouchPad
-        if (ret != ESP_OK) {
-            ESP_LOGE(TAG, "Failed to set TCA9554 level");
-            return;
-        }
-        vTaskDelay(pdMS_TO_TICKS(300));
-        ret = esp_io_expander_set_level(io_expander, IO_EXPANDER_PIN_NUM_0 | IO_EXPANDER_PIN_NUM_1, 1);                                // 复位 LCD 与 TouchPad
-        if (ret != ESP_OK) {
-            ESP_LOGE(TAG, "Failed to set TCA9554 level");
-            return;
-        }
+        // TCA9554 отключен - тачскрин не используется
+        ESP_LOGI(TAG, "TCA9554 disabled (touchscreen not used)");
+        io_expander = nullptr;
     }
 
     void InitializeSpi() {
@@ -255,7 +365,8 @@ private:
         panel_handle_ = panel;
         
         // Используем SimpleDisplay с анимацией глаз
-        display_ = new SimpleDisplayWrapper(panel, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+        simple_display_wrapper_ = new SimpleDisplayWrapper(panel, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+        display_ = simple_display_wrapper_;
         ESP_LOGI(TAG, "SimpleDisplayWrapper initialized");
     }
  
@@ -324,14 +435,63 @@ private:
         }, this);
     }
 
+    // IMU отключен - задачи не используются
+    // static void ImuTask(void* param) {
+    //     CustomBoard* self = static_cast<CustomBoard*>(param);
+    //     while (true) {
+    //         if (self->imu_task_handle_ == nullptr) {
+    //             vTaskDelete(nullptr);
+    //         }
+    //         float x = 0, y = 0, z = 0;
+    //         if (self->imu_sensor_.ReadAccel(x, y, z)) {
+    //             float max_axis = fabsf(x);
+    //             max_axis = std::max(max_axis, fabsf(y));
+    //             max_axis = std::max(max_axis, fabsf(z));
+    //             if (max_axis > kShakeAxisThresholdG) {
+    //                 int64_t now = esp_timer_get_time();
+    //                 if (now - self->last_shake_time_us_ > kShakeCooldownUs) {
+    //                     self->last_shake_time_us_ = now;
+    //                     self->HandleShakeDetected();
+    //                 }
+    //             }
+    //         }
+    //         vTaskDelay(pdMS_TO_TICKS(80));
+    //     }
+    // }
+
+    void HandleShakeDetected() {
+        // IMU отключен, функция не используется
+        // if (simple_display_wrapper_) {
+        //     simple_display_wrapper_->TriggerShakeEffect();
+        // }
+        // Application::GetInstance().PlaySound(Lang::Sounds::OGG_POPUP);
+    }
+
+    void StartImuMonitor() {
+        // IMU полностью отключен
+        ESP_LOGI(TAG, "IMU monitor disabled (not used)");
+        return;
+    }
+
 public:
     CustomBoard() { 
-        InitializeI2c();
-        InitializeTca9554();
+        ESP_LOGI(TAG, "CustomBoard constructor started");
+        // I2C отключен для тачскрина, но может быть нужен для других устройств
+        // InitializeI2c();  // Отключено - тачскрин не используется
+        // ESP_LOGI(TAG, "I2C initialized");
+        // InitializeTca9554();  // Отключено - тачскрин не используется
+        // ESP_LOGI(TAG, "TCA9554 initialized");
         InitializeSpi();
+        ESP_LOGI(TAG, "SPI initialized");
         InitializeSt7789Display();
+        ESP_LOGI(TAG, "ST7789 display initialized");
         InitializeButtons();
+        ESP_LOGI(TAG, "Buttons initialized");
         GetBacklight()->RestoreBrightness();
+        ESP_LOGI(TAG, "Backlight restored");
+        // StartImuMonitor();  // Отключено - акселерометр не используется
+        // ESP_LOGI(TAG, "IMU monitor started");
+        ESP_LOGI(TAG, "CustomBoard constructor completed");
     }
 
     virtual AudioCodec* GetAudioCodec() override {

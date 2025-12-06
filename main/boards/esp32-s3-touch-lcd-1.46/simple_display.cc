@@ -15,17 +15,28 @@
 
 #define TAG "SimpleDisplay"
 
+namespace {
+struct StarFrame {
+    int x;
+    int y;
+};
+
+constexpr StarFrame kDizzyFrames[3][3] = {
+    {{-30, -6}, {0, 0}, {30, -6}},
+    {{-24, 6}, {0, -10}, {24, 6}},
+    {{-18, 0}, {0, 8}, {18, 0}},
+};
+constexpr int64_t kDizzyDurationUs = 3 * 1000000;
+}
+
 SimpleDisplay::SimpleDisplay(esp_lcd_panel_handle_t panel, int width, int height)
     : panel_(panel), width_(width), height_(height), buffer_(nullptr),
+      eye_color_(Color565(255, 140, 0)), last_drawn_eye_color_(0), eyes_dirty_(true),
       blink_state_(BlinkState::OPEN), last_blink_time_us_(0),
       blink_interval_ms_(3000), blink_duration_ms_(150), blink_progress_(0),
       current_emotion_("neutral"), emotion_start_time_us_(0),
       is_speaking_(false), mouth_animation_time_us_(0), mouth_frame_(0),
-      last_status_update_us_(0) {
-    
-    // Оранжевый цвет (RGB565)
-    eye_color_ = SimpleDisplay::Color565(255, 140, 0);  // Оранжевый
-}
+      last_status_update_us_(0) {}
 
 SimpleDisplay::~SimpleDisplay() {
     if (buffer_) {
@@ -48,7 +59,8 @@ bool SimpleDisplay::Init() {
     DrawRobotBase();
     
     // Рисуем начальные глаза
-    DrawEyes(eye_color_);
+    eyes_dirty_ = true;
+    UpdateEyes();
     
     // Статус-бар рисуем позже, после инициализации системы (через UpdateStatusBar)
     // Инициализируем время последнего обновления так, чтобы статус-бар нарисовался через 1 секунду
@@ -183,8 +195,10 @@ void SimpleDisplay::DrawCircle(int cx, int cy, int radius, uint16_t color) {
 }
 
 void SimpleDisplay::DrawEye(int x, int y, int w, int h, int r, uint16_t color) {
-    // Стираем старый глаз черным (немного больше для очистки)
-    FillRoundRect(x - 2, y - 2, w + 4, h + 4, r + 2, COLOR_SCREEN);
+    // Стираем старый глаз черным (увеличиваем область стирания для полного удаления скруглений)
+    // Увеличиваем область стирания больше, чтобы убрать все артефакты скругления
+    int erase_margin = r + 3;  // Больше чем радиус скругления
+    FillRoundRect(x - erase_margin, y - erase_margin, w + erase_margin * 2, h + erase_margin * 2, 0, COLOR_SCREEN);
     
     // Рисуем основной глаз (квадратный со скруглением, без моргания)
     FillRoundRect(x, y, w, h, r, color);
@@ -219,6 +233,7 @@ void SimpleDisplay::SetEmotion(const char* emotion) {
     if (emotion != nullptr) {
         current_emotion_ = std::string(emotion);
         emotion_start_time_us_ = esp_timer_get_time();
+        eyes_dirty_ = true;
         ESP_LOGI(TAG, "Установлена эмоция: %s", emotion);
     }
 }
@@ -284,8 +299,13 @@ void SimpleDisplay::DrawMouth() {
 }
 
 void SimpleDisplay::UpdateEyes() {
-    // Глаза не мерцают - всегда рисуем с одним оранжевым цветом
+    if (!eyes_dirty_ && last_drawn_eye_color_ == eye_color_) {
+        return;  // Уже нарисованы и цвет не менялся
+    }
+
     DrawEyes(eye_color_);
+    last_drawn_eye_color_ = eye_color_;
+    eyes_dirty_ = false;
 }
 
 void SimpleDisplay::DrawSignalBars(int x, int y, int rssi) {
@@ -376,16 +396,29 @@ void SimpleDisplay::DrawTime(int x, int y) {
     int minute = timeinfo.tm_min;
     
     // Рисуем время простыми сегментами (7-сегментный индикатор упрощенный)
-    // Увеличенные цифры для лучшей читаемости
-    int digit_w = 5;   // Увеличено с 3 до 5
-    int digit_h = 8;   // Увеличено с 5 до 8
-    int spacing = 2;   // Увеличено с 1 до 2
-    
+    const int digit_scale = 3;  // Увеличиваем цифры в 3 раза
+    const int digit_w = 5 * digit_scale;
+    const int digit_h = 8 * digit_scale;
+    const int spacing = 2 * digit_scale;
+    const int horizontal_thickness = 2 * digit_scale;
+    const int vertical_width = 2 * digit_scale;
+    const int vertical_height = 3 * digit_scale;
+    const int lower_vertical_offset = 5 * digit_scale;
+    const int middle_offset = 3 * digit_scale;
+    const int colon_size = 2 * digit_scale;
+    const int colon_top_offset = 2 * digit_scale;
+    const int colon_bottom_offset = 5 * digit_scale;
+    const int colon_shift = digit_scale;
+    const int clear_w = 5 * (digit_w + spacing);
+    const int clear_h = digit_h + 2 * digit_scale;
+
     // Стираем область времени (увеличена для больших цифр)
-    FillRoundRect(x, y, 50, digit_h + 2, 0, COLOR_SCREEN);
+    FillRoundRect(x, y, clear_w, clear_h, 0, COLOR_SCREEN);
     
     // Функция для рисования одной цифры (0-9)
-    auto drawDigit = [this, x, y, digit_w, digit_h, spacing](int digit, int offset) {
+    auto drawDigit = [this, x, y, digit_w, digit_h, spacing, horizontal_thickness,
+                      vertical_width, vertical_height, lower_vertical_offset, middle_offset]
+                     (int digit, int offset) {
         uint16_t color = eye_color_;
         int base_x = x + offset * (digit_w + spacing);
         int base_y = y + 1;
@@ -408,22 +441,22 @@ void SimpleDisplay::DrawTime(int x, int y) {
         }
         
         // Рисуем сегменты (увеличенные для больших цифр)
-        if (segments[0]) FillRoundRect(base_x, base_y, digit_w, 2, 0, color); // a (толще)
-        if (segments[1]) FillRoundRect(base_x + digit_w - 1, base_y, 2, 3, 0, color); // b (толще и выше)
-        if (segments[2]) FillRoundRect(base_x + digit_w - 1, base_y + 5, 2, 3, 0, color); // c (толще и выше)
-        if (segments[3]) FillRoundRect(base_x, base_y + digit_h - 2, digit_w, 2, 0, color); // d (толще)
-        if (segments[4]) FillRoundRect(base_x, base_y + 5, 2, 3, 0, color); // e (толще и выше)
-        if (segments[5]) FillRoundRect(base_x, base_y, 2, 3, 0, color); // f (толще и выше)
-        if (segments[6]) FillRoundRect(base_x, base_y + 3, digit_w, 2, 0, color); // g (толще)
+        if (segments[0]) FillRoundRect(base_x, base_y, digit_w, horizontal_thickness, 0, color); // a
+        if (segments[1]) FillRoundRect(base_x + digit_w - vertical_width, base_y, vertical_width, vertical_height, 0, color); // b
+        if (segments[2]) FillRoundRect(base_x + digit_w - vertical_width, base_y + lower_vertical_offset, vertical_width, vertical_height, 0, color); // c
+        if (segments[3]) FillRoundRect(base_x, base_y + digit_h - horizontal_thickness, digit_w, horizontal_thickness, 0, color); // d
+        if (segments[4]) FillRoundRect(base_x, base_y + lower_vertical_offset, vertical_width, vertical_height, 0, color); // e
+        if (segments[5]) FillRoundRect(base_x, base_y, vertical_width, vertical_height, 0, color); // f
+        if (segments[6]) FillRoundRect(base_x, base_y + middle_offset, digit_w, horizontal_thickness, 0, color); // g
     };
     
     // Рисуем часы и минуты
     drawDigit(hour / 10, 0);
     drawDigit(hour % 10, 1);
     // Двоеточие (увеличенное)
-    int colon_x = x + 2 * (digit_w + spacing) + 1;
-    FillRoundRect(colon_x, y + 2, 2, 2, 1, eye_color_);
-    FillRoundRect(colon_x, y + 5, 2, 2, 1, eye_color_);
+    int colon_x = x + 2 * (digit_w + spacing) + colon_shift;
+    FillRoundRect(colon_x, y + colon_top_offset, colon_size, colon_size, colon_size / 2, eye_color_);
+    FillRoundRect(colon_x, y + colon_bottom_offset, colon_size, colon_size, colon_size / 2, eye_color_);
     drawDigit(minute / 10, 3);
     drawDigit(minute % 10, 4);
 }
@@ -446,7 +479,8 @@ void SimpleDisplay::DrawStatusBar() {
     
     // Рисуем элементы статус-бара
     DrawSignalBars(5, STATUS_BAR_Y + 4, rssi);
-    DrawTime(width_ / 2 - 25, STATUS_BAR_Y + 3);  // Увеличенные часы
+    const int clock_half_width = 53;  // Половина ширины часов после масштабирования
+    DrawTime(width_ / 2 - clock_half_width, STATUS_BAR_Y + 3);
     DrawBattery(width_ - 25, STATUS_BAR_Y + 5, battery_level, charging);
 }
 
@@ -474,7 +508,8 @@ void SimpleDisplay::UpdateStatusBar() {
         
         // Рисуем элементы
         DrawSignalBars(5, STATUS_BAR_Y + 4, rssi);
-        DrawTime(width_ / 2 - 25, STATUS_BAR_Y + 3);  // Увеличенные часы
+        const int clock_half_width = 53;
+        DrawTime(width_ / 2 - clock_half_width, STATUS_BAR_Y + 3);
         DrawBattery(width_ - 25, STATUS_BAR_Y + 5, battery_level, charging);
     }
 }
@@ -482,5 +517,54 @@ void SimpleDisplay::UpdateStatusBar() {
 void SimpleDisplay::Update() {
     UpdateEyes();
     DrawMouth();  // Обновляем анимацию рта
+    DrawDizzyEffect();
     // Статус-бар обновляется отдельно через UpdateStatusBar(), не здесь
+}
+
+void SimpleDisplay::TriggerDizzyEffect() {
+    dizzy_active_ = true;
+    dizzy_start_time_us_ = esp_timer_get_time();
+    last_dizzy_draw_time_us_ = 0;
+    dizzy_frame_ = 0;
+    ClearDizzyArea();
+}
+
+void SimpleDisplay::ClearDizzyArea() {
+    int faceY = ROBOT_CY - FACE_H / 2;
+    int eyesCenterY = faceY + FACE_H / 2;
+    int area_w = 100;
+    int area_h = 50;
+    int area_x = ROBOT_CX - area_w / 2;
+    int area_y = eyesCenterY - area_h / 2;
+    FillRoundRect(area_x, area_y, area_w, area_h, 10, COLOR_SCREEN);
+}
+
+void SimpleDisplay::DrawDizzyEffect() {
+    if (!dizzy_active_) {
+        return;
+    }
+    int64_t now = esp_timer_get_time();
+    if (now - dizzy_start_time_us_ > kDizzyDurationUs) {
+        ClearDizzyArea();
+        dizzy_active_ = false;
+        return;
+    }
+    if (now - last_dizzy_draw_time_us_ < 120000) {
+        return;
+    }
+    last_dizzy_draw_time_us_ = now;
+    ClearDizzyArea();
+
+    int faceY = ROBOT_CY - FACE_H / 2;
+    int eyesCenterY = faceY + FACE_H / 2;
+    int baseX = ROBOT_CX;
+    int frame = dizzy_frame_ % 3;
+    for (const auto& star : kDizzyFrames[frame]) {
+        int cx = baseX + star.x;
+        int cy = eyesCenterY + star.y;
+        FillRoundRect(cx - 2, cy - 10, 4, 20, 1, eye_color_);
+        FillRoundRect(cx - 10, cy - 2, 20, 4, 1, eye_color_);
+        FillCircle(cx, cy, 3, Color565(255, 255, 255));
+    }
+    dizzy_frame_++;
 }

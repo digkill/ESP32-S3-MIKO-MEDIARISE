@@ -25,7 +25,7 @@ static const uint16_t COLOR_SCREEN = 0x0000;  // Черный экран
 #define FACE_H 120
 #define FACE_R 40
 #define EYE_WIDTH 50   // Ширина квадратных глаз
-#define EYE_HEIGHT 55   // Высота квадратных глаз
+#define EYE_HEIGHT 82   // Высота квадратных глаз (увеличена в 1.5 раза)
 #define EYE_ROUND_RADIUS 15  // Радиус скругления углов
 #define EYE_SPACING 110  // Расстояние между глазами (еще больше отдалены)
 #define MOUTH_WIDTH 80   // Ширина рта
@@ -51,6 +51,8 @@ private:
     
     // Цвет глаз (бирюзовый неоновый)
     uint16_t eye_color_;
+    uint16_t last_drawn_eye_color_;
+    bool eyes_dirty_;
     
     // Моргание
     BlinkState blink_state_;
@@ -80,6 +82,8 @@ private:
     void DrawSignalBars(int x, int y, int rssi);
     void DrawBattery(int x, int y, int level, bool charging);
     void DrawTime(int x, int y);
+    void DrawDizzyEffect();
+    void ClearDizzyArea();
 
 public:
     SimpleDisplay(esp_lcd_panel_handle_t panel, int width, int height);
@@ -140,7 +144,17 @@ public:
      * @brief Конвертирует RGB в RGB565
      */
     static uint16_t Color565(uint8_t r, uint8_t g, uint8_t b);
+
+    /**
+     * @brief Запустить анимацию «головокружения»
+     */
+    void TriggerDizzyEffect();
+
+private:
+    bool dizzy_active_ = false;
+    int64_t dizzy_start_time_us_ = 0;
+    int64_t last_dizzy_draw_time_us_ = 0;
+    int dizzy_frame_ = 0;
 };
 
 #endif // SIMPLE_DISPLAY_H
-

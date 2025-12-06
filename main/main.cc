@@ -27,6 +27,9 @@ extern "C" void app_main(void)
     ESP_ERROR_CHECK(ret);
 
     // Launch the application
+    ESP_LOGI(TAG, "Getting Application instance...");
     auto& app = Application::GetInstance();
+    ESP_LOGI(TAG, "Application instance obtained, calling Start()...");
     app.Start();
+    ESP_LOGI(TAG, "Application::Start() returned");
 }

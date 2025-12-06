@@ -16,6 +16,7 @@
 #include <driver/gpio.h>
 #include <arpa/inet.h>
 #include <font_awesome.h>
+#include <esp_task_wdt.h>
 
 #define TAG "Application"
 
@@ -59,6 +60,19 @@ Application::Application() {
         .skip_unhandled_events = true
     };
     esp_timer_create(&clock_timer_args, &clock_timer_handle_);
+    
+    // Таймер для генерации события при простое (5 минут)
+    esp_timer_create_args_t idle_timeout_timer_args = {
+        .callback = [](void* arg) {
+            Application* app = (Application*)arg;
+            xEventGroupSetBits(app->event_group_, MAIN_EVENT_IDLE_TIMEOUT);
+        },
+        .arg = this,
+        .dispatch_method = ESP_TIMER_TASK,
+        .name = "idle_timeout_timer",
+        .skip_unhandled_events = true
+    };
+    esp_timer_create(&idle_timeout_timer_args, &idle_timeout_timer_handle_);
 }
 
 Application::~Application() {
@@ -351,19 +365,31 @@ void Application::StopListening() {
 }
 
 void Application::Start() {
+    ESP_LOGI(TAG, "Application::Start() called");
     auto& board = Board::GetInstance();
+    ESP_LOGI(TAG, "Board instance obtained");
     SetDeviceState(kDeviceStateStarting);
+    ESP_LOGI(TAG, "Device state set to Starting");
 
     /* Setup the display */
+    ESP_LOGI(TAG, "Getting display from board...");
     auto display = board.GetDisplay();
+    ESP_LOGI(TAG, "Display obtained: %p", display);
 
     // Print board name/version info
+    ESP_LOGI(TAG, "Setting chat message...");
     display->SetChatMessage("system", SystemInfo::GetUserAgent().c_str());
+    ESP_LOGI(TAG, "Chat message set");
 
     /* Setup the audio service */
+    ESP_LOGI(TAG, "Getting audio codec from board...");
     auto codec = board.GetAudioCodec();
+    ESP_LOGI(TAG, "Audio codec obtained: %p", codec);
+    ESP_LOGI(TAG, "Initializing audio service...");
     audio_service_.Initialize(codec);
+    ESP_LOGI(TAG, "Starting audio service...");
     audio_service_.Start();
+    ESP_LOGI(TAG, "Audio service started");
 
     AudioServiceCallbacks callbacks;
     callbacks.on_send_queue_available = [this]() {
@@ -385,12 +411,19 @@ void Application::Start() {
 
     /* Start the clock timer to update the status bar */
     esp_timer_start_periodic(clock_timer_handle_, 1000000);
+    
+    /* Start the idle timeout timer (5 minutes = 300 seconds) */
+    ResetIdleTimeoutTimer();
 
     /* Wait for the network to be ready */
+    ESP_LOGI(TAG, "Starting network...");
     board.StartNetwork();
+    ESP_LOGI(TAG, "Network started");
 
     // Update the status bar immediately to show the network state
+    ESP_LOGI(TAG, "Updating status bar...");
     display->UpdateStatusBar(true);
+    ESP_LOGI(TAG, "Status bar updated");
 
     // Check for new assets version
     CheckAssetsVersion();
@@ -561,15 +594,30 @@ void Application::Schedule(std::function<void()> callback) {
 // If other tasks need to access the websocket or chat state,
 // they should use Schedule to call this function
 void Application::MainEventLoop() {
+    // Добавляем задачу в watchdog
+    esp_task_wdt_add(NULL);
+    
     while (true) {
+        // Сбрасываем watchdog перед блокировкой
+        esp_task_wdt_reset();
+        
+        // Используем таймаут вместо portMAX_DELAY, чтобы периодически сбрасывать watchdog
         auto bits = xEventGroupWaitBits(event_group_, MAIN_EVENT_SCHEDULE |
             MAIN_EVENT_SEND_AUDIO |
             MAIN_EVENT_WAKE_WORD_DETECTED |
             MAIN_EVENT_VAD_CHANGE |
             MAIN_EVENT_CLOCK_TICK |
-            MAIN_EVENT_ERROR, pdTRUE, pdFALSE, portMAX_DELAY);
+            MAIN_EVENT_IDLE_TIMEOUT |
+            MAIN_EVENT_ERROR, pdTRUE, pdFALSE, pdMS_TO_TICKS(1000));
+        
+        // Если событие не получено, продолжаем цикл (сбросим watchdog)
+        if (bits == 0) {
+            continue;
+        }
 
         if (bits & MAIN_EVENT_ERROR) {
+            // Сбрасываем watchdog при обработке ошибки
+            esp_task_wdt_reset();
             SetDeviceState(kDeviceStateIdle);
             Alert(Lang::Strings::ERROR, last_error_message_.c_str(), "circle_xmark", Lang::Sounds::OGG_EXCLAMATION);
         }
@@ -594,15 +642,22 @@ void Application::MainEventLoop() {
         }
 
         if (bits & MAIN_EVENT_SCHEDULE) {
+            // Сбрасываем watchdog перед обработкой задач
+            esp_task_wdt_reset();
+            
             std::unique_lock<std::mutex> lock(mutex_);
             auto tasks = std::move(main_tasks_);
             lock.unlock();
             for (auto& task : tasks) {
+                esp_task_wdt_reset(); // Сбрасываем watchdog для каждой задачи
                 task();
             }
         }
 
         if (bits & MAIN_EVENT_CLOCK_TICK) {
+            // Сбрасываем watchdog при обновлении часов
+            esp_task_wdt_reset();
+            
             clock_ticks_++;
             auto display = Board::GetInstance().GetDisplay();
             display->UpdateStatusBar();
@@ -612,6 +667,30 @@ void Application::MainEventLoop() {
                 // SystemInfo::PrintTaskCpuUsage(pdMS_TO_TICKS(1000));
                 // SystemInfo::PrintTaskList();
                 SystemInfo::PrintHeapStats();
+            }
+        }
+
+        if (bits & MAIN_EVENT_IDLE_TIMEOUT) {
+            // Сбрасываем watchdog при обработке таймаута простоя
+            esp_task_wdt_reset();
+            // Если устройство в простое, инициируем разговор
+            if (device_state_ == kDeviceStateIdle && protocol_ != nullptr) {
+                ESP_LOGI(TAG, "Idle timeout: initiating conversation");
+                Schedule([this]() {
+                    if (!protocol_->IsAudioChannelOpened()) {
+                        SetDeviceState(kDeviceStateConnecting);
+                        if (!protocol_->OpenAudioChannel()) {
+                            // Если не удалось открыть канал, перезапускаем таймер
+                            ResetIdleTimeoutTimer();
+                            return;
+                        }
+                    }
+                    // Открываем режим прослушивания для автоматической генерации ответа
+                    SetListeningMode(aec_mode_ == kAecOff ? kListeningModeAutoStop : kListeningModeRealtime);
+                });
+            } else {
+                // Если не в простое, перезапускаем таймер
+                ResetIdleTimeoutTimer();
             }
         }
     }
@@ -678,6 +757,15 @@ void Application::SetDeviceState(DeviceState state) {
     device_state_ = state;
     ESP_LOGI(TAG, "STATE: %s", STATE_STRINGS[device_state_]);
 
+    // Управление таймером простоя
+    if (state == kDeviceStateIdle) {
+        // Запускаем таймер простоя при переходе в состояние простоя
+        ResetIdleTimeoutTimer();
+    } else {
+        // Останавливаем таймер при переходе в любое другое состояние
+        StopIdleTimeoutTimer();
+    }
+
     // Send the state change event
     DeviceStateEventManager::GetInstance().PostStateChangeEvent(previous_state, state);
 
@@ -724,6 +812,25 @@ void Application::SetDeviceState(DeviceState state) {
             // Do nothing
             break;
     }
+}
+
+void Application::ResetIdleTimeoutTimer() {
+    if (idle_timeout_timer_handle_ == nullptr) {
+        return;
+    }
+    // Останавливаем таймер, если он уже запущен
+    esp_timer_stop(idle_timeout_timer_handle_);
+    // Запускаем таймер на 5 минут (300 секунд = 300000000 микросекунд)
+    esp_timer_start_once(idle_timeout_timer_handle_, 300000000);
+    ESP_LOGI(TAG, "Idle timeout timer started (5 minutes)");
+}
+
+void Application::StopIdleTimeoutTimer() {
+    if (idle_timeout_timer_handle_ == nullptr) {
+        return;
+    }
+    esp_timer_stop(idle_timeout_timer_handle_);
+    ESP_LOGD(TAG, "Idle timeout timer stopped");
 }
 
 void Application::Reboot() {

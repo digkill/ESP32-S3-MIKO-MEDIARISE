@@ -21,11 +21,10 @@
 #define AUDIO_I2S_SPK_GPIO_LRCK GPIO_NUM_38  // Left/Right Clock для динамика
 
 /* ------------------------------------------------------------------
- *  ТАЧСКРИН ОТКЛЮЧЕН (по запросу пользователя)
- *  Ранее использовался I2C для CST816D, но теперь отключен
+ *  IMU (QMI8658C) сидит на выделенной I2C-шине (I2C_NUM_1)
  * ------------------------------------------------------------------ */
-#define I2C_SCL_IO          GPIO_NUM_NC      // Отключено
-#define I2C_SDA_IO          GPIO_NUM_NC      // Отключено
+#define I2C_SCL_IO          GPIO_NUM_9
+#define I2C_SDA_IO          GPIO_NUM_8
 
 #define I2C_ADDRESS         ESP_IO_EXPANDER_I2C_TCA9554_ADDRESS_000  // можешь не использовать, если экспандера нет
 

@@ -284,9 +284,29 @@ int NoAudioCodec::Read(int16_t* dest, int samples) {
                  samples > 2 ? bit32_buffer[2] : 0);
     }
     
+    // Обработка данных с защитой от артефактов инициализации
     for (int i = 0; i < samples; i++) {
-        int32_t value = bit32_buffer[i] >> 12;
-        dest[i] = (value > INT16_MAX) ? INT16_MAX : (value < -INT16_MAX) ? -INT16_MAX : (int16_t)value;
+        int32_t raw_value = bit32_buffer[i];
+        
+        // Проверка на артефакты инициализации (значения близкие к максимуму)
+        // Если значение слишком большое, это может быть артефакт
+        if (abs(raw_value) > 0x7FFF000) {  // Близко к максимуму 32-битного значения после сдвига
+            // Используем предыдущее значение или ноль для артефактов
+            dest[i] = (i > 0) ? dest[i-1] : 0;
+            continue;
+        }
+        
+        // Нормальная обработка: сдвиг на 12 бит и ограничение диапазона
+        int32_t value = raw_value >> 12;
+        
+        // Дополнительная проверка на разумные значения
+        if (value > INT16_MAX) {
+            dest[i] = INT16_MAX;
+        } else if (value < -INT16_MAX) {
+            dest[i] = -INT16_MAX;
+        } else {
+            dest[i] = (int16_t)value;
+        }
     }
     
     // Логируем статистику периодически
@@ -307,6 +327,12 @@ int NoAudioCodec::Read(int16_t* dest, int samples) {
             if (max_val - min_val < 10 && abs(avg) < 100) {
                 ESP_LOGW(TAG, "WARNING: Microphone data appears static or silent! (range=%d, avg=%d)", 
                          max_val - min_val, avg);
+            }
+            
+            // Предупреждение о переполнении (артефакты инициализации)
+            if (abs(max_val) >= 32000 || abs(min_val) >= 32000) {
+                ESP_LOGW(TAG, "WARNING: Large audio values detected (possible initialization artifacts): range=[%d, %d], avg_abs=%d", 
+                         min_val, max_val, avg);
             }
         }
     }
