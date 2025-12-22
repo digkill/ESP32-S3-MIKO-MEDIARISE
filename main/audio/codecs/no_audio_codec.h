@@ -11,6 +11,14 @@ class NoAudioCodec : public AudioCodec {
 protected:
     std::mutex data_if_mutex_;
 
+    enum class RxDecodeMode {
+        kUnknown = 0,
+        kDup16,     // 16-bit sample duplicated in high/low halfwords (0xABCDABCD)
+        kShift12,   // 32-bit left-aligned PCM, downscale by >> 12
+    };
+
+    RxDecodeMode rx_decode_mode_ = RxDecodeMode::kUnknown;
+
     virtual int Write(const int16_t* data, int samples) override;
     virtual int Read(int16_t* dest, int samples) override;
 

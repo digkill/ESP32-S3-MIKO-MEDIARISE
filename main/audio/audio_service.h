@@ -36,6 +36,8 @@
  */
 
 #define OPUS_FRAME_DURATION_MS 60
+#define STREAM_SOURCE_SAMPLE_RATE 16000
+#define STREAM_SAMPLE_RATE 24000
 #define MAX_ENCODE_TASKS_IN_QUEUE 2
 #define MAX_PLAYBACK_TASKS_IN_QUEUE 2
 #define MAX_DECODE_PACKETS_IN_QUEUE (2400 / OPUS_FRAME_DURATION_MS)
@@ -105,10 +107,12 @@ public:
 
     bool PushPacketToDecodeQueue(std::unique_ptr<AudioStreamPacket> packet, bool wait = false);
     std::unique_ptr<AudioStreamPacket> PopPacketFromSendQueue();
+    bool PushPacketToSendQueue(std::unique_ptr<AudioStreamPacket> packet);
     void PlaySound(const std::string_view& sound);
     bool ReadAudioData(std::vector<int16_t>& data, int sample_rate, int samples);
     void ResetDecoder();
     void SetModelsList(srmodel_list_t* models_list);
+    void RestartPipeline();
 
 private:
     AudioCodec* codec_ = nullptr;
@@ -121,6 +125,7 @@ private:
     OpusResampler input_resampler_;
     OpusResampler reference_resampler_;
     OpusResampler output_resampler_;
+    OpusResampler stream_resampler_;
     DebugStatistics debug_statistics_;
     srmodel_list_t* models_list_ = nullptr;
 
@@ -156,6 +161,8 @@ private:
     void PushTaskToEncodeQueue(AudioTaskType type, std::vector<int16_t>&& pcm);
     void SetDecodeSampleRate(int sample_rate, int frame_duration);
     void CheckAndUpdateAudioPowerState();
+    void WaitForTasksToStop();
+    void SetupAudioProcessorCallbacks();
 };
 
 #endif

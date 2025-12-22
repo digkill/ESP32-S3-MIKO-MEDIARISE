@@ -1,5 +1,6 @@
 #include "wifi_board.h"
 #include "codecs/es8311_audio_codec.h"
+#include "codecs/no_audio_codec.h"
 #include "display/lcd_display.h"
 #include "application.h"
 #include "button.h"
@@ -30,6 +31,8 @@
 #include "simple_display.h"
 #include "servo_controller.h"
 #include "mcp_server.h"
+#include <cstring>
+#include <mutex>
 
 #define TAG "ESP32S3_MediaRise"
 
@@ -139,6 +142,138 @@ public:
     }
 };
 
+class SimpleDisplayAdapter : public Display {
+public:
+    explicit SimpleDisplayAdapter(SimpleDisplay* simple_display)
+        : simple_display_(simple_display),
+          last_eye_color_(SimpleDisplay::Color565(255, 240, 90)) {
+        width_ = DISPLAY_WIDTH;
+        height_ = DISPLAY_HEIGHT;
+        if (simple_display_) {
+            simple_display_->DrawRobotBase();
+            simple_display_->DrawEyes(last_eye_color_);
+        }
+    }
+
+    void SetStatus(const char* status) override {
+        if (!status || !simple_display_) {
+            return;
+        }
+        const uint16_t color = EyeColorForStatus(status);
+        DrawEyesIfChanged(color);
+    }
+
+    void SetChatMessage(const char* role, const char* content) override {
+        if (!simple_display_) {
+            return;
+        }
+        const uint16_t color = EyeColorForRole(role);
+        DrawEyesIfChanged(color);
+        if (content && *content) {
+            ESP_LOGI(TAG, "Chat: %s", content);
+        }
+    }
+
+    void SetEmotion(const char* emotion) override {
+        if (!emotion || !simple_display_) {
+            return;
+        }
+        const uint16_t color = EyeColorForEmotion(emotion);
+        DrawEyesIfChanged(color);
+    }
+
+    void UpdateStatusBar(bool update_all = false) override {
+        if (simple_display_ && update_all) {
+            simple_display_->UpdateIdleEyes();
+        }
+    }
+
+    void SetPowerSaveMode(bool on) override {
+        if (!simple_display_) {
+            return;
+        }
+        if (on) {
+            simple_display_->FillScreen(SimpleDisplay::Color565(0, 0, 0));
+        } else {
+            simple_display_->DrawRobotBase();
+            simple_display_->DrawEyes(last_eye_color_);
+        }
+    }
+
+private:
+    bool Lock(int timeout_ms = 0) override {
+        (void)timeout_ms;
+        mutex_.lock();
+        return true;
+    }
+
+    void Unlock() override {
+        mutex_.unlock();
+    }
+
+    uint16_t EyeColorForStatus(const char* status) {
+        if (strcmp(status, Lang::Strings::LISTENING) == 0) {
+            return SimpleDisplay::Color565(80, 180, 255);
+        }
+        if (strcmp(status, Lang::Strings::SPEAKING) == 0) {
+            return SimpleDisplay::Color565(120, 255, 140);
+        }
+        if (strcmp(status, Lang::Strings::CONNECTING) == 0 ||
+            strcmp(status, Lang::Strings::LOADING_PROTOCOL) == 0) {
+            return SimpleDisplay::Color565(255, 200, 80);
+        }
+        if (strcmp(status, Lang::Strings::STANDBY) == 0) {
+            return SimpleDisplay::Color565(255, 240, 90);
+        }
+        return last_eye_color_;
+    }
+
+    uint16_t EyeColorForRole(const char* role) {
+        if (!role) {
+            return last_eye_color_;
+        }
+        if (strcmp(role, "user") == 0) {
+            return SimpleDisplay::Color565(120, 200, 255);
+        }
+        if (strcmp(role, "assistant") == 0) {
+            return SimpleDisplay::Color565(140, 255, 140);
+        }
+        if (strcmp(role, "system") == 0) {
+            return SimpleDisplay::Color565(255, 200, 80);
+        }
+        return last_eye_color_;
+    }
+
+    uint16_t EyeColorForEmotion(const char* emotion) {
+        if (strcmp(emotion, "happy") == 0) {
+            return SimpleDisplay::Color565(255, 240, 90);
+        }
+        if (strcmp(emotion, "sad") == 0) {
+            return SimpleDisplay::Color565(80, 140, 255);
+        }
+        if (strcmp(emotion, "angry") == 0) {
+            return SimpleDisplay::Color565(255, 80, 80);
+        }
+        if (strcmp(emotion, "neutral") == 0) {
+            return SimpleDisplay::Color565(200, 200, 200);
+        }
+        return last_eye_color_;
+    }
+
+    void DrawEyesIfChanged(uint16_t color) {
+        std::lock_guard<std::recursive_mutex> lock(mutex_);
+        if (color == last_eye_color_) {
+            return;
+        }
+        last_eye_color_ = color;
+        simple_display_->DrawEyes(color);
+    }
+
+    SimpleDisplay* simple_display_ = nullptr;
+    uint16_t last_eye_color_ = 0;
+    std::recursive_mutex mutex_;
+};
+
 
 class ESP32S3_MediaRise : public WifiBoard {
 private:
@@ -153,6 +288,8 @@ private:
     PowerManager* power_manager_ = nullptr;
     SimpleDisplay* simple_display_ = nullptr;  // Простой дисплей без LVGL
     ServoController* servo_controller_ = nullptr;
+    uint8_t codec_i2c_addr_ = AUDIO_CODEC_ES8311_ADDR;
+    bool codec_i2c_present_ = false;
 
     void InitializePowerSaveTimer() {
         rtc_gpio_init(GPIO_NUM_3);
@@ -203,14 +340,59 @@ private:
             .sda_io_num = AUDIO_CODEC_I2C_SDA_PIN,
             .scl_io_num = AUDIO_CODEC_I2C_SCL_PIN,
             .clk_source = I2C_CLK_SRC_DEFAULT,
-            // .glitch_ignore_cnt = 7,
-            // .intr_priority = 0,
-            // .trans_queue_depth = 0,
-            // .flags = {
-            //     .enable_internal_pullup = 1,
-            // },
+            .glitch_ignore_cnt = 7,
+            .intr_priority = 0,
+            .trans_queue_depth = 0,
+            .flags = {
+                .enable_internal_pullup = 1,
+            },
         };
         ESP_ERROR_CHECK(i2c_new_master_bus(&i2c_bus_cfg, &codec_i2c_bus_));
+    }
+
+    bool ProbeI2cDevice(i2c_master_bus_handle_t i2c_bus, uint8_t addr) {
+        if (!i2c_bus) {
+            return false;
+        }
+        i2c_master_dev_handle_t dev = nullptr;
+        i2c_device_config_t cfg = {
+            .dev_addr_length = I2C_ADDR_BIT_LEN_7,
+            .device_address = addr,
+            .scl_speed_hz = 400 * 1000,
+            .scl_wait_us = 0,
+            .flags = {
+                .disable_ack_check = 0,
+            },
+        };
+        esp_err_t ret = i2c_master_bus_add_device(i2c_bus, &cfg, &dev);
+        if (ret != ESP_OK || dev == nullptr) {
+            return false;
+        }
+        uint8_t reg = 0x00;
+        uint8_t val = 0;
+        ret = i2c_master_transmit_receive(dev, &reg, 1, &val, 1, 100);
+        i2c_master_bus_rm_device(dev);
+        return ret == ESP_OK;
+    }
+
+    void DetectCodecAddress() {
+        codec_i2c_present_ = false;
+        if (!codec_i2c_bus_) {
+            ESP_LOGE(TAG, "Codec I2C bus not initialized");
+            return;
+        }
+        const uint8_t candidates[] = {AUDIO_CODEC_ES8311_ADDR, AUDIO_CODEC_ES8311_ADDR_ALT};
+        for (uint8_t addr : candidates) {
+            if (ProbeI2cDevice(codec_i2c_bus_, addr)) {
+                codec_i2c_addr_ = addr;
+                codec_i2c_present_ = true;
+                ESP_LOGI(TAG, "ES8311 найден по адресу 0x%02X", addr);
+                return;
+            }
+        }
+        ESP_LOGE(TAG,
+            "ES8311 не найден (SDA=%d SCL=%d). Проверьте адрес/подключение.",
+            AUDIO_CODEC_I2C_SDA_PIN, AUDIO_CODEC_I2C_SCL_PIN);
     }
 
     void InitializeCodecI2c_Touch() {
@@ -270,14 +452,16 @@ private:
     void InitializeCst816DTouchPad() {
         ESP_LOGI(TAG, "Init Cst816D");
 
-        // Инициализация выводов RST/INT
-        gpio_config_t io_conf = {};
-        io_conf.intr_type = GPIO_INTR_DISABLE;
-        io_conf.mode = GPIO_MODE_OUTPUT;
-        io_conf.pin_bit_mask = (1ULL << TP_PIN_NUM_TP_RST);
-        io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
-        io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
-        gpio_config(&io_conf);
+        // Инициализация выводов RST/INT (RST может отсутствовать)
+        if (TP_PIN_NUM_TP_RST != GPIO_NUM_NC) {
+            gpio_config_t io_conf = {};
+            io_conf.intr_type = GPIO_INTR_DISABLE;
+            io_conf.mode = GPIO_MODE_OUTPUT;
+            io_conf.pin_bit_mask = (1ULL << TP_PIN_NUM_TP_RST);
+            io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
+            io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
+            gpio_config(&io_conf);
+        }
 
         gpio_config_t int_conf = {};
         int_conf.intr_type = GPIO_INTR_DISABLE;
@@ -287,11 +471,13 @@ private:
         int_conf.pull_up_en = GPIO_PULLUP_ENABLE;
         gpio_config(&int_conf);
 
-        // Последовательность сброса сенсорного чипа
-        gpio_set_level(TP_PIN_NUM_TP_RST, 0);
-        vTaskDelay(pdMS_TO_TICKS(5));
-        gpio_set_level(TP_PIN_NUM_TP_RST, 1);
-        vTaskDelay(pdMS_TO_TICKS(50));
+        // Последовательность сброса сенсорного чипа (если RST есть)
+        if (TP_PIN_NUM_TP_RST != GPIO_NUM_NC) {
+            gpio_set_level(TP_PIN_NUM_TP_RST, 0);
+            vTaskDelay(pdMS_TO_TICKS(5));
+            gpio_set_level(TP_PIN_NUM_TP_RST, 1);
+            vTaskDelay(pdMS_TO_TICKS(50));
+        }
 
         // Проверка наличия сенсорного чипа
         uint8_t chip_id = 0;
@@ -562,8 +748,8 @@ private:
         } else {
             ESP_LOGE(TAG, "ОШИБКА создания SimpleDisplay!");
         }
-        // LVGL дисплей не создаем в этом режиме
-        display_ = nullptr;
+        // Создаем адаптер Display для SimpleDisplay
+        display_ = new SimpleDisplayAdapter(simple_display_);
         ESP_LOGI(TAG, "LVGL дисплей отключен (используется SimpleDisplay)");
 #else
         // Создаем LVGL дисплей (полный UI)
@@ -584,12 +770,17 @@ private:
     }
 
     void InitializeButtons() {
-        boot_button_.OnClick([this]() {
+        boot_button_.OnPressDown([this]() {
             auto& app = Application::GetInstance();
             if (app.GetDeviceState() == kDeviceStateStarting && !WifiStation::GetInstance().IsConnected()) {
                 ResetWifiConfiguration();
+                return;
             }
-            app.ToggleChatState();
+            app.StartListening();
+        });
+        boot_button_.OnPressUp([this]() {
+            auto& app = Application::GetInstance();
+            app.StopListening();
         });
     }
 
@@ -704,11 +895,18 @@ private:
 public:
     ESP32S3_MediaRise() : boot_button_(BOOT_BUTTON_GPIO) {
         // Сначала инициализировать I2C для сенсора и проверить/инициализировать сенсор (если сенсора нет, пропустить)
+#if ENABLE_TOUCHPAD
         InitializeCodecI2c_Touch();
         InitializeCst816DTouchPad();
+#else
+        ESP_LOGI(TAG, "Touch отключен в конфигурации");
+#endif
 
-        // Инициализировать I2C для аудио
+        // Инициализировать I2C для аудио (ES8311)
+#if AUDIO_CODEC_TYPE_ES8311
         InitializeCodecI2c();
+        DetectCodecAddress();
+#endif
 
         // Сначала настроить всё, что связано с дисплеем
         // Диагностика физического подключения ПЕРЕД инициализацией
@@ -784,13 +982,13 @@ public:
             delete power_manager_;
             power_manager_ = nullptr;
         }
-        if (simple_display_) {
-            delete simple_display_;
-            simple_display_ = nullptr;
-        }
         if (display_) {
             delete display_;
             display_ = nullptr;
+        }
+        if (simple_display_) {
+            delete simple_display_;
+            simple_display_ = nullptr;
         }
         if (i2c_bus_) {
             i2c_del_master_bus(i2c_bus_);
@@ -804,12 +1002,20 @@ public:
 
 
     virtual Led* GetLed() override {
+        if (BUILTIN_LED_GPIO == GPIO_NUM_NC) {
+            static NoLed led;
+            return &led;
+        }
         static SingleLed led(BUILTIN_LED_GPIO);
         return &led;
     }
 
     virtual Display* GetDisplay() override {
-        return display_;
+        if (display_ != nullptr) {
+            return display_;
+        }
+        static NoDisplay no_display;
+        return &no_display;
     }
     
     SimpleDisplay* GetSimpleDisplay() {
@@ -822,10 +1028,35 @@ public:
     }
 
     virtual AudioCodec* GetAudioCodec() override {
+#if AUDIO_CODEC_TYPE_PCM5101
+        static NoAudioCodecSimplex no_audio(
+            AUDIO_INPUT_SAMPLE_RATE,
+            AUDIO_OUTPUT_SAMPLE_RATE,
+            AUDIO_I2S_SPK_GPIO_BCLK,
+            AUDIO_I2S_SPK_GPIO_LRCK,
+            AUDIO_I2S_SPK_GPIO_DOUT,
+            I2S_STD_SLOT_LEFT,
+            AUDIO_I2S_MIC_GPIO_SCK,
+            AUDIO_I2S_MIC_GPIO_WS,
+            AUDIO_I2S_MIC_GPIO_DIN,
+            I2S_STD_SLOT_RIGHT);
+        return &no_audio;
+#else
+        static NoAudioCodecDuplex no_audio(
+            AUDIO_INPUT_SAMPLE_RATE,
+            AUDIO_OUTPUT_SAMPLE_RATE,
+            AUDIO_I2S_GPIO_BCLK,
+            AUDIO_I2S_GPIO_WS,
+            AUDIO_I2S_GPIO_DOUT,
+            AUDIO_I2S_GPIO_DIN);
+        if (!codec_i2c_present_) {
+            return &no_audio;
+        }
         static Es8311AudioCodec audio_codec(codec_i2c_bus_, I2C_NUM_0, AUDIO_INPUT_SAMPLE_RATE, AUDIO_OUTPUT_SAMPLE_RATE,
             AUDIO_I2S_GPIO_MCLK, AUDIO_I2S_GPIO_BCLK, AUDIO_I2S_GPIO_WS, AUDIO_I2S_GPIO_DOUT, AUDIO_I2S_GPIO_DIN,
-            AUDIO_CODEC_PA_PIN, AUDIO_CODEC_ES8311_ADDR);
+            AUDIO_CODEC_PA_PIN, codec_i2c_addr_);
         return &audio_codec;
+#endif
     }
 
     Cst816d* GetTouchpad() {

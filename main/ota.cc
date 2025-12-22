@@ -2,6 +2,11 @@
 #include "system_info.h"
 #include "settings.h"
 #include "assets/lang_config.h"
+#if defined(__has_include)
+#  if __has_include("endpoints_config.h")
+#    include "endpoints_config.h"
+#  endif
+#endif
 
 #include <cJSON.h>
 #include <esp_log.h>
@@ -18,6 +23,7 @@
 #include <vector>
 #include <sstream>
 #include <algorithm>
+#include <cctype>
 
 #define TAG "Ota"
 
@@ -35,6 +41,20 @@ Ota::Ota() {
         }
     }
 #endif
+    if (!has_serial_number_) {
+        auto mac = SystemInfo::GetMacAddress();
+        mac.erase(std::remove(mac.begin(), mac.end(), ':'), mac.end());
+        if (!mac.empty()) {
+            std::transform(mac.begin(), mac.end(), mac.begin(), [](unsigned char c) {
+                return static_cast<char>(std::toupper(c));
+            });
+            serial_number_ = mac;
+            has_serial_number_ = true;
+            ESP_LOGW(TAG, "Serial number missing in eFuse, fallback to MAC: %s", serial_number_.c_str());
+        } else {
+            ESP_LOGW(TAG, "Serial number not found and MAC address unavailable");
+        }
+    }
 }
 
 Ota::~Ota() {
@@ -44,7 +64,11 @@ std::string Ota::GetCheckVersionUrl() {
     Settings settings("wifi", false);
     std::string url = settings.GetString("ota_url");
     if (url.empty()) {
+#ifdef DEFAULT_OTA_URL
+        url = DEFAULT_OTA_URL;
+#else
         url = CONFIG_OTA_URL;
+#endif
     }
     return url;
 }

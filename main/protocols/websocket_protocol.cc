@@ -3,10 +3,16 @@
 #include "system_info.h"
 #include "application.h"
 #include "settings.h"
+#if defined(__has_include)
+#  if __has_include("endpoints_config.h")
+#    include "endpoints_config.h"
+#  endif
+#endif
 
 #include <cstring>
 #include <cJSON.h>
 #include <esp_log.h>
+#include <esp_task_wdt.h>
 #include <arpa/inet.h>
 #include "assets/lang_config.h"
 
@@ -43,12 +49,16 @@ bool WebsocketProtocol::SendAudio(std::unique_ptr<AudioStreamPacket> packet) {
 
         return websocket_->Send(serialized.data(), serialized.size(), true);
     } else if (version_ == 3) {
+        if (!use_binary_protocol3_header_) {
+            return websocket_->Send(packet->payload.data(), packet->payload.size(), true);
+        }
+
         std::string serialized;
         serialized.resize(sizeof(BinaryProtocol3) + packet->payload.size());
         auto bp3 = (BinaryProtocol3*)serialized.data();
         bp3->type = 0;
         bp3->reserved = 0;
-        bp3->payload_size = htons(packet->payload.size());
+        bp3->payload_size = htons(static_cast<uint16_t>(packet->payload.size()));
         memcpy(bp3->payload, packet->payload.data(), packet->payload.size());
 
         return websocket_->Send(serialized.data(), serialized.size(), true);
@@ -84,8 +94,34 @@ bool WebsocketProtocol::OpenAudioChannel() {
     std::string url = settings.GetString("url");
     std::string token = settings.GetString("token");
     int version = settings.GetInt("version");
+    if (version == 0) {
+#ifdef DEFAULT_WEBSOCKET_VERSION
+        version = DEFAULT_WEBSOCKET_VERSION;
+#endif
+    }
     if (version != 0) {
         version_ = version;
+    }
+    if (url.empty() || url.rfind("ws://0.0.0.0", 0) == 0 || url.rfind("wss://0.0.0.0", 0) == 0) {
+#ifdef DEFAULT_WEBSOCKET_URL
+        url = DEFAULT_WEBSOCKET_URL;
+#endif
+    }
+    if (token.empty()) {
+#ifdef DEFAULT_WEBSOCKET_TOKEN
+        token = DEFAULT_WEBSOCKET_TOKEN;
+#endif
+    }
+
+    // For protocol version 3, binary packets are framed with BinaryProtocol3 header by default.
+    // Some servers may expect raw Opus frames; that can be toggled via NVS key: websocket/bp3_header (bool).
+    bool default_bp3_header = true;
+#ifdef DEFAULT_WEBSOCKET_BP3_HEADER
+    default_bp3_header = (DEFAULT_WEBSOCKET_BP3_HEADER != 0);
+#endif
+    use_binary_protocol3_header_ = (version_ != 3) ? true : settings.GetBool("bp3_header", default_bp3_header);
+    if (version_ == 3) {
+        ESP_LOGI(TAG, "Protocol v3 framing: %s", use_binary_protocol3_header_ ? "BinaryProtocol3 header" : "raw Opus frames");
     }
 
     error_occurred_ = false;
@@ -110,6 +146,8 @@ bool WebsocketProtocol::OpenAudioChannel() {
 
     websocket_->OnData([this](const char* data, size_t len, bool binary) {
         if (binary) {
+            static uint32_t rx_audio_count = 0;
+            rx_audio_count++;
             if (on_incoming_audio_ != nullptr) {
                 if (version_ == 2) {
                     BinaryProtocol2* bp2 = (BinaryProtocol2*)data;
@@ -125,15 +163,30 @@ bool WebsocketProtocol::OpenAudioChannel() {
                         .payload = std::vector<uint8_t>(payload, payload + bp2->payload_size)
                     }));
                 } else if (version_ == 3) {
-                    BinaryProtocol3* bp3 = (BinaryProtocol3*)data;
-                    bp3->type = bp3->type;
-                    bp3->payload_size = ntohs(bp3->payload_size);
-                    auto payload = (uint8_t*)bp3->payload;
+                    const uint8_t* payload = (const uint8_t*)data;
+                    size_t payload_size = len;
+                    bool has_bp3_header = false;
+                    if (len >= sizeof(BinaryProtocol3)) {
+                        auto bp3 = (const BinaryProtocol3*)data;
+                        uint16_t framed_size = ntohs(bp3->payload_size);
+                        if (bp3->type == 0 && bp3->reserved == 0 && framed_size == len - sizeof(BinaryProtocol3)) {
+                            payload = (const uint8_t*)bp3->payload;
+                            payload_size = framed_size;
+                            has_bp3_header = true;
+                        }
+                    }
+                    if (rx_audio_count <= 5 || (rx_audio_count % 200) == 0) {
+                        ESP_LOGI(TAG, "RX audio packet #%u: len=%u payload=%u (%s)",
+                                 (unsigned)rx_audio_count,
+                                 (unsigned)len,
+                                 (unsigned)payload_size,
+                                 has_bp3_header ? "bp3" : "raw");
+                    }
                     on_incoming_audio_(std::make_unique<AudioStreamPacket>(AudioStreamPacket{
                         .sample_rate = server_sample_rate_,
                         .frame_duration = server_frame_duration_,
                         .timestamp = 0,
-                        .payload = std::vector<uint8_t>(payload, payload + bp3->payload_size)
+                        .payload = std::vector<uint8_t>(payload, payload + payload_size)
                     }));
                 } else {
                     on_incoming_audio_(std::make_unique<AudioStreamPacket>(AudioStreamPacket{
@@ -184,8 +237,27 @@ bool WebsocketProtocol::OpenAudioChannel() {
         return false;
     }
 
-    // Wait for server hello
-    EventBits_t bits = xEventGroupWaitBits(event_group_handle_, WEBSOCKET_PROTOCOL_SERVER_HELLO_EVENT, pdTRUE, pdFALSE, pdMS_TO_TICKS(10000));
+    // Wait for server hello.
+    // IMPORTANT: OpenAudioChannel() runs in "main_event_loop" which is registered in Task WDT.
+    // Long blocking waits (10s) can trigger WDT if we don't reset periodically.
+    const TickType_t total_wait = pdMS_TO_TICKS(10000);
+    const TickType_t slice_wait = pdMS_TO_TICKS(250);
+    TickType_t waited = 0;
+    EventBits_t bits = 0;
+    while (waited < total_wait) {
+        esp_task_wdt_reset();
+        bits = xEventGroupWaitBits(
+            event_group_handle_,
+            WEBSOCKET_PROTOCOL_SERVER_HELLO_EVENT,
+            pdTRUE,
+            pdFALSE,
+            slice_wait
+        );
+        if (bits & WEBSOCKET_PROTOCOL_SERVER_HELLO_EVENT) {
+            break;
+        }
+        waited += slice_wait;
+    }
     if (!(bits & WEBSOCKET_PROTOCOL_SERVER_HELLO_EVENT)) {
         ESP_LOGE(TAG, "Failed to receive server hello");
         SetError(Lang::Strings::SERVER_TIMEOUT);
@@ -213,7 +285,7 @@ std::string WebsocketProtocol::GetHelloMessage() {
     cJSON_AddStringToObject(root, "transport", "websocket");
     cJSON* audio_params = cJSON_CreateObject();
     cJSON_AddStringToObject(audio_params, "format", "opus");
-    cJSON_AddNumberToObject(audio_params, "sample_rate", 16000);
+    cJSON_AddNumberToObject(audio_params, "sample_rate", server_sample_rate_);
     cJSON_AddNumberToObject(audio_params, "channels", 1);
     cJSON_AddNumberToObject(audio_params, "frame_duration", OPUS_FRAME_DURATION_MS);
     cJSON_AddItemToObject(root, "audio_params", audio_params);
@@ -248,6 +320,7 @@ void WebsocketProtocol::ParseServerHello(const cJSON* root) {
             server_frame_duration_ = frame_duration->valueint;
         }
     }
+    ESP_LOGI(TAG, "Server hello audio_params: sample_rate=%d, frame_duration=%d", server_sample_rate_, server_frame_duration_);
 
     xEventGroupSetBits(event_group_handle_, WEBSOCKET_PROTOCOL_SERVER_HELLO_EVENT);
 }

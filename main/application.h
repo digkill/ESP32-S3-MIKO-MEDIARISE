@@ -10,6 +10,8 @@
 #include <mutex>
 #include <deque>
 #include <memory>
+#include <chrono>
+#include <atomic>
 
 #include "protocol.h"
 #include "ota.h"
@@ -45,6 +47,8 @@ public:
 
     void Start();
     void MainEventLoop();
+    void AudioSendTask();
+    void RestartAudioPipeline(const std::string& reason);
     DeviceState GetDeviceState() const { return device_state_; }
     bool IsVoiceDetected() const { return audio_service_.IsVoiceDetected(); }
     void Schedule(std::function<void()> callback);
@@ -86,6 +90,12 @@ private:
     int clock_ticks_ = 0;
     TaskHandle_t check_new_version_task_handle_ = nullptr;
     TaskHandle_t main_event_loop_task_handle_ = nullptr;
+    TaskHandle_t audio_send_task_handle_ = nullptr;
+    std::chrono::steady_clock::time_point last_audio_restart_time_{std::chrono::steady_clock::time_point::min()};
+    std::atomic<bool> last_vad_state_{false};
+    bool listening_had_voice_ = false;
+    bool listening_stop_sent_ = false;
+    std::chrono::steady_clock::time_point listening_voice_end_time_{std::chrono::steady_clock::time_point::min()};
 
     void OnWakeWordDetected();
     void CheckNewVersion(Ota& ota);

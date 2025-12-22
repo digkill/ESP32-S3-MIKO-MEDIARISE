@@ -274,6 +274,26 @@ int NoAudioCodec::Read(int16_t* dest, int samples) {
     }
 
     samples = bytes_read / sizeof(int32_t);
+
+    if (rx_decode_mode_ == RxDecodeMode::kUnknown) {
+        const int probe_n = std::min(samples, 8);
+        int dup16_hits = 0;
+        for (int i = 0; i < probe_n; i++) {
+            const uint32_t u = static_cast<uint32_t>(bit32_buffer[i]);
+            const uint16_t lo = static_cast<uint16_t>(u & 0xFFFF);
+            const uint16_t hi = static_cast<uint16_t>((u >> 16) & 0xFFFF);
+            if (lo == hi) {
+                dup16_hits++;
+            }
+        }
+        if (probe_n >= 4 && dup16_hits >= probe_n - 1) {
+            rx_decode_mode_ = RxDecodeMode::kDup16;
+            ESP_LOGI(TAG, "RX decode mode: dup16 (0xABCDABCD)");
+        } else {
+            rx_decode_mode_ = RxDecodeMode::kShift12;
+            ESP_LOGI(TAG, "RX decode mode: shift12 (32-bit PCM >> 12)");
+        }
+    }
     
     // Логируем первые несколько вызовов с детальной диагностикой
     if (read_call_count <= 5) {
@@ -286,26 +306,57 @@ int NoAudioCodec::Read(int16_t* dest, int samples) {
     
     // Обработка данных с защитой от артефактов инициализации
     for (int i = 0; i < samples; i++) {
-        int32_t raw_value = bit32_buffer[i];
-        
+        const int32_t raw_value = bit32_buffer[i];
+
         // Проверка на артефакты инициализации (значения близкие к максимуму)
-        // Если значение слишком большое, это может быть артефакт
-        if (abs(raw_value) > 0x7FFF000) {  // Близко к максимуму 32-битного значения после сдвига
-            // Используем предыдущее значение или ноль для артефактов
-            dest[i] = (i > 0) ? dest[i-1] : 0;
+        // (не используем abs(int32_t), чтобы не попасть на INT32_MIN)
+        int64_t raw_abs = static_cast<int64_t>(raw_value);
+        if (raw_abs < 0) raw_abs = -raw_abs;
+        if (raw_abs > 0x7FFF000LL) {  // Близко к максимуму 32-битного значения после сдвига
+            dest[i] = (i > 0) ? dest[i - 1] : 0;
             continue;
         }
-        
-        // Нормальная обработка: сдвиг на 12 бит и ограничение диапазона
-        int32_t value = raw_value >> 12;
-        
-        // Дополнительная проверка на разумные значения
+
+        int32_t value = 0;
+        if (rx_decode_mode_ == RxDecodeMode::kDup16) {
+            value = static_cast<int16_t>(raw_value & 0xFFFF);
+        } else {
+            value = raw_value >> 12;
+        }
+
+        if (input_gain_ > 0.0f) {
+            const float gain = input_gain_;
+            value = static_cast<int32_t>(static_cast<float>(value) * gain);
+        }
+
         if (value > INT16_MAX) {
             dest[i] = INT16_MAX;
-        } else if (value < -INT16_MAX) {
-            dest[i] = -INT16_MAX;
+        } else if (value < INT16_MIN) {
+            dest[i] = INT16_MIN;
         } else {
-            dest[i] = (int16_t)value;
+            dest[i] = static_cast<int16_t>(value);
+        }
+    }
+
+    // Лимитер (защита): если пик близок к клиппингу — мягко уменьшаем уровень блока.
+    // Это не "лечит" аппаратный клиппинг, но защищает downstream-обработчики от перегруза.
+    {
+        int32_t peak_abs = 0;
+        for (int i = 0; i < samples; i++) {
+            const int32_t v = static_cast<int32_t>(dest[i]);
+            const int32_t a = (v < 0) ? -v : v;
+            if (a > peak_abs) peak_abs = a;
+        }
+        constexpr int32_t kSoftLimit = 30000;
+        if (peak_abs > kSoftLimit) {
+            const int32_t scale_q15 = (kSoftLimit << 15) / peak_abs;
+            for (int i = 0; i < samples; i++) {
+                const int32_t v = static_cast<int32_t>(dest[i]);
+                dest[i] = static_cast<int16_t>((v * scale_q15) >> 15);
+            }
+            if (read_call_count <= 10 || read_call_count % 200 == 0) {
+                ESP_LOGW(TAG, "Input limiter applied: peak=%d -> %d (mode=%d)", peak_abs, kSoftLimit, (int)rx_decode_mode_);
+            }
         }
     }
     
@@ -317,7 +368,8 @@ int NoAudioCodec::Read(int16_t* dest, int samples) {
             for (int i = 0; i < samples; i++) {
                 if (dest[i] > max_val) max_val = dest[i];
                 if (dest[i] < min_val) min_val = dest[i];
-                sum += abs(dest[i]);
+                const int32_t v = static_cast<int32_t>(dest[i]);
+                sum += (v < 0) ? -v : v;
             }
             int16_t avg = (int16_t)(sum / samples);
             ESP_LOGI(TAG, "Read: samples=%d, range=[%d, %d], avg_abs=%d, call_count=%d", 

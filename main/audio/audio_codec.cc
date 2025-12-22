@@ -27,11 +27,19 @@ bool AudioCodec::InputData(std::vector<int16_t>& data) {
 }
 
 void AudioCodec::Start() {
-    Settings settings("audio", false);
-    output_volume_ = settings.GetInt("output_volume", output_volume_);
+    {
+        Settings settings("audio", false);
+        output_volume_ = settings.GetInt("output_volume", output_volume_);
+    }
     if (output_volume_ <= 0) {
-        ESP_LOGW(TAG, "Output volume value (%d) is too small, setting to default (10)", output_volume_);
-        output_volume_ = 10;
+        ESP_LOGW(TAG, "Output volume value (%d) is too small, setting to default (100)", output_volume_);
+        output_volume_ = 100;
+    }
+    if (output_volume_ != 100) {
+        ESP_LOGI(TAG, "Forcing output volume to maximum (100) from stored value %d", output_volume_);
+        output_volume_ = 100;
+        Settings writer("audio", true);
+        writer.SetInt("output_volume", output_volume_);
     }
 
     if (tx_handle_ != nullptr) {

@@ -1,10 +1,13 @@
 #include "afe_audio_processor.h"
 #include <esp_log.h>
-#include <esp_task_wdt.h>
+#include <esp_bit_defs.h>
 
-#define PROCESSOR_RUNNING 0x01
+#define PROCESSOR_RUNNING BIT0
+#define PROCESSOR_EXIT_REQUEST BIT1
+#define PROCESSOR_TASK_EXITED BIT2
 
 #define TAG "AfeAudioProcessor"
+static constexpr TickType_t kProcessorWarmupDelayTicks = pdMS_TO_TICKS(200);
 
 AfeAudioProcessor::AfeAudioProcessor()
     : afe_data_(nullptr) {
@@ -68,14 +71,26 @@ void AfeAudioProcessor::Initialize(AudioCodec* codec, int frame_duration_ms, srm
     afe_iface_ = esp_afe_handle_from_config(afe_config);
     afe_data_ = afe_iface_->create_from_config(afe_config);
     
-    xTaskCreate([](void* arg) {
-        auto this_ = (AfeAudioProcessor*)arg;
-        this_->AudioProcessorTask();
-        vTaskDelete(NULL);
-    }, "audio_communication", 4096, this, 6, NULL);  // Увеличиваем приоритет с 3 до 6, чтобы обрабатывать быстрее
+    if (processor_task_handle_ != nullptr) {
+        ESP_LOGW(TAG, "Audio processor task already running");
+    } else {
+        BaseType_t result = xTaskCreatePinnedToCore([](void* arg) {
+            auto this_ = static_cast<AfeAudioProcessor*>(arg);
+            this_->AudioProcessorTask();
+            xEventGroupSetBits(this_->event_group_, PROCESSOR_TASK_EXITED);
+            this_->processor_task_handle_ = nullptr;
+            vTaskDelete(NULL);
+        }, "audio_communication", 4096, this, 6, &processor_task_handle_, 1);  // Core 1: не мешаем main_event_loop и захвату аудио
+
+        if (result != pdPASS) {
+            ESP_LOGE(TAG, "Failed to create audio processor task");
+            processor_task_handle_ = nullptr;
+        }
+    }
 }
 
 AfeAudioProcessor::~AfeAudioProcessor() {
+    RequestTaskExit();
     if (afe_data_ != nullptr) {
         afe_iface_->destroy(afe_data_);
     }
@@ -93,10 +108,15 @@ void AfeAudioProcessor::Feed(std::vector<int16_t>&& data) {
     if (afe_data_ == nullptr) {
         return;
     }
+    feed_received_since_start_ = true;
     afe_iface_->feed(afe_data_, data.data());
 }
 
 void AfeAudioProcessor::Start() {
+    warmup_pending_ = true;
+    warmup_deadline_ticks_ = xTaskGetTickCount() + kProcessorWarmupDelayTicks;
+    feed_received_since_start_ = false;
+    xEventGroupClearBits(event_group_, PROCESSOR_EXIT_REQUEST | PROCESSOR_TASK_EXITED);
     xEventGroupSetBits(event_group_, PROCESSOR_RUNNING);
 }
 
@@ -105,6 +125,11 @@ void AfeAudioProcessor::Stop() {
     if (afe_data_ != nullptr) {
         afe_iface_->reset_buffer(afe_data_);
     }
+    output_buffer_.clear();
+    output_buffer_.reserve(frame_samples_);
+    warmup_pending_ = false;
+    warmup_deadline_ticks_ = 0;
+    feed_received_since_start_ = false;
 }
 
 bool AfeAudioProcessor::IsRunning() {
@@ -120,33 +145,50 @@ void AfeAudioProcessor::OnVadStateChange(std::function<void(bool speaking)> call
 }
 
 void AfeAudioProcessor::AudioProcessorTask() {
-    // Добавляем задачу в watchdog
-    esp_task_wdt_add(NULL);
-    
     auto fetch_size = afe_iface_->get_fetch_chunksize(afe_data_);
     auto feed_size = afe_iface_->get_feed_chunksize(afe_data_);
     ESP_LOGI(TAG, "Audio communication task started, feed size: %d fetch size: %d",
         feed_size, fetch_size);
 
     while (true) {
-        // Сбрасываем watchdog перед блокировкой
-        esp_task_wdt_reset();
-        
         // Используем таймаут вместо portMAX_DELAY, чтобы периодически сбрасывать watchdog
-        auto bits = xEventGroupWaitBits(event_group_, PROCESSOR_RUNNING, pdFALSE, pdTRUE, pdMS_TO_TICKS(1000));
-        
+        auto bits = xEventGroupWaitBits(event_group_,
+            PROCESSOR_RUNNING | PROCESSOR_EXIT_REQUEST,
+            pdFALSE,
+            pdFALSE,
+            pdMS_TO_TICKS(1000));
+
         // Если событие не получено, продолжаем цикл (сбросим watchdog)
+        if (bits & PROCESSOR_EXIT_REQUEST) {
+            break;
+        }
+
         if (!(bits & PROCESSOR_RUNNING)) {
             continue;
         }
 
-        // Сбрасываем watchdog перед обработкой
-        esp_task_wdt_reset();
-        
-        // Используем короткий таймаут вместо portMAX_DELAY, чтобы не блокироваться надолго
-        // и быстрее обрабатывать данные из буфера
-        // Уменьшаем таймаут до 5ms для более частого чтения из буфера
-        auto res = afe_iface_->fetch_with_delay(afe_data_, pdMS_TO_TICKS(5));
+        if (warmup_pending_) {
+            TickType_t now = xTaskGetTickCount();
+            if (warmup_deadline_ticks_ > now) {
+                vTaskDelay(warmup_deadline_ticks_ - now);
+                continue;
+            }
+            warmup_pending_ = false;
+        }
+
+        if (!feed_received_since_start_) {
+            vTaskDelay(pdMS_TO_TICKS(5));
+            continue;
+        }
+
+        // Используем блокирующий fetch (таймаут внутри AFE ~2000ms),
+        // чтобы не спамить логами/не крутиться в холостую между порциями feed().
+        auto res = afe_iface_->fetch(afe_data_);
+
+        if (xEventGroupGetBits(event_group_) & PROCESSOR_EXIT_REQUEST) {
+            break;
+        }
+
         if ((xEventGroupGetBits(event_group_) & PROCESSOR_RUNNING) == 0) {
             continue;
         }
@@ -158,9 +200,7 @@ void AfeAudioProcessor::AudioProcessorTask() {
                     ESP_LOGW(TAG, "AFE fetch error code: %d (count: %d)", res->ret_value, error_count);
                 }
             }
-            // Увеличиваем задержку при ошибке, чтобы дать время AFE восстановиться
             vTaskDelay(pdMS_TO_TICKS(5));
-            esp_task_wdt_reset(); // Сбрасываем watchdog после задержки
             continue;
         }
 
@@ -183,9 +223,6 @@ void AfeAudioProcessor::AudioProcessorTask() {
             
             // Output complete frames when buffer has enough data
             while (output_buffer_.size() >= frame_samples_) {
-                // Сбрасываем watchdog в цикле обработки
-                esp_task_wdt_reset();
-                
                 if (output_buffer_.size() == frame_samples_) {
                     // If buffer size equals frame size, move the entire buffer
                     output_callback_(std::move(output_buffer_));
@@ -198,10 +235,9 @@ void AfeAudioProcessor::AudioProcessorTask() {
                 }
             }
         }
-        
-        // Сбрасываем watchdog в конце цикла обработки
-        esp_task_wdt_reset();
     }
+
+    xEventGroupClearBits(event_group_, PROCESSOR_RUNNING);
 }
 
 void AfeAudioProcessor::EnableDeviceAec(bool enable) {
@@ -216,4 +252,27 @@ void AfeAudioProcessor::EnableDeviceAec(bool enable) {
         afe_iface_->disable_aec(afe_data_);
         afe_iface_->enable_vad(afe_data_);
     }
+}
+
+void AfeAudioProcessor::RequestTaskExit() {
+    if (processor_task_handle_ == nullptr) {
+        return;
+    }
+
+    xEventGroupSetBits(event_group_, PROCESSOR_EXIT_REQUEST);
+
+    const TickType_t wait_ticks = pdMS_TO_TICKS(50);
+    constexpr int max_waits = 40;  // ~2 seconds
+    for (int i = 0; i < max_waits; ++i) {
+        if (xEventGroupWaitBits(event_group_, PROCESSOR_TASK_EXITED, pdTRUE, pdFALSE, wait_ticks) & PROCESSOR_TASK_EXITED) {
+            break;
+        }
+    }
+
+    if (processor_task_handle_ != nullptr) {
+        vTaskDelete(processor_task_handle_);
+        processor_task_handle_ = nullptr;
+    }
+
+    xEventGroupClearBits(event_group_, PROCESSOR_EXIT_REQUEST);
 }

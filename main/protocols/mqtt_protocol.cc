@@ -2,6 +2,11 @@
 #include "board.h"
 #include "application.h"
 #include "settings.h"
+#if defined(__has_include)
+#  if __has_include("endpoints_config.h")
+#    include "endpoints_config.h"
+#  endif
+#endif
 
 #include <esp_log.h>
 #include <cstring>
@@ -60,8 +65,41 @@ bool MqttProtocol::StartMqttClient(bool report_error) {
     auto client_id = settings.GetString("client_id");
     auto username = settings.GetString("username");
     auto password = settings.GetString("password");
-    int keepalive_interval = settings.GetInt("keepalive", 240);
+    int keepalive_interval = settings.GetInt("keepalive", 
+#ifdef DEFAULT_MQTT_KEEPALIVE
+        DEFAULT_MQTT_KEEPALIVE
+#else
+        240
+#endif
+    );
     publish_topic_ = settings.GetString("publish_topic");
+    
+    // Use defaults from .env if settings are empty
+    if (endpoint.empty()) {
+#ifdef DEFAULT_MQTT_ENDPOINT
+        endpoint = DEFAULT_MQTT_ENDPOINT;
+#endif
+    }
+    if (client_id.empty()) {
+#ifdef DEFAULT_MQTT_CLIENT_ID
+        client_id = DEFAULT_MQTT_CLIENT_ID;
+#endif
+    }
+    if (username.empty()) {
+#ifdef DEFAULT_MQTT_USERNAME
+        username = DEFAULT_MQTT_USERNAME;
+#endif
+    }
+    if (password.empty()) {
+#ifdef DEFAULT_MQTT_PASSWORD
+        password = DEFAULT_MQTT_PASSWORD;
+#endif
+    }
+    if (publish_topic_.empty()) {
+#ifdef DEFAULT_MQTT_PUBLISH_TOPIC
+        publish_topic_ = DEFAULT_MQTT_PUBLISH_TOPIC;
+#endif
+    }
 
     if (endpoint.empty()) {
         ESP_LOGW(TAG, "MQTT endpoint is not specified");
@@ -291,7 +329,7 @@ std::string MqttProtocol::GetHelloMessage() {
     cJSON_AddItemToObject(root, "features", features);
     cJSON* audio_params = cJSON_CreateObject();
     cJSON_AddStringToObject(audio_params, "format", "opus");
-    cJSON_AddNumberToObject(audio_params, "sample_rate", 16000);
+    cJSON_AddNumberToObject(audio_params, "sample_rate", server_sample_rate_);
     cJSON_AddNumberToObject(audio_params, "channels", 1);
     cJSON_AddNumberToObject(audio_params, "frame_duration", OPUS_FRAME_DURATION_MS);
     cJSON_AddItemToObject(root, "audio_params", audio_params);

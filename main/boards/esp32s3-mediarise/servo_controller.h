@@ -4,6 +4,8 @@
 #include <driver/uart.h>
 #include <string>
 #include <mutex>
+#include <utility>
+#include <vector>
 
 /**
  * @brief Класс для управления сервоприводами через UART
@@ -58,7 +60,6 @@ private:
 };
 
 #endif // SERVO_CONTROLLER_H
-
 
 
 

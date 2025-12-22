@@ -11,6 +11,7 @@
 #include "settings.h"
 
 #include <cstring>
+#include <chrono>
 #include <esp_log.h>
 #include <cJSON.h>
 #include <driver/gpio.h>
@@ -19,6 +20,8 @@
 #include <esp_task_wdt.h>
 
 #define TAG "Application"
+static constexpr auto kMinAudioRestartInterval = std::chrono::seconds(5);
+static constexpr auto kRealtimeAutoStopSilence = std::chrono::milliseconds(1200);
 
 
 static const char* const STATE_STRINGS[] = {
@@ -399,9 +402,16 @@ void Application::Start() {
         xEventGroupSetBits(event_group_, MAIN_EVENT_WAKE_WORD_DETECTED);
     };
     callbacks.on_vad_change = [this](bool speaking) {
+        last_vad_state_.store(speaking, std::memory_order_relaxed);
         xEventGroupSetBits(event_group_, MAIN_EVENT_VAD_CHANGE);
     };
     audio_service_.SetCallbacks(callbacks);
+
+    // Start dedicated audio send task to offload network operations from main loop
+    xTaskCreate([](void* arg) {
+        static_cast<Application*>(arg)->AudioSendTask();
+        vTaskDelete(nullptr);
+    }, "audio_send", 4096, this, 4, &audio_send_task_handle_);
 
     // Start the main event loop task with priority 3
     xTaskCreate([](void* arg) {
@@ -458,9 +468,9 @@ void Application::Start() {
         xEventGroupSetBits(event_group_, MAIN_EVENT_ERROR);
     });
     protocol_->OnIncomingAudio([this](std::unique_ptr<AudioStreamPacket> packet) {
-        if (device_state_ == kDeviceStateSpeaking) {
-            audio_service_.PushPacketToDecodeQueue(std::move(packet));
-        }
+        // Some servers may start streaming TTS audio before emitting explicit "tts start".
+        // Dropping packets here leads to "нет звука". Decode/play whenever a channel is open.
+        audio_service_.PushPacketToDecodeQueue(std::move(packet));
     });
     protocol_->OnAudioChannelOpened([this, codec, &board]() {
         board.SetPowerSaveMode(false);
@@ -477,18 +487,21 @@ void Application::Start() {
             SetDeviceState(kDeviceStateIdle);
         });
     });
-    protocol_->OnIncomingJson([this, display](const cJSON* root) {
-        // Parse JSON data
-        auto type = cJSON_GetObjectItem(root, "type");
-        if (strcmp(type->valuestring, "tts") == 0) {
-            auto state = cJSON_GetObjectItem(root, "state");
-            if (strcmp(state->valuestring, "start") == 0) {
-                Schedule([this]() {
-                    aborted_ = false;
-                    if (device_state_ == kDeviceStateIdle || device_state_ == kDeviceStateListening) {
-                        SetDeviceState(kDeviceStateSpeaking);
-                    }
-                });
+        protocol_->OnIncomingJson([this, display](const cJSON* root) {
+            // Parse JSON data
+            auto type = cJSON_GetObjectItem(root, "type");
+            if (strcmp(type->valuestring, "tts") == 0) {
+                auto state = cJSON_GetObjectItem(root, "state");
+                if (cJSON_IsString(state)) {
+                    ESP_LOGI(TAG, "TTS state: %s", state->valuestring);
+                }
+                if (strcmp(state->valuestring, "start") == 0) {
+                    Schedule([this]() {
+                        aborted_ = false;
+                        if (device_state_ == kDeviceStateIdle || device_state_ == kDeviceStateListening) {
+                            SetDeviceState(kDeviceStateSpeaking);
+                        }
+                    });
             } else if (strcmp(state->valuestring, "stop") == 0) {
                 Schedule([this]() {
                     if (device_state_ == kDeviceStateSpeaking) {
@@ -532,10 +545,13 @@ void Application::Start() {
             auto command = cJSON_GetObjectItem(root, "command");
             if (cJSON_IsString(command)) {
                 ESP_LOGI(TAG, "System command: %s", command->valuestring);
-                if (strcmp(command->valuestring, "reboot") == 0) {
-                    // Do a reboot if user requests a OTA update
-                    Schedule([this]() {
-                        Reboot();
+                std::string command_str = command->valuestring;
+                if (command_str == "reboot") {
+                    Schedule([this]() { Reboot(); });
+                } else if (command_str.rfind("error", 0) == 0) {
+                    auto reason = command_str;
+                    Schedule([this, reason]() {
+                        RestartAudioPipeline(reason);
                     });
                 } else {
                     ESP_LOGW(TAG, "Unknown system command: %s", command->valuestring);
@@ -602,13 +618,13 @@ void Application::MainEventLoop() {
         esp_task_wdt_reset();
         
         // Используем таймаут вместо portMAX_DELAY, чтобы периодически сбрасывать watchdog
-        auto bits = xEventGroupWaitBits(event_group_, MAIN_EVENT_SCHEDULE |
-            MAIN_EVENT_SEND_AUDIO |
-            MAIN_EVENT_WAKE_WORD_DETECTED |
-            MAIN_EVENT_VAD_CHANGE |
-            MAIN_EVENT_CLOCK_TICK |
-            MAIN_EVENT_IDLE_TIMEOUT |
+    auto bits = xEventGroupWaitBits(event_group_, MAIN_EVENT_SCHEDULE |
+        MAIN_EVENT_WAKE_WORD_DETECTED |
+        MAIN_EVENT_VAD_CHANGE |
+        MAIN_EVENT_CLOCK_TICK |
+        MAIN_EVENT_IDLE_TIMEOUT |
             MAIN_EVENT_ERROR, pdTRUE, pdFALSE, pdMS_TO_TICKS(1000));
+        esp_task_wdt_reset();
         
         // Если событие не получено, продолжаем цикл (сбросим watchdog)
         if (bits == 0) {
@@ -622,14 +638,6 @@ void Application::MainEventLoop() {
             Alert(Lang::Strings::ERROR, last_error_message_.c_str(), "circle_xmark", Lang::Sounds::OGG_EXCLAMATION);
         }
 
-        if (bits & MAIN_EVENT_SEND_AUDIO) {
-            while (auto packet = audio_service_.PopPacketFromSendQueue()) {
-                if (protocol_ && !protocol_->SendAudio(std::move(packet))) {
-                    break;
-                }
-            }
-        }
-
         if (bits & MAIN_EVENT_WAKE_WORD_DETECTED) {
             OnWakeWordDetected();
         }
@@ -638,6 +646,18 @@ void Application::MainEventLoop() {
             if (device_state_ == kDeviceStateListening) {
                 auto led = Board::GetInstance().GetLed();
                 led->OnStateChanged();
+
+                // In realtime mode server often waits for an explicit stop to start LLM/TTS.
+                // Auto-stop after a short silence following detected speech.
+                if (listening_mode_ == kListeningModeRealtime) {
+                    const bool speaking = last_vad_state_.load(std::memory_order_relaxed);
+                    if (speaking) {
+                        listening_had_voice_ = true;
+                        listening_voice_end_time_ = std::chrono::steady_clock::time_point::min();
+                    } else if (listening_had_voice_) {
+                        listening_voice_end_time_ = std::chrono::steady_clock::now();
+                    }
+                }
             }
         }
 
@@ -648,9 +668,28 @@ void Application::MainEventLoop() {
             std::unique_lock<std::mutex> lock(mutex_);
             auto tasks = std::move(main_tasks_);
             lock.unlock();
-            for (auto& task : tasks) {
+            auto batch_start = std::chrono::steady_clock::now();
+            constexpr auto kScheduleBatchBudget = std::chrono::milliseconds(400);
+            while (!tasks.empty()) {
+                auto task = std::move(tasks.front());
+                tasks.pop_front();
                 esp_task_wdt_reset(); // Сбрасываем watchdog для каждой задачи
                 task();
+
+                if (tasks.empty()) {
+                    break;
+                }
+
+                auto elapsed = std::chrono::steady_clock::now() - batch_start;
+                if (elapsed >= kScheduleBatchBudget) {
+                    // Переносим оставшиеся задачи обратно в очередь, чтобы не держать watchdog
+                    std::lock_guard<std::mutex> requeue_lock(mutex_);
+                    while (!tasks.empty()) {
+                        main_tasks_.push_front(std::move(tasks.back()));
+                        tasks.pop_back();
+                    }
+                    break;
+                }
             }
         }
 
@@ -661,6 +700,24 @@ void Application::MainEventLoop() {
             clock_ticks_++;
             auto display = Board::GetInstance().GetDisplay();
             display->UpdateStatusBar();
+
+            if (device_state_ == kDeviceStateListening &&
+                listening_mode_ == kListeningModeRealtime &&
+                !listening_stop_sent_ &&
+                listening_had_voice_ &&
+                listening_voice_end_time_ != std::chrono::steady_clock::time_point::min()) {
+                auto now = std::chrono::steady_clock::now();
+                auto silence = std::chrono::duration_cast<std::chrono::milliseconds>(now - listening_voice_end_time_);
+                if (silence >= kRealtimeAutoStopSilence) {
+                    listening_stop_sent_ = true;
+                    ESP_LOGI(TAG, "Auto stop listening after %lld ms of silence",
+                             static_cast<long long>(silence.count()));
+                    if (protocol_) {
+                        protocol_->SendStopListening();
+                    }
+                    SetDeviceState(kDeviceStateIdle);
+                }
+            }
         
             // Print the debug info every 10 seconds
             if (clock_ticks_ % 10 == 0) {
@@ -696,6 +753,45 @@ void Application::MainEventLoop() {
     }
 }
 
+void Application::AudioSendTask() {
+    while (true) {
+        xEventGroupWaitBits(event_group_, MAIN_EVENT_SEND_AUDIO, pdTRUE, pdFALSE, portMAX_DELAY);
+        while (auto packet = audio_service_.PopPacketFromSendQueue()) {
+            if (!(protocol_ && protocol_->SendAudio(std::move(packet)))) {
+                break;
+            }
+        }
+    }
+}
+
+void Application::RestartAudioPipeline(const std::string& reason) {
+    // Server-side STT failures are not fixed by restarting local audio tasks.
+    // Stop listening and return to idle so the user can try again.
+    if (reason.find("STT transcription failed") != std::string::npos) {
+        ESP_LOGW(TAG, "STT failed on server, stopping listening: %s", reason.c_str());
+        if (protocol_ && device_state_ == kDeviceStateListening) {
+            protocol_->SendStopListening();
+        }
+        SetDeviceState(kDeviceStateIdle);
+        auto display = Board::GetInstance().GetDisplay();
+        display->SetChatMessage("system", reason.c_str());
+        return;
+    }
+
+    auto now = std::chrono::steady_clock::now();
+    if (last_audio_restart_time_ != std::chrono::steady_clock::time_point::min() &&
+        now - last_audio_restart_time_ < kMinAudioRestartInterval) {
+        int elapsed_ms = static_cast<int>(std::chrono::duration_cast<std::chrono::milliseconds>(now - last_audio_restart_time_).count());
+        ESP_LOGW(TAG, "Restart request (%s) ignored: last restart was %d ms ago",
+                 reason.c_str(),
+                 elapsed_ms);
+        return;
+    }
+    last_audio_restart_time_ = now;
+    ESP_LOGW(TAG, "Restarting audio pipeline due to: %s", reason.c_str());
+    audio_service_.RestartPipeline();
+}
+
 void Application::OnWakeWordDetected() {
     if (!protocol_) {
         return;
@@ -717,7 +813,9 @@ void Application::OnWakeWordDetected() {
 #if CONFIG_SEND_WAKE_WORD_DATA
         // Encode and send the wake word data to the server
         while (auto packet = audio_service_.PopWakeWordPacket()) {
-            protocol_->SendAudio(std::move(packet));
+            if (!audio_service_.PushPacketToSendQueue(std::move(packet))) {
+                break;
+            }
         }
         // Set the chat state to wake word detected
         protocol_->SendWakeWordDetected(wake_word);
@@ -780,6 +878,9 @@ void Application::SetDeviceState(DeviceState state) {
             display->SetEmotion("neutral");
             audio_service_.EnableVoiceProcessing(false);
             audio_service_.EnableWakeWordDetection(true);
+            listening_had_voice_ = false;
+            listening_stop_sent_ = false;
+            listening_voice_end_time_ = std::chrono::steady_clock::time_point::min();
             break;
         case kDeviceStateConnecting:
             display->SetStatus(Lang::Strings::CONNECTING);
@@ -789,6 +890,10 @@ void Application::SetDeviceState(DeviceState state) {
         case kDeviceStateListening:
             display->SetStatus(Lang::Strings::LISTENING);
             display->SetEmotion("neutral");
+            listening_had_voice_ = false;
+            listening_stop_sent_ = false;
+            listening_voice_end_time_ = std::chrono::steady_clock::time_point::min();
+            last_vad_state_.store(false, std::memory_order_relaxed);
 
             // Make sure the audio processor is running
             if (!audio_service_.IsAudioProcessorRunning()) {
@@ -800,6 +905,9 @@ void Application::SetDeviceState(DeviceState state) {
             break;
         case kDeviceStateSpeaking:
             display->SetStatus(Lang::Strings::SPEAKING);
+            listening_had_voice_ = false;
+            listening_stop_sent_ = false;
+            listening_voice_end_time_ = std::chrono::steady_clock::time_point::min();
 
             if (listening_mode_ != kListeningModeRealtime) {
                 audio_service_.EnableVoiceProcessing(false);
