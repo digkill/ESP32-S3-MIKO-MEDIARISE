@@ -91,14 +91,18 @@ private:
     void DrawSparkle(int cx, int cy, int size, uint16_t color);
     void FlushCanvas();
 
+    int physical_width_;
+    int physical_height_;
     int width_;
     int height_;
+    bool rotate_cw_;
     int status_bar_height_;
     float scale_;
     int origin_x_;
     int origin_y_;
 
     lv_obj_t* canvas_ = nullptr;
+    uint16_t* canvas_buf_ = nullptr;  // direct pointer to pixel data (draw_buf->data)
     esp_timer_handle_t animation_timer_ = nullptr;
 
     State state_;

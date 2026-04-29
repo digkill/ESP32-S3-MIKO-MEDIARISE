@@ -1,17 +1,15 @@
 #ifndef SERVO_CONTROLLER_H
 #define SERVO_CONTROLLER_H
 
-#include <driver/uart.h>
+#include <driver/gpio.h>
+#include <driver/ledc.h>
 #include <string>
 #include <mutex>
 #include <utility>
 #include <vector>
 
 /**
- * @brief Класс для управления сервоприводами через UART
- * 
- * Отправляет команды вида "S1:45" (сервопривод 1, угол 45) 
- * на мастер-контроллер через UART
+ * @brief Управление двумя сервоприводами головы через LEDC PWM.
  */
 class ServoController {
 public:
@@ -19,7 +17,7 @@ public:
     ~ServoController();
 
     /**
-     * @brief Инициализирует UART для связи с мастер-контроллером
+     * @brief Инициализирует PWM-каналы сервоприводов
      * @return true если успешно
      */
     bool Init();
@@ -47,19 +45,15 @@ public:
     bool SetPose(const std::string& pose_name);
 
 private:
-    uart_port_t uart_port_;
     bool initialized_;
-    std::mutex uart_mutex_;
+    std::mutex servo_mutex_;
 
-    /**
-     * @brief Отправляет команду через UART
-     * @param command Строка команды (например, "S1:45")
-     * @return true если отправлено успешно
-     */
-    bool SendCommand(const std::string& command);
+    bool ConfigureChannel(int servo_num, gpio_num_t pin, ledc_channel_t channel);
+    bool WriteAngle(ledc_channel_t channel, int angle);
+    bool GetChannelForServo(int servo_num, ledc_channel_t& channel) const;
+    uint32_t AngleToDuty(int angle) const;
 };
 
 #endif // SERVO_CONTROLLER_H
-
 
 

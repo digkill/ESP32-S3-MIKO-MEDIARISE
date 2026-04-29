@@ -3,6 +3,8 @@
 #include <esp_log.h>
 #include <esp_timer.h>
 #include <esp_heap_caps.h>
+#include <esp_cache.h>
+#include <esp_lvgl_port.h>
 #include <wifi_station.h>
 
 #include <algorithm>
@@ -69,8 +71,11 @@ static const CatDisplay::EmotionProfile kSleepProfile = {
 };
 
 CatDisplay::CatDisplay(int width, int height, lv_obj_t* canvas)
-    : width_(width),
-      height_(height),
+    : physical_width_(width),
+      physical_height_(height),
+      width_(height),
+      height_(width),
+      rotate_cw_(height > width),
       status_bar_height_(std::max(24, height / 13)),
       canvas_(canvas),
       state_(State::IDLE),
@@ -107,6 +112,15 @@ bool CatDisplay::Init() {
         return false;
     }
 
+    // Cache draw_buf->data directly — lv_canvas_get_buf returns unaligned_data which
+    // may differ if LVGL aligns the buffer internally.
+    lv_draw_buf_t* draw_buf = lv_canvas_get_draw_buf(canvas_);
+    if (!draw_buf || !draw_buf->data) {
+        ESP_LOGE(TAG, "Canvas draw_buf unavailable");
+        return false;
+    }
+    canvas_buf_ = (uint16_t*)draw_buf->data;
+
     const esp_timer_create_args_t timer_args = {
         .callback = &CatDisplay::AnimationTimerCallback,
         .arg = this,
@@ -118,7 +132,8 @@ bool CatDisplay::Init() {
         esp_timer_start_periodic(animation_timer_, 110 * 1000);
     }
 
-    ESP_LOGI(TAG, "CatDisplay ready (LVGL canvas): %dx%d scale=%.2f", width_, height_, scale_);
+    ESP_LOGI(TAG, "CatDisplay ready (LVGL canvas): physical=%dx%d logical=%dx%d rotate_cw=%d scale=%.2f",
+             physical_width_, physical_height_, width_, height_, rotate_cw_, scale_);
     Redraw();
     return true;
 }
@@ -276,6 +291,15 @@ const CatDisplay::EmotionProfile& CatDisplay::CurrentProfile() const {
 }
 
 void CatDisplay::Redraw() {
+    if (!canvas_buf_ || !canvas_) {
+        return;
+    }
+
+    if (!lvgl_port_lock(250)) {
+        needs_redraw_ = true;
+        return;
+    }
+
     const EmotionProfile& profile = CurrentProfile();
     const float breath = 0.5f + 0.5f * sinf(breath_phase_);
     const int face_bob = (int)lroundf((breath - 0.5f) * 3.0f);
@@ -304,13 +328,24 @@ void CatDisplay::Redraw() {
         DrawSparkle(X(kBaseCx + 58), Y(kBaseCy - 44 + face_bob), S(3), profile.accent);
     }
 
-    FlushCanvas();
+    // Flush core-0's D-cache to PSRAM so the LVGL task on core-1 sees new pixels.
+    esp_cache_msync(canvas_buf_, (size_t)physical_width_ * physical_height_ * sizeof(uint16_t),
+                    ESP_CACHE_MSYNC_FLAG_DIR_C2M | ESP_CACHE_MSYNC_FLAG_UNALIGNED);
+    lv_obj_invalidate(canvas_);
+    lvgl_port_unlock();
 }
 
 void CatDisplay::SetPixel(int x, int y, uint16_t color) {
     if ((unsigned)x < (unsigned)width_ && (unsigned)y < (unsigned)height_) {
-        uint16_t* buf = (uint16_t*)lv_canvas_get_buf(canvas_);
-        buf[y * width_ + x] = color;
+        int px = x;
+        int py = y;
+        if (rotate_cw_) {
+            px = height_ - 1 - y;
+            py = x;
+        }
+        if ((unsigned)px < (unsigned)physical_width_ && (unsigned)py < (unsigned)physical_height_) {
+            canvas_buf_[py * physical_width_ + px] = color;
+        }
     }
 }
 
@@ -372,8 +407,7 @@ void CatDisplay::DrawStroke(int x0, int y0, int x1, int y1, int thickness, uint1
 }
 
 void CatDisplay::DrawBackground() {
-    uint16_t* buf = (uint16_t*)lv_canvas_get_buf(canvas_);
-    std::fill(buf, buf + (size_t)width_ * height_, C_BG);
+    std::fill(canvas_buf_, canvas_buf_ + (size_t)physical_width_ * physical_height_, C_BG);
     uint32_t seed = 0x5EED1234;
     for (int i = 0; i < 60; i++) {
         seed = seed * 1664525u + 1013904223u;
@@ -572,11 +606,20 @@ void CatDisplay::DrawSparkle(int cx, int cy, int size, uint16_t color) {
 
 void CatDisplay::FlushCanvas() {
     if (!canvas_) return;
-    lv_obj_invalidate(canvas_);
+    // Must hold LVGL lock — lv_obj_invalidate is not thread-safe; calling it
+    // from the ESP timer task without the lock silently loses the dirty mark.
+    if (lvgl_port_lock(200)) {
+        lv_obj_invalidate(canvas_);
+        lvgl_port_unlock();
+    }
 }
 
 void CatDisplay::FillScreen(uint16_t color) {
-    uint16_t* buf = (uint16_t*)lv_canvas_get_buf(canvas_);
-    std::fill(buf, buf + (size_t)width_ * height_, color);
-    FlushCanvas();
+    if (!canvas_buf_ || !canvas_) return;
+    if (!lvgl_port_lock(250)) return;
+    std::fill(canvas_buf_, canvas_buf_ + (size_t)physical_width_ * physical_height_, color);
+    esp_cache_msync(canvas_buf_, (size_t)physical_width_ * physical_height_ * sizeof(uint16_t),
+                    ESP_CACHE_MSYNC_FLAG_DIR_C2M | ESP_CACHE_MSYNC_FLAG_UNALIGNED);
+    lv_obj_invalidate(canvas_);
+    lvgl_port_unlock();
 }

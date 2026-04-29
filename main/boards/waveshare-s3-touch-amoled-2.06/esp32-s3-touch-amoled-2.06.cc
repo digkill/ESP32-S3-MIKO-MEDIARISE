@@ -302,14 +302,15 @@ private:
         esp_lcd_panel_mirror(panel, DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y);
         esp_lcd_panel_disp_on_off(panel, true);
 
-        // 3. LVGL display (initialises LVGL, handles flushing to SH8601)
+        // 3. LVGL display in the SH8601 native orientation. This panel driver
+        // does not support hardware swap_xy.
         lvgl_display_ = new CustomLcdDisplay(
             panel_io_, panel,
             DISPLAY_WIDTH, DISPLAY_HEIGHT,
             DISPLAY_OFFSET_X, DISPLAY_OFFSET_Y,
             DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y, DISPLAY_SWAP_XY);
 
-        // 4. Cat animation — LVGL canvas covering the full screen.
+        // 4. Cat animation — LVGL canvas covering the full physical screen.
         lv_obj_t* canvas_obj = nullptr;
         if (lvgl_port_lock(1000)) {
             const size_t buf_bytes = (size_t)DISPLAY_WIDTH * DISPLAY_HEIGHT * sizeof(uint16_t);

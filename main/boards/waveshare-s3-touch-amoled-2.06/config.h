@@ -2,7 +2,7 @@
 #define _BOARD_CONFIG_H_
 
 #include <driver/gpio.h>
-#include <driver/uart.h>
+#include <driver/ledc.h>
 
 #define AUDIO_INPUT_SAMPLE_RATE 24000
 #define AUDIO_OUTPUT_SAMPLE_RATE 24000
@@ -52,10 +52,26 @@
 
 #define IMU_QMI8658_ADDR QMI8658_ADDRESS_HIGH
 
-/* Servo UART */
-#define SERVO_UART_PORT_NUM  UART_NUM_1
-#define SERVO_UART_TX_PIN    GPIO_NUM_17
-#define SERVO_UART_RX_PIN    GPIO_NUM_18
-#define SERVO_UART_BAUD_RATE 115200
+/*
+ * Head servos, direct PWM.
+ * Change these pins manually here if wiring changes.
+ */
+#define SERVO_HEAD_YAW_PIN       GPIO_NUM_19
+#define SERVO_HEAD_PITCH_PIN     GPIO_NUM_20
+#define SERVO_HEAD_YAW_NUM       1
+#define SERVO_HEAD_PITCH_NUM     2
+
+#define SERVO_PWM_FREQ_HZ        50
+#define SERVO_PWM_SPEED_MODE     LEDC_LOW_SPEED_MODE
+#define SERVO_PWM_TIMER          LEDC_TIMER_0
+#define SERVO_PWM_RESOLUTION     LEDC_TIMER_14_BIT
+#define SERVO_PWM_YAW_CHANNEL    LEDC_CHANNEL_0
+#define SERVO_PWM_PITCH_CHANNEL  LEDC_CHANNEL_1
+
+#define SERVO_MIN_ANGLE          0
+#define SERVO_MAX_ANGLE          120
+#define SERVO_HOME_ANGLE         90
+#define SERVO_MIN_PULSE_US       500
+#define SERVO_MAX_PULSE_US       2500
 
 #endif // _BOARD_CONFIG_H_
