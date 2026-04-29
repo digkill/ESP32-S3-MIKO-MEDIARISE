@@ -5,6 +5,9 @@
 #include "system_info.h"
 #include "settings.h"
 #include "assets/lang_config.h"
+#if __has_include("endpoints_config.h")
+#include "endpoints_config.h"
+#endif
 
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
@@ -80,6 +83,13 @@ void WifiBoard::StartNetwork() {
     // If no WiFi SSID is configured, enter WiFi configuration mode
     auto& ssid_manager = SsidManager::GetInstance();
     auto ssid_list = ssid_manager.GetSsidList();
+#if defined(DEFAULT_WIFI_SSID) && defined(DEFAULT_WIFI_PASSWORD)
+    if (ssid_list.empty()) {
+        ESP_LOGI(TAG, "No WiFi credentials in NVS, using default WiFi SSID");
+        ssid_manager.AddSsid(DEFAULT_WIFI_SSID, DEFAULT_WIFI_PASSWORD);
+        ssid_list = ssid_manager.GetSsidList();
+    }
+#endif
     if (ssid_list.empty()) {
         wifi_config_mode_ = true;
         EnterWifiConfigMode();

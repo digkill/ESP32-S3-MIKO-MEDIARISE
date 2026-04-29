@@ -9,6 +9,7 @@
 #endif
 
 #include <esp_log.h>
+#include <esp_task_wdt.h>
 #include <cstring>
 #include <arpa/inet.h>
 #include "assets/lang_config.h"
@@ -250,8 +251,27 @@ bool MqttProtocol::OpenAudioChannel() {
         return false;
     }
 
-    // 等待服务器响应
-    EventBits_t bits = xEventGroupWaitBits(event_group_handle_, MQTT_PROTOCOL_SERVER_HELLO_EVENT, pdTRUE, pdFALSE, pdMS_TO_TICKS(10000));
+    // Wait for server hello.
+    // IMPORTANT: OpenAudioChannel() runs in "main_event_loop" which is registered in Task WDT.
+    // Long blocking waits (10s) can trigger WDT if we don't reset periodically.
+    const TickType_t total_wait = pdMS_TO_TICKS(10000);
+    const TickType_t slice_wait = pdMS_TO_TICKS(250);
+    TickType_t waited = 0;
+    EventBits_t bits = 0;
+    while (waited < total_wait) {
+        esp_task_wdt_reset();
+        bits = xEventGroupWaitBits(
+            event_group_handle_,
+            MQTT_PROTOCOL_SERVER_HELLO_EVENT,
+            pdTRUE,
+            pdFALSE,
+            slice_wait
+        );
+        if (bits & MQTT_PROTOCOL_SERVER_HELLO_EVENT) {
+            break;
+        }
+        waited += slice_wait;
+    }
     if (!(bits & MQTT_PROTOCOL_SERVER_HELLO_EVENT)) {
         ESP_LOGE(TAG, "Failed to receive server hello");
         SetError(Lang::Strings::SERVER_TIMEOUT);

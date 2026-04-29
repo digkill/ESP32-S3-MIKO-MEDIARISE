@@ -77,6 +77,11 @@ public:
      * @brief Обновляет анимацию глаз в режиме IDLE
      */
     void UpdateIdleEyes();
+
+    /**
+     * @brief Рисует тестовое изображение (цветовые полосы) для проверки дисплея
+     */
+    void DrawTestPattern();
     
     /**
      * @brief Обновляет дисплей (отправляет буфер на экран)
@@ -90,4 +95,3 @@ public:
 };
 
 #endif // SIMPLE_DISPLAY_H
-

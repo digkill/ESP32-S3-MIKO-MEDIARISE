@@ -51,25 +51,32 @@ void Protocol::SendAbortSpeaking(AbortReason reason) {
 void Protocol::SendWakeWordDetected(const std::string& wake_word) {
     std::string json = "{\"session_id\":\"" + session_id_ + 
                       "\",\"type\":\"listen\",\"state\":\"detect\",\"text\":\"" + wake_word + "\"}";
+    ESP_LOGI(TAG, "[PROTOCOL] Sending wake word detected: %s", wake_word.c_str());
     SendText(json);
 }
 
 void Protocol::SendStartListening(ListeningMode mode) {
     std::string message = "{\"session_id\":\"" + session_id_ + "\"";
     message += ",\"type\":\"listen\",\"state\":\"start\"";
+    const char* mode_str = "";
     if (mode == kListeningModeRealtime) {
         message += ",\"mode\":\"realtime\"";
+        mode_str = "realtime";
     } else if (mode == kListeningModeAutoStop) {
         message += ",\"mode\":\"auto\"";
+        mode_str = "auto";
     } else {
         message += ",\"mode\":\"manual\"";
+        mode_str = "manual";
     }
     message += "}";
+    ESP_LOGI(TAG, "[PROTOCOL] Sending start listening command, mode: %s", mode_str);
     SendText(message);
 }
 
 void Protocol::SendStopListening() {
     std::string message = "{\"session_id\":\"" + session_id_ + "\",\"type\":\"listen\",\"state\":\"stop\"}";
+    ESP_LOGI(TAG, "[PROTOCOL] Sending stop listening command");
     SendText(message);
 }
 

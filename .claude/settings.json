@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.waveshare.com)",
+      "WebSearch",
+      "WebFetch(domain:files.waveshare.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:community.home-assistant.io)",
+      "Read(//Users/digkill/.espressif/**)",
+      "Read(//Users/digkill/**)",
+      "Read(//root/**)",
+      "Bash(idf.py build *)",
+      "Bash(git -C /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32 log --oneline -10)",
+      "Bash(git -C /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32 diff --name-only)"
+    ]
+  }
+}

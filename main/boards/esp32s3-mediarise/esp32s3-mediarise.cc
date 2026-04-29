@@ -14,7 +14,7 @@
 
 #include <esp_lcd_panel_io.h>
 #include <esp_lcd_panel_ops.h>
-#include <esp_lcd_gc9a01.h>
+#include <esp_lcd_panel_vendor.h>  // Встроенный драйвер ST7789 из ESP-LCD
 #include "system_reset.h"
 #include "driver/gpio.h"
 #include "driver/spi_master.h"
@@ -33,6 +33,7 @@
 #include "mcp_server.h"
 #include <cstring>
 #include <mutex>
+#include <vector>
 
 #define TAG "ESP32S3_MediaRise"
 
@@ -422,6 +423,7 @@ private:
         if (!board || !board->cst816d_) return;
         static bool was_touched = false;
         static int64_t touch_start_time = 0;
+        static bool long_press_handled = false;
         const int64_t TOUCH_THRESHOLD_MS = 500;  // Порог длительности касания, более 500мс считается долгим нажатием
 
         board->cst816d_->UpdateTouchPoint();
@@ -431,6 +433,23 @@ private:
         if (touch_point.num > 0 && !was_touched) {
             was_touched = true;
             touch_start_time = esp_timer_get_time() / 1000; // Преобразовать в миллисекунды
+            long_press_handled = false;
+        }
+        // Обработка долгого нажатия (однократно за касание)
+        else if (touch_point.num > 0 && was_touched && !long_press_handled) {
+            int64_t touch_duration = (esp_timer_get_time() / 1000) - touch_start_time;
+            if (touch_duration >= TOUCH_THRESHOLD_MS) {
+                long_press_handled = true;
+                auto backlight = board->GetBacklight();
+                if (backlight) {
+                    uint8_t current = backlight->brightness();
+                    uint8_t target = (current < 10) ? 100 : 0;
+                    backlight->SetBrightness(target, true);
+                    ESP_LOGI(TAG, "Touch long press: backlight -> %u%%", (unsigned)target);
+                } else {
+                    ESP_LOGW(TAG, "Touch long press: backlight is nullptr");
+                }
+            }
         }
         // Обнаружение отпускания касания
         else if (touch_point.num == 0 && was_touched) {
@@ -438,7 +457,7 @@ private:
             int64_t touch_duration = (esp_timer_get_time() / 1000) - touch_start_time;
 
             // Только короткое касание вызывает действие
-            if (touch_duration < TOUCH_THRESHOLD_MS) {
+            if (!long_press_handled && touch_duration < TOUCH_THRESHOLD_MS) {
                 auto& app = Application::GetInstance();
                 if (app.GetDeviceState() == kDeviceStateStarting &&
                     !WifiStation::GetInstance().IsConnected()) {
@@ -450,64 +469,11 @@ private:
     }
 
     void InitializeCst816DTouchPad() {
-        ESP_LOGI(TAG, "Init Cst816D");
-
-        // Инициализация выводов RST/INT (RST может отсутствовать)
-        if (TP_PIN_NUM_TP_RST != GPIO_NUM_NC) {
-            gpio_config_t io_conf = {};
-            io_conf.intr_type = GPIO_INTR_DISABLE;
-            io_conf.mode = GPIO_MODE_OUTPUT;
-            io_conf.pin_bit_mask = (1ULL << TP_PIN_NUM_TP_RST);
-            io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
-            io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
-            gpio_config(&io_conf);
-        }
-
-        gpio_config_t int_conf = {};
-        int_conf.intr_type = GPIO_INTR_DISABLE;
-        int_conf.mode = GPIO_MODE_INPUT;
-        int_conf.pin_bit_mask = (1ULL << TP_PIN_NUM_TP_INT);
-        int_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
-        int_conf.pull_up_en = GPIO_PULLUP_ENABLE;
-        gpio_config(&int_conf);
-
-        // Последовательность сброса сенсорного чипа (если RST есть)
-        if (TP_PIN_NUM_TP_RST != GPIO_NUM_NC) {
-            gpio_set_level(TP_PIN_NUM_TP_RST, 0);
-            vTaskDelay(pdMS_TO_TICKS(5));
-            gpio_set_level(TP_PIN_NUM_TP_RST, 1);
-            vTaskDelay(pdMS_TO_TICKS(50));
-        }
-
-        // Проверка наличия сенсорного чипа
-        uint8_t chip_id = 0;
-        if (!i2c_bus_) {
-            ESP_LOGW(TAG, "Touch I2C bus not initialized, skip touch");
-            return;
-        }
-        bool touch_available = Cst816d::Probe(i2c_bus_, 0x15, chip_id);
-        if (!touch_available) {
-            ESP_LOGW(TAG, "CST816D not found, running in non-touch mode");
-            // Освободить I2C шину сенсора, чтобы избежать повторных ошибок при отсутствии устройства
-            i2c_del_master_bus(i2c_bus_);
-            i2c_bus_ = nullptr;
-            return;
-        }
-
-        cst816d_ = new Cst816d(i2c_bus_, 0x15);
-
-        // Создать таймер с интервалом 10мс
-        esp_timer_create_args_t timer_args = {
-            .callback = touchpad_timer_callback,
-            .arg = this,
-            .dispatch_method = ESP_TIMER_TASK,
-            .name = "touchpad_timer",
-            .skip_unhandled_events = true,
-        };
-
-        if (esp_timer_create(&timer_args, &touchpad_timer_) == ESP_OK) {
-            esp_timer_start_periodic(touchpad_timer_, 10 * 1000); // 10ms = 10000us
-        }
+        ESP_LOGI(TAG, "Init Cst816D отключен (реализация закомментирована)");
+        return;
+#if 0
+        // Реализация временно отключена по запросу.
+#endif
     }
 
     // Диагностика физического подключения дисплея
@@ -524,49 +490,85 @@ private:
         ESP_LOGI(TAG, "  Backlight: GPIO%d (invert=%s)", DISPLAY_BACKLIGHT_PIN, 
                  DISPLAY_BACKLIGHT_OUTPUT_INVERT ? "true" : "false");
         
-        // Тест пина RESET - мигание для проверки подключения
-        ESP_LOGI(TAG, "Тест пина RESET...");
-        gpio_config_t reset_io_conf = {};
-        reset_io_conf.intr_type = GPIO_INTR_DISABLE;
-        reset_io_conf.mode = GPIO_MODE_OUTPUT;
-        reset_io_conf.pin_bit_mask = (1ULL << DISPLAY_SPI_RESET_PIN);
-        reset_io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
-        reset_io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
-        gpio_config(&reset_io_conf);
-        
-        // Мигание RESET 3 раза
-        for (int i = 0; i < 3; i++) {
-            gpio_set_level(DISPLAY_SPI_RESET_PIN, 0);
-            vTaskDelay(pdMS_TO_TICKS(50));
-            gpio_set_level(DISPLAY_SPI_RESET_PIN, 1);
-            vTaskDelay(pdMS_TO_TICKS(50));
+        // Предупреждение о конфликтах
+        if (DISPLAY_SPI_DC_PIN == BOOT_BUTTON_GPIO) {
+            ESP_LOGW(TAG, "ВНИМАНИЕ: GPIO%d (DC) также используется как BOOT_BUTTON!", DISPLAY_SPI_DC_PIN);
+            ESP_LOGW(TAG, "Убедитесь, что GPIO%d правильно настроен для работы с дисплеем", DISPLAY_SPI_DC_PIN);
         }
-        ESP_LOGI(TAG, "RESET протестирован (3 мигания)");
+        if (DISPLAY_SPI_MOSI_PIN == SERVO_UART_TX_PIN) {
+            ESP_LOGW(TAG, "ВНИМАНИЕ: GPIO%d (MOSI) также используется как SERVO_UART_TX!", DISPLAY_SPI_MOSI_PIN);
+            ESP_LOGW(TAG, "Дисплей инициализируется ПЕРЕД серво, чтобы избежать конфликта");
+        }
+        
+        // Задержка для стабилизации GPIO после загрузки (особенно для GPIO 0)
+        ESP_LOGI(TAG, "Задержка для стабилизации GPIO после загрузки...");
         vTaskDelay(pdMS_TO_TICKS(100));
         
+        // Тест пина RESET - мигание для проверки подключения
+        if (DISPLAY_SPI_RESET_PIN != GPIO_NUM_NC) {
+            ESP_LOGI(TAG, "Тест пина RESET...");
+            gpio_config_t reset_io_conf = {};
+            reset_io_conf.intr_type = GPIO_INTR_DISABLE;
+            reset_io_conf.mode = GPIO_MODE_OUTPUT;
+            reset_io_conf.pin_bit_mask = (1ULL << DISPLAY_SPI_RESET_PIN);
+            reset_io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
+            reset_io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
+            gpio_config(&reset_io_conf);
+
+            // Мигание RESET 3 раза
+            for (int i = 0; i < 3; i++) {
+                gpio_set_level(DISPLAY_SPI_RESET_PIN, 0);
+                vTaskDelay(pdMS_TO_TICKS(50));
+                gpio_set_level(DISPLAY_SPI_RESET_PIN, 1);
+                vTaskDelay(pdMS_TO_TICKS(50));
+            }
+            ESP_LOGI(TAG, "RESET протестирован (3 мигания)");
+            vTaskDelay(pdMS_TO_TICKS(100));
+        } else {
+            ESP_LOGW(TAG, "RESET pin не задан (GPIO_NUM_NC) — пропуск теста RESET");
+        }
+        
         // Тест пина CS - установка в высокий уровень
-        ESP_LOGI(TAG, "Тест пина CS...");
-        gpio_config_t cs_io_conf = {};
-        cs_io_conf.intr_type = GPIO_INTR_DISABLE;
-        cs_io_conf.mode = GPIO_MODE_OUTPUT;
-        cs_io_conf.pin_bit_mask = (1ULL << DISPLAY_SPI_CS_PIN);
-        cs_io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
-        cs_io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
-        gpio_config(&cs_io_conf);
-        gpio_set_level(DISPLAY_SPI_CS_PIN, 1);
-        ESP_LOGI(TAG, "CS установлен в HIGH");
+        if (DISPLAY_SPI_CS_PIN != GPIO_NUM_NC) {
+            ESP_LOGI(TAG, "Тест пина CS...");
+            gpio_config_t cs_io_conf = {};
+            cs_io_conf.intr_type = GPIO_INTR_DISABLE;
+            cs_io_conf.mode = GPIO_MODE_OUTPUT;
+            cs_io_conf.pin_bit_mask = (1ULL << DISPLAY_SPI_CS_PIN);
+            cs_io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
+            cs_io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
+            gpio_config(&cs_io_conf);
+            gpio_set_level(DISPLAY_SPI_CS_PIN, 1);
+            ESP_LOGI(TAG, "CS установлен в HIGH");
+        } else {
+            ESP_LOGW(TAG, "CS pin не задан (GPIO_NUM_NC) — дисплей всегда выбран (CS=GND)");
+        }
         
         // Тест пина DC
-        ESP_LOGI(TAG, "Тест пина DC...");
-        gpio_config_t dc_io_conf = {};
-        dc_io_conf.intr_type = GPIO_INTR_DISABLE;
-        dc_io_conf.mode = GPIO_MODE_OUTPUT;
-        dc_io_conf.pin_bit_mask = (1ULL << DISPLAY_SPI_DC_PIN);
-        dc_io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
-        dc_io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
-        gpio_config(&dc_io_conf);
-        gpio_set_level(DISPLAY_SPI_DC_PIN, 1);
-        ESP_LOGI(TAG, "DC установлен в HIGH");
+        if (DISPLAY_SPI_DC_PIN != GPIO_NUM_NC) {
+            ESP_LOGI(TAG, "Тест пина DC...");
+            gpio_config_t dc_io_conf = {};
+            dc_io_conf.intr_type = GPIO_INTR_DISABLE;
+            dc_io_conf.mode = GPIO_MODE_OUTPUT;
+            dc_io_conf.pin_bit_mask = (1ULL << DISPLAY_SPI_DC_PIN);
+            // Для GPIO 0 на ESP32-S3 может потребоваться отключить pull-up
+            dc_io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
+            dc_io_conf.pull_up_en = GPIO_PULLUP_DISABLE;  // Явно отключаем pull-up для GPIO 0
+            esp_err_t dc_ret = gpio_config(&dc_io_conf);
+            if (dc_ret != ESP_OK) {
+                ESP_LOGE(TAG, "ОШИБКА настройки GPIO%d (DC): %s (0x%x)", DISPLAY_SPI_DC_PIN, esp_err_to_name(dc_ret), dc_ret);
+            } else {
+                gpio_set_level(DISPLAY_SPI_DC_PIN, 1);
+                ESP_LOGI(TAG, "DC установлен в HIGH");
+                // Дополнительная задержка для GPIO 0
+                if (DISPLAY_SPI_DC_PIN == GPIO_NUM_0) {
+                    vTaskDelay(pdMS_TO_TICKS(50));
+                    ESP_LOGI(TAG, "Дополнительная задержка для GPIO 0 (BOOT pin)");
+                }
+            }
+        } else {
+            ESP_LOGE(TAG, "DC pin не задан (GPIO_NUM_NC) — SPI дисплей работать не будет");
+        }
         
         ESP_LOGI(TAG, "=== ДИАГНОСТИКА ПИНОВ ЗАВЕРШЕНА ===");
         vTaskDelay(pdMS_TO_TICKS(200));
@@ -575,15 +577,22 @@ private:
     // Инициализация SPI
     void InitializeSpi() {
         ESP_LOGI(TAG, "=== Инициализация SPI шины ===");
-        ESP_LOGI(TAG, "SPI Host: SPI3_HOST");
+        ESP_LOGI(TAG, "SPI Host: %d", (int)DISPLAY_SPI_HOST);
         ESP_LOGI(TAG, "SCLK Pin: GPIO%d", DISPLAY_SPI_SCLK_PIN);
         ESP_LOGI(TAG, "MOSI Pin: GPIO%d", DISPLAY_SPI_MOSI_PIN);
         ESP_LOGI(TAG, "Размер буфера DMA: %d байт", DISPLAY_WIDTH * DISPLAY_HEIGHT * sizeof(uint16_t));
         
-        spi_bus_config_t buscfg = GC9A01_PANEL_BUS_SPI_CONFIG(DISPLAY_SPI_SCLK_PIN, DISPLAY_SPI_MOSI_PIN,
-                                    DISPLAY_WIDTH * DISPLAY_HEIGHT * sizeof(uint16_t));
+        // SPI bus config для ILI9341/ST7789
+        spi_bus_config_t buscfg = {
+            .mosi_io_num = DISPLAY_SPI_MOSI_PIN,
+            .miso_io_num = -1,
+            .sclk_io_num = DISPLAY_SPI_SCLK_PIN,
+            .quadwp_io_num = -1,
+            .quadhd_io_num = -1,
+            .max_transfer_sz = DISPLAY_WIDTH * DISPLAY_HEIGHT * sizeof(uint16_t),
+        };
         
-        esp_err_t ret = spi_bus_initialize(SPI3_HOST, &buscfg, SPI_DMA_CH_AUTO);
+        esp_err_t ret = spi_bus_initialize(DISPLAY_SPI_HOST, &buscfg, SPI_DMA_CH_AUTO);
         if (ret != ESP_OK) {
             ESP_LOGE(TAG, "ОШИБКА инициализации SPI: %s (0x%x)", esp_err_to_name(ret), ret);
             ESP_LOGE(TAG, "ПРОВЕРЬТЕ: подключение пинов SCLK и MOSI к дисплею");
@@ -593,22 +602,51 @@ private:
         ESP_ERROR_CHECK(ret);
     }
 
-    // Инициализация GC9A01
+    // Инициализация ST7789T3 с родным драйвером
     void InitializeGc9a01Display() {
-        ESP_LOGI(TAG, "=== Инициализация дисплея GC9A01 ===");
-        ESP_LOGI(TAG, "Размер дисплея: %dx%d", DISPLAY_WIDTH, DISPLAY_HEIGHT);
+        ESP_LOGI(TAG, "=== Инициализация дисплея ST7789T3 (родной драйвер) ===");
+        ESP_LOGI(TAG, "Размер дисплея: %dx%d (портретная ориентация)", DISPLAY_WIDTH, DISPLAY_HEIGHT);
         ESP_LOGI(TAG, "Частота SPI: %d Hz", DISPLAY_SPI_SCLK_HZ);
         
         ESP_LOGI(TAG, "Установка Panel IO...");
-        ESP_LOGI(TAG, "  CS Pin: GPIO%d", DISPLAY_SPI_CS_PIN);
+        if (DISPLAY_SPI_CS_PIN != GPIO_NUM_NC) {
+            ESP_LOGI(TAG, "  CS Pin: GPIO%d", DISPLAY_SPI_CS_PIN);
+        } else {
+            ESP_LOGI(TAG, "  CS Pin: NC");
+        }
         ESP_LOGI(TAG, "  DC Pin: GPIO%d", DISPLAY_SPI_DC_PIN);
-        ESP_LOGI(TAG, "  RESET Pin: GPIO%d", DISPLAY_SPI_RESET_PIN);
+        if (DISPLAY_SPI_RESET_PIN != GPIO_NUM_NC) {
+            ESP_LOGI(TAG, "  RESET Pin: GPIO%d", DISPLAY_SPI_RESET_PIN);
+        } else {
+            ESP_LOGI(TAG, "  RESET Pin: NC");
+        }
+        ESP_LOGI(TAG, "  SPI Clock: %d Hz (%.1f MHz)", DISPLAY_SPI_SCLK_HZ, DISPLAY_SPI_SCLK_HZ / 1000000.0);
         
         esp_lcd_panel_io_handle_t io_handle = NULL;
-        esp_lcd_panel_io_spi_config_t io_config = GC9A01_PANEL_IO_SPI_CONFIG(DISPLAY_SPI_CS_PIN, DISPLAY_SPI_DC_PIN, 0, NULL);
+        esp_lcd_panel_io_spi_config_t io_config = {};
+        io_config.cs_gpio_num = (DISPLAY_SPI_CS_PIN == GPIO_NUM_NC) ? -1 : DISPLAY_SPI_CS_PIN;
+        io_config.dc_gpio_num = DISPLAY_SPI_DC_PIN;
+        io_config.spi_mode = DISPLAY_SPI_MODE;
         io_config.pclk_hz = DISPLAY_SPI_SCLK_HZ;
+        io_config.trans_queue_depth = 10;
+        io_config.on_color_trans_done = NULL;
+        io_config.user_ctx = NULL;
+        io_config.lcd_cmd_bits = 8;
+        io_config.lcd_param_bits = 8;
+        io_config.flags.dc_high_on_cmd = DISPLAY_DC_HIGH_ON_CMD;
+        io_config.flags.dc_low_on_data = DISPLAY_DC_LOW_ON_DATA;
+        io_config.flags.dc_low_on_param = DISPLAY_DC_LOW_ON_PARAM;
+        io_config.flags.cs_high_active = DISPLAY_CS_HIGH_ACTIVE;
+        ESP_LOGI(TAG, "  Panel IO config: CS=%d, DC=%d, Clock=%d Hz", 
+                 io_config.cs_gpio_num, io_config.dc_gpio_num, io_config.pclk_hz);
+        ESP_LOGI(TAG, "  Panel IO flags: spi_mode=%d, dc_high_on_cmd=%d, dc_low_on_data=%d, dc_low_on_param=%d, cs_high_active=%d",
+                 io_config.spi_mode,
+                 io_config.flags.dc_high_on_cmd,
+                 io_config.flags.dc_low_on_data,
+                 io_config.flags.dc_low_on_param,
+                 io_config.flags.cs_high_active);
         
-        esp_err_t ret = esp_lcd_new_panel_io_spi(SPI3_HOST, &io_config, &io_handle);
+        esp_err_t ret = esp_lcd_new_panel_io_spi(DISPLAY_SPI_HOST, &io_config, &io_handle);
         if (ret != ESP_OK) {
             ESP_LOGE(TAG, "ОШИБКА создания Panel IO: %s (0x%x)", esp_err_to_name(ret), ret);
         } else {
@@ -616,22 +654,42 @@ private:
         }
         ESP_ERROR_CHECK(ret);
 
-        ESP_LOGI(TAG, "Установка драйвера панели GC9A01...");
+        ESP_LOGI(TAG, "Установка драйвера панели ST7789...");
+        ESP_LOGI(TAG, "ПРИМЕЧАНИЕ: ST7789T3 использует родной драйвер ST7789");
         esp_lcd_panel_handle_t panel_handle = NULL;
         esp_lcd_panel_dev_config_t panel_config = {};
-        panel_config.reset_gpio_num = DISPLAY_SPI_RESET_PIN;
-        panel_config.rgb_endian = LCD_RGB_ENDIAN_BGR;
+        panel_config.reset_gpio_num = (DISPLAY_SPI_RESET_PIN == GPIO_NUM_NC) ? -1 : DISPLAY_SPI_RESET_PIN;
+        panel_config.rgb_ele_order = DISPLAY_RGB_ORDER;
+        panel_config.data_endian = DISPLAY_DATA_ENDIAN;
+        panel_config.flags.reset_active_high = DISPLAY_RESET_ACTIVE_HIGH;
         panel_config.bits_per_pixel = 16;
-        ESP_LOGI(TAG, "  RGB Endian: BGR");
+        ESP_LOGI(TAG, "  RGB Order: %s", panel_config.rgb_ele_order == LCD_RGB_ELEMENT_ORDER_BGR ? "BGR" : "RGB");
+        ESP_LOGI(TAG, "  Data Endian: %s", panel_config.data_endian == LCD_RGB_DATA_ENDIAN_LITTLE ? "LITTLE" : "BIG");
+        ESP_LOGI(TAG, "  Reset Active High: %s", panel_config.flags.reset_active_high ? "true" : "false");
         ESP_LOGI(TAG, "  Bits per pixel: %d", panel_config.bits_per_pixel);
 
-        ret = esp_lcd_new_panel_gc9a01(io_handle, &panel_config, &panel_handle);
+        ESP_LOGI(TAG, "  Конфигурация перед созданием панели:");
+        ESP_LOGI(TAG, "    reset_gpio_num: %d", panel_config.reset_gpio_num);
+        ESP_LOGI(TAG, "    rgb_ele_order: %s", panel_config.rgb_ele_order == LCD_RGB_ELEMENT_ORDER_BGR ? "BGR" : "RGB");
+        ESP_LOGI(TAG, "    data_endian: %s", panel_config.data_endian == LCD_RGB_DATA_ENDIAN_LITTLE ? "LITTLE" : "BIG");
+        ESP_LOGI(TAG, "    reset_active_high: %s", panel_config.flags.reset_active_high ? "true" : "false");
+        ESP_LOGI(TAG, "    bits_per_pixel: %d", panel_config.bits_per_pixel);
+        
+        // ST7789 требует дополнительных параметров для портретной ориентации 240x320
+        // Используем esp_lcd_panel_vendor для встроенного драйвера
+        ret = esp_lcd_new_panel_st7789(io_handle, &panel_config, &panel_handle);
         if (ret != ESP_OK) {
-            ESP_LOGE(TAG, "ОШИБКА создания панели GC9A01: %s (0x%x)", esp_err_to_name(ret), ret);
+            ESP_LOGE(TAG, "ОШИБКА создания панели ST7789: %s (0x%x)", esp_err_to_name(ret), ret);
+            ESP_LOGE(TAG, "Проверьте подключение пинов и питание дисплея");
+            // Не останавливаем выполнение, продолжаем для диагностики
         } else {
-            ESP_LOGI(TAG, "Панель GC9A01 успешно создана");
+            ESP_LOGI(TAG, "Панель ST7789 успешно создана");
+            ESP_LOGI(TAG, "  Проверка: rgb_ele_order в конфиге был: %s", panel_config.rgb_ele_order == LCD_RGB_ELEMENT_ORDER_BGR ? "BGR" : "RGB");
         }
-        ESP_ERROR_CHECK(ret);
+        if (ret != ESP_OK) {
+            ESP_LOGE(TAG, "КРИТИЧЕСКАЯ ОШИБКА: Не удалось создать панель дисплея!");
+            return;  // Выходим из функции, если не удалось создать панель
+        }
         
         panel_ = panel_handle;
         
@@ -666,13 +724,36 @@ private:
         // Задержка после инициализации
         vTaskDelay(pdMS_TO_TICKS(50));
         
-        ESP_LOGI(TAG, "Инверсия цвета: true");
+        // Инверсия цвета - попробуем включить для ST7789
+        ESP_LOGI(TAG, "Инверсия цвета: true (для ST7789)");
         ret = esp_lcd_panel_invert_color(panel_handle, true);
-        ESP_ERROR_CHECK(ret);
+        if (ret != ESP_OK) {
+            ESP_LOGW(TAG, "Предупреждение при установке инверсии цвета: %s", esp_err_to_name(ret));
+        }
         
-        ESP_LOGI(TAG, "Зеркалирование: X=true, Y=false");
-        ret = esp_lcd_panel_mirror(panel_handle, true, false);
-        ESP_ERROR_CHECK(ret);
+        // Зеркалирование - используем значения из конфига
+        ESP_LOGI(TAG, "Зеркалирование: X=%s, Y=%s",
+                 DISPLAY_MIRROR_X ? "true" : "false",
+                 DISPLAY_MIRROR_Y ? "true" : "false");
+        ret = esp_lcd_panel_mirror(panel_handle, DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y);
+        if (ret != ESP_OK) {
+            ESP_LOGW(TAG, "Предупреждение при установке зеркалирования: %s", esp_err_to_name(ret));
+        }
+        
+        // Настройка swap_xy через API драйвера
+        ESP_LOGI(TAG, "Настройка ориентации: swap_xy=%s", DISPLAY_SWAP_XY ? "true" : "false");
+        ret = esp_lcd_panel_swap_xy(panel_handle, DISPLAY_SWAP_XY);
+        if (ret != ESP_OK) {
+            ESP_LOGW(TAG, "Предупреждение при установке swap_xy: %s", esp_err_to_name(ret));
+        }
+
+        if (DISPLAY_OFFSET_X != 0 || DISPLAY_OFFSET_Y != 0) {
+            ESP_LOGI(TAG, "Установка отступов: x=%d, y=%d", DISPLAY_OFFSET_X, DISPLAY_OFFSET_Y);
+            ret = esp_lcd_panel_set_gap(panel_handle, DISPLAY_OFFSET_X, DISPLAY_OFFSET_Y);
+            if (ret != ESP_OK) {
+                ESP_LOGW(TAG, "Предупреждение при установке отступов: %s", esp_err_to_name(ret));
+            }
+        }
         
         ESP_LOGI(TAG, "Включение дисплея...");
         ret = esp_lcd_panel_disp_on_off(panel_handle, true);
@@ -682,47 +763,126 @@ private:
             ESP_LOGI(TAG, "Дисплей включен");
         }
         ESP_ERROR_CHECK(ret);
+        
+        // Задержка после включения дисплея для стабилизации
+        ESP_LOGI(TAG, "Задержка 200мс после включения дисплея...");
+        vTaskDelay(pdMS_TO_TICKS(200));
 
-        ESP_LOGI(TAG, "Отправка дополнительных команд инициализации...");
-        uint8_t data_0x62[] = { 0x18, 0x0D, 0x71, 0xED, 0x70, 0x70, 0x18, 0x0F, 0x71, 0xEF, 0x70, 0x70 };
-        ret = esp_lcd_panel_io_tx_param(io_handle, 0x62, data_0x62, sizeof(data_0x62));
+        // Дополнительные команды MADCTL не отправляем: используем API драйвера
+        
+        // ТЕСТ: Заливка экрана белым цветом для проверки работы дисплея
+        ESP_LOGI(TAG, "=== ТЕСТ ДИСПЛЕЯ: Заливка экрана ===");
+        ESP_LOGI(TAG, "Размер буфера: %d x %d = %d пикселей", DISPLAY_WIDTH, DISPLAY_HEIGHT, DISPLAY_WIDTH * DISPLAY_HEIGHT);
+        ESP_LOGI(TAG, "Размер буфера в байтах: %d", DISPLAY_WIDTH * DISPLAY_HEIGHT * sizeof(uint16_t));
+        
+        std::vector<uint16_t> test_buffer(DISPLAY_WIDTH * DISPLAY_HEIGHT, 0xFFFF);  // Белый цвет
+        ESP_LOGI(TAG, "ТЕСТ 1: Заливка экрана БЕЛЫМ цветом (0xFFFF)...");
+        ret = esp_lcd_panel_draw_bitmap(panel_handle, 0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, test_buffer.data());
         if (ret == ESP_OK) {
-            ESP_LOGI(TAG, "  Команда 0x62 отправлена");
+            ESP_LOGI(TAG, "✓ ТЕСТ 1: Белая заливка отправлена успешно - экран должен быть БЕЛЫМ");
         } else {
-            ESP_LOGW(TAG, "  Предупреждение при отправке 0x62: %s", esp_err_to_name(ret));
+            ESP_LOGE(TAG, "✗ ТЕСТ 1: ОШИБКА отправки белой заливки: %s (0x%x)", esp_err_to_name(ret), ret);
         }
+        vTaskDelay(pdMS_TO_TICKS(1000));  // Увеличена задержка для видимости
+        
+        // ТЕСТ: Заливка экрана красным цветом
+        ESP_LOGI(TAG, "ТЕСТ 2: Заливка экрана КРАСНЫМ цветом (0xF800)...");
+        std::fill(test_buffer.begin(), test_buffer.end(), 0xF800);  // Красный цвет (RGB565)
+        ret = esp_lcd_panel_draw_bitmap(panel_handle, 0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, test_buffer.data());
+        if (ret == ESP_OK) {
+            ESP_LOGI(TAG, "✓ ТЕСТ 2: Красная заливка отправлена успешно - экран должен быть КРАСНЫМ");
+        } else {
+            ESP_LOGE(TAG, "✗ ТЕСТ 2: ОШИБКА отправки красной заливки: %s (0x%x)", esp_err_to_name(ret), ret);
+        }
+        vTaskDelay(pdMS_TO_TICKS(1000));
+        
+        // ТЕСТ: Заливка экрана зеленым цветом
+        ESP_LOGI(TAG, "ТЕСТ 3: Заливка экрана ЗЕЛЕНЫМ цветом (0x07E0)...");
+        std::fill(test_buffer.begin(), test_buffer.end(), 0x07E0);  // Зеленый цвет (RGB565)
+        ret = esp_lcd_panel_draw_bitmap(panel_handle, 0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, test_buffer.data());
+        if (ret == ESP_OK) {
+            ESP_LOGI(TAG, "✓ ТЕСТ 3: Зеленая заливка отправлена успешно - экран должен быть ЗЕЛЕНЫМ");
+        } else {
+            ESP_LOGE(TAG, "✗ ТЕСТ 3: ОШИБКА отправки зеленой заливки: %s (0x%x)", esp_err_to_name(ret), ret);
+        }
+        vTaskDelay(pdMS_TO_TICKS(1000));
+        
+        // ТЕСТ: Заливка экрана синим цветом
+        ESP_LOGI(TAG, "ТЕСТ 4: Заливка экрана СИНИМ цветом (0x001F)...");
+        std::fill(test_buffer.begin(), test_buffer.end(), 0x001F);  // Синий цвет (RGB565)
+        ret = esp_lcd_panel_draw_bitmap(panel_handle, 0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, test_buffer.data());
+        if (ret == ESP_OK) {
+            ESP_LOGI(TAG, "✓ ТЕСТ 4: Синяя заливка отправлена успешно - экран должен быть СИНИМ");
+        } else {
+            ESP_LOGE(TAG, "✗ ТЕСТ 4: ОШИБКА отправки синей заливки: %s (0x%x)", esp_err_to_name(ret), ret);
+        }
+        vTaskDelay(pdMS_TO_TICKS(1000));
+        
+        // ТЕСТ: Заливка экрана черным цветом
+        ESP_LOGI(TAG, "ТЕСТ 5: Заливка экрана ЧЕРНЫМ цветом (0x0000)...");
+        std::fill(test_buffer.begin(), test_buffer.end(), 0x0000);  // Черный цвет
+        ret = esp_lcd_panel_draw_bitmap(panel_handle, 0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, test_buffer.data());
+        if (ret == ESP_OK) {
+            ESP_LOGI(TAG, "✓ ТЕСТ 5: Черная заливка отправлена успешно - экран должен быть ЧЕРНЫМ");
+        } else {
+            ESP_LOGE(TAG, "✗ ТЕСТ 5: ОШИБКА отправки черной заливки: %s (0x%x)", esp_err_to_name(ret), ret);
+        }
+        vTaskDelay(pdMS_TO_TICKS(500));
+        
+        ESP_LOGI(TAG, "=== ТЕСТ ДИСПЛЕЯ ЗАВЕРШЕН ===");
+        ESP_LOGI(TAG, "Если экран не менял цвет во время тестов, проверьте:");
+        ESP_LOGI(TAG, "  1. Подключение пинов SCLK (GPIO%d), MOSI (GPIO%d), CS (GPIO%d), DC (GPIO%d), RST (GPIO%d)", 
+                 DISPLAY_SPI_SCLK_PIN, DISPLAY_SPI_MOSI_PIN, DISPLAY_SPI_CS_PIN, DISPLAY_SPI_DC_PIN, DISPLAY_SPI_RST_PIN);
+        ESP_LOGI(TAG, "  2. Питание дисплея (VCC и GND)");
+        ESP_LOGI(TAG, "  3. Частоту SPI (текущая: %d Hz)", DISPLAY_SPI_CLOCK_HZ);
 
-        uint8_t data_0x63[] = { 0x18, 0x11, 0x71, 0xF1, 0x70, 0x70, 0x18, 0x13, 0x71, 0xF3, 0x70, 0x70 };
-        ret = esp_lcd_panel_io_tx_param(io_handle, 0x63, data_0x63, sizeof(data_0x63));
-        if (ret == ESP_OK) {
-            ESP_LOGI(TAG, "  Команда 0x63 отправлена");
-        } else {
-            ESP_LOGW(TAG, "  Предупреждение при отправке 0x63: %s", esp_err_to_name(ret));
+#if DISPLAY_AUTOTEST_MODES
+        ESP_LOGI(TAG, "=== АВТОТЕСТ MADCTL РЕЖИМОВ ===");
+        struct MadctlMode {
+            const char* name;
+            uint8_t madctl;
+        };
+        const MadctlMode modes[] = {
+            {"NORMAL_RGB", 0x00},
+            {"NORMAL_BGR", 0x08},
+            {"SWAP_XY_RGB", 0x20},
+            {"SWAP_XY_BGR", 0x28},
+            {"MIRROR_XY_RGB", 0xC0},
+            {"MIRROR_XY_BGR", 0xC8},
+        };
+        for (size_t i = 0; i < sizeof(modes) / sizeof(modes[0]); ++i) {
+            ESP_LOGI(TAG, "MADCTL mode: %s (0x%02X)", modes[i].name, modes[i].madctl);
+            ret = esp_lcd_panel_io_tx_param(io_handle, 0x36, &modes[i].madctl, 1);
+            if (ret != ESP_OK) {
+                ESP_LOGW(TAG, "Не удалось установить MADCTL %s: %s", modes[i].name, esp_err_to_name(ret));
+                continue;
+            }
+            std::fill(test_buffer.begin(), test_buffer.end(), 0xFFFF);
+            esp_lcd_panel_draw_bitmap(panel_handle, 0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, test_buffer.data());
+            vTaskDelay(pdMS_TO_TICKS(400));
+            std::fill(test_buffer.begin(), test_buffer.end(), 0xF800);
+            esp_lcd_panel_draw_bitmap(panel_handle, 0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, test_buffer.data());
+            vTaskDelay(pdMS_TO_TICKS(400));
+            std::fill(test_buffer.begin(), test_buffer.end(), 0x07E0);
+            esp_lcd_panel_draw_bitmap(panel_handle, 0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, test_buffer.data());
+            vTaskDelay(pdMS_TO_TICKS(400));
+            std::fill(test_buffer.begin(), test_buffer.end(), 0x001F);
+            esp_lcd_panel_draw_bitmap(panel_handle, 0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, test_buffer.data());
+            vTaskDelay(pdMS_TO_TICKS(400));
         }
+        ESP_LOGI(TAG, "=== АВТОТЕСТ MADCTL ЗАВЕРШЕН ===");
+        ESP_LOGI(TAG, "Восстановление ориентации после автотеста...");
+        ret = esp_lcd_panel_mirror(panel_handle, DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y);
+        if (ret != ESP_OK) {
+            ESP_LOGW(TAG, "Предупреждение при восстановлении зеркалирования: %s", esp_err_to_name(ret));
+        }
+        ret = esp_lcd_panel_swap_xy(panel_handle, DISPLAY_SWAP_XY);
+        if (ret != ESP_OK) {
+            ESP_LOGW(TAG, "Предупреждение при восстановлении swap_xy: %s", esp_err_to_name(ret));
+        }
+#endif
 
-        uint8_t data_0x36[] = { 0x48};
-        ret = esp_lcd_panel_io_tx_param(io_handle, 0x36, data_0x36, sizeof(data_0x36));
-        if (ret == ESP_OK) {
-            ESP_LOGI(TAG, "  Команда 0x36 отправлена");
-        } else {
-            ESP_LOGW(TAG, "  Предупреждение при отправке 0x36: %s", esp_err_to_name(ret));
-        }
-
-        uint8_t data_0xC3[] = { 0x1F};
-        ret = esp_lcd_panel_io_tx_param(io_handle, 0xC3, data_0xC3, sizeof(data_0xC3));
-        if (ret == ESP_OK) {
-            ESP_LOGI(TAG, "  Команда 0xC3 отправлена");
-        } else {
-            ESP_LOGW(TAG, "  Предупреждение при отправке 0xC3: %s", esp_err_to_name(ret));
-        }
-
-        uint8_t data_0xC4[] = { 0x1F};
-        ret = esp_lcd_panel_io_tx_param(io_handle, 0xC4, data_0xC4, sizeof(data_0xC4));
-        if (ret == ESP_OK) {
-            ESP_LOGI(TAG, "  Команда 0xC4 отправлена");
-        } else {
-            ESP_LOGW(TAG, "  Предупреждение при отправке 0xC4: %s", esp_err_to_name(ret));
-        }
+        // Команды 0xC3 и 0xC4 также убраны (специфичны для GC9A01)
 
         ESP_LOGI(TAG, "Создание объекта CustomLcdDisplay...");
         ESP_LOGI(TAG, "  Параметры: width=%d, height=%d, offset_x=%d, offset_y=%d", 
@@ -739,6 +899,11 @@ private:
         if (simple_display_ && simple_display_->Init()) {
             ESP_LOGI(TAG, "SimpleDisplay успешно создан и инициализирован");
             
+            // Показать тестовое изображение (цветовые полосы)
+            ESP_LOGI(TAG, "Рисование тестового изображения...");
+            simple_display_->DrawTestPattern();
+            vTaskDelay(pdMS_TO_TICKS(500)); // Короткая пауза, чтобы увидеть тест
+
             // Рисуем тестовую картинку робота
             ESP_LOGI(TAG, "Рисование тестового робота...");
             simple_display_->DrawRobotBase();
@@ -766,7 +931,7 @@ private:
         simple_display_ = nullptr;
         ESP_LOGI(TAG, "SimpleDisplay отключен (используется LVGL)");
 #endif
-        ESP_LOGI(TAG, "=== Инициализация GC9A01 завершена ===");
+        ESP_LOGI(TAG, "=== Инициализация ST7789T3 (ILI9341) завершена ===");
     }
 
     void InitializeButtons() {
@@ -776,10 +941,17 @@ private:
                 ResetWifiConfiguration();
                 return;
             }
+            if (!app.IsProtocolReady()) {
+                ESP_LOGW(TAG, "Protocol is not ready yet, ignoring start-listening press");
+                return;
+            }
             app.StartListening();
         });
         boot_button_.OnPressUp([this]() {
             auto& app = Application::GetInstance();
+            if (!app.IsProtocolReady()) {
+                return;
+            }
             app.StopListening();
         });
     }
@@ -909,11 +1081,20 @@ public:
 #endif
 
         // Сначала настроить всё, что связано с дисплеем
+        ESP_LOGI(TAG, ">>> НАЧАЛО ИНИЦИАЛИЗАЦИИ ДИСПЛЕЯ <<<");
         // Диагностика физического подключения ПЕРЕД инициализацией
+        ESP_LOGI(TAG, "Вызов DiagnoseDisplayPins()...");
         DiagnoseDisplayPins();
+        ESP_LOGI(TAG, "DiagnoseDisplayPins() завершена");
         
+        ESP_LOGI(TAG, "Вызов InitializeSpi()...");
         InitializeSpi();
+        ESP_LOGI(TAG, "InitializeSpi() завершена");
+        
+        ESP_LOGI(TAG, "Вызов InitializeGc9a01Display()...");
         InitializeGc9a01Display();
+        ESP_LOGI(TAG, "InitializeGc9a01Display() завершена");
+        ESP_LOGI(TAG, ">>> ИНИЦИАЛИЗАЦИЯ ДИСПЛЕЯ ЗАВЕРШЕНА <<<");
         InitializeButtons();
         ESP_LOGI(TAG, "=== Инициализация подсветки ===");
         if (GetBacklight()) {
@@ -1040,6 +1221,7 @@ public:
             AUDIO_I2S_MIC_GPIO_WS,
             AUDIO_I2S_MIC_GPIO_DIN,
             I2S_STD_SLOT_RIGHT);
+        no_audio.SetPaPin(AUDIO_CODEC_PA_PIN, AUDIO_CODEC_PA_INVERT);
         return &no_audio;
 #else
         static NoAudioCodecDuplex no_audio(
@@ -1049,6 +1231,7 @@ public:
             AUDIO_I2S_GPIO_WS,
             AUDIO_I2S_GPIO_DOUT,
             AUDIO_I2S_GPIO_DIN);
+        no_audio.SetPaPin(AUDIO_CODEC_PA_PIN, AUDIO_CODEC_PA_INVERT);
         if (!codec_i2c_present_) {
             return &no_audio;
         }

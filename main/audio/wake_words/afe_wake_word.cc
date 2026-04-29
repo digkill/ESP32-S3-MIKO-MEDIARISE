@@ -3,6 +3,7 @@
 
 #include <esp_log.h>
 #include <sstream>
+#include "sdkconfig.h"
 
 #define DETECTION_RUNNING_EVENT 1
 
@@ -55,13 +56,23 @@ bool AfeWakeWord::Initialize(AudioCodec* codec, srmodel_list_t* models_list) {
         if (strstr(models_->model_name[i], ESP_WN_PREFIX) != NULL) {
             wakenet_model_ = models_->model_name[i];
             auto words = esp_srmodel_get_wake_words(models_, wakenet_model_);
+            ESP_LOGI(TAG, "[WAKE_WORD] Loaded model: %s", wakenet_model_);
+            ESP_LOGI(TAG, "[WAKE_WORD] Available wake words: %s", words);
             // split by ";" to get all wake words
             std::stringstream ss(words);
             std::string word;
             while (std::getline(ss, word, ';')) {
                 wake_words_.push_back(word);
+                ESP_LOGI(TAG, "[WAKE_WORD] Registered wake word: '%s'", word.c_str());
             }
         }
+    }
+    
+    if (wake_words_.empty()) {
+        ESP_LOGW(TAG, "[WAKE_WORD] WARNING: No wake words found in models!");
+    } else {
+        ESP_LOGI(TAG, "[WAKE_WORD] Total wake words registered: %u",
+                 static_cast<unsigned>(wake_words_.size()));
     }
 
     std::string input_format;
@@ -95,10 +106,13 @@ void AfeWakeWord::OnWakeWordDetected(std::function<void(const std::string& wake_
 }
 
 void AfeWakeWord::Start() {
+    ESP_LOGI(TAG, "[WAKE_WORD] Starting wake word detection, model: %s, words: %zu", 
+             wakenet_model_, wake_words_.size());
     xEventGroupSetBits(event_group_, DETECTION_RUNNING_EVENT);
 }
 
 void AfeWakeWord::Stop() {
+    ESP_LOGI(TAG, "[WAKE_WORD] Stopping wake word detection");
     xEventGroupClearBits(event_group_, DETECTION_RUNNING_EVENT);
     if (afe_data_ != nullptr) {
         afe_iface_->reset_buffer(afe_data_);
@@ -136,12 +150,47 @@ void AfeWakeWord::AudioDetectionTask() {
         // Store the wake word data for voice recognition, like who is speaking
         StoreWakeWordData(res->data, res->data_size / sizeof(int16_t));
 
-        if (res->wakeup_state == WAKENET_DETECTED) {
-            Stop();
-            last_detected_wake_word_ = wake_words_[res->wakenet_model_index - 1];
+        // Log wake word detection state periodically (every 100 frames ~ 3 seconds)
+        static int frame_count = 0;
+        frame_count++;
+        if (frame_count % 100 == 0) {
+            ESP_LOGD(TAG, "[WAKE_WORD] Detection active, state: %d, model_index: %d", 
+                     res->wakeup_state, res->wakenet_model_index);
+        }
 
+        if (res->wakeup_state == WAKENET_DETECTED) {
+            if (res->wakenet_model_index > 0 && res->wakenet_model_index <= (int)wake_words_.size()) {
+                std::string detected_word = wake_words_[res->wakenet_model_index - 1];
+                
+                // Use custom display name if configured
+#ifdef CONFIG_AFE_WAKE_WORD_DISPLAY_NAME
+                if (strlen(CONFIG_AFE_WAKE_WORD_DISPLAY_NAME) > 0) {
+                    last_detected_wake_word_ = CONFIG_AFE_WAKE_WORD_DISPLAY_NAME;
+                    ESP_LOGI(TAG, "[WAKE_WORD] *** DETECTED *** Word: '%s' (displayed as: '%s', index: %d)", 
+                             detected_word.c_str(), last_detected_wake_word_.c_str(), res->wakenet_model_index);
+                } else {
+                    last_detected_wake_word_ = detected_word;
+                    ESP_LOGI(TAG, "[WAKE_WORD] *** DETECTED *** Word: '%s' (index: %d)", 
+                             last_detected_wake_word_.c_str(), res->wakenet_model_index);
+                }
+#else
+                last_detected_wake_word_ = detected_word;
+                ESP_LOGI(TAG, "[WAKE_WORD] *** DETECTED *** Word: '%s' (index: %d)", 
+                         last_detected_wake_word_.c_str(), res->wakenet_model_index);
+#endif
+            } else {
+                ESP_LOGW(TAG, "[WAKE_WORD] *** DETECTED *** but invalid index: %d (max: %zu)", 
+                         res->wakenet_model_index, wake_words_.size());
+                last_detected_wake_word_ = "unknown";
+            }
+            
+            Stop();
+            
             if (wake_word_detected_callback_) {
+                ESP_LOGI(TAG, "[WAKE_WORD] Calling wake word detected callback");
                 wake_word_detected_callback_(last_detected_wake_word_);
+            } else {
+                ESP_LOGW(TAG, "[WAKE_WORD] WARNING: No callback registered for wake word detection!");
             }
         }
     }

@@ -494,12 +494,9 @@ bool AudioService::PushPacketToDecodeQueue(std::unique_ptr<AudioStreamPacket> pa
                 audio_decode_queue_.pop_front();
             } else {
                 return false;
+            }
         }
     }
-#if CONFIG_ESP_TASK_WDT
-    esp_task_wdt_delete(NULL);
-#endif
-}
     static uint32_t rx_decode_push_count = 0;
     rx_decode_push_count++;
     if (packet && (rx_decode_push_count <= 5 || (rx_decode_push_count % 200) == 0)) {
@@ -565,23 +562,29 @@ std::unique_ptr<AudioStreamPacket> AudioService::PopWakeWordPacket() {
 
 void AudioService::EnableWakeWordDetection(bool enable) {
     if (!wake_word_) {
+        ESP_LOGW(TAG, "[WAKE_WORD] Cannot %s: wake word handler not initialized", 
+                 enable ? "enable" : "disable");
         return;
     }
 
-    ESP_LOGD(TAG, "%s wake word detection", enable ? "Enabling" : "Disabling");
+    ESP_LOGI(TAG, "[WAKE_WORD] %s wake word detection", enable ? "Enabling" : "Disabling");
     if (enable) {
         if (!wake_word_initialized_) {
+            ESP_LOGI(TAG, "[WAKE_WORD] Initializing wake word handler...");
             if (!wake_word_->Initialize(codec_, models_list_)) {
-                ESP_LOGE(TAG, "Failed to initialize wake word");
+                ESP_LOGE(TAG, "[WAKE_WORD] Failed to initialize wake word");
                 return;
             }
             wake_word_initialized_ = true;
+            ESP_LOGI(TAG, "[WAKE_WORD] Wake word handler initialized successfully");
         }
         wake_word_->Start();
         xEventGroupSetBits(event_group_, AS_EVENT_WAKE_WORD_RUNNING);
+        ESP_LOGI(TAG, "[WAKE_WORD] Wake word detection is now ACTIVE");
     } else {
         wake_word_->Stop();
         xEventGroupClearBits(event_group_, AS_EVENT_WAKE_WORD_RUNNING);
+        ESP_LOGI(TAG, "[WAKE_WORD] Wake word detection is now INACTIVE");
     }
 }
 

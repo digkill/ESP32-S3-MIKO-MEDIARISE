@@ -161,6 +161,7 @@ SpiLcdDisplay::SpiLcdDisplay(esp_lcd_panel_io_handle_t panel_io, esp_lcd_panel_h
     ESP_LOGI(TAG, "Добавление LCD дисплея в LVGL...");
     const uint32_t buffer_size = static_cast<uint32_t>(width_ * 20);
     ESP_LOGI(TAG, "  Размер буфера: %lu байт (%d пикселей x 20 строк)", buffer_size, width_);
+    const bool use_software_rotation = !swap_xy && !mirror_x && !mirror_y;
     ESP_LOGI(TAG, "  Двойной буфер: %s", "false");
     ESP_LOGI(TAG, "  Поворот: swap_xy=%s, mirror_x=%s, mirror_y=%s", 
              swap_xy ? "true" : "false",
@@ -186,7 +187,7 @@ SpiLcdDisplay::SpiLcdDisplay(esp_lcd_panel_io_handle_t panel_io, esp_lcd_panel_h
         .flags = {
             .buff_dma = 1,
             .buff_spiram = 0,
-            .sw_rotate = 0,
+            .sw_rotate = use_software_rotation,
             .swap_bytes = 1,
             .full_refresh = 0,
             .direct_mode = 0,

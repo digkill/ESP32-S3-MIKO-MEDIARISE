@@ -39,6 +39,7 @@ dependencies:
   espressif/esp_lcd_touch_gt911: ^1
   espressif/esp_lcd_touch_gt1151: ^1
   waveshare/esp_lcd_touch_cst9217: ^1.0.3
+  waveshare/qmi8658: ^1.0.0
   espressif/esp_lcd_touch_cst816s: ^1.0.6
   lvgl/lvgl: ~9.3.0
   esp_lvgl_port: ~2.6.0

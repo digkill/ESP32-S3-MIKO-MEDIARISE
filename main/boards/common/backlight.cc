@@ -32,7 +32,7 @@ Backlight::~Backlight() {
 void Backlight::RestoreBrightness() {
     // Load brightness from settings
     Settings settings("display");  
-    int saved_brightness = settings.GetInt("brightness", 75);
+    int saved_brightness = settings.GetInt("brightness", 100);
     
     // 检查亮度值是否为0或过小，设置默认值
     if (saved_brightness <= 0) {
@@ -118,4 +118,3 @@ void PwmBacklight::SetBrightnessImpl(uint8_t brightness) {
     ledc_set_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0, duty_cycle);
     ledc_update_duty(LEDC_LOW_SPEED_MODE, LEDC_CHANNEL_0);
 }
-

@@ -10,6 +10,11 @@
 class NoAudioCodec : public AudioCodec {
 protected:
     std::mutex data_if_mutex_;
+    gpio_num_t pa_pin_ = GPIO_NUM_NC;
+    bool pa_inverted_ = false;
+    bool pa_configured_ = false;
+
+    void UpdatePaState();
 
     enum class RxDecodeMode {
         kUnknown = 0,
@@ -24,6 +29,8 @@ protected:
 
 public:
     virtual ~NoAudioCodec();
+    void SetPaPin(gpio_num_t pin, bool inverted = false);
+    virtual void EnableOutput(bool enable) override;
 };
 
 class NoAudioCodecDuplex : public NoAudioCodec {

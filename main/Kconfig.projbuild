@@ -679,6 +679,14 @@ config CUSTOM_WAKE_WORD_THRESHOLD
     help
         Custom Wake Word Threshold, range 1-99, the smaller the more sensitive, default 20
 
+config AFE_WAKE_WORD_DISPLAY_NAME
+    string "AFE Wake Word Display Name"
+    default ""
+    depends on USE_AFE_WAKE_WORD
+    help
+        Custom display name for wake word when using AFE (e.g., "Hey Miko"). 
+        If empty, uses the actual wake word from the model.
+
 config SEND_WAKE_WORD_DATA
     bool "Send Wake Word Data"
     default y

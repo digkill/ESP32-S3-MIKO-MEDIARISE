@@ -3,6 +3,7 @@
 
 #include <driver/gpio.h>
 #include <driver/spi_master.h>
+#include <esp_lcd_types.h>
 
 /* --------- AUDIO (ES8311) --------- */
 #define AUDIO_INPUT_SAMPLE_RATE  24000
@@ -13,7 +14,7 @@
 // WebSocket protocol v3: send raw Opus frames by default.
 #define DEFAULT_WEBSOCKET_BP3_HEADER 0
 
-#define BOOT_BUTTON_GPIO GPIO_NUM_0
+#define BOOT_BUTTON_GPIO GPIO_NUM_NC
 #define PWR_BUTTON_GPIO  GPIO_NUM_NC
 #define PWR_Control_PIN  GPIO_NUM_NC
 
@@ -22,12 +23,12 @@
 #define AUDIO_I2S_GPIO_BCLK GPIO_NUM_48
 #define AUDIO_I2S_GPIO_WS   GPIO_NUM_38
 #define AUDIO_I2S_GPIO_DOUT GPIO_NUM_47
-#define AUDIO_I2S_GPIO_DIN  GPIO_NUM_39
+#define AUDIO_I2S_GPIO_DIN  GPIO_NUM_NC  // GPIO39 занят под LCD_CS (Waveshare 2" ST7789T3)
 
 // Compatibility aliases used elsewhere
-#define AUDIO_I2S_MIC_GPIO_WS  GPIO_NUM_2
-#define AUDIO_I2S_MIC_GPIO_SCK GPIO_NUM_15
-#define AUDIO_I2S_MIC_GPIO_DIN GPIO_NUM_39
+#define AUDIO_I2S_MIC_GPIO_WS  GPIO_NUM_NC  // GPIO2 занят под LCD_MOSI (Waveshare 2")
+#define AUDIO_I2S_MIC_GPIO_SCK GPIO_NUM_NC  // GPIO15 занят под TP_SDA (Waveshare 2")
+#define AUDIO_I2S_MIC_GPIO_DIN GPIO_NUM_NC
 #define AUDIO_I2S_SPK_GPIO_DOUT GPIO_NUM_47
 #define AUDIO_I2S_SPK_GPIO_BCLK GPIO_NUM_48
 #define AUDIO_I2S_SPK_GPIO_LRCK GPIO_NUM_38
@@ -35,10 +36,11 @@
 #define AUDIO_CODEC_I2C_SDA_PIN GPIO_NUM_11
 #define AUDIO_CODEC_I2C_SCL_PIN GPIO_NUM_10
 #define AUDIO_CODEC_PA_PIN      GPIO_NUM_NC
+#define AUDIO_CODEC_PA_INVERT   false
 #define AUDIO_CODEC_ES8311_ADDR 0x18
 #define AUDIO_CODEC_ES8311_ADDR_ALT 0x19
 
-#define ENABLE_TOUCHPAD 0
+#define ENABLE_TOUCHPAD 1
 
 /* Optional IMU I2C (unused on this board) */
 #define I2C_SCL_IO GPIO_NUM_NC
@@ -46,27 +48,37 @@
 
 #define I2C_ADDRESS ESP_IO_EXPANDER_I2C_TCA9554_ADDRESS_000
 
-/* --------- DISPLAY GC9A01 (SPI) --------- */
+/* --------- DISPLAY ST7789T3 (SPI) - 2 inch, 240×320 --------- */
 #define DISPLAY_SPI_HOST     SPI3_HOST
-#define DISPLAY_SPI_SCLK_PIN GPIO_NUM_4
-#define DISPLAY_SPI_MOSI_PIN GPIO_NUM_2
-#define DISPLAY_SPI_CS_PIN   GPIO_NUM_5
-#define DISPLAY_SPI_DC_PIN   GPIO_NUM_47
-#define DISPLAY_SPI_RST_PIN  GPIO_NUM_38
-#define DISPLAY_SPI_BL_PIN   GPIO_NUM_42
-#define DISPLAY_SPI_CLOCK_HZ (40 * 1000 * 1000)
+// Waveshare 2inch Capacitive Touch LCD (ESP32S3 wiring)
+#define DISPLAY_SPI_SCLK_PIN GPIO_NUM_13
+#define DISPLAY_SPI_MOSI_PIN GPIO_NUM_17
+#define DISPLAY_SPI_CS_PIN   GPIO_NUM_16
+#define DISPLAY_SPI_DC_PIN   GPIO_NUM_14
+#define DISPLAY_SPI_RST_PIN  GPIO_NUM_12
+#define DISPLAY_SPI_BL_PIN   GPIO_NUM_1
+#define DISPLAY_SPI_CLOCK_HZ (10 * 1000 * 1000)  // 10MHz для стабильности на шлейфе
+#define DISPLAY_SPI_MODE 0
+#define DISPLAY_DC_HIGH_ON_CMD 0
+#define DISPLAY_DC_LOW_ON_DATA 0
+#define DISPLAY_DC_LOW_ON_PARAM 0
+#define DISPLAY_CS_HIGH_ACTIVE 0
 
 #define DISPLAY_WIDTH   240
-#define DISPLAY_HEIGHT  240
+#define DISPLAY_HEIGHT  320  // Портретная ориентация
 #define DISPLAY_MIRROR_X false
 #define DISPLAY_MIRROR_Y false
-#define DISPLAY_SWAP_XY  false
+#define DISPLAY_SWAP_XY  true   // Для портретной ориентации 240×320
+#define DISPLAY_RGB_ORDER LCD_RGB_ELEMENT_ORDER_BGR
+#define DISPLAY_DATA_ENDIAN LCD_RGB_DATA_ENDIAN_BIG
+#define DISPLAY_RESET_ACTIVE_HIGH false
+#define DISPLAY_AUTOTEST_MODES 0
 
 #define DISPLAY_SPI_RESET_PIN DISPLAY_SPI_RST_PIN
 #define DISPLAY_SPI_SCLK_HZ   DISPLAY_SPI_CLOCK_HZ
 
 #define QSPI_LCD_H_RES         (240)
-#define QSPI_LCD_V_RES         (240)
+#define QSPI_LCD_V_RES         (320)
 #define QSPI_LCD_BIT_PER_PIXEL (16)
 
 #define QSPI_LCD_HOST          SPI3_HOST
@@ -86,10 +98,10 @@
 
 /* --------- TOUCH CST816D (I2C) --------- */
 #define TP_PORT        (I2C_NUM_1)
-#define TP_PIN_NUM_SDA GPIO_NUM_11
+#define TP_PIN_NUM_SDA GPIO_NUM_15
 #define TP_PIN_NUM_SCL GPIO_NUM_7
-#define TP_PIN_NUM_RST GPIO_NUM_6
-#define TP_PIN_NUM_INT GPIO_NUM_12
+#define TP_PIN_NUM_RST GPIO_NUM_16
+#define TP_PIN_NUM_INT GPIO_NUM_17
 
 #define TP_PIN_NUM_TP_SDA TP_PIN_NUM_SDA
 #define TP_PIN_NUM_TP_SCL TP_PIN_NUM_SCL
@@ -102,13 +114,13 @@
 
 /* Servo UART */
 #define SERVO_UART_PORT_NUM UART_NUM_1
-#define SERVO_UART_TX_PIN   GPIO_NUM_17
+#define SERVO_UART_TX_PIN   GPIO_NUM_5   // GPIO4 занят под LCD_SCLK (Waveshare 2")
 #define SERVO_UART_RX_PIN   GPIO_NUM_18
 #define SERVO_UART_BAUD_RATE 115200
 
 /* Other */
 #define BUILTIN_LED_GPIO     GPIO_NUM_NC
-#define BATTERY_CHARGING_PIN GPIO_NUM_41
+#define BATTERY_CHARGING_PIN GPIO_NUM_NC // GPIO41 занят под LCD_DC (Waveshare 2")
 
 /* QSPI config macro (DATA1/DATA2/DATA3 unused in SPI mode) */
 #define TAIJIPI_SPD2010_PANEL_BUS_QSPI_CONFIG(sclk, d0, d1, d2, d3, max_trans_sz) \

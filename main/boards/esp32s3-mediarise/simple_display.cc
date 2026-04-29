@@ -157,8 +157,38 @@ void SimpleDisplay::UpdateIdleEyes() {
     }
 }
 
+void SimpleDisplay::DrawTestPattern() {
+    ESP_LOGI(TAG, "Рисование тестового изображения (цветовые полосы)");
+    const uint16_t colors[] = {
+        Color565(255, 255, 255), // White
+        Color565(255, 255,   0), // Yellow
+        Color565(  0, 255, 255), // Cyan
+        Color565(  0, 255,   0), // Green
+        Color565(255,   0, 255), // Magenta
+        Color565(255,   0,   0), // Red
+        Color565(  0,   0, 255), // Blue
+        Color565(  0,   0,   0)  // Black
+    };
+
+    const int bar_count = sizeof(colors) / sizeof(colors[0]);
+    const int bar_width = width_ / bar_count;
+
+    for (int i = 0; i < bar_count; ++i) {
+        // заполняем буфер текущим цветом
+        for (int x = 0; x < bar_width; ++x) {
+            buffer_[x] = colors[i];
+        }
+
+        int x_start = i * bar_width;
+        int x_end = (i == bar_count - 1) ? width_ : x_start + bar_width;
+
+        for (int y = 0; y < height_; ++y) {
+            esp_lcd_panel_draw_bitmap(panel_, x_start, y, x_end, y + 1, buffer_);
+        }
+    }
+}
+
 void SimpleDisplay::Update() {
     // Для esp_lcd отрисовка происходит сразу в DrawBitmap
     // Эта функция может использоваться для принудительного обновления если нужно
 }
-

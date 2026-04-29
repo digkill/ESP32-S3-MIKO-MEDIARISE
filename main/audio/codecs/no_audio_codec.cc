@@ -16,6 +16,37 @@ NoAudioCodec::~NoAudioCodec() {
     }
 }
 
+void NoAudioCodec::SetPaPin(gpio_num_t pin, bool inverted) {
+    pa_pin_ = pin;
+    pa_inverted_ = inverted;
+    if (pa_pin_ == GPIO_NUM_NC) {
+        return;
+    }
+    gpio_config_t io_conf = {};
+    io_conf.intr_type = GPIO_INTR_DISABLE;
+    io_conf.mode = GPIO_MODE_OUTPUT;
+    io_conf.pin_bit_mask = (1ULL << pa_pin_);
+    io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
+    io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
+    gpio_config(&io_conf);
+    pa_configured_ = true;
+    UpdatePaState();
+    ESP_LOGI(TAG, "PA pin configured: gpio=%d, inverted=%s", pa_pin_, pa_inverted_ ? "true" : "false");
+}
+
+void NoAudioCodec::UpdatePaState() {
+    if (!pa_configured_ || pa_pin_ == GPIO_NUM_NC) {
+        return;
+    }
+    int level = output_enabled_ ? 1 : 0;
+    gpio_set_level(pa_pin_, pa_inverted_ ? !level : level);
+}
+
+void NoAudioCodec::EnableOutput(bool enable) {
+    AudioCodec::EnableOutput(enable);
+    UpdatePaState();
+}
+
 NoAudioCodecDuplex::NoAudioCodecDuplex(int input_sample_rate, int output_sample_rate, gpio_num_t bclk, gpio_num_t ws, gpio_num_t dout, gpio_num_t din) {
     duplex_ = true;
     input_sample_rate_ = input_sample_rate;
