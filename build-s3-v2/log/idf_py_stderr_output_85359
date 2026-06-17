@@ -1,0 +1,28 @@
+Command: cmake -G Ninja -B /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2 -DPYTHON_DEPS_CHECKED=1 -DPYTHON=/Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python -DESP_PLATFORM=1 -DSDKCONFIG=/tmp/xiaozhi-homebot-sdkconfig.esp32s3-v2 -DSDKCONFIG_DEFAULTS=/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/sdkconfig.defaults;/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/sdkconfig.defaults.esp32s3 -DIDF_TARGET=esp32s3 -DCCACHE_ENABLE=False /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32
+Loading defaults file /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/sdkconfig.defaults...
+info: /var/folders/6z/w0nwvf514mn4r3dt6kgfpjkr0000gn/T/kconfgen_tmpg2ef47b3:32 CONFIG_NEWLIB_NANO_FORMAT was replaced with CONFIG_LIBC_NEWLIB_NANO_FORMAT
+Loading defaults file /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/sdkconfig.defaults.esp32s3...
+Loading defaults file /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/sdkconfig.defaults.esp32s3...
+Configuration Report                                                            
+ ────────────────────────────────────────────────────────────────────────────── 
+   Parser Version: 1                                                            
+   Verbosity: default                                                           
+   Defaults policy: sdkconfig                                                   
+   Status: Finished with notifications                                          
+                                                                                
+  Disabled Symbols/Choices With User-Set Value                                  
+   ──────────────────────────────────────────────────────────────────────────   
+    * LIBC_NEWLIB_NANO_FORMAT (defined at                                       
+    /Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_libc/Kconfig:10…    
+    with user-set value y from                                                  
+    /var/folders/6z/w0nwvf514mn4r3dt6kgfpjkr0000gn/T/kconfgen_tmpg2ef47b3       
+    * LV_USE_CALENDAR_HEADER_ARROW (defined at                                  
+    /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/man…    
+    with user-set value n from                                                  
+    /var/folders/6z/w0nwvf514mn4r3dt6kgfpjkr0000gn/T/kconfgen_tmpg2ef47b3       
+    * LV_USE_CALENDAR_HEADER_DROPDOWN (defined at                               
+    /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/man…    
+    with user-set value n from                                                  
+    /var/folders/6z/w0nwvf514mn4r3dt6kgfpjkr0000gn/T/kconfgen_tmpg2ef47b3       
+   ──────────────────────────────────────────────────────────────────────────   
+ ────────────────────────────────────────────────────────────────────────────── 

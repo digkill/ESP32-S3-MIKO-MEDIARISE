@@ -1,0 +1,189 @@
+--- a/managed_components/78__esp-ml307/src/esp/esp_tcp.cc
++++ b/managed_components/78__esp-ml307/src/esp/esp_tcp.cc
+@@ -1,6 +1,7 @@
+ #include "esp_tcp.h"
+ 
+ #include <esp_log.h>
++#include <esp_task_wdt.h>
+ #include <unistd.h>
+ #include <cstring>
+ #include <arpa/inet.h>
+@@ -24,8 +25,8 @@ EspTcp::~EspTcp() {
+ }
+ 
+ bool EspTcp::Connect(const std::string& host, int port) {
+-    // 确保先断开已有连接
+-    if (connected_) {
++    // Ensure a previous receive task has exited before reusing this object.
++    if (connected_ || tcp_fd_ != -1 || receive_task_handle_ != nullptr) {
+         Disconnect();
+     }
+ 
+@@ -64,6 +65,7 @@ bool EspTcp::Connect(const std::string& host, int port) {
+     xTaskCreate([](void* arg) {
+         EspTcp* tcp = (EspTcp*)arg;
+         tcp->ReceiveTask();
++        tcp->receive_task_handle_ = nullptr;
+         xEventGroupSetBits(tcp->event_group_, ESP_TCP_EVENT_RECEIVE_TASK_EXIT);
+         vTaskDelete(NULL);
+     }, "tcp_receive", 4096, this, 1, &receive_task_handle_);
+@@ -71,8 +73,7 @@ bool EspTcp::Connect(const std::string& host, int port) {
+ }
+ 
+ void EspTcp::Disconnect() {
+-    // 如果已经断开，直接返回
+-    if (!connected_) {
++    if (!connected_ && tcp_fd_ == -1 && receive_task_handle_ == nullptr) {
+         return;
+     }
+ 
+@@ -84,16 +85,28 @@ void EspTcp::DoDisconnect(bool wait_for_task) {
+     connected_ = false;
+ 
+     if (tcp_fd_ != -1) {
++        shutdown(tcp_fd_, SHUT_RDWR);
+         close(tcp_fd_);
+         tcp_fd_ = -1;
++    }
+ 
+-        // 只有主动断开时才需要等待接收任务退出
+-        // 被动断开时，当前就是接收任务，不需要等待
+-        if (wait_for_task) {
+-            auto bits = xEventGroupWaitBits(event_group_, ESP_TCP_EVENT_RECEIVE_TASK_EXIT, pdFALSE, pdFALSE, pdMS_TO_TICKS(10000));
+-            if (!(bits & ESP_TCP_EVENT_RECEIVE_TASK_EXIT)) {
+-                ESP_LOGE(TAG, "Failed to wait for receive task exit");
++    // Only an active disconnect waits. A passive disconnect runs in the receive task.
++    if (wait_for_task && receive_task_handle_ != nullptr) {
++        EventBits_t bits = 0;
++        for (int waited_ms = 0; waited_ms < 2000; waited_ms += 100) {
++            bits = xEventGroupWaitBits(event_group_, ESP_TCP_EVENT_RECEIVE_TASK_EXIT,
++                                       pdFALSE, pdFALSE, pdMS_TO_TICKS(100));
++            if (bits & ESP_TCP_EVENT_RECEIVE_TASK_EXIT) {
++                break;
+             }
++#if CONFIG_ESP_TASK_WDT
++            if (esp_task_wdt_status(nullptr) == ESP_OK) {
++                esp_task_wdt_reset();
++            }
++#endif
++        }
++        if (!(bits & ESP_TCP_EVENT_RECEIVE_TASK_EXIT)) {
++            ESP_LOGE(TAG, "Failed to wait for receive task exit");
+         }
+     }
+ 
+--- a/managed_components/78__esp-ml307/src/web_socket.cc
++++ b/managed_components/78__esp-ml307/src/web_socket.cc
+@@ -1,6 +1,7 @@
+ #include "web_socket.h"
+ #include "network_interface.h"
+ #include <esp_log.h>
++#include <esp_task_wdt.h>
+ #include <cstdlib>
+ #include <cstring>
+ #include <esp_pthread.h>
+@@ -46,7 +47,7 @@ WebSocket::WebSocket(NetworkInterface* network, int connect_id) : network_(netwo
+ }
+ 
+ WebSocket::~WebSocket() {
+-    if (connected_) {
++    if (tcp_) {
+         tcp_->Disconnect();
+     }
+     if (handshake_event_group_) {
+@@ -130,6 +131,24 @@ bool WebSocket::Connect(const char* uri) {
+     }
+ 
+     connected_ = false;
++    handshake_completed_ = false;
++    receive_buffer_.clear();
++    xEventGroupClearBits(handshake_event_group_, HANDSHAKE_SUCCESS_BIT | HANDSHAKE_FAILED_BIT);
++
++    // Install callbacks before Connect starts the receive task. A fast server may
++    // otherwise respond before the stream callback is ready.
++    tcp_->OnStream([this](const std::string& data) {
++        this->OnTcpData(data);
++    });
++    tcp_->OnDisconnected([this]() {
++        if (connected_) {
++            connected_ = false;
++            if (on_disconnected_) {
++                on_disconnected_();
++            }
++        }
++    });
++
+     // 使用 tcp 建立连接
+     if (!tcp_->Connect(host, std::stoi(port))) {
+         ESP_LOGE(TAG, "Failed to connect to server");
+@@ -148,35 +167,29 @@ bool WebSocket::Connect(const char* uri) {
+ 
+     if (tcp_->Send(request) < 0) {
+         ESP_LOGE(TAG, "Failed to send WebSocket handshake request");
++        tcp_->Disconnect();
+         return false;
+     }
+ 
+-    // 清除事件位
+-    xEventGroupClearBits(handshake_event_group_, HANDSHAKE_SUCCESS_BIT | HANDSHAKE_FAILED_BIT);
+-    
+-    // 设置数据接收回调来处理握手和后续的WebSocket帧
+-    tcp_->OnStream([this](const std::string& data) {
+-        this->OnTcpData(data);
+-    });
+-
+-    // 设置断开连接回调
+-    tcp_->OnDisconnected([this]() {
+-        if (connected_) {
+-            connected_ = false;
+-            if (on_disconnected_) {
+-                on_disconnected_();
+-            }
+-        }
+-    });
+-
+-    // 等待握手完成，超时时间10秒
+-    EventBits_t bits = xEventGroupWaitBits(
+-        handshake_event_group_,
+-        HANDSHAKE_SUCCESS_BIT | HANDSHAKE_FAILED_BIT,
+-        pdFALSE,  // 不清除事件位
+-        pdFALSE,  // 等待任意一个事件位
+-        pdMS_TO_TICKS(10000)  // 10秒超时
+-    );
++    // Wait in slices so callers registered with Task WDT remain healthy.
++    EventBits_t bits = 0;
++    for (int waited_ms = 0; waited_ms < 10000; waited_ms += 250) {
++        bits = xEventGroupWaitBits(
++            handshake_event_group_,
++            HANDSHAKE_SUCCESS_BIT | HANDSHAKE_FAILED_BIT,
++            pdFALSE,
++            pdFALSE,
++            pdMS_TO_TICKS(250)
++        );
++        if (bits & (HANDSHAKE_SUCCESS_BIT | HANDSHAKE_FAILED_BIT)) {
++            break;
++        }
++#if CONFIG_ESP_TASK_WDT
++        if (esp_task_wdt_status(nullptr) == ESP_OK) {
++            esp_task_wdt_reset();
++        }
++#endif
++    }
+ 
+     if (bits & HANDSHAKE_SUCCESS_BIT) {
+         connected_ = true;
+@@ -186,12 +198,14 @@ bool WebSocket::Connect(const char* uri) {
+         return true;
+     } else if (bits & HANDSHAKE_FAILED_BIT) {
+         ESP_LOGE(TAG, "WebSocket handshake failed");
++        tcp_->Disconnect();
+         if (on_error_) {
+             on_error_(-1);
+         }
+         return false;
+     } else {
+         ESP_LOGE(TAG, "WebSocket handshake timeout");
++        tcp_->Disconnect();
+         return false;
+     }
+ }

@@ -69,6 +69,9 @@ public:
     virtual bool IsAudioChannelOpened() const = 0;
     virtual bool SendAudio(std::unique_ptr<AudioStreamPacket> packet) = 0;
     virtual void SendWakeWordDetected(const std::string& wake_word);
+    virtual void SendTtsRequest(const std::string& text);
+    virtual void SendChatText(const std::string& text);
+    virtual void SendCharacterEvent(const std::string& event, const std::string& context_json);
     virtual void SendStartListening(ListeningMode mode);
     virtual void SendStopListening();
     virtual void SendAbortSpeaking(AbortReason reason);
@@ -95,4 +98,3 @@ protected:
 };
 
 #endif // PROTOCOL_H
-

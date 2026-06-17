@@ -1,0 +1,19 @@
+Command: ninja all
+[1/10] Performing build step for 'bootloader'
+[1/1] cd /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-homebot-ble/bootloader && /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-homebot-ble/bootloader/bootloader.bin
+Bootloader binary size 0x4360 bytes. 0x3ca0 bytes (47%) free.
+[2/10] No install step for 'bootloader'
+[3/10] Completed 'bootloader'
+[4/10] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/waveshare-c6-touch-amoled-2.06/homebot_ble_service.cc.obj
+[5/10] Linking C static library esp-idf/main/libmain.a
+[6/10] Generating esp-idf/esp_system/ld/sections.ld
+[7/10] Building C object CMakeFiles/xiaozhi.elf.dir/project_elf_src_esp32c6.c.obj
+[8/10] Linking CXX executable xiaozhi.elf
+[9/10] Generating binary image from built executable
+esptool v5.3.dev3
+Creating ESP32-C6 image...
+Merged 4 ELF sections.
+Successfully created ESP32-C6 image.
+Generated /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-homebot-ble/xiaozhi.bin
+[10/10] cd /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-homebot-ble && /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-homebot-ble/partition_table/partition-table.bin /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-homebot-ble/xiaozhi.bin
+xiaozhi.bin binary size 0x2db930 bytes. Smallest app partition is 0x3f0000 bytes. 0x1146d0 bytes (27%) free.

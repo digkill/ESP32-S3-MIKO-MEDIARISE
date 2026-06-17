@@ -49,9 +49,79 @@ void Protocol::SendAbortSpeaking(AbortReason reason) {
 }
 
 void Protocol::SendWakeWordDetected(const std::string& wake_word) {
-    std::string json = "{\"session_id\":\"" + session_id_ + 
-                      "\",\"type\":\"listen\",\"state\":\"detect\",\"text\":\"" + wake_word + "\"}";
+    cJSON* root = cJSON_CreateObject();
+    cJSON_AddStringToObject(root, "session_id", session_id_.c_str());
+    cJSON_AddStringToObject(root, "type", "listen");
+    cJSON_AddStringToObject(root, "state", "detect");
+    cJSON_AddStringToObject(root, "text", wake_word.c_str());
+    char* encoded = cJSON_PrintUnformatted(root);
+    cJSON_Delete(root);
+    if (encoded == nullptr) {
+        ESP_LOGE(TAG, "[PROTOCOL] Failed to encode detected text");
+        return;
+    }
+    std::string json(encoded);
+    cJSON_free(encoded);
     ESP_LOGI(TAG, "[PROTOCOL] Sending wake word detected: %s", wake_word.c_str());
+    SendText(json);
+}
+
+void Protocol::SendTtsRequest(const std::string& text) {
+    cJSON* root = cJSON_CreateObject();
+    cJSON_AddStringToObject(root, "session_id", session_id_.c_str());
+    cJSON_AddStringToObject(root, "type", "tts");
+    cJSON_AddStringToObject(root, "state", "start");
+    cJSON_AddStringToObject(root, "text", text.c_str());
+    char* encoded = cJSON_PrintUnformatted(root);
+    cJSON_Delete(root);
+    if (encoded == nullptr) {
+        ESP_LOGE(TAG, "[PROTOCOL] Failed to encode TTS request");
+        return;
+    }
+    std::string json(encoded);
+    cJSON_free(encoded);
+    ESP_LOGI(TAG, "[PROTOCOL] Sending direct TTS request to server");
+    SendText(json);
+}
+
+void Protocol::SendChatText(const std::string& text) {
+    cJSON* root = cJSON_CreateObject();
+    cJSON_AddStringToObject(root, "session_id", session_id_.c_str());
+    cJSON_AddStringToObject(root, "type", "listen");
+    cJSON_AddStringToObject(root, "state", "start");
+    cJSON_AddStringToObject(root, "mode", "manual");
+    cJSON_AddStringToObject(root, "text", text.c_str());
+    char* encoded = cJSON_PrintUnformatted(root);
+    cJSON_Delete(root);
+    if (encoded == nullptr) {
+        ESP_LOGE(TAG, "[PROTOCOL] Failed to encode chat message");
+        return;
+    }
+    std::string json(encoded);
+    cJSON_free(encoded);
+    ESP_LOGI(TAG, "[PROTOCOL] Sending text dialog request to server");
+    SendText(json);
+}
+
+void Protocol::SendCharacterEvent(const std::string& event, const std::string& context_json) {
+    cJSON* root = cJSON_CreateObject();
+    cJSON_AddStringToObject(root, "session_id", session_id_.c_str());
+    cJSON_AddStringToObject(root, "type", "event");
+    cJSON_AddStringToObject(root, "event", event.c_str());
+    cJSON* context = cJSON_Parse(context_json.c_str());
+    if (context == nullptr) {
+        context = cJSON_CreateObject();
+    }
+    cJSON_AddItemToObject(root, "context", context);
+    char* encoded = cJSON_PrintUnformatted(root);
+    cJSON_Delete(root);
+    if (encoded == nullptr) {
+        ESP_LOGE(TAG, "[PROTOCOL] Failed to encode character event");
+        return;
+    }
+    std::string json(encoded);
+    cJSON_free(encoded);
+    ESP_LOGI(TAG, "[PROTOCOL] Sending character event: %s", event.c_str());
     SendText(json);
 }
 

@@ -6,6 +6,14 @@ config OTA_URL
     help
         The application will access this URL to check for new firmwares and server address.
 
+config SKIP_WIFI_SOFTAP_PROVISIONING
+    bool "Skip Wi-Fi setup SoftAP (no Xiaozhi-* hotspot)"
+    default n
+    help
+        When enabled, the device never starts the captive-portal access point for Wi-Fi
+        configuration. Failed connections are retried in station mode instead.
+        Ensure Wi-Fi credentials exist in NVS or DEFAULT_WIFI_SSID / DEFAULT_WIFI_PASSWORD.
+
 choice
     prompt "Flash Assets"
     default FLASH_DEFAULT_ASSETS
@@ -718,6 +726,14 @@ config USE_SERVER_AEC
     depends on USE_AUDIO_PROCESSOR
     help
         To work perperly, server-side AEC requires server support
+
+config DISABLE_AUTO_LISTEN_AFTER_TTS
+    bool "Return to idle after TTS in auto mode"
+    default n
+    help
+        Prevent the microphone from reopening automatically after an assistant
+        response in auto mode. Enable this for boards without usable AEC to
+        avoid recognizing speaker echo or background noise as new speech.
 
 config USE_AUDIO_DEBUGGER
     bool "Enable Audio Debugger"

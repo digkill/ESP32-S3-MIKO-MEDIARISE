@@ -208,7 +208,7 @@ bool MqttProtocol::SendAudio(std::unique_ptr<AudioStreamPacket> packet) {
 
     size_t nc_off = 0;
     uint8_t stream_block[16] = {0};
-    if (mbedtls_aes_crypt_ctr(&aes_ctx_, packet->payload.size(), &nc_off, (uint8_t*)nonce.c_str(), stream_block,
+    if (esp_aes_crypt_ctr(&aes_ctx_, packet->payload.size(), &nc_off, (uint8_t*)nonce.c_str(), stream_block,
         (uint8_t*)packet->payload.data(), (uint8_t*)&encrypted[nonce.size()]) != 0) {
         ESP_LOGE(TAG, "Failed to encrypt audio data");
         return false;
@@ -315,7 +315,7 @@ bool MqttProtocol::OpenAudioChannel() {
         packet->frame_duration = server_frame_duration_;
         packet->timestamp = timestamp;
         packet->payload.resize(decrypted_size);
-        int ret = mbedtls_aes_crypt_ctr(&aes_ctx_, decrypted_size, &nc_off, nonce, stream_block, encrypted, (uint8_t*)packet->payload.data());
+        int ret = esp_aes_crypt_ctr(&aes_ctx_, decrypted_size, &nc_off, nonce, stream_block, encrypted, (uint8_t*)packet->payload.data());
         if (ret != 0) {
             ESP_LOGE(TAG, "Failed to decrypt audio data, ret: %d", ret);
             return;
@@ -399,8 +399,8 @@ void MqttProtocol::ParseServerHello(const cJSON* root) {
     // auto encryption = cJSON_GetObjectItem(udp, "encryption")->valuestring;
     // ESP_LOGI(TAG, "UDP server: %s, port: %d, encryption: %s", udp_server_.c_str(), udp_port_, encryption);
     aes_nonce_ = DecodeHexString(nonce);
-    mbedtls_aes_init(&aes_ctx_);
-    mbedtls_aes_setkey_enc(&aes_ctx_, (const unsigned char*)DecodeHexString(key).c_str(), 128);
+    esp_aes_init(&aes_ctx_);
+    esp_aes_setkey(&aes_ctx_, (const unsigned char*)DecodeHexString(key).c_str(), 128);
     local_sequence_ = 0;
     remote_sequence_ = 0;
     xEventGroupSetBits(event_group_handle_, MQTT_PROTOCOL_SERVER_HELLO_EVENT);

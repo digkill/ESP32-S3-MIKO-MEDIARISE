@@ -447,7 +447,8 @@ void Application::Start() {
 
     // Check for new firmware version or get the MQTT broker address
     Ota ota;
-    CheckNewVersion(ota);
+    // OTA disabled: server not ready, skip version check
+    // CheckNewVersion(ota);
 
     // Initialize the protocol
     display->SetStatus(Lang::Strings::LOADING_PROTOCOL);
@@ -480,6 +481,17 @@ void Application::Start() {
         protocol_ready_ = false;
         last_error_message_ = message;
         xEventGroupSetBits(event_group_, MAIN_EVENT_ERROR);
+        if (dialog_request_pending_ && dialog_error_callback_) {
+            Schedule([this, message]() {
+                if (!dialog_request_pending_) {
+                    return;
+                }
+                dialog_request_pending_ = false;
+                dialog_spoken_reply_.clear();
+                SetDeviceState(kDeviceStateIdle);
+                dialog_error_callback_(message);
+            });
+        }
     });
     protocol_->OnIncomingAudio([this](std::unique_ptr<AudioStreamPacket> packet) {
         static int audio_packet_count = 0;
@@ -527,8 +539,23 @@ void Application::Start() {
             } else if (strcmp(state->valuestring, "stop") == 0) {
                 ESP_LOGI(TAG, "[RESPONSE] TTS stopped");
                 Schedule([this]() {
+                    if (dialog_request_pending_ && !dialog_spoken_reply_.empty() &&
+                        dialog_reply_callback_) {
+                        dialog_reply_callback_(dialog_spoken_reply_);
+                        dialog_request_pending_ = false;
+                        dialog_spoken_reply_.clear();
+                    }
                     if (device_state_ == kDeviceStateSpeaking) {
-                        if (listening_mode_ == kListeningModeManualStop) {
+                        if (listening_mode_ == kListeningModeManualStop
+#if CONFIG_DISABLE_AUTO_LISTEN_AFTER_TTS
+                            || listening_mode_ == kListeningModeAutoStop
+#endif
+                        ) {
+#if CONFIG_DISABLE_AUTO_LISTEN_AFTER_TTS
+                            if (listening_mode_ == kListeningModeAutoStop) {
+                                ESP_LOGI(TAG, "[LISTENING] Auto resume disabled after TTS to prevent echo loop");
+                            }
+#endif
                             SetDeviceState(kDeviceStateIdle);
                         } else {
                             SetDeviceState(kDeviceStateListening);
@@ -541,6 +568,12 @@ void Application::Start() {
                     ESP_LOGI(TAG, "[RESPONSE] TTS sentence: %s", text->valuestring);
                     Schedule([this, display, message = std::string(text->valuestring)]() {
                         display->SetChatMessage("assistant", message.c_str());
+                        if (dialog_request_pending_) {
+                            if (!dialog_spoken_reply_.empty()) {
+                                dialog_spoken_reply_ += " ";
+                            }
+                            dialog_spoken_reply_ += message;
+                        }
                     });
                 }
             }
@@ -554,10 +587,22 @@ void Application::Start() {
             }
         } else if (strcmp(type->valuestring, "llm") == 0) {
             auto emotion = cJSON_GetObjectItem(root, "emotion");
+            auto text = cJSON_GetObjectItem(root, "text");
             if (cJSON_IsString(emotion)) {
                 ESP_LOGI(TAG, "[RESPONSE] LLM emotion: %s", emotion->valuestring);
                 Schedule([this, display, emotion_str = std::string(emotion->valuestring)]() {
                     display->SetEmotion(emotion_str.c_str());
+                });
+            }
+            if (cJSON_IsString(text)) {
+                ESP_LOGI(TAG, "[RESPONSE] LLM text: %.100s", text->valuestring);
+                Schedule([this, display, message = std::string(text->valuestring)]() {
+                    display->SetChatMessage("assistant", message.c_str());
+                    if (dialog_request_pending_ && dialog_reply_callback_) {
+                        dialog_reply_callback_(message);
+                        dialog_request_pending_ = false;
+                        dialog_spoken_reply_.clear();
+                    }
                 });
             }
         } else if (strcmp(type->valuestring, "mcp") == 0) {
@@ -573,6 +618,16 @@ void Application::Start() {
                     // Do a reboot if user requests a OTA update
                     Schedule([this]() {
                         Reboot();
+                    });
+                } else if (dialog_request_pending_ &&
+                           strncmp(command->valuestring, "error:", 6) == 0) {
+                    Schedule([this, message = std::string(command->valuestring + 6)]() {
+                        dialog_request_pending_ = false;
+                        dialog_spoken_reply_.clear();
+                        SetDeviceState(kDeviceStateIdle);
+                        if (dialog_error_callback_) {
+                            dialog_error_callback_(message);
+                        }
                     });
                 } else {
                     ESP_LOGW(TAG, "Unknown system command: %s", command->valuestring);
@@ -1109,6 +1164,105 @@ void Application::SendMcpMessage(const std::string& payload) {
             protocol_->SendMcpMessage(payload);
         });
     }
+}
+
+void Application::SpeakText(const std::string& text) {
+    if (!protocol_ || text.empty()) {
+        ESP_LOGW(TAG, "Cannot speak text: protocol is not initialized or text is empty");
+        return;
+    }
+
+    if (device_state_ == kDeviceStateSpeaking) {
+        AbortSpeaking(kAbortReasonNone);
+    }
+
+    if (!protocol_->IsAudioChannelOpened()) {
+        SetDeviceState(kDeviceStateConnecting);
+        if (!protocol_->OpenAudioChannel()) {
+            ESP_LOGW(TAG, "Cannot speak text: failed to open audio channel");
+            SetDeviceState(kDeviceStateIdle);
+            return;
+        }
+    }
+
+    // Direct reading is output-only: return to idle after TTS instead of reopening listening.
+    listening_mode_ = kListeningModeManualStop;
+    // The direct TTS server response can deliver audio immediately after tts:start.
+    // Leave the connecting state before sending, so the first packets are decoded.
+    SetDeviceState(kDeviceStateSpeaking);
+    auto display = Board::GetInstance().GetDisplay();
+    display->SetChatMessage("user", text.c_str());
+    ESP_LOGI(TAG, "[BLE_SPEECH] Sending direct TTS request: %.80s", text.c_str());
+    protocol_->SendTtsRequest(text);
+}
+
+void Application::ChatText(const std::string& text, const std::string& language) {
+    if (!protocol_ || text.empty()) {
+        ESP_LOGW(TAG, "Cannot send dialog message: protocol is not initialized or text is empty");
+        if (dialog_error_callback_) {
+            dialog_error_callback_("Voice service is still starting");
+        }
+        return;
+    }
+
+    if (device_state_ == kDeviceStateSpeaking) {
+        AbortSpeaking(kAbortReasonNone);
+    }
+
+    if (!protocol_->IsAudioChannelOpened()) {
+        SetDeviceState(kDeviceStateConnecting);
+        if (!protocol_->OpenAudioChannel()) {
+            ESP_LOGW(TAG, "Cannot send dialog message: failed to open audio channel");
+            SetDeviceState(kDeviceStateIdle);
+            if (dialog_error_callback_) {
+                dialog_error_callback_("Cannot connect to voice service");
+            }
+            return;
+        }
+    }
+
+    listening_mode_ = kListeningModeManualStop;
+    dialog_request_pending_ = true;
+    dialog_spoken_reply_.clear();
+    SetDeviceState(kDeviceStateSpeaking);
+    auto display = Board::GetInstance().GetDisplay();
+    display->SetChatMessage("user", text.c_str());
+
+    std::string prompt = "Reply in " + language +
+        ". Keep the answer concise, at most two short sentences. User message: " + text;
+    ESP_LOGI(TAG, "[BLE_DIALOG] Sending text dialog request: %.80s", text.c_str());
+    protocol_->SendChatText(prompt);
+}
+
+void Application::SendCharacterEvent(const std::string& event, const std::string& context_json) {
+    if (event.empty()) {
+        return;
+    }
+    Schedule([this, event, context_json]() {
+        if (!protocol_) {
+            ESP_LOGW(TAG, "Cannot send character event: protocol is not initialized");
+            return;
+        }
+        if (!protocol_->IsAudioChannelOpened()) {
+            SetDeviceState(kDeviceStateConnecting);
+            if (!protocol_->OpenAudioChannel()) {
+                ESP_LOGW(TAG, "Cannot send character event: failed to open audio channel");
+                SetDeviceState(kDeviceStateIdle);
+                return;
+            }
+            SetDeviceState(kDeviceStateIdle);
+        }
+        ESP_LOGI(TAG, "[CHARACTER_EVENT] %s %s", event.c_str(), context_json.c_str());
+        protocol_->SendCharacterEvent(event, context_json);
+    });
+}
+
+void Application::SetDialogReplyCallback(std::function<void(const std::string&)> callback) {
+    dialog_reply_callback_ = std::move(callback);
+}
+
+void Application::SetDialogErrorCallback(std::function<void(const std::string&)> callback) {
+    dialog_error_callback_ = std::move(callback);
 }
 
 void Application::SetAecMode(AecMode mode) {

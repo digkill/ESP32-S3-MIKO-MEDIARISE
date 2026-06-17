@@ -13,12 +13,12 @@
 #include <freertos/task.h>
 #include <esp_network.h>
 #include <esp_log.h>
+#include <sdkconfig.h>
 
 #include <font_awesome.h>
 #include <wifi_station.h>
 #include <wifi_configuration_ap.h>
 #include <ssid_manager.h>
-#include "afsk_demod.h"
 
 static const char *TAG = "WifiBoard";
 
@@ -76,8 +76,13 @@ void WifiBoard::EnterWifiConfigMode() {
 void WifiBoard::StartNetwork() {
     // User can press BOOT button while starting to enter WiFi configuration mode
     if (wifi_config_mode_) {
+#if CONFIG_SKIP_WIFI_SOFTAP_PROVISIONING
+        ESP_LOGW(TAG, "SoftAP provisioning disabled; skipping configuration portal");
+        wifi_config_mode_ = false;
+#else
         EnterWifiConfigMode();
         return;
+#endif
     }
 
     // If no WiFi SSID is configured, enter WiFi configuration mode
@@ -91,24 +96,31 @@ void WifiBoard::StartNetwork() {
     }
 #endif
     if (ssid_list.empty()) {
+#if CONFIG_SKIP_WIFI_SOFTAP_PROVISIONING
+        ESP_LOGE(TAG, "No Wi-Fi credentials and SoftAP provisioning is disabled; waiting");
+        while (true) {
+            vTaskDelay(pdMS_TO_TICKS(60000));
+        }
+#else
         wifi_config_mode_ = true;
         EnterWifiConfigMode();
         return;
+#endif
     }
 
     auto& wifi_station = WifiStation::GetInstance();
-    wifi_station.OnScanBegin([this]() {
+    wifi_station.OnScanBegin([]() {
         auto display = Board::GetInstance().GetDisplay();
         display->ShowNotification(Lang::Strings::SCANNING_WIFI, 30000);
     });
-    wifi_station.OnConnect([this](const std::string& ssid) {
+    wifi_station.OnConnect([](const std::string& ssid) {
         auto display = Board::GetInstance().GetDisplay();
         std::string notification = Lang::Strings::CONNECT_TO;
         notification += ssid;
         notification += "...";
         display->ShowNotification(notification.c_str(), 30000);
     });
-    wifi_station.OnConnected([this](const std::string& ssid) {
+    wifi_station.OnConnected([](const std::string& ssid) {
         auto display = Board::GetInstance().GetDisplay();
         std::string notification = Lang::Strings::CONNECTED_TO;
         notification += ssid;
@@ -116,6 +128,14 @@ void WifiBoard::StartNetwork() {
     });
     wifi_station.Start();
 
+#if CONFIG_SKIP_WIFI_SOFTAP_PROVISIONING
+    while (!wifi_station.WaitForConnected(60 * 1000)) {
+        ESP_LOGW(TAG, "Wi-Fi not connected, retrying (SoftAP provisioning disabled)");
+        wifi_station.Stop();
+        vTaskDelay(pdMS_TO_TICKS(3000));
+        wifi_station.Start();
+    }
+#else
     // Try to connect to WiFi, if failed, launch the WiFi configuration AP
     if (!wifi_station.WaitForConnected(60 * 1000)) {
         wifi_station.Stop();
@@ -123,6 +143,7 @@ void WifiBoard::StartNetwork() {
         EnterWifiConfigMode();
         return;
     }
+#endif
 }
 
 NetworkInterface* WifiBoard::GetNetwork() {

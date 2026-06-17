@@ -1,0 +1,9 @@
+
+
+# Load bootloader symbols
+set confirm off
+    add-symbol-file /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/bootloader/bootloader.elf
+set confirm on
+
+# Load application symbols
+file /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/xiaozhi.elf

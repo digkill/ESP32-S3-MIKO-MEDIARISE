@@ -578,7 +578,20 @@ file(GLOB BOARD_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/boards/${BOARD_TYPE}/*.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/boards/${BOARD_TYPE}/*.c
 )
+if(CONFIG_BOARD_TYPE_WAVESHARE_C6_TOUCH_AMOLED_2_06)
+    list(APPEND BOARD_SOURCES
+        ${CMAKE_CURRENT_SOURCE_DIR}/boards/waveshare-c6-touch-amoled-2.06/cat_display.cc
+        ${CMAKE_CURRENT_SOURCE_DIR}/boards/waveshare-c6-touch-amoled-2.06/servo_controller.cc
+    )
+    list(REMOVE_DUPLICATES BOARD_SOURCES)
+endif()
 list(APPEND SOURCES ${BOARD_SOURCES})
+
+set(PRIVATE_REQUIRES "")
+if(CONFIG_BOARD_TYPE_WAVESHARE_C6_TOUCH_AMOLED_2_06 OR
+   CONFIG_BOARD_TYPE_WAVESHARE_S3_TOUCH_AMOLED_2_06)
+    list(APPEND PRIVATE_REQUIRES bt esp_wifi)
+endif()
 
 # Select audio processor according to Kconfig
 if(CONFIG_USE_AUDIO_PROCESSOR)
@@ -717,6 +730,7 @@ endif()
 idf_component_register(SRCS ${SOURCES}
                     EMBED_FILES ${LANG_SOUNDS} ${COMMON_SOUNDS}
                     INCLUDE_DIRS ${INCLUDE_DIRS}
+                    PRIV_REQUIRES ${PRIVATE_REQUIRES}
                     WHOLE_ARCHIVE
                     )
 
@@ -733,7 +747,7 @@ target_compile_definitions(${COMPONENT_LIB}
 # Add generation rules
 add_custom_command(
     OUTPUT ${LANG_HEADER}
-    COMMAND python ${PROJECT_DIR}/scripts/gen_lang.py
+    COMMAND ${PYTHON} ${PROJECT_DIR}/scripts/gen_lang.py
             --language "${LANG_DIR}"
             --output "${LANG_HEADER}"
     DEPENDS
@@ -841,7 +855,7 @@ function(build_default_assets_bin)
     # Create custom command to build assets
     add_custom_command(
         OUTPUT ${GENERATED_ASSETS_BIN}
-        COMMAND python ${PROJECT_DIR}/scripts/build_default_assets.py ${BUILD_ARGS}
+        COMMAND ${PYTHON} ${PROJECT_DIR}/scripts/build_default_assets.py ${BUILD_ARGS}
         DEPENDS
             ${SDKCONFIG}
             ${PROJECT_DIR}/scripts/build_default_assets.py

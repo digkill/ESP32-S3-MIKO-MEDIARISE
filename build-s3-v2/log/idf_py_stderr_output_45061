@@ -1,0 +1,279 @@
+Command: /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf_monitor.py -p /dev/cu.usbmodem1101 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/xiaozhi.elf /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/bootloader/bootloader.elf -m '/Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python' '/Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf.py' '-B' 'build-s3-v2' '-p' '/dev/cu.usbmodem1101'
+[0;33m--- esp-idf-monitor 1.9.0 on /dev/cu.usbmodem1101 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0m--- 0x40389a96: [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m64[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m--- 0x4038768a: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x40056f5c: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40056f72: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40387687: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x4037a4b8: [0;33mshared_intr_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/intr_alloc.c[0m[0m:[1;31m472[0m
+[0m--- 0x403815b3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x40389a93: [0;33mxt_utils_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/include/xt_utils.h[0m[0m:[1;31m82[0m
+[0m--- (inlined by) [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m55[0m
+[0m--- 0x421fe72b: [0;33mesp_vApplicationIdleHook[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/freertos_hooks.c[0m[0m:[1;31m58[0m
+[0m--- 0x421ffabf: [0;33mprvIdleTask[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4350[0m
+[0m--- 0x4038ceda: [0;33mesp_restart_noos[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m165[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m--- 0x4038768a: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x40056f5c: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40056f72: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40387687: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x4037a4b8: [0;33mshared_intr_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/intr_alloc.c[0m[0m:[1;31m472[0m
+[0m--- 0x403815b3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x40389a93: [0;33mxt_utils_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/include/xt_utils.h[0m[0m:[1;31m82[0m
+[0m--- (inlined by) [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m55[0m
+[0m--- 0x421fe72b: [0;33mesp_vApplicationIdleHook[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/freertos_hooks.c[0m[0m:[1;31m58[0m
+[0m--- 0x421ffabf: [0;33mprvIdleTask[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4350[0m
+[0m--- 0x4038ceda: [0;33mesp_restart_noos[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m165[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m--- 0x4038768a: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x40056f5c: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40056f72: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40387687: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x4037a4b8: [0;33mshared_intr_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/intr_alloc.c[0m[0m:[1;31m472[0m
+[0m--- 0x403815b3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x40389a93: [0;33mxt_utils_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/include/xt_utils.h[0m[0m:[1;31m82[0m
+[0m--- (inlined by) [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m55[0m
+[0m--- 0x421fe72b: [0;33mesp_vApplicationIdleHook[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/freertos_hooks.c[0m[0m:[1;31m58[0m
+[0m--- 0x421ffabf: [0;33mprvIdleTask[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4350[0m
+[0m--- 0x4038ceda: [0;33mesp_restart_noos[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m165[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m--- 0x4038768a: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x40056f5c: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40056f72: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40387687: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x4037a4b8: [0;33mshared_intr_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/intr_alloc.c[0m[0m:[1;31m472[0m
+[0m--- 0x403815b3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x40389a93: [0;33mxt_utils_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/include/xt_utils.h[0m[0m:[1;31m82[0m
+[0m--- (inlined by) [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m55[0m
+[0m--- 0x421fe72b: [0;33mesp_vApplicationIdleHook[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/freertos_hooks.c[0m[0m:[1;31m58[0m
+[0m--- 0x421ffabf: [0;33mprvIdleTask[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4350[0m
+[0m--- 0x4038ceda: [0;33mesp_restart_noos[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m165[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m--- 0x4038768a: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x40056f5c: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40056f72: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40387687: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x4037a4b8: [0;33mshared_intr_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/intr_alloc.c[0m[0m:[1;31m472[0m
+[0m--- 0x403815b3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x40389a93: [0;33mxt_utils_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/include/xt_utils.h[0m[0m:[1;31m82[0m
+[0m--- (inlined by) [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m55[0m
+[0m--- 0x421fe72b: [0;33mesp_vApplicationIdleHook[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/freertos_hooks.c[0m[0m:[1;31m58[0m
+[0m--- 0x421ffabf: [0;33mprvIdleTask[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4350[0m
+[0m--- 0x4038ceda: [0;33mesp_restart_noos[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m165[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m--- 0x4038768a: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x40056f5c: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40056f72: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40387687: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x4037a4b8: [0;33mshared_intr_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/intr_alloc.c[0m[0m:[1;31m472[0m
+[0m--- 0x403815b3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x40389a93: [0;33mxt_utils_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/include/xt_utils.h[0m[0m:[1;31m82[0m
+[0m--- (inlined by) [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m55[0m
+[0m--- 0x421fe72b: [0;33mesp_vApplicationIdleHook[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/freertos_hooks.c[0m[0m:[1;31m58[0m
+[0m--- 0x421ffabf: [0;33mprvIdleTask[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4350[0m
+[0m--- 0x4038ceda: [0;33mesp_restart_noos[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m165[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m--- 0x4038768a: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x40056f5c: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40056f72: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40387687: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x4037a4b8: [0;33mshared_intr_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/intr_alloc.c[0m[0m:[1;31m472[0m
+[0m--- 0x403815b3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x40389a93: [0;33mxt_utils_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/include/xt_utils.h[0m[0m:[1;31m82[0m
+[0m--- (inlined by) [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m55[0m
+[0m--- 0x421fe72b: [0;33mesp_vApplicationIdleHook[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/freertos_hooks.c[0m[0m:[1;31m58[0m
+[0m--- 0x421ffabf: [0;33mprvIdleTask[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4350[0m
+[0m--- 0x4038ceda: [0;33mesp_restart_noos[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m165[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m--- 0x4038768a: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x40056f5c: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40056f72: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40387687: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x4037a4b8: [0;33mshared_intr_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/intr_alloc.c[0m[0m:[1;31m472[0m
+[0m--- 0x403815b3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x40389a93: [0;33mxt_utils_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/include/xt_utils.h[0m[0m:[1;31m82[0m
+[0m--- (inlined by) [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m55[0m
+[0m--- 0x421fe72b: [0;33mesp_vApplicationIdleHook[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/freertos_hooks.c[0m[0m:[1;31m58[0m
+[0m--- 0x421ffabf: [0;33mprvIdleTask[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4350[0m
+[0m--- 0x4038ceda: [0;33mesp_restart_noos[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m165[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m--- 0x4038768a: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x40056f5c: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40056f72: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40387687: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x4037a4b8: [0;33mshared_intr_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/intr_alloc.c[0m[0m:[1;31m472[0m
+[0m--- 0x403815b3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x40389a93: [0;33mxt_utils_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/include/xt_utils.h[0m[0m:[1;31m82[0m
+[0m--- (inlined by) [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m55[0m
+[0m--- 0x421fe72b: [0;33mesp_vApplicationIdleHook[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/freertos_hooks.c[0m[0m:[1;31m58[0m
+[0m--- 0x421ffabf: [0;33mprvIdleTask[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4350[0m
+[0m--- 0x4038ceda: [0;33mesp_restart_noos[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m165[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m--- 0x4038768a: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x40056f5c: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40056f72: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40387687: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x4037a4b8: [0;33mshared_intr_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/intr_alloc.c[0m[0m:[1;31m472[0m
+[0m--- 0x403815b3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x40389a93: [0;33mxt_utils_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/include/xt_utils.h[0m[0m:[1;31m82[0m
+[0m--- (inlined by) [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m55[0m
+[0m--- 0x421fe72b: [0;33mesp_vApplicationIdleHook[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/freertos_hooks.c[0m[0m:[1;31m58[0m
+[0m--- 0x421ffabf: [0;33mprvIdleTask[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4350[0m
+[0m--- 0x4038ceda: [0;33mesp_restart_noos[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m165[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m--- 0x4038768a: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x40056f5c: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40056f72: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40387687: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x4037a4b8: [0;33mshared_intr_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/intr_alloc.c[0m[0m:[1;31m472[0m
+[0m--- 0x403815b3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x40389a93: [0;33mxt_utils_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/include/xt_utils.h[0m[0m:[1;31m82[0m
+[0m--- (inlined by) [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m55[0m
+[0m--- 0x421fe72b: [0;33mesp_vApplicationIdleHook[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/freertos_hooks.c[0m[0m:[1;31m58[0m
+[0m--- 0x421ffabf: [0;33mprvIdleTask[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4350[0m
+[0m--- 0x4038ceda: [0;33mesp_restart_noos[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m165[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m--- 0x4038768a: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x40056f5c: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40056f72: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40387687: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x4037a4b8: [0;33mshared_intr_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/intr_alloc.c[0m[0m:[1;31m472[0m
+[0m--- 0x403815b3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x40389a93: [0;33mxt_utils_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/include/xt_utils.h[0m[0m:[1;31m82[0m
+[0m--- (inlined by) [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m55[0m
+[0m--- 0x421fe72b: [0;33mesp_vApplicationIdleHook[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/freertos_hooks.c[0m[0m:[1;31m58[0m
+[0m--- 0x421ffabf: [0;33mprvIdleTask[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4350[0m
+[0m--- 0x4038ceda: [0;33mesp_restart_noos[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m165[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m--- 0x4038768a: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x40056f5c: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40056f72: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40387687: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x4037a4b8: [0;33mshared_intr_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/intr_alloc.c[0m[0m:[1;31m472[0m
+[0m--- 0x403815b3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x40389a93: [0;33mxt_utils_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/include/xt_utils.h[0m[0m:[1;31m82[0m
+[0m--- (inlined by) [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m55[0m
+[0m--- 0x421fe72b: [0;33mesp_vApplicationIdleHook[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/freertos_hooks.c[0m[0m:[1;31m58[0m
+[0m--- 0x421ffabf: [0;33mprvIdleTask[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4350[0m
+[0m--- 0x4038ceda: [0;33mesp_restart_noos[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m165[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m--- 0x4038768a: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x40056f5c: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40056f72: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40387687: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x4037a4b8: [0;33mshared_intr_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/intr_alloc.c[0m[0m:[1;31m472[0m
+[0m--- 0x403815b3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x40389a93: [0;33mxt_utils_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/include/xt_utils.h[0m[0m:[1;31m82[0m
+[0m--- (inlined by) [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m55[0m
+[0m--- 0x421fe72b: [0;33mesp_vApplicationIdleHook[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/freertos_hooks.c[0m[0m:[1;31m58[0m
+[0m--- 0x421ffabf: [0;33mprvIdleTask[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4350[0m
+[0m--- 0x4038ceda: [0;33mesp_restart_noos[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m165[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m--- 0x4038768a: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x40056f5c: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40056f72: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40387687: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x4037a4b8: [0;33mshared_intr_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/intr_alloc.c[0m[0m:[1;31m472[0m
+[0m--- 0x403815b3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x40389a93: [0;33mxt_utils_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/include/xt_utils.h[0m[0m:[1;31m82[0m
+[0m--- (inlined by) [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m55[0m
+[0m--- 0x421fe72b: [0;33mesp_vApplicationIdleHook[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/freertos_hooks.c[0m[0m:[1;31m58[0m
+[0m--- 0x421ffabf: [0;33mprvIdleTask[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4350[0m
+[0m--- 0x4038ceda: [0;33mesp_restart_noos[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m165[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m--- 0x4038768a: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x40056f5c: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40056f72: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x40387687: [0;33mi2c_ll_read_rxfifo[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hal_i2c/esp32s3/include/hal/i2c_ll.h[0m[0m:[1;31m712[0m
+[0m--- (inlined by) [0;33mi2c_isr_receive_handler[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m769[0m
+[0m--- (inlined by) [0;33mi2c_master_isr_handler_default[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m809[0m
+[0m--- 0x4037a4b8: [0;33mshared_intr_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/intr_alloc.c[0m[0m:[1;31m472[0m
+[0m--- 0x403815b3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x40389a93: [0;33mxt_utils_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/include/xt_utils.h[0m[0m:[1;31m82[0m
+[0m--- (inlined by) [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m55[0m
+[0m--- 0x421fe72b: [0;33mesp_vApplicationIdleHook[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/freertos_hooks.c[0m[0m:[1;31m58[0m
+[0m--- 0x421ffabf: [0;33mprvIdleTask[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m4350[0m
+[0m--- 0x4038ceda: [0;33mesp_restart_noos[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m165[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m

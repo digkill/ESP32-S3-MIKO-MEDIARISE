@@ -1,0 +1,56 @@
+Command: /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf_monitor.py -p /dev/cu.usbmodem1101 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/xiaozhi.elf /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/bootloader/bootloader.elf -m '/Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python' '/Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf.py' '-B' 'xiaozhi-esp32/build-s3-v2' '-p' '/dev/cu.usbmodem1101'
+[0;33m--- esp-idf-monitor 1.9.0 on /dev/cu.usbmodem1101 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[1;31m--- Error: read failed: [Errno 6] Device not configured[0m
+[0;33m--- Waiting for the device to reconnect[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m[0m
+[0m--- 0x42090759: [0;33maudio_codec_new_i2s_data[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x400570e8: [0;33mmemset[0m[0m in [0;32mROM[0m
+[0m--- 0x400570f3: [0;33mmemset[0m[0m in [0;32mROM[0m
+[0m--- 0x42090756: [0;33maudio_codec_new_i2s_data[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x420909e7: [0;33mes8311_set_fs[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x42090b4f: [0;33mes8311_open[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x4208fddf: [0;33m_i2s_data_write[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x420121af: [0;33mBoxAudioCodec::EnableInput(bool)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/codecs/box_audio_codec.cc[0m[0m:[1;31m204[0m
+[0m--- 0x420115e7: [0;33mAudioCodec::input_channels() const[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/audio_codec.h[0m[0m:[1;31m35[0m
+[0m--- (inlined by) [0;33mAudioService::ReadAudioData(std::vector<short, std::allocator<short> >&, int, int)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/audio_service.cc[0m[0m:[1;31m144[0m
+[0m--- 0x42011960: [0;33mAudioService::AudioInputTask()[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/audio_service.cc[0m[0m:[1;31m275[0m
+[0m--- 0x42011a32: [0;33mstd::vector<unsigned char, std::allocator<unsigned char> >::_M_default_append(unsigned int)[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/vector.tcc[0m[0m:[1;31m757[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 4446b002f9e7fd38e14b69c39505b686a5497c21b6b45e41395982d0f78a04b9[0m
+[0m--- 0x4038cefa: [0;33mesp_system_reset_modules_on_exit[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m36[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 4446b002f9e7fd38e14b69c39505b686a5497c21b6b45e41395982d0f78a04b9[0m
+[0m--- 0x42090759: [0;33maudio_codec_new_i2s_data[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x400570e8: [0;33mmemset[0m[0m in [0;32mROM[0m
+[0m--- 0x400570f3: [0;33mmemset[0m[0m in [0;32mROM[0m
+[0m--- 0x42090756: [0;33maudio_codec_new_i2s_data[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x420909e7: [0;33mes8311_set_fs[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x42090b4f: [0;33mes8311_open[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x4208fddf: [0;33m_i2s_data_write[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x420121af: [0;33mBoxAudioCodec::EnableInput(bool)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/codecs/box_audio_codec.cc[0m[0m:[1;31m204[0m
+[0m--- 0x420115e7: [0;33mAudioCodec::input_channels() const[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/audio_codec.h[0m[0m:[1;31m35[0m
+[0m--- (inlined by) [0;33mAudioService::ReadAudioData(std::vector<short, std::allocator<short> >&, int, int)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/audio_service.cc[0m[0m:[1;31m144[0m
+[0m--- 0x42011960: [0;33mAudioService::AudioInputTask()[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/audio_service.cc[0m[0m:[1;31m275[0m
+[0m--- 0x42011a32: [0;33mstd::vector<unsigned char, std::allocator<unsigned char> >::_M_default_append(unsigned int)[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/vector.tcc[0m[0m:[1;31m757[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 4446b002f9e7fd38e14b69c39505b686a5497c21b6b45e41395982d0f78a04b9[0m
+[0m--- 0x4038cefa: [0;33mesp_system_reset_modules_on_exit[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m36[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 4446b002f9e7fd38e14b69c39505b686a5497c21b6b45e41395982d0f78a04b9[0m
+[0m--- 0x42090759: [0;33maudio_codec_new_i2s_data[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x400570e8: [0;33mmemset[0m[0m in [0;32mROM[0m
+[0m--- 0x400570f3: [0;33mmemset[0m[0m in [0;32mROM[0m
+[0m--- 0x42090756: [0;33maudio_codec_new_i2s_data[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x420909e7: [0;33mes8311_set_fs[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x42090b4f: [0;33mes8311_open[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x4208fddf: [0;33m_i2s_data_write[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x420121af: [0;33mBoxAudioCodec::EnableInput(bool)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/codecs/box_audio_codec.cc[0m[0m:[1;31m204[0m
+[0m--- 0x420115e7: [0;33mAudioCodec::input_channels() const[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/audio_codec.h[0m[0m:[1;31m35[0m
+[0m--- (inlined by) [0;33mAudioService::ReadAudioData(std::vector<short, std::allocator<short> >&, int, int)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/audio_service.cc[0m[0m:[1;31m144[0m
+[0m--- 0x42011960: [0;33mAudioService::AudioInputTask()[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/audio_service.cc[0m[0m:[1;31m275[0m
+[0m--- 0x42011a32: [0;33mstd::vector<unsigned char, std::allocator<unsigned char> >::_M_default_append(unsigned int)[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/vector.tcc[0m[0m:[1;31m757[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 4446b002f9e7fd38e14b69c39505b686a5497c21b6b45e41395982d0f78a04b9[0m
+[0m--- 0x4038cefa: [0;33mesp_system_reset_modules_on_exit[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m36[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 4446b002f9e7fd38e14b69c39505b686a5497c21b6b45e41395982d0f78a04b9[0m

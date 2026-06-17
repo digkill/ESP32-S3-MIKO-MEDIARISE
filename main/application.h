@@ -63,6 +63,11 @@ public:
     bool UpgradeFirmware(Ota& ota, const std::string& url = "");
     bool CanEnterSleepMode();
     void SendMcpMessage(const std::string& payload);
+    void SpeakText(const std::string& text);
+    void ChatText(const std::string& text, const std::string& language);
+    void SendCharacterEvent(const std::string& event, const std::string& context_json);
+    void SetDialogReplyCallback(std::function<void(const std::string&)> callback);
+    void SetDialogErrorCallback(std::function<void(const std::string&)> callback);
     void SetAecMode(AecMode mode);
     AecMode GetAecMode() const { return aec_mode_; }
     void PlaySound(const std::string_view& sound);
@@ -93,6 +98,10 @@ private:
     std::chrono::steady_clock::time_point last_audio_restart_time_{std::chrono::steady_clock::time_point::min()};
     std::atomic<bool> last_vad_state_{false};
     bool protocol_ready_ = false;
+    bool dialog_request_pending_ = false;
+    std::string dialog_spoken_reply_;
+    std::function<void(const std::string&)> dialog_reply_callback_;
+    std::function<void(const std::string&)> dialog_error_callback_;
 
     void OnWakeWordDetected();
     void CheckNewVersion(Ota& ota);

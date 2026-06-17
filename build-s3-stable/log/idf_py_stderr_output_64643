@@ -1,0 +1,11 @@
+Command: ninja flash
+
+A fatal error occurred: Failed to connect to ESP32-S3: No serial data received.
+For troubleshooting steps visit: https://docs.espressif.com/projects/esptool/en/latest/troubleshooting.html
+CMake Error at /Users/digkill/.espressif/v6.0.1/esp-idf/components/esptool_py/run_serial_tool.cmake:67 (message):
+  
+  /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python;-m;esptool;--chip;esp32s3
+  failed.
+
+
+

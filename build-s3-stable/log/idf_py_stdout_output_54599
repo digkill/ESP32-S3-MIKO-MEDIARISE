@@ -1,0 +1,48 @@
+Command: ninja all
+[1/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/protocols/protocol.cc.obj
+[2/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/led/single_led.cc.obj
+[3/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/main.cc.obj
+[4/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/led/gpio_led.cc.obj
+[5/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/display/display.cc.obj
+[6/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/led/circular_strip.cc.obj
+[7/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/common/dual_network_board.cc.obj
+[8/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/protocols/websocket_protocol.cc.obj
+[9/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/display/lvgl_display/lvgl_display.cc.obj
+[10/31] Performing build step for 'bootloader'
+[1/1] cd /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-stable/bootloader && /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-stable/bootloader/bootloader.bin
+Bootloader binary size 0x4120 bytes. 0x3ee0 bytes (49%) free.
+[11/31] No install step for 'bootloader'
+[12/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/protocols/mqtt_protocol.cc.obj
+[13/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/common/ml307_board.cc.obj
+[14/31] Completed 'bootloader'
+[15/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/assets.cc.obj
+[16/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/audio/audio_service.cc.obj
+[17/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/common/afsk_demod.cc.obj
+[18/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/common/power_save_timer.cc.obj
+[19/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/application.cc.obj
+[20/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/mcp_server.cc.obj
+[21/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/common/sleep_timer.cc.obj
+/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/boards/common/sleep_timer.cc: In lambda function:
+/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/boards/common/sleep_timer.cc:102:68: warning: 'esp_sleep_wakeup_cause_t esp_sleep_get_wakeup_cause()' is deprecated: use esp_sleep_get_wakeup_causes instead [-Wdeprecated-declarations]
+  102 |                     auto wakeup_reason = esp_sleep_get_wakeup_cause();
+      |                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~^~
+In file included from /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/boards/common/sleep_timer.cc:8:
+/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/include/esp_sleep.h:725:26: note: declared here
+  725 | esp_sleep_wakeup_cause_t esp_sleep_get_wakeup_cause(void)
+      |                          ^~~~~~~~~~~~~~~~~~~~~~~~~~
+[22/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/common/wifi_board.cc.obj
+[23/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/waveshare-s3-touch-amoled-2.06/homebot_ble_service.cc.obj
+[24/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/audio/wake_words/afe_wake_word.cc.obj
+[25/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/audio/wake_words/custom_wake_word.cc.obj
+[26/31] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/waveshare-s3-touch-amoled-2.06/esp32-s3-touch-amoled-2.06.cc.obj
+[27/31] Linking C static library esp-idf/main/libmain.a
+[28/31] Generating esp-idf/esp_system/ld/sections.ld
+[29/31] Linking CXX executable xiaozhi.elf
+[30/31] Generating binary image from built executable
+esptool v5.3.dev3
+Creating ESP32-S3 image...
+Merged 4 ELF sections.
+Successfully created ESP32-S3 image.
+Generated /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-stable/xiaozhi.bin
+[31/31] cd /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-stable && /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-stable/partition_table/partition-table.bin /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-stable/xiaozhi.bin
+xiaozhi.bin binary size 0x2ef370 bytes. Smallest app partition is 0x3f0000 bytes. 0x100c90 bytes (25%) free.

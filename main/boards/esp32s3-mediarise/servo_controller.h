@@ -27,7 +27,7 @@ public:
     /**
      * @brief Устанавливает угол для сервопривода
      * @param servo_num Номер сервопривода (1, 2, 3, ...)
-     * @param angle Угол поворота (0-180)
+     * @param angle Угол поворота; команда ограничивается диапазоном 70-110
      * @return true если команда отправлена успешно
      */
     bool SetServoAngle(int servo_num, int angle);
@@ -60,6 +60,5 @@ private:
 };
 
 #endif // SERVO_CONTROLLER_H
-
 
 

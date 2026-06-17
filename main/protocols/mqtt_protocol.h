@@ -6,7 +6,7 @@
 #include <mqtt.h>
 #include <udp.h>
 #include <cJSON.h>
-#include <mbedtls/aes.h>
+#include <aes/esp_aes.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/event_groups.h>
 #include <esp_timer.h>
@@ -40,7 +40,7 @@ private:
     std::mutex channel_mutex_;
     std::unique_ptr<Mqtt> mqtt_;
     std::unique_ptr<Udp> udp_;
-    mbedtls_aes_context aes_ctx_;
+    esp_aes_context aes_ctx_;
     std::string aes_nonce_;
     std::string udp_server_;
     int udp_port_;

@@ -228,12 +228,14 @@ bool WebsocketProtocol::OpenAudioChannel() {
     if (!websocket_->Connect(url.c_str())) {
         ESP_LOGE(TAG, "Failed to connect to websocket server, code=%d", websocket_->GetLastError());
         SetError(Lang::Strings::SERVER_NOT_CONNECTED);
+        websocket_.reset();
         return false;
     }
 
     // Send hello message to describe the client
     auto message = GetHelloMessage();
     if (!SendText(message)) {
+        websocket_.reset();
         return false;
     }
 
@@ -261,6 +263,7 @@ bool WebsocketProtocol::OpenAudioChannel() {
     if (!(bits & WEBSOCKET_PROTOCOL_SERVER_HELLO_EVENT)) {
         ESP_LOGE(TAG, "Failed to receive server hello");
         SetError(Lang::Strings::SERVER_TIMEOUT);
+        websocket_.reset();
         return false;
     }
 

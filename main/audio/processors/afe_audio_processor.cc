@@ -1,6 +1,7 @@
 #include "afe_audio_processor.h"
 #include <esp_log.h>
 #include <esp_bit_defs.h>
+#include <esp_heap_caps.h>
 
 #define PROCESSOR_RUNNING BIT0
 #define PROCESSOR_EXIT_REQUEST BIT1
@@ -74,17 +75,32 @@ void AfeAudioProcessor::Initialize(AudioCodec* codec, int frame_duration_ms, srm
     if (processor_task_handle_ != nullptr) {
         ESP_LOGW(TAG, "Audio processor task already running");
     } else {
-        BaseType_t result = xTaskCreatePinnedToCore([](void* arg) {
-            auto this_ = static_cast<AfeAudioProcessor*>(arg);
-            this_->AudioProcessorTask();
-            xEventGroupSetBits(this_->event_group_, PROCESSOR_TASK_EXITED);
-            this_->processor_task_handle_ = nullptr;
-            vTaskDelete(NULL);
-        }, "audio_communication", 4096, this, 6, &processor_task_handle_, 1);  // Core 1: не мешаем main_event_loop и захвату аудио
-
-        if (result != pdPASS) {
-            ESP_LOGE(TAG, "Failed to create audio processor task");
-            processor_task_handle_ = nullptr;
+        constexpr uint32_t kStackWords = 4096 / sizeof(StackType_t);
+        if (!processor_stack_) {
+            processor_stack_ = static_cast<StackType_t*>(
+                heap_caps_malloc(kStackWords * sizeof(StackType_t),
+                                 MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT));
+        }
+        if (!processor_tcb_) {
+            processor_tcb_ = static_cast<StaticTask_t*>(
+                heap_caps_malloc(sizeof(StaticTask_t),
+                                 MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT));
+        }
+        if (!processor_stack_ || !processor_tcb_) {
+            ESP_LOGE(TAG, "Failed to allocate audio processor task memory");
+        } else {
+            processor_task_handle_ = xTaskCreateStaticPinnedToCore(
+                [](void* arg) {
+                    AfeAudioProcessor* self = static_cast<AfeAudioProcessor*>(arg);
+                    self->AudioProcessorTask();
+                    xEventGroupSetBits(self->event_group_, PROCESSOR_TASK_EXITED);
+                    self->processor_task_handle_ = nullptr;
+                    vTaskDelete(NULL);
+                }, "audio_communication", kStackWords, this, 6,
+                processor_stack_, processor_tcb_, 1);
+            if (!processor_task_handle_) {
+                ESP_LOGE(TAG, "Failed to create audio processor task");
+            }
         }
     }
 }
@@ -95,6 +111,10 @@ AfeAudioProcessor::~AfeAudioProcessor() {
         afe_iface_->destroy(afe_data_);
     }
     vEventGroupDelete(event_group_);
+    heap_caps_free(processor_stack_);
+    heap_caps_free(processor_tcb_);
+    processor_stack_ = nullptr;
+    processor_tcb_   = nullptr;
 }
 
 size_t AfeAudioProcessor::GetFeedSize() {

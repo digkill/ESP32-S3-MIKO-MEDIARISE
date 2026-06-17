@@ -1,0 +1,6 @@
+-mlongcalls
+-fno-builtin-memcpy
+-fno-builtin-memset
+-fno-builtin-bzero
+-mdisable-hardware-atomics
+"-specs=/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-stable/specs/picolibc.specs"

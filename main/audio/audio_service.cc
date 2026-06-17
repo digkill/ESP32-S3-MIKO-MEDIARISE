@@ -105,12 +105,13 @@ void AudioService::Start() {
     }, "audio_output", 2048, this, 4, &audio_output_task_handle_);
 #endif
 
-    /* Start the opus codec task */
+    /* Start the opus codec task — priority above audio_output (4) so decode keeps up with WS/TTS;
+     * still below audio_input (8) so mic path stays responsive. */
     xTaskCreate([](void* arg) {
         AudioService* audio_service = (AudioService*)arg;
         audio_service->OpusCodecTask();
         vTaskDelete(NULL);
-    }, "opus_codec", 2048 * 13, this, 2, &opus_codec_task_handle_);
+    }, "opus_codec", 2048 * 13, this, 6, &opus_codec_task_handle_);
 }
 
 void AudioService::Stop() {
@@ -471,7 +472,8 @@ void AudioService::PushTaskToEncodeQueue(AudioTaskType type, std::vector<int16_t
         timestamp_queue_.pop_front();
     }
 
-    if (type == kAudioTaskTypeEncodeToSendQueue && STREAM_SOURCE_SAMPLE_RATE != STREAM_SAMPLE_RATE) {
+    if ((type == kAudioTaskTypeEncodeToSendQueue || type == kAudioTaskTypeEncodeToTestingQueue) &&
+        STREAM_SOURCE_SAMPLE_RATE != STREAM_SAMPLE_RATE) {
         std::vector<int16_t> resampled(stream_resampler_.GetOutputSamples(task->pcm.size()));
         stream_resampler_.Process(task->pcm.data(), task->pcm.size(), resampled.data());
         task->pcm = std::move(resampled);

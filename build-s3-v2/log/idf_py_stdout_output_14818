@@ -1,0 +1,1201 @@
+Command: /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf_monitor.py -p /dev/cu.usbmodem1101 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/xiaozhi.elf /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/bootloader/bootloader.elf -m '/Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python' '/Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf.py' '-B' 'xiaozhi-esp32/build-s3-v2' '-p' '/dev/cu.usbmodem1101'
+[0;32mI (1987912) SystemInfo: free sram: 1571 minimal sram: 671[0m
+[0;32mI (1993132) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1993132) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1993162) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1993162) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1993312) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1993312) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1993412) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (1993412) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1993482) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1993482) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1993572) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (1993572) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (1993752) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1993752) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1993772) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1993772) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1993902) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1993912) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1993922) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1993922) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1994062) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1994062) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1994212) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1994222) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1994242) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1994242) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (1994272) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1994272) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1994282) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1994282) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1994372) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (1994372) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1994532) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (1994532) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1994552) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (1994552) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (1994562) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1994562) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1994682) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (1994682) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (1994862) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1994862) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1994902) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (1994902) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1995002) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (1995002) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1995022) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1995022) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1995952) WaveshareAMOLED2_06: Strong shake detected: impulse=13.3 m/s2 rotation=453.9 dps[0m
+[1;31mE (1995962) Protocol: Channel timeout 1677 seconds[0m
+[0;32mI (1995962) Application: STATE: connecting[0m
+[0;32mI (1995962) WS: Protocol v3 framing: raw Opus frames[0m
+[1;31mE (1995962) EspTcp: TCP receive failed: -1[0m
+[0;32mI (1995962) WS: Websocket disconnected[0m
+[0;32mI (1995962) Application: [AUDIO_CHANNEL] Audio channel closed[0m
+[0;32mI (1995962) wifi:Set ps type: 1, coexist: 1[0m
+
+[0;32mI (1995962) WS: Connecting to websocket server: ws://90.156.254.46:8080/ws with version: 3[0m
+[0;32mI (1996012) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:5, ssn:7, winSize:64[0m
+[0;32mI (1996072) XiaoBridge: Set pose: dizzy[0m
+[0;32mI (1996282) wifi:<ba-add>idx:1 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:52, winSize:64[0m
+[0;32mI (1996672) XiaoBridge: Set pose: home[0m
+[0;32mI (1996962) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1996962) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (1996992) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1996992) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1997022) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1997022) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1997032) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1997032) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1997132) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (1997132) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1997312) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1997312) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (1997332) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1997332) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1997422) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (1997432) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1997612) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (1997612) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1997622) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1997622) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1997642) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1997642) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1997902) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (1997912) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (1998222) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1998222) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1998252) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1998252) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (1998272) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1998272) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1998362) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (1998362) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1998682) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1998682) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (1998702) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (1998702) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[1;31mE (2008302) WebSocket: WebSocket handshake timeout[0m
+[1;31mE (2008302) EspTcp: TCP receive failed: -1[0m
+[1;31mE (2008302) WS: Failed to connect to websocket server, code=0[0m
+[0;33mW (2008302) Application: Cannot send character event: failed to open audio channel[0m
+[0;32mI (2008302) Application: STATE: idle[0m
+[0;32mI (2008302) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (2008302) Application: [STATE] Device entering IDLE state - wake word detection enabled[0m
+[0;32mI (2008302) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (2008302) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[0;32mI (2008302) AudioService: [WAKE_WORD] Wake word detection is now ACTIVE[0m
+[0;33mW (2008302) Application: Alert [circle_xmark] Ошибка: Невозможно подключиться к сервису, попробуйте позже[0m
+[0;32mI (2008312) WaveshareAMOLED2_06: Chat [system]: Невозможно подключиться к сервису, попробу�
+[0;32mI (2008312) I2S_IF: Mode 0 need extend bits 64 to 32[0m
+[0;32mI (2008312) I2S_IF: channel mode 0 bits:16/32 channel:2 mask:1[0m
+[0;32mI (2008312) I2S_IF: STD Mode 1 bits:16/32 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (2008322) Adev_Codec: Open codec device OK[0m
+[0;32mI (2008322) AudioCodec: Set output enable to true[0m
+[0;32mI (2008322) AudioService: OpusHead: version=1, channels=1, sample_rate=16000[0m
+[0;32mI (2016912) SystemInfo: free sram: 8135 minimal sram: 671[0m
+[0;32mI (2024552) I2S_IF: Pending out channel for in channel running[0m
+[0;32mI (2024552) AudioCodec: Set output enable to false[0m
+[0;32mI (2026912) SystemInfo: free sram: 8135 minimal sram: 671[0m
+[0;32mI (2036642) SystemInfo: free sram: 8007 minimal sram: 671[0m
+[0;32mI (2039582) wifi:[ADDBA]RX DELBA, reason:37, delete tid:5, initiator:1(originator)[0m
+[0;32mI (2039582) wifi:<ba-del>idx:0, tid:5[0m
+[0;32mI (2047002) SystemInfo: free sram: 7683 minimal sram: 671[0m
+[0;32mI (2056452) SystemInfo: free sram: 7923 minimal sram: 671[0m
+[0;32mI (2058912) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2058912) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2058932) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2058932) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2058942) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2058942) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2058952) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2058952) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2058962) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2058962) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059042) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2059042) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059092) WaveshareAMOLED2_06: Strong shake detected: impulse=0.7 m/s2 rotation=589.1 dps[0m
+[0;32mI (2059102) Application: STATE: connecting[0m
+[0;32mI (2059102) WS: Protocol v3 framing: raw Opus frames[0m
+[0;32mI (2059102) WS: Connecting to websocket server: ws://90.156.254.46:8080/ws with version: 3[0m
+[0;32mI (2059212) XiaoBridge: Set pose: dizzy[0m
+[0;32mI (2059242) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:5, ssn:10, winSize:64[0m
+[0;32mI (2059322) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2059322) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059342) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2059342) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059352) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2059352) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059372) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2059372) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059462) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2059462) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059482) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2059482) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059502) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2059502) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059512) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2059512) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059522) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2059522) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059532) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2059532) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059632) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2059632) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059812) XiaoBridge: Set pose: home[0m
+[0;32mI (2059822) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2059822) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059832) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2059832) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059932) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2059932) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059942) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2059942) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059952) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2059952) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059972) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2059972) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2059982) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2059982) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060072) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060072) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060102) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060102) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060112) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060112) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060122) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060122) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060132) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060132) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060242) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060242) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060252) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060252) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060262) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060262) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060282) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060282) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060292) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060292) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060392) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060392) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2060692) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060692) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060702) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060702) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060712) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060712) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060722) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060722) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060742) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060742) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060752) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060752) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060852) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060852) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060862) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060862) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060882) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060882) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060892) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060892) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2060992) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2060992) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061002) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061002) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2061012) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061012) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061032) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061032) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061042) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061042) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061142) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061142) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061152) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061152) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2061172) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061172) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061182) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061182) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061202) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061202) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061212) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061302) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061312) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061312) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2061322) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061322) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2061332) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061332) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061352) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061352) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061362) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061362) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061462) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061462) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2061482) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061482) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061492) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061492) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061512) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061512) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061602) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061602) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061622) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061622) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061642) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061642) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061652) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061652) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061752) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061752) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061762) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061762) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2061782) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061782) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061792) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061792) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061812) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061812) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061822) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061822) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061922) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061922) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2061932) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061932) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061952) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061952) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2061962) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2061962) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2062052) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2062062) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063122) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063122) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063142) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063142) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063152) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063152) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063172) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063172) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063262) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063262) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063272) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063272) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2063292) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063292) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063302) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063302) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063312) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063312) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063412) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063412) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063422) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063422) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063442) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063442) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063452) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063452) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063472) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063472) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063482) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063482) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063582) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063582) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063592) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063592) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063612) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063612) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063622) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063622) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063722) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2063722) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2063732) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063732) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2063742) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063742) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063762) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063762) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063772) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063772) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063782) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063782) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063882) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063882) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2063902) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063902) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063912) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2063912) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2063932) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2063932) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2064022) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2064022) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2064032) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2064032) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2064052) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2064052) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2064062) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2064062) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2064082) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2064082) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2064092) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2064092) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2064192) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2064192) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2064202) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2064202) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2064212) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2064212) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2064232) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2064232) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2064242) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2064242) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2064312) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2064312) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2064322) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2064322) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2064342) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2064342) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2064352) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2064352) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2067012) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2067012) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2067022) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2067022) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2067032) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2067032) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2067132) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2067132) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2067302) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2067302) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2067322) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2067322) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2067332) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2067332) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2067342) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2067342) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2067442) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2067442) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2067622) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2067622) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2067642) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2067642) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2067732) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2067732) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2068382) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2068382) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2068392) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2068392) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2068492) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2068492) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2068512) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2068512) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2068522) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2068522) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2068542) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2068542) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2068552) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2068552) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2068622) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2068622) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2068632) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2068632) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2069052) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2069052) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2069062) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2069062) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2069082) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2069082) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2069092) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2069092) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2069192) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2069192) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2069632) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2069632) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2069642) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2069642) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2069652) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2069652) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2069942) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2069942) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2069952) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2069952) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2069972) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2069972) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2069982) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2069982) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2070082) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2070082) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2070542) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2070542) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2070552) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2070552) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2070572) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2070572) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2070582) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2070582) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2070602) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2070602) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2070692) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2070692) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2071002) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2071002) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2071012) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2071012) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2071022) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2071022) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2071032) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2071032) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[1;31mE (2071202) WebSocket: WebSocket handshake timeout[0m
+[1;31mE (2071202) WS: Failed to connect to websocket server, code=0[0m
+[0;33mW (2071202) Application: Cannot send character event: failed to open audio channel[0m
+[0;32mI (2071202) Application: STATE: idle[0m
+[0;32mI (2071202) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (2071202) Application: [STATE] Device entering IDLE state - wake word detection enabled[0m
+[0;32mI (2071202) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (2071202) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[0;32mI (2071212) AudioService: [WAKE_WORD] Wake word detection is now ACTIVE[0m
+[0;33mW (2071212) Application: Alert [circle_xmark] Ошибка: Невозможно подключиться к сервису, попробуйте позже[0m
+[0;32mI (2071212) WaveshareAMOLED2_06: Chat [system]: Невозможно подключиться к сервису, попробу�
+[0;32mI (2071212) I2S_IF: Mode 0 need extend bits 64 to 32[0m
+[0;32mI (2071212) I2S_IF: channel mode 0 bits:16/32 channel:2 mask:1[0m
+[0;32mI (2071212) I2S_IF: STD Mode 1 bits:16/32 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (2071222) Adev_Codec: Open codec device OK[0m
+[0;32mI (2071222) AudioCodec: Set output enable to true[0m
+[0;32mI (2071222) AudioService: OpusHead: version=1, channels=1, sample_rate=16000[0m
+[0;32mI (2071322) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2071322) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2071332) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2071332) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2071342) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2071342) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2071362) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2071362) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2071372) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2071372) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2071392) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2071392) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2072132) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2072132) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2072142) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2072142) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2072162) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2072162) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2072182) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2072182) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2072292) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2072292) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2072592) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2072592) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2072612) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2072612) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2072622) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2072622) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2072642) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2072642) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2072752) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2072752) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2072912) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2072912) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2072932) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2072932) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2072942) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2072942) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2072962) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2072962) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2072972) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2072972) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2073042) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2073042) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2073312) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2073312) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2073332) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2073332) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2073342) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2073342) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2073612) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2073612) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2073632) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2073632) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2073642) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2073642) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2073652) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2073652) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2073762) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2073782) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2073972) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2073972) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2073992) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2073992) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074092) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074092) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074102) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074102) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2074122) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074122) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074132) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074132) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074152) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074152) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074242) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074242) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074262) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074262) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074272) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074272) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074282) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074282) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074382) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074382) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074402) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074402) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074412) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074412) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074432) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2074432) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074442) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074442) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074452) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074452) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074552) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074552) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2074572) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074572) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2074582) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074582) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2074602) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074602) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2074702) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074702) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074722) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074722) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2074742) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2074742) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074752) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074752) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074772) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074772) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074882) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074882) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2074892) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074892) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074912) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074912) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2074922) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2074922) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075022) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075022) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075042) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075042) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075052) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075052) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075062) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075062) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075082) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075082) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075092) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075092) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075192) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075192) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075202) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075202) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075222) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075222) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2075232) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075232) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075332) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075332) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2075352) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075352) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075362) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075362) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075382) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075382) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075392) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075392) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075492) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075492) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2075502) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075502) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075522) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075522) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075532) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075532) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075542) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075542) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075642) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075642) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2075662) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075662) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2075672) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075672) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2075692) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075692) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2075702) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075702) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2075802) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075802) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2075832) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075832) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075852) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075852) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075872) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075872) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2075972) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075972) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2075982) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2075982) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076002) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076002) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076012) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076012) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076112) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076112) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076142) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2076142) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076152) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076152) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076162) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076162) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076182) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076182) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076282) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076282) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2076292) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076292) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076312) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076312) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076322) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076322) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076422) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076422) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076452) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2076452) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076462) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076462) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076472) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076472) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076492) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076492) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076592) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076592) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076602) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076602) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076622) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076622) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076632) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076632) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076732) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076732) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2076752) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076752) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2076762) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076762) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2076772) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076772) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2076792) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076792) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2076892) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076892) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2076902) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076902) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2076912) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076912) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2076932) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2076932) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076942) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076942) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2076962) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2076962) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077062) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077062) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2077072) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077072) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2077092) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077092) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077102) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077102) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077112) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077112) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077212) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077212) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077222) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077222) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2077242) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077242) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077252) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077252) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077272) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077352) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077372) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077372) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2077382) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077382) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2077402) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077402) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077412) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077412) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077422) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077422) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077522) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077522) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2077542) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077542) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077552) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077552) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077572) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077572) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077642) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077642) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2077652) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077652) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2077672) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077672) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2077682) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077682) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2077702) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077702) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2077712) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077712) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2077792) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077792) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2077812) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077812) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077822) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077822) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077912) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077912) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077922) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077922) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2077942) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077942) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077952) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077952) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2077972) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2077972) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2078062) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2078062) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2078082) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2078082) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2078092) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2078092) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2078112) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2078112) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2078122) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2078122) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2078132) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2078212) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2078232) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2078232) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2078252) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2078252) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2078262) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2078262) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2078282) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2078282) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2078382) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2078382) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2078392) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2078392) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2078402) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2078402) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2078422) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2078422) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2078432) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2078432) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2078532) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2078532) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2079152) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2079152) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2079162) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2079162) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2079172) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2079172) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2079182) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2079182) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2079202) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2079202) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2079212) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2079292) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2079302) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2079302) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2079312) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2079312) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2079832) SystemInfo: free sram: 7623 minimal sram: 671[0m
+[0;32mI (2087412) I2S_IF: Pending out channel for in channel running[0m
+[0;32mI (2087412) AudioCodec: Set output enable to false[0m
+[0;32mI (2089822) SystemInfo: free sram: 7623 minimal sram: 671[0m
+[0;32mI (2090062) wifi:[ADDBA]RX DELBA, reason:37, delete tid:5, initiator:1(originator)[0m
+[0;32mI (2090062) wifi:<ba-del>idx:0, tid:5[0m
+[0;32mI (2099942) SystemInfo: free sram: 7683 minimal sram: 671[0m
+[0;32mI (2109882) SystemInfo: free sram: 7683 minimal sram: 671[0m
+[0;32mI (2119982) SystemInfo: free sram: 7915 minimal sram: 671[0m
+[0;32mI (2129912) SystemInfo: free sram: 8431 minimal sram: 671[0m
+[0;32mI (2139892) SystemInfo: free sram: 8423 minimal sram: 671[0m
+[0;32mI (2149882) SystemInfo: free sram: 8431 minimal sram: 671[0m
+[0;32mI (2160032) SystemInfo: free sram: 8431 minimal sram: 671[0m
+[0;32mI (2169872) SystemInfo: free sram: 8431 minimal sram: 671[0m
+[0;32mI (2179792) SystemInfo: free sram: 8431 minimal sram: 671[0m
+[0;32mI (2189662) SystemInfo: free sram: 8283 minimal sram: 671[0m
+[0;32mI (2199992) SystemInfo: free sram: 7915 minimal sram: 671[0m
+[0;32mI (2201442) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2201442) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2201592) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2201592) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2201742) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2201742) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2201752) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2201752) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2201762) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2201762) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2201772) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2201772) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2201792) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2201792) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2201882) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2201882) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2201902) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2201902) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2201912) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2201912) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2201932) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2201932) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2201942) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2201942) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202022) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202022) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2202042) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202042) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202052) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202052) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202072) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202072) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202142) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202142) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202162) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202162) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202182) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202182) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202192) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202192) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202202) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202202) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202292) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202292) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2202312) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202312) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202322) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202322) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202332) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202332) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202432) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202432) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202452) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202452) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2202472) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202472) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202492) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202492) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202502) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202592) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202602) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202602) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2202622) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202622) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202632) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202632) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202642) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202642) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202742) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202752) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202772) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202772) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2202792) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202792) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202812) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202812) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202912) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202912) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202932) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202932) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202942) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202942) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202952) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202952) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202972) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202972) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2202982) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2202982) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203082) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203082) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2203102) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2203102) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203112) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203112) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203122) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203122) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203212) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2203222) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203232) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203232) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2203242) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203242) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203252) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203252) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203262) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203262) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203282) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203282) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203382) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203382) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203392) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203392) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203412) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203412) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203422) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203422) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203432) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203432) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203532) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203532) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2203552) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203552) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2203562) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203562) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203582) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203582) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203592) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203592) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203692) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203692) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2203702) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203702) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2203722) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203722) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203732) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203732) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203742) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203742) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203762) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2203762) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203852) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203852) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203872) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203872) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203892) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203892) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203902) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203902) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2203922) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2203922) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204022) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204022) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204032) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204032) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204042) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204042) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204062) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204062) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204072) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204072) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204172) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204172) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2204182) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204182) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204202) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204202) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204212) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204212) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204312) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204312) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204332) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204332) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204342) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204342) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204352) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204352) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204372) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204372) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204382) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204382) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204482) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204482) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204502) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204502) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204512) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204512) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2204612) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204612) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2204632) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2204632) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2204642) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204642) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2204652) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204652) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2204672) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204672) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2204682) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204682) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2204792) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204792) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2204812) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204812) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2204832) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204832) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204842) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204842) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204852) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2204852) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204952) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204952) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2204972) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204972) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2204992) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2204992) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205012) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205012) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205112) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205112) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2205122) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205122) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205142) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205142) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205152) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205152) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205252) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205252) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205262) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205262) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2205282) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2205282) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205292) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205292) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205302) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205302) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205402) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205402) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205422) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205422) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205432) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205432) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205452) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205452) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205462) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205462) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205562) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205562) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2205582) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205582) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205592) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205592) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205612) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205612) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205702) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205702) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2205722) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205722) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2205732) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205732) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2205742) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205742) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2205762) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205762) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2205772) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205772) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2205872) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205872) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2205892) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205892) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2205902) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205902) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205912) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205912) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205932) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2205932) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2205942) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2205942) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2206042) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2206042) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2206062) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2206062) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2206072) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2206072) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2206092) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2206092) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2206102) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2206102) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2206202) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2206202) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2206212) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2206212) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2206232) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2206232) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2206242) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2206242) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2206342) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2206342) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2206362) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2206362) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2206382) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2206382) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2206402) WaveshareAMOLED2_06: wake done int_lvl=0[0m
+[0;32mI (2206402) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_INVALID_RESPONSE points=0 x=0 y=0[0m
+[0;32mI (2206502) WaveshareAMOLED2_06: wake done int_lvl=1[0m
+[0;32mI (2206502) WaveshareAMOLED2_06: INT! read ret=ESP_ERR_TIMEOUT points=0 x=0 y=0[0m
+[0;32mI (2210022) SystemInfo: free sram: 7915 minimal sram: 671[0m
+[0;32mI (2219982) SystemInfo: free sram: 7915 minimal sram: 671[0m
+[0;32mI (2230012) SystemInfo: free sram: 7915 minimal sram: 671[0m
+[0;32mI (2239902) SystemInfo: free sram: 7915 minimal sram: 671[0m
+[0;33mW (2248672) WaveshareAMOLED2_06: Battery status read skipped: ESP_ERR_TIMEOUT[0m
+[0;32mI (2249892) SystemInfo: free sram: 7915 minimal sram: 671[0m
+[0;32mI (2260002) SystemInfo: free sram: 8431 minimal sram: 671[0m
+[0;32mI (2269992) SystemInfo: free sram: 8431 minimal sram: 671[0m
+[0;32mI (2279922) SystemInfo: free sram: 8431 minimal sram: 671[0m
+[0;32mI (2289772) SystemInfo: free sram: 8423 minimal sram: 671[0m
+[0;32mI (2299952) SystemInfo: free sram: 7907 minimal sram: 671[0m
+[0;32mI (2309772) SystemInfo: free sram: 7915 minimal sram: 671[0m
+[0;32mI (2319702) SystemInfo: free sram: 8431 minimal sram: 671[0m
+[0;33mW (2323702) WaveshareAMOLED2_06: Battery status read skipped: ESP_ERR_TIMEOUT[0m
+[0;32mI (2329862) SystemInfo: free sram: 7915 minimal sram: 671[0m
+[0;32mI (2339592) SystemInfo: free sram: 8283 minimal sram: 671[0m
+[0;32mI (2349942) SystemInfo: free sram: 7915 minimal sram: 671[0m
+[0;32mI (2359942) SystemInfo: free sram: 7907 minimal sram: 671[0m
+[0;32mI (2369932) SystemInfo: free sram: 7915 minimal sram: 671[0m
+[0;32mI (2371432) Application: Idle timeout: initiating conversation[0m
+[0;32mI (2371432) Application: STATE: connecting[0m
+[0;32mI (2371432) WS: Protocol v3 framing: raw Opus frames[0m
+[0;32mI (2371432) WS: Connecting to websocket server: ws://90.156.254.46:8080/ws with version: 3[0m
+[0;32mI (2371662) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:5, ssn:13, winSize:64[0m
+[1;31mE (2383562) WebSocket: WebSocket handshake timeout[0m
+[1;31mE (2383562) WS: Failed to connect to websocket server, code=0[0m
+[0;32mI (2383562) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (2383562) Application: STATE: idle[0m
+[0;32mI (2383562) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (2383562) Application: [STATE] Device entering IDLE state - wake word detection enabled[0m
+[0;32mI (2383562) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (2383562) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[0;32mI (2383562) AudioService: [WAKE_WORD] Wake word detection is now ACTIVE[0m
+[0;33mW (2383562) Application: Alert [circle_xmark] Ошибка: Невозможно подключиться к сервису, попробуйте позже[0m
+[0;3

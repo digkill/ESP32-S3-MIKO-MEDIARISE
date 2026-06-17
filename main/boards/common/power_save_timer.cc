@@ -7,8 +7,8 @@
 #define TAG "PowerSaveTimer"
 
 
-PowerSaveTimer::PowerSaveTimer(int cpu_max_freq, int seconds_to_sleep, int seconds_to_shutdown)
-    : cpu_max_freq_(cpu_max_freq), seconds_to_sleep_(seconds_to_sleep), seconds_to_shutdown_(seconds_to_shutdown) {
+PowerSaveTimer::PowerSaveTimer(int cpu_max_freq, int seconds_to_sleep, int seconds_to_shutdown, int seconds_to_dim)
+    : cpu_max_freq_(cpu_max_freq), seconds_to_sleep_(seconds_to_sleep), seconds_to_shutdown_(seconds_to_shutdown), seconds_to_dim_(seconds_to_dim) {
     esp_timer_create_args_t timer_args = {
         .callback = [](void* arg) {
             auto self = static_cast<PowerSaveTimer*>(arg);
@@ -59,6 +59,14 @@ void PowerSaveTimer::OnShutdownRequest(std::function<void()> callback) {
     on_shutdown_request_ = callback;
 }
 
+void PowerSaveTimer::OnEnterDimMode(std::function<void()> callback) {
+    on_enter_dim_mode_ = callback;
+}
+
+void PowerSaveTimer::OnExitDimMode(std::function<void()> callback) {
+    on_exit_dim_mode_ = callback;
+}
+
 void PowerSaveTimer::PowerSaveCheck() {
     auto& app = Application::GetInstance();
     if (!in_sleep_mode_ && !app.CanEnterSleepMode()) {
@@ -67,6 +75,15 @@ void PowerSaveTimer::PowerSaveCheck() {
     }
 
     ticks_++;
+
+    if (seconds_to_dim_ != -1 && !in_dim_mode_ && !in_sleep_mode_ && ticks_ >= seconds_to_dim_) {
+        ESP_LOGI(TAG, "Entering dim mode");
+        in_dim_mode_ = true;
+        if (on_enter_dim_mode_) {
+            on_enter_dim_mode_();
+        }
+    }
+
     if (seconds_to_sleep_ != -1 && ticks_ >= seconds_to_sleep_) {
         if (!in_sleep_mode_) {
             ESP_LOGI(TAG, "Enabling power save mode");
@@ -105,6 +122,14 @@ void PowerSaveTimer::PowerSaveCheck() {
 
 void PowerSaveTimer::WakeUp() {
     ticks_ = 0;
+
+    if (in_dim_mode_) {
+        in_dim_mode_ = false;
+        if (on_exit_dim_mode_) {
+            on_exit_dim_mode_();
+        }
+    }
+
     if (in_sleep_mode_) {
         ESP_LOGI(TAG, "Exiting power save mode");
         in_sleep_mode_ = false;

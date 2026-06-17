@@ -1,0 +1,2176 @@
+Command: /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf_monitor.py -p /dev/cu.usbmodem1101 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/xiaozhi.elf /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/bootloader/bootloader.elf -m '/Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python' '/Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf.py' '-B' 'build-s3-v2' '-p' '/dev/cu.usbmodem1101'
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40389a96
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (36) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (36) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (36) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (36) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (37) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (37) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (38) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (38) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (39) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (39) esp_psram: Speed: 80MHz[0m
+[0;32mI (39) cpu_start: Multicore app[0m
+[0;32mI (48) cpu_start: Pro cpu start user code[0m
+[0;32mI (48) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (48) app_init: Application information:[0m
+[0;32mI (48) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     May 25 2026 19:19:38[0m
+[0;32mI (49) app_init: ELF file SHA256:  3b0864748...[0m
+[0;32mI (49) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (49) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (49) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (49) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2300 len 00037410 (221 KiB): RAM[0m
+[0;32mI (50) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (50) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (50) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (51) spi_flash: detected chip: gd[0m
+[0;32mI (51) spi_flash: flash io: qio[0m
+[0;32mI (52) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (52) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (53) main_task: Started on CPU0[0m
+[0;32mI (63) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (63) main_task: Calling app_main()[0m
+[0;32mI (83) main: Getting Application instance...[0m
+[0;32mI (83) main: Application instance obtained, calling Start()...[0m
+[0;32mI (83) Application: Application::Start() called[0m
+[0;32mI (83) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (83) button: IoT Button Version: 4.1.6[0m
+[0;32mI (83) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (113) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (113) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (113) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (113) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (113) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (113) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (113) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (113) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (433) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (433) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (433) Display: Power management not supported[0m
+[0;32mI (433) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (433) LcdDisplay: Размер: 410x502[0m
+[0;32mI (433) LcdDisplay: Panel handle: 0x3fceddd8[0m
+[0;32mI (433) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (433) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (433) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (523) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (623) LcdDisplay: Включение дисплея...[0m
+[0;32mI (623) LcdDisplay: Дисплей включен[0m
+[0;32mI (623) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (623) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (623) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (623) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (623) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (623) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (623) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (623) LVGL: Starting LVGL task[0m
+[0;32mI (623) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (623) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (623) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (623) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (623) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (623) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (623) LcdDisplay: Настройка UI...[0m
+[0;32mI (623) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (623) LcdDisplay: Тема найдена: 0x3fcedf50[0m
+[0;32mI (623) LcdDisplay: Шрифты загружены: text=0x3c26b850, icon=0x3c25d354, large_icon=0x3c25d354[0m
+[0;32mI (623) LcdDisplay: Активный экран найден: 0x3fcee8d4[0m
+[0;32mI (633) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (633) LcdDisplay:   container_: 0x3fceeab8[0m
+[0;32mI (633) LcdDisplay:   emoji_box_: 0x3fceeba0[0m
+[0;32mI (633) LcdDisplay:   emoji_label_: 0x3fceec44[0m
+[0;32mI (633) LcdDisplay:   emoji_image_: 0x3fceed74[0m
+[0;32mI (633) LcdDisplay:   preview_image_: 0x3fcd2578[0m
+[0;32mI (633) LcdDisplay:   top_bar_: 0x3fcd25f8[0m
+[0;32mI (633) LcdDisplay:   status_bar_: 0x3fcd2ab8[0m
+[0;32mI (633) LcdDisplay:   content_: 0[0m
+[0;32mI (633) LcdDisplay:   bottom_bar_: 0x3fcd2e64[0m
+[0;32mI (633) LcdDisplay:   chat_message_label_: 0x3fcd2f04[0m
+[0;32mI (633) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (633) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (693) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (773) Backlight: Set brightness to 80[0m
+[0;32mI (773) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (913) WaveshareAMOLED2_06: Touch initial read failed, touch disabled: ESP_ERR_INVALID_RESPONSE[0m
+[0;32mI (913) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (913) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+Guru Meditation Error: Core  0 panic'ed (StoreProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x4038768a  PS      : 0x00060033  A0      : 0x8037a4bb  A1      : 0x3fca86a0  
+A2      : 0x3c2f1288  A3      : 0x0000cdcd  A4      : 0x00060021  A5      : 0x3c2f159c  
+A6      : 0x3c2f159c  A7      : 0x3fcb6670  A8      : 0x00000026  A9      : 0x00000391  
+A10     : 0x00000001  A11     : 0x60013000  A12     : 0x3fcb66a0  A13     : 0x0000ca18  
+A14     : 0x00000026  A15     : 0x00060023  SAR     : 0x00000000  EXCCAUSE: 0x0000001d  
+EXCVADDR: 0x00000391  LBEG    : 0x40056f5c  LEND    : 0x40056f72  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x40387687:0x3fca86a0 0x4037a4b8:0x3fca86e0 0x403815b3:0x3fca8700 0x40389a93:0x3fcb6f80 0x421fe72b:0x3fcb6fa0 0x421ffabf:0x3fcb6fc0
+
+
+
+
+ELF file SHA256: 3b0864748
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038ceda
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (35) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (35) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (35) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (36) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (36) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (36) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (37) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (37) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (38) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (38) esp_psram: Speed: 80MHz[0m
+[0;32mI (38) cpu_start: Multicore app[0m
+[0;32mI (47) cpu_start: Pro cpu start user code[0m
+[0;32mI (47) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (47) app_init: Application information:[0m
+[0;32mI (47) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     May 25 2026 19:19:38[0m
+[0;32mI (48) app_init: ELF file SHA256:  3b0864748...[0m
+[0;32mI (48) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (48) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (48) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (48) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2300 len 00037410 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (49) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (50) spi_flash: detected chip: gd[0m
+[0;32mI (50) spi_flash: flash io: qio[0m
+[0;32mI (51) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (51) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (52) main_task: Started on CPU0[0m
+[0;32mI (62) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (62) main_task: Calling app_main()[0m
+[0;32mI (82) main: Getting Application instance...[0m
+[0;32mI (82) main: Application instance obtained, calling Start()...[0m
+[0;32mI (82) Application: Application::Start() called[0m
+[0;32mI (82) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (82) button: IoT Button Version: 4.1.6[0m
+[0;32mI (82) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (112) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (112) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (112) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (112) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (112) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (432) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (432) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (432) Display: Power management not supported[0m
+[0;32mI (432) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (432) LcdDisplay: Размер: 410x502[0m
+[0;32mI (432) LcdDisplay: Panel handle: 0x3fceddd8[0m
+[0;32mI (432) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (432) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (432) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (522) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (622) LcdDisplay: Включение дисплея...[0m
+[0;32mI (622) LcdDisplay: Дисплей включен[0m
+[0;32mI (622) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (622) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (622) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (622) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (622) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (622) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (622) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (622) LVGL: Starting LVGL task[0m
+[0;32mI (622) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (622) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (622) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (622) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (622) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (622) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (622) LcdDisplay: Настройка UI...[0m
+[0;32mI (622) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (622) LcdDisplay: Тема найдена: 0x3fcedf50[0m
+[0;32mI (622) LcdDisplay: Шрифты загружены: text=0x3c26b850, icon=0x3c25d354, large_icon=0x3c25d354[0m
+[0;32mI (622) LcdDisplay: Активный экран найден: 0x3fcee8d4[0m
+[0;32mI (632) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (632) LcdDisplay:   container_: 0x3fceeab8[0m
+[0;32mI (632) LcdDisplay:   emoji_box_: 0x3fceeba0[0m
+[0;32mI (632) LcdDisplay:   emoji_label_: 0x3fceec44[0m
+[0;32mI (632) LcdDisplay:   emoji_image_: 0x3fceed74[0m
+[0;32mI (632) LcdDisplay:   preview_image_: 0x3fcd2578[0m
+[0;32mI (632) LcdDisplay:   top_bar_: 0x3fcd25f8[0m
+[0;32mI (632) LcdDisplay:   status_bar_: 0x3fcd2ab8[0m
+[0;32mI (632) LcdDisplay:   content_: 0[0m
+[0;32mI (632) LcdDisplay:   bottom_bar_: 0x3fcd2e64[0m
+[0;32mI (632) LcdDisplay:   chat_message_label_: 0x3fcd2f04[0m
+[0;32mI (632) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (632) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (692) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (772) Backlight: Set brightness to 80[0m
+[0;32mI (772) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (912) WaveshareAMOLED2_06: Touch initial read failed, touch disabled: ESP_ERR_INVALID_RESPONSE[0m
+[0;32mI (912) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (912) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+Guru Meditation Error: Core  0 panic'ed (StoreProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x4038768a  PS      : 0x00060033  A0      : 0x8037a4bb  A1      : 0x3fca86a0  
+A2      : 0x3c2f1288  A3      : 0x0000cdcd  A4      : 0x00060021  A5      : 0x3c2f159c  
+A6      : 0x3c2f159c  A7      : 0x3fcb6670  A8      : 0x00000026  A9      : 0x00000390  
+A10     : 0x00000001  A11     : 0x60013000  A12     : 0x3fcb66a0  A13     : 0x0000ca18  
+A14     : 0x00000026  A15     : 0x00060023  SAR     : 0x00000000  EXCCAUSE: 0x0000001d  
+EXCVADDR: 0x00000390  LBEG    : 0x40056f5c  LEND    : 0x40056f72  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x40387687:0x3fca86a0 0x4037a4b8:0x3fca86e0 0x403815b3:0x3fca8700 0x40389a93:0x3fcb6f80 0x421fe72b:0x3fcb6fa0 0x421ffabf:0x3fcb6fc0
+
+
+
+
+ELF file SHA256: 3b0864748
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038ceda
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (35) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (35) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (35) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (36) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (36) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (36) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (37) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (37) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (38) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (38) esp_psram: Speed: 80MHz[0m
+[0;32mI (39) cpu_start: Multicore app[0m
+[0;32mI (47) cpu_start: Pro cpu start user code[0m
+[0;32mI (47) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (47) app_init: Application information:[0m
+[0;32mI (48) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     May 25 2026 19:19:38[0m
+[0;32mI (48) app_init: ELF file SHA256:  3b0864748...[0m
+[0;32mI (48) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (48) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (48) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (49) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2300 len 00037410 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (49) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (50) spi_flash: detected chip: gd[0m
+[0;32mI (50) spi_flash: flash io: qio[0m
+[0;32mI (51) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (51) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (52) main_task: Started on CPU0[0m
+[0;32mI (62) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (62) main_task: Calling app_main()[0m
+[0;32mI (82) main: Getting Application instance...[0m
+[0;32mI (82) main: Application instance obtained, calling Start()...[0m
+[0;32mI (82) Application: Application::Start() called[0m
+[0;32mI (82) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (82) button: IoT Button Version: 4.1.6[0m
+[0;32mI (82) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (112) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (112) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (112) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (112) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (112) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (432) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (432) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (432) Display: Power management not supported[0m
+[0;32mI (432) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (432) LcdDisplay: Размер: 410x502[0m
+[0;32mI (432) LcdDisplay: Panel handle: 0x3fceddd8[0m
+[0;32mI (432) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (432) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (432) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (522) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (622) LcdDisplay: Включение дисплея...[0m
+[0;32mI (622) LcdDisplay: Дисплей включен[0m
+[0;32mI (622) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (622) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (622) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (622) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (622) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (622) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (622) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (622) LVGL: Starting LVGL task[0m
+[0;32mI (622) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (622) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (622) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (622) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (622) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (622) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (622) LcdDisplay: Настройка UI...[0m
+[0;32mI (622) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (622) LcdDisplay: Тема найдена: 0x3fcedf50[0m
+[0;32mI (622) LcdDisplay: Шрифты загружены: text=0x3c26b850, icon=0x3c25d354, large_icon=0x3c25d354[0m
+[0;32mI (622) LcdDisplay: Активный экран найден: 0x3fcee8d4[0m
+[0;32mI (632) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (632) LcdDisplay:   container_: 0x3fceeab8[0m
+[0;32mI (632) LcdDisplay:   emoji_box_: 0x3fceeba0[0m
+[0;32mI (632) LcdDisplay:   emoji_label_: 0x3fceec44[0m
+[0;32mI (632) LcdDisplay:   emoji_image_: 0x3fceed74[0m
+[0;32mI (632) LcdDisplay:   preview_image_: 0x3fcd2578[0m
+[0;32mI (632) LcdDisplay:   top_bar_: 0x3fcd25f8[0m
+[0;32mI (632) LcdDisplay:   status_bar_: 0x3fcd2ab8[0m
+[0;32mI (632) LcdDisplay:   content_: 0[0m
+[0;32mI (632) LcdDisplay:   bottom_bar_: 0x3fcd2e64[0m
+[0;32mI (632) LcdDisplay:   chat_message_label_: 0x3fcd2f04[0m
+[0;32mI (632) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (632) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (692) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (772) Backlight: Set brightness to 80[0m
+[0;32mI (772) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (912) WaveshareAMOLED2_06: Touch initial read failed, touch disabled: ESP_ERR_INVALID_RESPONSE[0m
+[0;32mI (912) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (912) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+Guru Meditation Error: Core  0 panic'ed (StoreProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x4038768a  PS      : 0x00060033  A0      : 0x8037a4bb  A1      : 0x3fca86a0  
+A2      : 0x3c2f1288  A3      : 0x0000cdcd  A4      : 0x00060021  A5      : 0x3c2f159c  
+A6      : 0x3c2f159c  A7      : 0x3fcb6670  A8      : 0x00000026  A9      : 0x00000390  
+A10     : 0x00000001  A11     : 0x60013000  A12     : 0x3fcb66a0  A13     : 0x0000ca18  
+A14     : 0x00000026  A15     : 0x00060023  SAR     : 0x00000000  EXCCAUSE: 0x0000001d  
+EXCVADDR: 0x00000390  LBEG    : 0x40056f5c  LEND    : 0x40056f72  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x40387687:0x3fca86a0 0x4037a4b8:0x3fca86e0 0x403815b3:0x3fca8700 0x40389a93:0x3fcb6f80 0x421fe72b:0x3fcb6fa0 0x421ffabf:0x3fcb6fc0
+
+
+
+
+ELF file SHA256: 3b0864748
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038ceda
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (35) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (35) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (35) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (36) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (36) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (36) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (37) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (37) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (38) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (38) esp_psram: Speed: 80MHz[0m
+[0;32mI (38) cpu_start: Multicore app[0m
+[0;32mI (47) cpu_start: Pro cpu start user code[0m
+[0;32mI (47) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (47) app_init: Application information:[0m
+[0;32mI (47) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     May 25 2026 19:19:38[0m
+[0;32mI (48) app_init: ELF file SHA256:  3b0864748...[0m
+[0;32mI (48) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (48) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (48) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (48) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2300 len 00037410 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (49) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (50) spi_flash: detected chip: gd[0m
+[0;32mI (50) spi_flash: flash io: qio[0m
+[0;32mI (51) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (51) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (52) main_task: Started on CPU0[0m
+[0;32mI (62) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (62) main_task: Calling app_main()[0m
+[0;32mI (82) main: Getting Application instance...[0m
+[0;32mI (82) main: Application instance obtained, calling Start()...[0m
+[0;32mI (82) Application: Application::Start() called[0m
+[0;32mI (82) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (82) button: IoT Button Version: 4.1.6[0m
+[0;32mI (82) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (112) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (112) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (112) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (112) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (112) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (432) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (432) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (432) Display: Power management not supported[0m
+[0;32mI (432) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (432) LcdDisplay: Размер: 410x502[0m
+[0;32mI (432) LcdDisplay: Panel handle: 0x3fceddd8[0m
+[0;32mI (432) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (432) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (432) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (522) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (622) LcdDisplay: Включение дисплея...[0m
+[0;32mI (622) LcdDisplay: Дисплей включен[0m
+[0;32mI (622) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (622) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (622) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (622) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (622) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (622) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (622) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (622) LVGL: Starting LVGL task[0m
+[0;32mI (622) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (622) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (622) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (622) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (622) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (622) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (622) LcdDisplay: Настройка UI...[0m
+[0;32mI (622) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (622) LcdDisplay: Тема найдена: 0x3fcedf50[0m
+[0;32mI (622) LcdDisplay: Шрифты загружены: text=0x3c26b850, icon=0x3c25d354, large_icon=0x3c25d354[0m
+[0;32mI (622) LcdDisplay: Активный экран найден: 0x3fcee8d4[0m
+[0;32mI (632) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (632) LcdDisplay:   container_: 0x3fceeab8[0m
+[0;32mI (632) LcdDisplay:   emoji_box_: 0x3fceeba0[0m
+[0;32mI (632) LcdDisplay:   emoji_label_: 0x3fceec44[0m
+[0;32mI (632) LcdDisplay:   emoji_image_: 0x3fceed74[0m
+[0;32mI (632) LcdDisplay:   preview_image_: 0x3fcd2578[0m
+[0;32mI (632) LcdDisplay:   top_bar_: 0x3fcd25f8[0m
+[0;32mI (632) LcdDisplay:   status_bar_: 0x3fcd2ab8[0m
+[0;32mI (632) LcdDisplay:   content_: 0[0m
+[0;32mI (632) LcdDisplay:   bottom_bar_: 0x3fcd2e64[0m
+[0;32mI (632) LcdDisplay:   chat_message_label_: 0x3fcd2f04[0m
+[0;32mI (632) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (632) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (692) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (772) Backlight: Set brightness to 80[0m
+[0;32mI (772) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (912) WaveshareAMOLED2_06: Touch initial read failed, touch disabled: ESP_ERR_INVALID_RESPONSE[0m
+[0;32mI (912) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (912) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+Guru Meditation Error: Core  0 panic'ed (StoreProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x4038768a  PS      : 0x00060033  A0      : 0x8037a4bb  A1      : 0x3fca86a0  
+A2      : 0x3c2f1288  A3      : 0x0000cdcd  A4      : 0x00060021  A5      : 0x3c2f159c  
+A6      : 0x3c2f159c  A7      : 0x3fcb6670  A8      : 0x00000026  A9      : 0x00000390  
+A10     : 0x00000001  A11     : 0x60013000  A12     : 0x3fcb66a0  A13     : 0x0000ca18  
+A14     : 0x00000026  A15     : 0x00060023  SAR     : 0x00000000  EXCCAUSE: 0x0000001d  
+EXCVADDR: 0x00000390  LBEG    : 0x40056f5c  LEND    : 0x40056f72  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x40387687:0x3fca86a0 0x4037a4b8:0x3fca86e0 0x403815b3:0x3fca8700 0x40389a93:0x3fcb6f80 0x421fe72b:0x3fcb6fa0 0x421ffabf:0x3fcb6fc0
+
+
+
+
+ELF file SHA256: 3b0864748
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038ceda
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (35) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (35) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (35) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (36) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (36) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (36) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (37) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (37) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (38) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (38) esp_psram: Speed: 80MHz[0m
+[0;32mI (38) cpu_start: Multicore app[0m
+[0;32mI (47) cpu_start: Pro cpu start user code[0m
+[0;32mI (47) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (47) app_init: Application information:[0m
+[0;32mI (47) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     May 25 2026 19:19:38[0m
+[0;32mI (48) app_init: ELF file SHA256:  3b0864748...[0m
+[0;32mI (48) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (48) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (48) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (48) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2300 len 00037410 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (49) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (50) spi_flash: detected chip: gd[0m
+[0;32mI (50) spi_flash: flash io: qio[0m
+[0;32mI (51) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (51) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (52) main_task: Started on CPU0[0m
+[0;32mI (62) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (62) main_task: Calling app_main()[0m
+[0;32mI (82) main: Getting Application instance...[0m
+[0;32mI (82) main: Application instance obtained, calling Start()...[0m
+[0;32mI (82) Application: Application::Start() called[0m
+[0;32mI (82) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (82) button: IoT Button Version: 4.1.6[0m
+[0;32mI (82) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (112) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (112) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (112) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (112) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (112) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (432) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (432) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (432) Display: Power management not supported[0m
+[0;32mI (432) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (432) LcdDisplay: Размер: 410x502[0m
+[0;32mI (432) LcdDisplay: Panel handle: 0x3fceddd8[0m
+[0;32mI (432) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (432) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (432) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (522) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (622) LcdDisplay: Включение дисплея...[0m
+[0;32mI (622) LcdDisplay: Дисплей включен[0m
+[0;32mI (622) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (622) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (622) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (622) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (622) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (622) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (622) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (622) LVGL: Starting LVGL task[0m
+[0;32mI (622) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (622) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (622) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (622) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (622) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (622) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (622) LcdDisplay: Настройка UI...[0m
+[0;32mI (622) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (622) LcdDisplay: Тема найдена: 0x3fcedf50[0m
+[0;32mI (622) LcdDisplay: Шрифты загружены: text=0x3c26b850, icon=0x3c25d354, large_icon=0x3c25d354[0m
+[0;32mI (622) LcdDisplay: Активный экран найден: 0x3fcee8d4[0m
+[0;32mI (632) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (632) LcdDisplay:   container_: 0x3fceeab8[0m
+[0;32mI (632) LcdDisplay:   emoji_box_: 0x3fceeba0[0m
+[0;32mI (632) LcdDisplay:   emoji_label_: 0x3fceec44[0m
+[0;32mI (632) LcdDisplay:   emoji_image_: 0x3fceed74[0m
+[0;32mI (632) LcdDisplay:   preview_image_: 0x3fcd2578[0m
+[0;32mI (632) LcdDisplay:   top_bar_: 0x3fcd25f8[0m
+[0;32mI (632) LcdDisplay:   status_bar_: 0x3fcd2ab8[0m
+[0;32mI (632) LcdDisplay:   content_: 0[0m
+[0;32mI (632) LcdDisplay:   bottom_bar_: 0x3fcd2e64[0m
+[0;32mI (632) LcdDisplay:   chat_message_label_: 0x3fcd2f04[0m
+[0;32mI (632) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (632) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (692) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (772) Backlight: Set brightness to 80[0m
+[0;32mI (772) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (912) WaveshareAMOLED2_06: Touch initial read failed, touch disabled: ESP_ERR_INVALID_RESPONSE[0m
+[0;32mI (912) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (912) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+Guru Meditation Error: Core  0 panic'ed (StoreProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x4038768a  PS      : 0x00060033  A0      : 0x8037a4bb  A1      : 0x3fca86a0  
+A2      : 0x3c2f1288  A3      : 0x0000cdcd  A4      : 0x00060021  A5      : 0x3c2f159c  
+A6      : 0x3c2f159c  A7      : 0x3fcb6670  A8      : 0x00000026  A9      : 0x00000390  
+A10     : 0x00000001  A11     : 0x60013000  A12     : 0x3fcb66a0  A13     : 0x0000ca18  
+A14     : 0x00000026  A15     : 0x00060023  SAR     : 0x00000000  EXCCAUSE: 0x0000001d  
+EXCVADDR: 0x00000390  LBEG    : 0x40056f5c  LEND    : 0x40056f72  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x40387687:0x3fca86a0 0x4037a4b8:0x3fca86e0 0x403815b3:0x3fca8700 0x40389a93:0x3fcb6f80 0x421fe72b:0x3fcb6fa0 0x421ffabf:0x3fcb6fc0
+
+
+
+
+ELF file SHA256: 3b0864748
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038ceda
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (35) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (35) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (35) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (36) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (36) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (36) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (37) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (37) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (38) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (38) esp_psram: Speed: 80MHz[0m
+[0;32mI (38) cpu_start: Multicore app[0m
+[0;32mI (47) cpu_start: Pro cpu start user code[0m
+[0;32mI (47) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (47) app_init: Application information:[0m
+[0;32mI (47) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     May 25 2026 19:19:38[0m
+[0;32mI (48) app_init: ELF file SHA256:  3b0864748...[0m
+[0;32mI (48) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (48) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (48) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (49) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2300 len 00037410 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (49) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (50) spi_flash: detected chip: gd[0m
+[0;32mI (50) spi_flash: flash io: qio[0m
+[0;32mI (51) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (51) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (52) main_task: Started on CPU0[0m
+[0;32mI (62) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (62) main_task: Calling app_main()[0m
+[0;32mI (82) main: Getting Application instance...[0m
+[0;32mI (82) main: Application instance obtained, calling Start()...[0m
+[0;32mI (82) Application: Application::Start() called[0m
+[0;32mI (82) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (82) button: IoT Button Version: 4.1.6[0m
+[0;32mI (82) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (112) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (112) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (112) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (112) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (112) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (432) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (432) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (432) Display: Power management not supported[0m
+[0;32mI (432) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (432) LcdDisplay: Размер: 410x502[0m
+[0;32mI (432) LcdDisplay: Panel handle: 0x3fceddd8[0m
+[0;32mI (432) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (432) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (432) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (522) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (622) LcdDisplay: Включение дисплея...[0m
+[0;32mI (622) LcdDisplay: Дисплей включен[0m
+[0;32mI (622) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (622) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (622) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (622) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (622) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (622) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (622) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (622) LVGL: Starting LVGL task[0m
+[0;32mI (622) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (622) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (622) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (622) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (622) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (622) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (622) LcdDisplay: Настройка UI...[0m
+[0;32mI (622) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (622) LcdDisplay: Тема найдена: 0x3fcedf50[0m
+[0;32mI (622) LcdDisplay: Шрифты загружены: text=0x3c26b850, icon=0x3c25d354, large_icon=0x3c25d354[0m
+[0;32mI (622) LcdDisplay: Активный экран найден: 0x3fcee8d4[0m
+[0;32mI (632) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (632) LcdDisplay:   container_: 0x3fceeab8[0m
+[0;32mI (632) LcdDisplay:   emoji_box_: 0x3fceeba0[0m
+[0;32mI (632) LcdDisplay:   emoji_label_: 0x3fceec44[0m
+[0;32mI (632) LcdDisplay:   emoji_image_: 0x3fceed74[0m
+[0;32mI (632) LcdDisplay:   preview_image_: 0x3fcd2578[0m
+[0;32mI (632) LcdDisplay:   top_bar_: 0x3fcd25f8[0m
+[0;32mI (632) LcdDisplay:   status_bar_: 0x3fcd2ab8[0m
+[0;32mI (632) LcdDisplay:   content_: 0[0m
+[0;32mI (632) LcdDisplay:   bottom_bar_: 0x3fcd2e64[0m
+[0;32mI (632) LcdDisplay:   chat_message_label_: 0x3fcd2f04[0m
+[0;32mI (632) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (632) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (692) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (772) Backlight: Set brightness to 80[0m
+[0;32mI (772) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (912) WaveshareAMOLED2_06: Touch initial read failed, touch disabled: ESP_ERR_INVALID_RESPONSE[0m
+[0;32mI (912) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (912) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+Guru Meditation Error: Core  0 panic'ed (StoreProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x4038768a  PS      : 0x00060033  A0      : 0x8037a4bb  A1      : 0x3fca86a0  
+A2      : 0x3c2f1288  A3      : 0x0000cdcd  A4      : 0x00060021  A5      : 0x3c2f159c  
+A6      : 0x3c2f159c  A7      : 0x3fcb6670  A8      : 0x00000026  A9      : 0x00000390  
+A10     : 0x00000001  A11     : 0x60013000  A12     : 0x3fcb66a0  A13     : 0x0000ca18  
+A14     : 0x00000026  A15     : 0x00060023  SAR     : 0x00000000  EXCCAUSE: 0x0000001d  
+EXCVADDR: 0x00000390  LBEG    : 0x40056f5c  LEND    : 0x40056f72  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x40387687:0x3fca86a0 0x4037a4b8:0x3fca86e0 0x403815b3:0x3fca8700 0x40389a93:0x3fcb6f80 0x421fe72b:0x3fcb6fa0 0x421ffabf:0x3fcb6fc0
+
+
+
+
+ELF file SHA256: 3b0864748
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038ceda
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (35) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (35) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (35) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (36) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (36) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (36) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (37) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (37) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (38) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (38) esp_psram: Speed: 80MHz[0m
+[0;32mI (38) cpu_start: Multicore app[0m
+[0;32mI (47) cpu_start: Pro cpu start user code[0m
+[0;32mI (47) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (47) app_init: Application information:[0m
+[0;32mI (47) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     May 25 2026 19:19:38[0m
+[0;32mI (48) app_init: ELF file SHA256:  3b0864748...[0m
+[0;32mI (48) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (48) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (48) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (49) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2300 len 00037410 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (49) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (50) spi_flash: detected chip: gd[0m
+[0;32mI (50) spi_flash: flash io: qio[0m
+[0;32mI (51) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (51) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (52) main_task: Started on CPU0[0m
+[0;32mI (62) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (62) main_task: Calling app_main()[0m
+[0;32mI (82) main: Getting Application instance...[0m
+[0;32mI (82) main: Application instance obtained, calling Start()...[0m
+[0;32mI (82) Application: Application::Start() called[0m
+[0;32mI (82) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (82) button: IoT Button Version: 4.1.6[0m
+[0;32mI (82) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (112) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (112) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (112) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (112) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (112) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (432) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (432) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (432) Display: Power management not supported[0m
+[0;32mI (432) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (432) LcdDisplay: Размер: 410x502[0m
+[0;32mI (432) LcdDisplay: Panel handle: 0x3fceddd8[0m
+[0;32mI (432) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (432) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (432) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (522) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (622) LcdDisplay: Включение дисплея...[0m
+[0;32mI (622) LcdDisplay: Дисплей включен[0m
+[0;32mI (622) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (622) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (622) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (622) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (622) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (622) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (622) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (622) LVGL: Starting LVGL task[0m
+[0;32mI (622) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (622) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (622) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (622) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (622) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (622) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (622) LcdDisplay: Настройка UI...[0m
+[0;32mI (622) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (622) LcdDisplay: Тема найдена: 0x3fcedf50[0m
+[0;32mI (622) LcdDisplay: Шрифты загружены: text=0x3c26b850, icon=0x3c25d354, large_icon=0x3c25d354[0m
+[0;32mI (622) LcdDisplay: Активный экран найден: 0x3fcee8d4[0m
+[0;32mI (632) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (632) LcdDisplay:   container_: 0x3fceeab8[0m
+[0;32mI (632) LcdDisplay:   emoji_box_: 0x3fceeba0[0m
+[0;32mI (632) LcdDisplay:   emoji_label_: 0x3fceec44[0m
+[0;32mI (632) LcdDisplay:   emoji_image_: 0x3fceed74[0m
+[0;32mI (632) LcdDisplay:   preview_image_: 0x3fcd2578[0m
+[0;32mI (632) LcdDisplay:   top_bar_: 0x3fcd25f8[0m
+[0;32mI (632) LcdDisplay:   status_bar_: 0x3fcd2ab8[0m
+[0;32mI (632) LcdDisplay:   content_: 0[0m
+[0;32mI (632) LcdDisplay:   bottom_bar_: 0x3fcd2e64[0m
+[0;32mI (632) LcdDisplay:   chat_message_label_: 0x3fcd2f04[0m
+[0;32mI (632) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (632) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (692) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (772) Backlight: Set brightness to 80[0m
+[0;32mI (772) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (912) WaveshareAMOLED2_06: Touch initial read failed, touch disabled: ESP_ERR_INVALID_RESPONSE[0m
+[0;32mI (912) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (912) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+Guru Meditation Error: Core  0 panic'ed (StoreProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x4038768a  PS      : 0x00060033  A0      : 0x8037a4bb  A1      : 0x3fca86a0  
+A2      : 0x3c2f1288  A3      : 0x0000cdcd  A4      : 0x00060021  A5      : 0x3c2f159c  
+A6      : 0x3c2f159c  A7      : 0x3fcb6670  A8      : 0x00000026  A9      : 0x00000390  
+A10     : 0x00000001  A11     : 0x60013000  A12     : 0x3fcb66a0  A13     : 0x0000ca18  
+A14     : 0x00000026  A15     : 0x00060023  SAR     : 0x00000000  EXCCAUSE: 0x0000001d  
+EXCVADDR: 0x00000390  LBEG    : 0x40056f5c  LEND    : 0x40056f72  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x40387687:0x3fca86a0 0x4037a4b8:0x3fca86e0 0x403815b3:0x3fca8700 0x40389a93:0x3fcb6f80 0x421fe72b:0x3fcb6fa0 0x421ffabf:0x3fcb6fc0
+
+
+
+
+ELF file SHA256: 3b0864748
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038ceda
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (35) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (35) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (35) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (36) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (36) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (36) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (37) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (37) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (38) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (38) esp_psram: Speed: 80MHz[0m
+[0;32mI (38) cpu_start: Multicore app[0m
+[0;32mI (47) cpu_start: Pro cpu start user code[0m
+[0;32mI (47) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (47) app_init: Application information:[0m
+[0;32mI (47) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     May 25 2026 19:19:38[0m
+[0;32mI (48) app_init: ELF file SHA256:  3b0864748...[0m
+[0;32mI (48) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (48) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (48) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (48) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2300 len 00037410 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (49) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (50) spi_flash: detected chip: gd[0m
+[0;32mI (50) spi_flash: flash io: qio[0m
+[0;32mI (51) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (51) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (52) main_task: Started on CPU0[0m
+[0;32mI (62) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (62) main_task: Calling app_main()[0m
+[0;32mI (82) main: Getting Application instance...[0m
+[0;32mI (82) main: Application instance obtained, calling Start()...[0m
+[0;32mI (82) Application: Application::Start() called[0m
+[0;32mI (82) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (82) button: IoT Button Version: 4.1.6[0m
+[0;32mI (82) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (112) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (112) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (112) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (112) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (112) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (432) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (432) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (432) Display: Power management not supported[0m
+[0;32mI (432) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (432) LcdDisplay: Размер: 410x502[0m
+[0;32mI (432) LcdDisplay: Panel handle: 0x3fceddd8[0m
+[0;32mI (432) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (432) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (432) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (522) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (622) LcdDisplay: Включение дисплея...[0m
+[0;32mI (622) LcdDisplay: Дисплей включен[0m
+[0;32mI (622) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (622) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (622) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (622) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (622) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (622) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (622) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (622) LVGL: Starting LVGL task[0m
+[0;32mI (622) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (622) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (622) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (622) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (622) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (622) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (622) LcdDisplay: Настройка UI...[0m
+[0;32mI (622) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (622) LcdDisplay: Тема найдена: 0x3fcedf50[0m
+[0;32mI (622) LcdDisplay: Шрифты загружены: text=0x3c26b850, icon=0x3c25d354, large_icon=0x3c25d354[0m
+[0;32mI (622) LcdDisplay: Активный экран найден: 0x3fcee8d4[0m
+[0;32mI (632) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (632) LcdDisplay:   container_: 0x3fceeab8[0m
+[0;32mI (632) LcdDisplay:   emoji_box_: 0x3fceeba0[0m
+[0;32mI (632) LcdDisplay:   emoji_label_: 0x3fceec44[0m
+[0;32mI (632) LcdDisplay:   emoji_image_: 0x3fceed74[0m
+[0;32mI (632) LcdDisplay:   preview_image_: 0x3fcd2578[0m
+[0;32mI (632) LcdDisplay:   top_bar_: 0x3fcd25f8[0m
+[0;32mI (632) LcdDisplay:   status_bar_: 0x3fcd2ab8[0m
+[0;32mI (632) LcdDisplay:   content_: 0[0m
+[0;32mI (632) LcdDisplay:   bottom_bar_: 0x3fcd2e64[0m
+[0;32mI (632) LcdDisplay:   chat_message_label_: 0x3fcd2f04[0m
+[0;32mI (632) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (632) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (692) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (772) Backlight: Set brightness to 80[0m
+[0;32mI (772) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (912) WaveshareAMOLED2_06: Touch initial read failed, touch disabled: ESP_ERR_INVALID_RESPONSE[0m
+[0;32mI (912) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (912) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+Guru Meditation Error: Core  0 panic'ed (StoreProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x4038768a  PS      : 0x00060033  A0      : 0x8037a4bb  A1      : 0x3fca86a0  
+A2      : 0x3c2f1288  A3      : 0x0000cdcd  A4      : 0x00060021  A5      : 0x3c2f159c  
+A6      : 0x3c2f159c  A7      : 0x3fcb6670  A8      : 0x00000026  A9      : 0x00000390  
+A10     : 0x00000001  A11     : 0x60013000  A12     : 0x3fcb66a0  A13     : 0x0000ca18  
+A14     : 0x00000026  A15     : 0x00060023  SAR     : 0x00000000  EXCCAUSE: 0x0000001d  
+EXCVADDR: 0x00000390  LBEG    : 0x40056f5c  LEND    : 0x40056f72  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x40387687:0x3fca86a0 0x4037a4b8:0x3fca86e0 0x403815b3:0x3fca8700 0x40389a93:0x3fcb6f80 0x421fe72b:0x3fcb6fa0 0x421ffabf:0x3fcb6fc0
+
+
+
+
+ELF file SHA256: 3b0864748
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038ceda
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (35) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (35) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (35) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (36) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (36) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (36) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (37) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (37) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (38) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (38) esp_psram: Speed: 80MHz[0m
+[0;32mI (38) cpu_start: Multicore app[0m
+[0;32mI (47) cpu_start: Pro cpu start user code[0m
+[0;32mI (47) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (47) app_init: Application information:[0m
+[0;32mI (47) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     May 25 2026 19:19:38[0m
+[0;32mI (48) app_init: ELF file SHA256:  3b0864748...[0m
+[0;32mI (48) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (48) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (48) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (48) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2300 len 00037410 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (49) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (50) spi_flash: detected chip: gd[0m
+[0;32mI (50) spi_flash: flash io: qio[0m
+[0;32mI (51) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (51) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (52) main_task: Started on CPU0[0m
+[0;32mI (62) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (62) main_task: Calling app_main()[0m
+[0;32mI (82) main: Getting Application instance...[0m
+[0;32mI (82) main: Application instance obtained, calling Start()...[0m
+[0;32mI (82) Application: Application::Start() called[0m
+[0;32mI (82) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (82) button: IoT Button Version: 4.1.6[0m
+[0;32mI (82) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (112) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (112) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (112) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (112) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (112) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (432) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (432) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (432) Display: Power management not supported[0m
+[0;32mI (432) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (432) LcdDisplay: Размер: 410x502[0m
+[0;32mI (432) LcdDisplay: Panel handle: 0x3fceddd8[0m
+[0;32mI (432) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (432) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (432) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (522) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (622) LcdDisplay: Включение дисплея...[0m
+[0;32mI (622) LcdDisplay: Дисплей включен[0m
+[0;32mI (622) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (622) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (622) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (622) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (622) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (622) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (622) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (622) LVGL: Starting LVGL task[0m
+[0;32mI (622) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (622) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (622) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (622) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (622) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (622) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (622) LcdDisplay: Настройка UI...[0m
+[0;32mI (622) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (622) LcdDisplay: Тема найдена: 0x3fcedf50[0m
+[0;32mI (622) LcdDisplay: Шрифты загружены: text=0x3c26b850, icon=0x3c25d354, large_icon=0x3c25d354[0m
+[0;32mI (622) LcdDisplay: Активный экран найден: 0x3fcee8d4[0m
+[0;32mI (632) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (632) LcdDisplay:   container_: 0x3fceeab8[0m
+[0;32mI (632) LcdDisplay:   emoji_box_: 0x3fceeba0[0m
+[0;32mI (632) LcdDisplay:   emoji_label_: 0x3fceec44[0m
+[0;32mI (632) LcdDisplay:   emoji_image_: 0x3fceed74[0m
+[0;32mI (632) LcdDisplay:   preview_image_: 0x3fcd2578[0m
+[0;32mI (632) LcdDisplay:   top_bar_: 0x3fcd25f8[0m
+[0;32mI (632) LcdDisplay:   status_bar_: 0x3fcd2ab8[0m
+[0;32mI (632) LcdDisplay:   content_: 0[0m
+[0;32mI (632) LcdDisplay:   bottom_bar_: 0x3fcd2e64[0m
+[0;32mI (632) LcdDisplay:   chat_message_label_: 0x3fcd2f04[0m
+[0;32mI (632) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (632) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (692) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (772) Backlight: Set brightness to 80[0m
+[0;32mI (772) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (912) WaveshareAMOLED2_06: Touch initial read failed, touch disabled: ESP_ERR_INVALID_RESPONSE[0m
+[0;32mI (912) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (912) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+Guru Meditation Error: Core  0 panic'ed (StoreProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x4038768a  PS      : 0x00060033  A0      : 0x8037a4bb  A1      : 0x3fca86a0  
+A2      : 0x3c2f1288  A3      : 0x0000cdcd  A4      : 0x00060021  A5      : 0x3c2f159c  
+A6      : 0x3c2f159c  A7      : 0x3fcb6670  A8      : 0x00000026  A9      : 0x00000390  
+A10     : 0x00000001  A11     : 0x60013000  A12     : 0x3fcb66a0  A13     : 0x0000ca18  
+A14     : 0x00000026  A15     : 0x00060023  SAR     : 0x00000000  EXCCAUSE: 0x0000001d  
+EXCVADDR: 0x00000390  LBEG    : 0x40056f5c  LEND    : 0x40056f72  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x40387687:0x3fca86a0 0x4037a4b8:0x3fca86e0 0x403815b3:0x3fca8700 0x40389a93:0x3fcb6f80 0x421fe72b:0x3fcb6fa0 0x421ffabf:0x3fcb6fc0
+
+
+
+
+ELF file SHA256: 3b0864748
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038ceda
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (35) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (35) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (35) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (36) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (36) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (36) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (37) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (37) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (38) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (38) esp_psram: Speed: 80MHz[0m
+[0;32mI (38) cpu_start: Multicore app[0m
+[0;32mI (47) cpu_start: Pro cpu start user code[0m
+[0;32mI (47) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (47) app_init: Application information:[0m
+[0;32mI (47) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     May 25 2026 19:19:38[0m
+[0;32mI (48) app_init: ELF file SHA256:  3b0864748...[0m
+[0;32mI (48) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (48) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (48) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (49) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2300 len 00037410 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (49) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (50) spi_flash: detected chip: gd[0m
+[0;32mI (50) spi_flash: flash io: qio[0m
+[0;32mI (51) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (51) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (52) main_task: Started on CPU0[0m
+[0;32mI (62) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (62) main_task: Calling app_main()[0m
+[0;32mI (82) main: Getting Application instance...[0m
+[0;32mI (82) main: Application instance obtained, calling Start()...[0m
+[0;32mI (82) Application: Application::Start() called[0m
+[0;32mI (82) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (82) button: IoT Button Version: 4.1.6[0m
+[0;32mI (82) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (112) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (112) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (112) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (112) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (112) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (432) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (432) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (432) Display: Power management not supported[0m
+[0;32mI (432) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (432) LcdDisplay: Размер: 410x502[0m
+[0;32mI (432) LcdDisplay: Panel handle: 0x3fceddd8[0m
+[0;32mI (432) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (432) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (432) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (522) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (622) LcdDisplay: Включение дисплея...[0m
+[0;32mI (622) LcdDisplay: Дисплей включен[0m
+[0;32mI (622) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (622) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (622) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (622) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (622) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (622) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (622) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (622) LVGL: Starting LVGL task[0m
+[0;32mI (622) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (622) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (622) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (622) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (622) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (622) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (622) LcdDisplay: Настройка UI...[0m
+[0;32mI (622) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (622) LcdDisplay: Тема найдена: 0x3fcedf50[0m
+[0;32mI (622) LcdDisplay: Шрифты загружены: text=0x3c26b850, icon=0x3c25d354, large_icon=0x3c25d354[0m
+[0;32mI (622) LcdDisplay: Активный экран найден: 0x3fcee8d4[0m
+[0;32mI (632) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (632) LcdDisplay:   container_: 0x3fceeab8[0m
+[0;32mI (632) LcdDisplay:   emoji_box_: 0x3fceeba0[0m
+[0;32mI (632) LcdDisplay:   emoji_label_: 0x3fceec44[0m
+[0;32mI (632) LcdDisplay:   emoji_image_: 0x3fceed74[0m
+[0;32mI (632) LcdDisplay:   preview_image_: 0x3fcd2578[0m
+[0;32mI (632) LcdDisplay:   top_bar_: 0x3fcd25f8[0m
+[0;32mI (632) LcdDisplay:   status_bar_: 0x3fcd2ab8[0m
+[0;32mI (632) LcdDisplay:   content_: 0[0m
+[0;32mI (632) LcdDisplay:   bottom_bar_: 0x3fcd2e64[0m
+[0;32mI (632) LcdDisplay:   chat_message_label_: 0x3fcd2f04[0m
+[0;32mI (632) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (632) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (692) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (772) Backlight: Set brightness to 80[0m
+[0;32mI (772) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (912) WaveshareAMOLED2_06: Touch initial read failed, touch disabled: ESP_ERR_INVALID_RESPONSE[0m
+[0;32mI (912) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (912) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+Guru Meditation Error: Core  0 panic'ed (StoreProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x4038768a  PS      : 0x00060033  A0      : 0x8037a4bb  A1      : 0x3fca86a0  
+A2      : 0x3c2f1288  A3      : 0x0000cdcd  A4      : 0x00060021  A5      : 0x3c2f159c  
+A6      : 0x3c2f159c  A7      : 0x3fcb6670  A8      : 0x00000026  A9      : 0x00000390  
+A10     : 0x00000001  A11     : 0x60013000  A12     : 0x3fcb66a0  A13     : 0x0000ca18  
+A14     : 0x00000026  A15     : 0x00060023  SAR     : 0x00000000  EXCCAUSE: 0x0000001d  
+EXCVADDR: 0x00000390  LBEG    : 0x40056f5c  LEND    : 0x40056f72  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x40387687:0x3fca86a0 0x4037a4b8:0x3fca86e0 0x403815b3:0x3fca8700 0x40389a93:0x3fcb6f80 0x421fe72b:0x3fcb6fa0 0x421ffabf:0x3fcb6fc0
+
+
+
+
+ELF file SHA256: 3b0864748
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038ceda
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (35) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (35) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (35) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (36) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (36) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (36) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (37) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (37) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (38) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (38) esp_psram: Speed: 80MHz[0m
+[0;32mI (38) cpu_start: Multicore app[0m
+[0;32mI (47) cpu_start: Pro cpu start user code[0m
+[0;32mI (47) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (47) app_init: Application information:[0m
+[0;32mI (47) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     May 25 2026 19:19:38[0m
+[0;32mI (48) app_init: ELF file SHA256:  3b0864748...[0m
+[0;32mI (48) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (48) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (48) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (48) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2300 len 00037410 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (49) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (50) spi_flash: detected chip: gd[0m
+[0;32mI (50) spi_flash: flash io: qio[0m
+[0;32mI (51) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (51) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (52) main_task: Started on CPU0[0m
+[0;32mI (62) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (62) main_task: Calling app_main()[0m
+[0;32mI (82) main: Getting Application instance...[0m
+[0;32mI (82) main: Application instance obtained, calling Start()...[0m
+[0;32mI (82) Application: Application::Start() called[0m
+[0;32mI (82) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (82) button: IoT Button Version: 4.1.6[0m
+[0;32mI (82) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (112) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (112) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (112) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (112) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (112) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (432) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (432) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (432) Display: Power management not supported[0m
+[0;32mI (432) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (432) LcdDisplay: Размер: 410x502[0m
+[0;32mI (432) LcdDisplay: Panel handle: 0x3fceddd8[0m
+[0;32mI (432) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (432) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (432) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (522) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (622) LcdDisplay: Включение дисплея...[0m
+[0;32mI (622) LcdDisplay: Дисплей включен[0m
+[0;32mI (622) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (622) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (622) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (622) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (622) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (622) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (622) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (622) LVGL: Starting LVGL task[0m
+[0;32mI (622) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (622) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (622) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (622) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (622) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (622) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (622) LcdDisplay: Настройка UI...[0m
+[0;32mI (622) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (622) LcdDisplay: Тема найдена: 0x3fcedf50[0m
+[0;32mI (622) LcdDisplay: Шрифты загружены: text=0x3c26b850, icon=0x3c25d354, large_icon=0x3c25d354[0m
+[0;32mI (622) LcdDisplay: Активный экран найден: 0x3fcee8d4[0m
+[0;32mI (632) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (632) LcdDisplay:   container_: 0x3fceeab8[0m
+[0;32mI (632) LcdDisplay:   emoji_box_: 0x3fceeba0[0m
+[0;32mI (632) LcdDisplay:   emoji_label_: 0x3fceec44[0m
+[0;32mI (632) LcdDisplay:   emoji_image_: 0x3fceed74[0m
+[0;32mI (632) LcdDisplay:   preview_image_: 0x3fcd2578[0m
+[0;32mI (632) LcdDisplay:   top_bar_: 0x3fcd25f8[0m
+[0;32mI (632) LcdDisplay:   status_bar_: 0x3fcd2ab8[0m
+[0;32mI (632) LcdDisplay:   content_: 0[0m
+[0;32mI (632) LcdDisplay:   bottom_bar_: 0x3fcd2e64[0m
+[0;32mI (632) LcdDisplay:   chat_message_label_: 0x3fcd2f04[0m
+[0;32mI (632) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (632) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (692) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (772) Backlight: Set brightness to 80[0m
+[0;32mI (772) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (912) WaveshareAMOLED2_06: Touch initial read failed, touch disabled: ESP_ERR_INVALID_RESPONSE[0m
+[0;32mI (912) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (912) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+Guru Meditation Error: Core  0 panic'ed (StoreProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x4038768a  PS      : 0x00060033  A0      : 0x8037a4bb  A1      : 0x3fca86a0  
+A2      : 0x3c2f1288  A3      : 0x0000cdcd  A4      : 0x00060021  A5      : 0x3c2f159c  
+A6      : 0x3c2f159c  A7      : 0x3fcb6670  A8      : 0x00000026  A9      : 0x00000390  
+A10     : 0x00000001  A11     : 0x60013000  A12     : 0x3fcb66a0  A13     : 0x0000ca18  
+A14     : 0x00000026  A15     : 0x00060023  SAR     : 0x00000000  EXCCAUSE: 0x0000001d  
+EXCVADDR: 0x00000390  LBEG    : 0x40056f5c  LEND    : 0x40056f72  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x40387687:0x3fca86a0 0x4037a4b8:0x3fca86e0 0x403815b3:0x3fca8700 0x40389a93:0x3fcb6f80 0x421fe72b:0x3fcb6fa0 0x421ffabf:0x3fcb6fc0
+
+
+
+
+ELF file SHA256: 3b0864748
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038ceda
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (35) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (35) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (35) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (36) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (36) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (36) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (37) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (37) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (38) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (38) esp_psram: Speed: 80MHz[0m
+[0;32mI (38) cpu_start: Multicore app[0m
+[0;32mI (47) cpu_start: Pro cpu start user code[0m
+[0;32mI (47) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (47) app_init: Application information:[0m
+[0;32mI (47) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     May 25 2026 19:19:38[0m
+[0;32mI (48) app_init: ELF file SHA256:  3b0864748...[0m
+[0;32mI (48) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (48) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (48) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (48) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2300 len 00037410 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (49) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (50) spi_flash: detected chip: gd[0m
+[0;32mI (50) spi_flash: flash io: qio[0m
+[0;32mI (51) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (51) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (52) main_task: Started on CPU0[0m
+[0;32mI (62) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (62) main_task: Calling app_main()[0m
+[0;32mI (82) main: Getting Application instance...[0m
+[0;32mI (82) main: Application instance obtained, calling Start()...[0m
+[0;32mI (82) Application: Application::Start() called[0m
+[0;32mI (82) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (82) button: IoT Button Version: 4.1.6[0m
+[0;32mI (82) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (112) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (112) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (112) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (112) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (112) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (432) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (432) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (432) Display: Power management not supported[0m
+[0;32mI (432) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (432) LcdDisplay: Размер: 410x502[0m
+[0;32mI (432) LcdDisplay: Panel handle: 0x3fceddd8[0m
+[0;32mI (432) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (432) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (432) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (522) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (622) LcdDisplay: Включение дисплея...[0m
+[0;32mI (622) LcdDisplay: Дисплей включен[0m
+[0;32mI (622) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (622) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (622) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (622) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (622) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (622) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (622) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (622) LVGL: Starting LVGL task[0m
+[0;32mI (622) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (622) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (622) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (622) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (622) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (622) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (622) LcdDisplay: Настройка UI...[0m
+[0;32mI (622) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (622) LcdDisplay: Тема найдена: 0x3fcedf50[0m
+[0;32mI (622) LcdDisplay: Шрифты загружены: text=0x3c26b850, icon=0x3c25d354, large_icon=0x3c25d354[0m
+[0;32mI (622) LcdDisplay: Активный экран найден: 0x3fcee8d4[0m
+[0;32mI (632) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (632) LcdDisplay:   container_: 0x3fceeab8[0m
+[0;32mI (632) LcdDisplay:   emoji_box_: 0x3fceeba0[0m
+[0;32mI (632) LcdDisplay:   emoji_label_: 0x3fceec44[0m
+[0;32mI (632) LcdDisplay:   emoji_image_: 0x3fceed74[0m
+[0;32mI (632) LcdDisplay:   preview_image_: 0x3fcd2578[0m
+[0;32mI (632) LcdDisplay:   top_bar_: 0x3fcd25f8[0m
+[0;32mI (632) LcdDisplay:   status_bar_: 0x3fcd2ab8[0m
+[0;32mI (632) LcdDisplay:   content_: 0[0m
+[0;32mI (632) LcdDisplay:   bottom_bar_: 0x3fcd2e64[0m
+[0;32mI (632) LcdDisplay:   chat_message_label_: 0x3fcd2f04[0m
+[0;32mI (632) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (632) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (692) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (772) Backlight: Set brightness to 80[0m
+[0;32mI (772) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (912) WaveshareAMOLED2_06: Touch initial read failed, touch disabled: ESP_ERR_INVALID_RESPONSE[0m
+[0;32mI (912) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (912) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+Guru Meditation Error: Core  0 panic'ed (StoreProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x4038768a  PS      : 0x00060033  A0      : 0x8037a4bb  A1      : 0x3fca86a0  
+A2      : 0x3c2f1288  A3      : 0x0000cdcd  A4      : 0x00060021  A5      : 0x3c2f159c  
+A6      : 0x3c2f159c  A7      : 0x3fcb6670  A8      : 0x00000026  A9      : 0x00000390  
+A10     : 0x00000001  A11     : 0x60013000  A12     : 0x3fcb66a0  A13     : 0x0000ca18  
+A14     : 0x00000026  A15     : 0x00060023  SAR     : 0x00000000  EXCCAUSE: 0x0000001d  
+EXCVADDR: 0x00000390  LBEG    : 0x40056f5c  LEND    : 0x40056f72  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x40387687:0x3fca86a0 0x4037a4b8:0x3fca86e0 0x403815b3:0x3fca8700 0x40389a93:0x3fcb6f80 0x421fe72b:0x3fcb6fa0 0x421ffabf:0x3fcb6fc0
+
+
+
+
+ELF file SHA256: 3b0864748
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038ceda
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (35) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (35) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (35) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (36) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (36) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (36) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (37) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (37) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (38) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (38) esp_psram: Speed: 80MHz[0m
+[0;32mI (38) cpu_start: Multicore app[0m
+[0;32mI (47) cpu_start: Pro cpu start user code[0m
+[0;32mI (47) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (47) app_init: Application information:[0m
+[0;32mI (47) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     May 25 2026 19:19:38[0m
+[0;32mI (48) app_init: ELF file SHA256:  3b0864748...[0m
+[0;32mI (48) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (48) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (48) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (49) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2300 len 00037410 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (49) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (50) spi_flash: detected chip: gd[0m
+[0;32mI (50) spi_flash: flash io: qio[0m
+[0;32mI (51) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (51) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (52) main_task: Started on CPU0[0m
+[0;32mI (62) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (62) main_task: Calling app_main()[0m
+[0;32mI (82) main: Getting Application instance...[0m
+[0;32mI (82) main: Application instance obtained, calling Start()...[0m
+[0;32mI (82) Application: Application::Start() called[0m
+[0;32mI (82) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (82) button: IoT Button Version: 4.1.6[0m
+[0;32mI (82) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (112) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (112) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (112) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (112) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (112) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (432) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (432) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (432) Display: Power management not supported[0m
+[0;32mI (432) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (432) LcdDisplay: Размер: 410x502[0m
+[0;32mI (432) LcdDisplay: Panel handle: 0x3fceddd8[0m
+[0;32mI (432) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (432) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (432) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (522) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (622) LcdDisplay: Включение дисплея...[0m
+[0;32mI (622) LcdDisplay: Дисплей включен[0m
+[0;32mI (622) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (622) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (622) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (622) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (622) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (622) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (622) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (622) LVGL: Starting LVGL task[0m
+[0;32mI (622) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (622) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (622) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (622) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (622) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (622) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (622) LcdDisplay: Настройка UI...[0m
+[0;32mI (622) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (622) LcdDisplay: Тема найдена: 0x3fcedf50[0m
+[0;32mI (622) LcdDisplay: Шрифты загружены: text=0x3c26b850, icon=0x3c25d354, large_icon=0x3c25d354[0m
+[0;32mI (622) LcdDisplay: Активный экран найден: 0x3fcee8d4[0m
+[0;32mI (632) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (632) LcdDisplay:   container_: 0x3fceeab8[0m
+[0;32mI (632) LcdDisplay:   emoji_box_: 0x3fceeba0[0m
+[0;32mI (632) LcdDisplay:   emoji_label_: 0x3fceec44[0m
+[0;32mI (632) LcdDisplay:   emoji_image_: 0x3fceed74[0m
+[0;32mI (632) LcdDisplay:   preview_image_: 0x3fcd2578[0m
+[0;32mI (632) LcdDisplay:   top_bar_: 0x3fcd25f8[0m
+[0;32mI (632) LcdDisplay:   status_bar_: 0x3fcd2ab8[0m
+[0;32mI (632) LcdDisplay:   content_: 0[0m
+[0;32mI (632) LcdDisplay:   bottom_bar_: 0x3fcd2e64[0m
+[0;32mI (632) LcdDisplay:   chat_message_label_: 0x3fcd2f04[0m
+[0;32mI (632) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (632) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (692) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (772) Backlight: Set brightness to 80[0m
+[0;32mI (772) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (912) WaveshareAMOLED2_06: Touch initial read failed, touch disabled: ESP_ERR_INVALID_RESPONSE[0m
+[0;32mI (912) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (912) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+Guru Meditation Error: Core  0 panic'ed (StoreProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x4038768a  PS      : 0x00060033  A0      : 0x8037a4bb  A1      : 0x3fca86a0  
+A2      : 0x3c2f1288  A3      : 0x0000cdcd  A4      : 0x00060021  A5      : 0x3c2f159c  
+A6      : 0x3c2f159c  A7      : 0x3fcb6670  A8      : 0x00000026  A9      : 0x00000390  
+A10     : 0x00000001  A11     : 0x60013000  A12     : 0x3fcb66a0  A13     : 0x0000ca18  
+A14     : 0x00000026  A15     : 0x00060023  SAR     : 0x00000000  EXCCAUSE: 0x0000001d  
+EXCVADDR: 0x00000390  LBEG    : 0x40056f5c  LEND    : 0x40056f72  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x40387687:0x3fca86a0 0x4037a4b8:0x3fca86e0 0x403815b3:0x3fca8700 0x40389a93:0x3fcb6f80 0x421fe72b:0x3fcb6fa0 0x421ffabf:0x3fcb6fc0
+
+
+
+
+ELF file SHA256: 3b0864748
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038ceda
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (35) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (35) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (35) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (36) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (36) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (36) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (37) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (37) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (38) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (38) esp_psram: Speed: 80MHz[0m
+[0;32mI (38) cpu_start: Multicore app[0m
+[0;32mI (47) cpu_start: Pro cpu start user code[0m
+[0;32mI (47) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (47) app_init: Application information:[0m
+[0;32mI (47) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     May 25 2026 19:19:38[0m
+[0;32mI (48) app_init: ELF file SHA256:  3b0864748...[0m
+[0;32mI (48) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (48) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (48) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (48) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2300 len 00037410 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (49) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (50) spi_flash: detected chip: gd[0m
+[0;32mI (50) spi_flash: flash io: qio[0m
+[0;32mI (51) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (51) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (52) main_task: Started on CPU0[0m
+[0;32mI (62) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (62) main_task: Calling app_main()[0m
+[0;32mI (82) main: Getting Application instance...[0m
+[0;32mI (82) main: Application instance obtained, calling Start()...[0m
+[0;32mI (82) Application: Application::Start() called[0m
+[0;32mI (82) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (82) button: IoT Button Version: 4.1.6[0m
+[0;32mI (82) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (112) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (112) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (112) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (112) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (112) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (432) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (432) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (432) Display: Power management not supported[0m
+[0;32mI (432) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (432) LcdDisplay: Размер: 410x502[0m
+[0;32mI (432) LcdDisplay: Panel handle: 0x3fceddd8[0m
+[0;32mI (432) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (432) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (432) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (522) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (622) LcdDisplay: Включение дисплея...[0m
+[0;32mI (622) LcdDisplay: Дисплей включен[0m
+[0;32mI (622) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (622) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (622) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (622) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (622) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (622) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (622) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (622) LVGL: Starting LVGL task[0m
+[0;32mI (622) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (622) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (622) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (622) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (622) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (622) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (622) LcdDisplay: Настройка UI...[0m
+[0;32mI (622) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (622) LcdDisplay: Тема найдена: 0x3fcedf50[0m
+[0;32mI (622) LcdDisplay: Шрифты загружены: text=0x3c26b850, icon=0x3c25d354, large_icon=0x3c25d354[0m
+[0;32mI (622) LcdDisplay: Активный экран найден: 0x3fcee8d4[0m
+[0;32mI (632) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (632) LcdDisplay:   container_: 0x3fceeab8[0m
+[0;32mI (632) LcdDisplay:   emoji_box_: 0x3fceeba0[0m
+[0;32mI (632) LcdDisplay:   emoji_label_: 0x3fceec44[0m
+[0;32mI (632) LcdDisplay:   emoji_image_: 0x3fceed74[0m
+[0;32mI (632) LcdDisplay:   preview_image_: 0x3fcd2578[0m
+[0;32mI (632) LcdDisplay:   top_bar_: 0x3fcd25f8[0m
+[0;32mI (632) LcdDisplay:   status_bar_: 0x3fcd2ab8[0m
+[0;32mI (632) LcdDisplay:   content_: 0[0m
+[0;32mI (632) LcdDisplay:   bottom_bar_: 0x3fcd2e64[0m
+[0;32mI (632) LcdDisplay:   chat_message_label_: 0x3fcd2f04[0m
+[0;32mI (632) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (632) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (692) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (772) Backlight: Set brightness to 80[0m
+[0;32mI (772) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (912) WaveshareAMOLED2_06: Touch initial read failed, touch disabled: ESP_ERR_INVALID_RESPONSE[0m
+[0;32mI (912) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (912) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+Guru Meditation Error: Core  0 panic'ed (StoreProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x4038768a  PS      : 0x00060033  A0      : 0x8037a4bb  A1      : 0x3fca86a0  
+A2      : 0x3c2f1288  A3      : 0x0000cdcd  A4      : 0x00060021  A5      : 0x3c2f159c  
+A6      : 0x3c2f159c  A7      : 0x3fcb6670  A8      : 0x00000026  A9      : 0x00000390  
+A10     : 0x00000001  A11     : 0x60013000  A12     : 0x3fcb66a0  A13     : 0x0000ca18  
+A14     : 0x00000026  A15     : 0x00060023  SAR     : 0x00000000  EXCCAUSE: 0x0000001d  
+EXCVADDR: 0x00000390  LBEG    : 0x40056f5c  LEND    : 0x40056f72  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x40387687:0x3fca86a0 0x4037a4b8:0x3fca86e0 0x403815b3:0x3fca8700 0x40389a93:0x3fcb6f80 0x421fe72b:0x3fcb6fa0 0x421ffabf:0x3fcb6fc0
+
+
+
+
+ELF file SHA256: 3b0864748
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038ceda
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (35) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (35) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (35) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (36) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (36) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (36) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (37) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (37) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (38) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (38) esp_psram: Speed: 80MHz[0m
+[0;32mI (38) cpu_start: Multicore app[0m
+[0;32mI (47) cpu_start: Pro cpu start user code[0m
+[0;32mI (47) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (47) app_init: Application information:[0m
+[0;32mI (47) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     May 25 2026 19:19:38[0m
+[0;32mI (48) app_init: ELF file SHA256:  3b0864748...[0m
+[0;32mI (48) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (48) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (48) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (49) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2300 len 00037410 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (49) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (50) spi_flash: detected chip: gd[0m
+[0;32mI (50) spi_flash: flash io: qio[0m
+[0;32mI (51) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (51) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (52) main_task: Started on CPU0[0m
+[0;32mI (62) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (62) main_task: Calling app_main()[0m
+[0;32mI (82) main: Getting Application instance...[0m
+[0;32mI (82) main: Application instance obtained, calling Start()...[0m
+[0;32mI (82) Application: Application::Start() called[0m
+[0;32mI (82) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (82) button: IoT Button Version: 4.1.6[0m
+[0;32mI (82) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (112) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (112) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (112) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (112) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (112) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (432) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (432) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (432) Display: Power management not supported[0m
+[0;32mI (432) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (432) LcdDisplay: Размер: 410x502[0m
+[0;32mI (432) LcdDisplay: Panel handle: 0x3fceddd8[0m
+[0;32mI (432) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (432) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (432) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (522) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (622) LcdDisplay: Включение дисплея...[0m
+[0;32mI (622) LcdDisplay: Дисплей включен[0m
+[0;32mI (622) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (622) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (622) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (622) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (622) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (622) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (622) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (622) LVGL: Starting LVGL task[0m
+[0;32mI (622) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (622) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (622) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (622) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (622) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (622) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (622) LcdDisplay: Настройка UI...[0m
+[0;32mI (622) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (622) LcdDisplay: Тема найдена: 0x3fcedf50[0m
+[0;32mI (622) LcdDisplay: Шрифты загружены: text=0x3c26b850, icon=0x3c25d354, large_icon=0x3c25d354[0m
+[0;32mI (622) LcdDisplay: Активный экран найден: 0x3fcee8d4[0m
+[0;32mI (632) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (632) LcdDisplay:   container_: 0x3fceeab8[0m
+[0;32mI (632) LcdDisplay:   emoji_box_: 0x3fceeba0[0m
+[0;32mI (632) LcdDisplay:   emoji_label_: 0x3fceec44[0m
+[0;32mI (632) LcdDisplay:   emoji_image_: 0x3fceed74[0m
+[0;32mI (632) LcdDisplay:   preview_image_: 0x3fcd2578[0m
+[0;32mI (632) LcdDisplay:   top_bar_: 0x3fcd25f8[0m
+[0;32mI (632) LcdDisplay:   status_bar_: 0x3fcd2ab8[0m
+[0;32mI (632) LcdDisplay:   content_: 0[0m
+[0;32mI (632) LcdDisplay:   bottom_bar_: 0x3fcd2e64[0m
+[0;32mI (632) LcdDisplay:   chat_message_label_: 0x3fcd2f04[0m
+[0;32mI (632) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (632) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (692) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (772) Backlight: Set brightness to 80[0m
+[0;32mI (772) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (912) WaveshareAMOLED2_06: Touch initial read failed, touch disabled: ESP_ERR_INVALID_RESPONSE[0m
+[0;32mI (912) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (912) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+Guru Meditation Error: Core  0 panic'ed (StoreProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x4038768a  PS      : 0x00060033  A0      : 0x8037a4bb  A1      : 0x3fca86a0  
+A2      : 0x3c2f1288  A3      : 0x0000cdcd  A4      : 0x00060021  A5      : 0x3c2f159c  
+A6      : 0x3c2f159c  A7      : 0x3fcb6670  A8      : 0x00000026  A9      : 0x00000390  
+A10     : 0x00000001  A11     : 0x60013000  A12     : 0x3fcb66a0  A13     : 0x0000ca18  
+A14     : 0x00000026  A15     : 0x00060023  SAR     : 0x00000000  EXCCAUSE: 0x0000001d  
+EXCVADDR: 0x00000390  LBEG    : 0x40056f5c  LEND    : 0x40056f72  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x40387687:0x3fca86a0 0x4037a4b8:0x3fca86e0 0x403815b3:0x3fca8700 0x40389a93:0x3fcb6f80 0x421fe72b:0x3fcb6fa0 0x421ffabf:0x3fcb6fc0
+
+
+
+
+ELF file SHA256: 3b0864748
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038ceda
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (35) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (35) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (35) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (36) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (36) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (36) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (37) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (37) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (38) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (38) esp_psram: Speed: 80MHz[0m
+[0;32mI (38) cpu_start: Multicore app[0m
+[0;32mI (47) cpu_start: Pro cpu start user code[0m
+[0;32mI (47) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (47) app_init: Application information:[0m
+[0;32mI (47) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     May 25 2026 19:19:38[0m
+[0;32mI (48) app_init: ELF file SHA256:  3b0864748...[0m
+[0;32mI (48) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (48) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (48) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (49) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2300 len 00037410 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (49) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (50) spi_flash: detected chip: gd[0m
+[0;32mI (50) spi_flash: flash io: qio[0m
+[0;32mI (51) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (51) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (52) main_task: Started on CPU0[0m
+[0;32mI (62) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (62) main_task: Calling app_main()[0m
+[0;32mI (82) main: Getting Application instance...[0m
+[0;32mI (82) main: Application instance obtained, calling Start()...[0m
+[0;32mI (82) Application: Application::Start() called[0m
+[0;32mI (82) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (82) button: IoT Button Version: 4.1.6[0m
+[0;32mI (82) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (112) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (112) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (112) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (112) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (112) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (432) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (432) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (432) Display: Power management not supported[0m
+[0;32mI (432) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (432) LcdDisplay: Размер: 410x502[0m
+[0;32mI (432) LcdDisplay: Panel handle: 0x3fceddd8[0m
+[0;32mI (432) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (432) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (432) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (522) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (622) LcdDisplay: Включение дисплея...[0m
+[0;32mI (622) LcdDisplay: Дисплей включен[0m
+[0;32mI (622) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (622) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (622) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (622) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (622) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (622) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (622) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (622) LVGL: Starting LVGL task[0m
+[0;32mI (622) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (622) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (622) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (622) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (622) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (622) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (622) LcdDisplay: Настройка UI...[0m
+[0;32mI (622) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (622) LcdDisplay: Тема найдена: 0x3fcedf50[0m
+[0;32mI (622) LcdDisplay: Шрифты загружены: text=0x3c26b850, icon=0x3c25d354, large_icon=0x3c25d354[0m
+[0;32mI (622) LcdDisplay: Активный экран найден: 0x3fcee8d4[0m
+[0;32mI (632) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (632) LcdDisplay:   container_: 0x3fceeab8[0m
+[0;32mI (632) LcdDisplay:   emoji_box_: 0x3fceeba0[0m
+[0;32mI (632) LcdDisplay:   emoji_label_: 0x3fceec44[0m
+[0;32mI (632) LcdDisplay:   emoji_image_: 0x3fceed74[0m
+[0;32mI (632) LcdDisplay:   preview_image_: 0x3fcd2578[0m
+[0;32mI (632) LcdDisplay:   top_bar_: 0x3fcd25f8[0m
+[0;32mI (632) LcdDisplay:   status_bar_: 0x3fcd2ab8[0m
+[0;32mI (632) LcdDisplay:   content_: 0[0m
+[0;32mI (632) LcdDisplay:   bottom_bar_: 0x3fcd2e64[0m
+[0;32mI (632) LcdDisplay:   chat_message_label_: 0x3fcd2f04[0m
+[0;32mI (632) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (632) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (692) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (772) Backlight: Set brightness to 80[0m
+[0;32mI (772) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (912) WaveshareAMOLED2_06: Touch initial read failed, touch disabled: ESP_ERR_INVALID_RESPONSE[0m
+[0;32mI (912) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (912) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+Guru Meditation Error: Core  0 panic'ed (StoreProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x4038768a  PS      : 0x00060033  A0      : 0x8037a4bb  A1      : 0x3fca86a0  
+A2      : 0x3c2f1288  A3      : 0x0000cdcd  A4      : 0x00060021  A5      : 0x3c2f159c  
+A6      : 0x3c2f159c  A7      : 0x3fcb6670  A8      : 0x00000026  A9      : 0x00000390  
+A10     : 0x00000001  A11     : 0x60013000  A12     : 0x3fcb66a0  A13     : 0x0000ca18  
+A14     : 0x00000026  A15     : 0x00060023  SAR     : 0x00000000  EXCCAUSE: 0x0000001d  
+EXCVADDR: 0x00000390  LBEG    : 0x40056f5c  LEND    : 0x40056f72  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x40387687:0x3fca86a0 0x4037a4b8:0x3fca86e0 0x403815b3:0x3fca8700 0x40389a93:0x3fcb6f80 0x421fe72b:0x3fcb6fa0 0x421ffabf:0x3fcb6fc0
+
+
+
+
+ELF file SHA256: 3b0864748
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038ceda
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (35) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (35) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (35) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (36) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (36) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (36) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (37) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (37) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (38) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (38) esp_psram: Speed: 80MHz[0m
+[0;32mI (38) cpu_start: Multicore app[0m
+[0;32mI (47) cpu_start: Pro cpu start user code[0m
+[0;32mI (47) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (47) app_init: Application information:[0m
+[0;32mI (47) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     May 25 2026 19:19:38[0m
+[0;32mI (48) app_init: ELF file SHA256:  3b0864748...[0m
+[0;32mI (48) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (48) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (48) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (48) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2300 len 00037410 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (49) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (50) spi_flash: detected chip: gd[0m
+[0;32mI (50) spi_flash: flash io: qio[0m
+[0;32mI (51) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (51) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (52) main_task: Started on CPU0[0m
+[0;32mI (62) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (62) main_task: Calling app_main()[0m
+[0;32mI (82) main: Getting Application instance...[0m
+[0;32mI (82) main: Application instance obtained, calling Start()...[0m
+[0;32mI (82) Application: Application::Start() called[0m
+[0;32mI (82) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (82) button: IoT Button Version: 4.1.6[0m
+[0;32mI (82) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (112) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (112) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (112) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (112) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (112) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (112) sh8601: LCD panel create success, version: 1.0.2[0m

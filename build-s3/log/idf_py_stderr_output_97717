@@ -1,0 +1,17 @@
+Command: ninja all
+Loading defaults file /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/sdkconfig.defaults.esp32s3...
+Configuration Report                                                            
+ ────────────────────────────────────────────────────────────────────────────── 
+   Parser Version: 1                                                            
+   Verbosity: default                                                           
+   Defaults policy: sdkconfig                                                   
+   Status: Finished with notifications                                          
+                                                                                
+  Disabled Symbols/Choices With User-Set Value                                  
+   ──────────────────────────────────────────────────────────────────────────   
+    * MBEDTLS_DYNAMIC_FREE_CONFIG_DATA (defined at                              
+    /Users/digkill/.espressif/v6.0.1/esp-idf/components/mbedtls/Kconfig:244)    
+    with user-set value y from                                                  
+    /var/folders/6z/w0nwvf514mn4r3dt6kgfpjkr0000gn/T/kconfgen_tmppjhg7kzf       
+   ──────────────────────────────────────────────────────────────────────────   
+ ────────────────────────────────────────────────────────────────────────────── 

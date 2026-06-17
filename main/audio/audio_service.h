@@ -39,9 +39,12 @@
 #define STREAM_SOURCE_SAMPLE_RATE 16000
 #define STREAM_SAMPLE_RATE 24000
 #define MAX_ENCODE_TASKS_IN_QUEUE 2
-#define MAX_PLAYBACK_TASKS_IN_QUEUE 2
-#define MAX_DECODE_PACKETS_IN_QUEUE (2400 / OPUS_FRAME_DURATION_MS)
-#define MAX_SEND_PACKETS_IN_QUEUE (2400 / OPUS_FRAME_DURATION_MS)
+/** PCM frames queued for I2S after Opus decode. Too small (e.g. 2) caps prefetch: WS bursts fill
+ *  decode queue while OpusCodecTask waits for playback slots → "Decode queue full (40)" warnings. */
+#define MAX_PLAYBACK_TASKS_IN_QUEUE 12
+/** Opus packets waiting to decode (~4.8 s @ 60 ms) — absorbs network/TTS burst vs single-thread decode. */
+#define MAX_DECODE_PACKETS_IN_QUEUE (4800 / OPUS_FRAME_DURATION_MS)
+#define MAX_SEND_PACKETS_IN_QUEUE (4800 / OPUS_FRAME_DURATION_MS)
 #define AUDIO_TESTING_MAX_DURATION_MS 10000
 #define MAX_TIMESTAMPS_IN_QUEUE 3
 

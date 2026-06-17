@@ -1,59 +1,60 @@
 #ifndef SERVO_CONTROLLER_H
 #define SERVO_CONTROLLER_H
 
-#include <driver/gpio.h>
-#include <driver/ledc.h>
-#include <string>
+#include <driver/uart.h>
+#include <esp_now.h>
+#include <freertos/FreeRTOS.h>
+#include <freertos/semphr.h>
+#include <cstddef>
 #include <mutex>
+#include <string>
 #include <utility>
 #include <vector>
 
-/**
- * @brief Управление двумя сервоприводами головы через LEDC PWM.
- */
 class ServoController {
 public:
     ServoController();
     ~ServoController();
 
-    /**
-     * @brief Инициализирует PWM-каналы сервоприводов
-     * @return true если успешно
-     */
     bool Init();
+    bool InitEspNow();
 
-    /**
-     * @brief Устанавливает угол для сервопривода
-     * @param servo_num Номер сервопривода (1, 2, 3, ...)
-     * @param angle Угол поворота (0-180)
-     * @return true если команда отправлена успешно
-     */
     bool SetServoAngle(int servo_num, int angle);
-
-    /**
-     * @brief Устанавливает несколько сервоприводов одновременно
-     * @param commands Массив пар {servo_num, angle}
-     * @return true если все команды отправлены успешно
-     */
     bool SetMultipleServos(const std::vector<std::pair<int, int>>& commands);
-
-    /**
-     * @brief Выполняет предустановленную позу робота
-     * @param pose_name Имя позы ("home", "wave", "dance", etc.)
-     * @return true если поза выполнена
-     */
     bool SetPose(const std::string& pose_name);
 
-private:
-    bool initialized_;
-    std::mutex servo_mutex_;
+    bool SetLed(int r, int g, int b);
+    bool SetDefaultLed();
+    bool LedTest();
+    bool LedOff();
+    bool SetPowerSaveMode(bool sleeping);
 
-    bool ConfigureChannel(int servo_num, gpio_num_t pin, ledc_channel_t channel);
-    bool WriteAngle(ledc_channel_t channel, int angle);
-    bool GetChannelForServo(int servo_num, ledc_channel_t& channel) const;
-    uint32_t AngleToDuty(int angle) const;
+    bool RequestDistance(std::string& response);
+    bool RequestRadar(std::string& response);
+    bool RequestStatus(std::string& response);
+    bool RequestFrame(std::string& jpeg_data, uint32_t& frame_id, std::string& error);
+    bool CameraStreamOff();
+
+private:
+    uart_port_t uart_port_;
+    bool initialized_;
+    bool espnow_initialized_ = false;
+    SemaphoreHandle_t espnow_response_sem_ = nullptr;
+    uint16_t espnow_sequence_ = 0;
+    uint16_t espnow_waiting_sequence_ = 0;
+    std::string espnow_response_;
+    std::mutex uart_mutex_;
+
+    static ServoController* espnow_instance_;
+    static void EspNowReceiveCallback(const esp_now_recv_info_t* info, const uint8_t* data, int len);
+    void HandleEspNowPacket(const uint8_t* data, int len);
+    bool SendEspNowCommandLocked(const std::string& command, std::string* response, int timeout_ms);
+    bool SendCommandLocked(const std::string& command);
+    bool SendCommand(const std::string& command);
+    bool SendCommandAndReadLine(const std::string& command, std::string& response, int timeout_ms = 500);
+    bool ReadLineLocked(std::string& response, int timeout_ms);
+    bool ReadBytesLocked(uint8_t* data, size_t len, int timeout_ms);
+    int ClampAngle(int angle) const;
 };
 
 #endif // SERVO_CONTROLLER_H
-
-

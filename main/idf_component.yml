@@ -21,14 +21,16 @@ dependencies:
   78/esp-wifi-connect: ~2.6.2
   78/esp-opus-encoder: ~2.4.1
   78/esp-ml307: ~3.5.1
+  espressif/mqtt: ^1.0.0
+  espressif/cjson: ^1.7.19
   78/xiaozhi-fonts: ~1.5.5
   espressif/led_strip: ~3.0.1
   espressif/esp_codec_dev: ~1.5
-  espressif/esp-sr: ~2.2.0
+  espressif/esp-sr: ^2.4.1
   espressif/button: ~4.1.3
   espressif/knob: ^1.0.0
   espressif/esp_video:
-    version: ==1.3.1   # for compatibility. update version may need to modify this project code.
+    version: ^2.0.1
     rules:
     - if: target not in [esp32]
   espressif/esp_image_effects:
@@ -104,6 +106,7 @@ dependencies:
     version: ^0.1.0
     rules:
     - if: target in [esp32s3, esp32c5]
+    - if: idf_version <6.0
 
   ## Required IDF version
   idf:

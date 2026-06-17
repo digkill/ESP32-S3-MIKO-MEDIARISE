@@ -2,7 +2,7 @@
 #define _BOARD_CONFIG_H_
 
 #include <driver/gpio.h>
-#include <driver/ledc.h>
+#include <driver/uart.h>
 
 #define AUDIO_INPUT_SAMPLE_RATE 24000
 #define AUDIO_OUTPUT_SAMPLE_RATE 24000
@@ -42,7 +42,10 @@
 #define DISPLAY_BACKLIGHT_PIN GPIO_NUM_NC
 #define DISPLAY_BACKLIGHT_OUTPUT_INVERT false
 
+// Waveshare's Arduino examples define TP_RESET=9 but do not pass it to the
+// FT3168 driver. Leave it unmanaged unless a board revision explicitly needs it.
 #define TOUCH_RST_PIN GPIO_NUM_9
+#define TOUCH_RST_ENABLED 0
 #define TOUCH_INT_PIN GPIO_NUM_38
 
 #define SDCARD_MOUNT_POINT "/sdcard"
@@ -53,25 +56,41 @@
 #define IMU_QMI8658_ADDR QMI8658_ADDRESS_HIGH
 
 /*
- * Head servos, direct PWM.
- * Change these pins manually here if wiring changes.
+ * Optional external vibration motor control. The Waveshare 2.06 documentation
+ * lists an IMU but no onboard motor. Drive a motor through a transistor/MOSFET
+ * and enable/set the selected control pin after wiring is known.
  */
-#define SERVO_HEAD_YAW_PIN       GPIO_NUM_19
-#define SERVO_HEAD_PITCH_PIN     GPIO_NUM_20
+#define VIBRATION_MOTOR_ENABLED    0
+#define VIBRATION_MOTOR_GPIO       GPIO_NUM_NC
+#define VIBRATION_MOTOR_ACTIVE_HIGH true
+
+/*
+ * External Seeed XIAO ESP32-S3 camera/servo/LED/proximity bridge.
+ * Wire Waveshare TX -> XIAO RX and Waveshare RX -> XIAO TX.
+ */
+#define XIAO_UART_PORT_NUM       UART_NUM_1
+#define XIAO_UART_TX_PIN         GPIO_NUM_17
+#define XIAO_UART_RX_PIN         GPIO_NUM_18
+/* 921600 often fails on jumper wires; use the same value on the XIAO bridge (LINK_UART_BAUD). */
+#define XIAO_UART_BAUD_RATE      115200
+
+/*
+ * Wireless XIAO control link. ESP-NOW commands share the station Wi-Fi channel;
+ * keep both S3 boards associated with the same 2.4 GHz AP.
+ * UART stays available as fallback and for JPEG frame transfer.
+ */
+#define XIAO_ESPNOW_ENABLED      1
+
 #define SERVO_HEAD_YAW_NUM       1
 #define SERVO_HEAD_PITCH_NUM     2
 
-#define SERVO_PWM_FREQ_HZ        50
-#define SERVO_PWM_SPEED_MODE     LEDC_LOW_SPEED_MODE
-#define SERVO_PWM_TIMER          LEDC_TIMER_0
-#define SERVO_PWM_RESOLUTION     LEDC_TIMER_14_BIT
-#define SERVO_PWM_YAW_CHANNEL    LEDC_CHANNEL_0
-#define SERVO_PWM_PITCH_CHANNEL  LEDC_CHANNEL_1
+#define SERVO_HOME_ANGLE         60
+#define SERVO_MAX_DEVIATION      20
+#define SERVO_MIN_ANGLE          (SERVO_HOME_ANGLE - SERVO_MAX_DEVIATION)
+#define SERVO_MAX_ANGLE          (SERVO_HOME_ANGLE + SERVO_MAX_DEVIATION)
 
-#define SERVO_MIN_ANGLE          0
-#define SERVO_MAX_ANGLE          120
-#define SERVO_HOME_ANGLE         90
-#define SERVO_MIN_PULSE_US       500
-#define SERVO_MAX_PULSE_US       2500
+#define XIAO_LED_DEFAULT_R       0
+#define XIAO_LED_DEFAULT_G       120
+#define XIAO_LED_DEFAULT_B       255
 
 #endif // _BOARD_CONFIG_H_

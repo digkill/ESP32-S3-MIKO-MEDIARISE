@@ -1,0 +1,526 @@
+Command: /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf_monitor.py -p /dev/cu.usbmodem1101 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/xiaozhi.elf /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/bootloader/bootloader.elf -m '/Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python' '/Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf.py' '-B' 'xiaozhi-esp32/build-s3-v2' '-p' '/dev/cu.usbmodem1101'
+[0;32mI (384165) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (386225) WaveshareAMOLED2_06: touch-int irq=1 int=0 ready=1[0m
+[0;32mI (386225) WaveshareAMOLED2_06: touch#117 irq=1 probe=0 int=0 ESP_OK pts=1 x=88 y=241[0m
+[0;32mI (386255) WaveshareAMOLED2_06: touch#118 irq=1 probe=0 int=0 ESP_OK pts=1 x=88 y=241[0m
+[0;32mI (386355) WaveshareAMOLED2_06: touch-int irq=1 int=1 ready=1[0m
+[1;31mE (386385) i2c.master: I2C bus is still busy but software timeout detected[0m
+[0;32mI (386385) WaveshareAMOLED2_06: touch#119 irq=1 probe=0 int=1 ESP_ERR_INVALID_RESPONSE pts=0 x=0 y=0[0m
+[0;32mI (386515) WaveshareAMOLED2_06: touch-int irq=3 int=0 ready=1[0m
+[0;32mI (386515) WaveshareAMOLED2_06: touch#120 irq=3 probe=0 int=0 ESP_OK pts=1 x=83 y=314[0m
+[1;31mE (386565) i2c.master: I2C bus is still busy but software timeout detected[0m
+[0;32mI (386565) WaveshareAMOLED2_06: touch-int irq=1 int=1 ready=1[0m
+[0;32mI (386685) WaveshareAMOLED2_06: touch-int irq=1 int=0 ready=1[0m
+[0;32mI (386685) WaveshareAMOLED2_06: touch#123 irq=1 probe=0 int=0 ESP_OK pts=1 x=85 y=355[0m
+[0;32mI (386815) WaveshareAMOLED2_06: touch-int irq=1 int=1 ready=1[0m
+[0;32mI (386965) WaveshareAMOLED2_06: touch#126 irq=4 probe=0 int=1 ESP_OK pts=1 x=84 y=434[0m
+[0;32mI (386965) WaveshareAMOLED2_06: touch-int irq=1 int=0 ready=1[0m
+[0;32mI (387115) WaveshareAMOLED2_06: touch#129 irq=6 probe=0 int=0 ESP_OK pts=1 x=84 y=434[0m
+[0;32mI (387265) WaveshareAMOLED2_06: touch#132 irq=6 probe=0 int=0 ESP_OK pts=1 x=84 y=434[0m
+[0;32mI (387315) WaveshareAMOLED2_06: touch#134 irq=1 probe=0 int=0 ESP_OK pts=1 x=107 y=397[0m
+[0;32mI (387425) WaveshareAMOLED2_06: touch#135 irq=6 probe=0 int=0 ESP_OK pts=1 x=146 y=329[0m
+[0;32mI (387445) WaveshareAMOLED2_06: touch#136 irq=1 probe=0 int=0 ESP_OK pts=1 x=161 y=304[0m
+[0;32mI (387465) WaveshareAMOLED2_06: touch#137 irq=1 probe=0 int=0 ESP_OK pts=1 x=174 y=284[0m
+[0;32mI (387575) WaveshareAMOLED2_06: touch#138 irq=6 probe=0 int=0 ESP_OK pts=1 x=209 y=221[0m
+[0;32mI (387605) WaveshareAMOLED2_06: touch#139 irq=1 probe=0 int=0 ESP_OK pts=1 x=217 y=210[0m
+[0;32mI (387635) WaveshareAMOLED2_06: touch#140 irq=1 probe=0 int=0 ESP_OK pts=1 x=222 y=203[0m
+[0;32mI (387725) WaveshareAMOLED2_06: touch#141 irq=7 probe=0 int=0 ESP_OK pts=1 x=227 y=195[0m
+[0;32mI (387755) WaveshareAMOLED2_06: touch#142 irq=1 probe=0 int=0 ESP_OK pts=1 x=229 y=193[0m
+[0;32mI (387785) WaveshareAMOLED2_06: touch#143 irq=1 probe=0 int=0 ESP_OK pts=1 x=230 y=192[0m
+[0;32mI (387875) WaveshareAMOLED2_06: touch#144 irq=6 probe=0 int=0 ESP_OK pts=1 x=222 y=201[0m
+[0;32mI (387895) WaveshareAMOLED2_06: touch#145 irq=1 probe=0 int=0 ESP_OK pts=1 x=214 y=215[0m
+[0;32mI (387925) WaveshareAMOLED2_06: touch#146 irq=1 probe=0 int=0 ESP_OK pts=1 x=207 y=229[0m
+[0;32mI (388035) WaveshareAMOLED2_06: touch#147 irq=6 probe=0 int=0 ESP_OK pts=1 x=180 y=296[0m
+[0;32mI (388055) WaveshareAMOLED2_06: touch#148 irq=1 probe=0 int=0 ESP_OK pts=1 x=169 y=318[0m
+[0;32mI (388085) WaveshareAMOLED2_06: touch#149 irq=1 probe=0 int=0 ESP_OK pts=1 x=160 y=337[0m
+[0;32mI (388185) WaveshareAMOLED2_06: touch-int irq=6 int=1 ready=1[0m
+[0;32mI (388185) WaveshareAMOLED2_06: touch#150 irq=6 probe=0 int=1 ESP_OK pts=1 x=122 y=408[0m
+[0;32mI (388185) WaveshareAMOLED2_06: touch-int irq=1 int=0 ready=1[0m
+[0;32mI (388205) WaveshareAMOLED2_06: touch#151 irq=1 probe=0 int=0 ESP_OK pts=1 x=117 y=414[0m
+[0;32mI (388235) WaveshareAMOLED2_06: touch#152 irq=1 probe=0 int=0 ESP_OK pts=1 x=110 y=425[0m
+[0;32mI (388335) WaveshareAMOLED2_06: touch#153 irq=6 probe=0 int=0 ESP_OK pts=1 x=96 y=446[0m
+[0;32mI (388355) WaveshareAMOLED2_06: touch#154 irq=1 probe=0 int=0 ESP_OK pts=1 x=95 y=448[0m
+[0;32mI (388385) WaveshareAMOLED2_06: touch#155 irq=1 probe=0 int=0 ESP_OK pts=1 x=98 y=451[0m
+[0;32mI (388485) WaveshareAMOLED2_06: touch#156 irq=6 probe=0 int=0 ESP_OK pts=1 x=129 y=410[0m
+[0;32mI (388505) WaveshareAMOLED2_06: touch#157 irq=1 probe=0 int=0 ESP_OK pts=1 x=133 y=394[0m
+[0;32mI (388535) WaveshareAMOLED2_06: touch#158 irq=1 probe=0 int=0 ESP_OK pts=1 x=129 y=380[0m
+[0;32mI (388635) WaveshareAMOLED2_06: touch#159 irq=7 probe=0 int=0 ESP_OK pts=1 x=51 y=334[0m
+[0;32mI (388665) WaveshareAMOLED2_06: touch#160 irq=1 probe=0 int=0 ESP_OK pts=1 x=35 y=328[0m
+[0;32mI (388695) WaveshareAMOLED2_06: touch#161 irq=1 probe=0 int=0 ESP_OK pts=1 x=26 y=324[0m
+[0;32mI (388795) WaveshareAMOLED2_06: touch#162 irq=6 probe=0 int=0 ESP_OK pts=1 x=13 y=320[0m
+[0;32mI (388825) WaveshareAMOLED2_06: touch#163 irq=1 probe=0 int=0 ESP_OK pts=1 x=16 y=320[0m
+[0;32mI (388945) WaveshareAMOLED2_06: touch#164 irq=1 probe=0 int=0 ESP_OK pts=1 x=85 y=344[0m
+[0;32mI (388965) WaveshareAMOLED2_06: touch#165 irq=1 probe=0 int=0 ESP_OK pts=1 x=109 y=350[0m
+[0;32mI (388985) WaveshareAMOLED2_06: touch#166 irq=1 probe=0 int=0 ESP_OK pts=1 x=137 y=355[0m
+[0;32mI (389095) WaveshareAMOLED2_06: touch#167 irq=7 probe=0 int=0 ESP_OK pts=1 x=217 y=358[0m
+[0;32mI (389115) WaveshareAMOLED2_06: touch#168 irq=1 probe=0 int=0 ESP_OK pts=1 x=236 y=351[0m
+[0;32mI (389145) WaveshareAMOLED2_06: touch#169 irq=1 probe=0 int=0 ESP_OK pts=1 x=250 y=343[0m
+[0;32mI (389245) WaveshareAMOLED2_06: touch#170 irq=7 probe=0 int=0 ESP_OK pts=1 x=282 y=303[0m
+[0;32mI (389275) WaveshareAMOLED2_06: touch#171 irq=1 probe=0 int=0 ESP_OK pts=1 x=285 y=287[0m
+[0;32mI (389295) WaveshareAMOLED2_06: touch#172 irq=1 probe=0 int=0 ESP_OK pts=1 x=285 y=279[0m
+[0;32mI (389395) WaveshareAMOLED2_06: touch#173 irq=6 probe=0 int=0 ESP_OK pts=1 x=261 y=183[0m
+[0;32mI (389415) WaveshareAMOLED2_06: touch#174 irq=1 probe=0 int=0 ESP_OK pts=1 x=256 y=165[0m
+[0;32mI (389445) WaveshareAMOLED2_06: touch#175 irq=1 probe=0 int=0 ESP_OK pts=1 x=249 y=146[0m
+[0;32mI (389545) WaveshareAMOLED2_06: touch-int irq=4 int=1 ready=1[0m
+[0;32mI (389545) WaveshareAMOLED2_06: touch#176 irq=4 probe=0 int=1 ESP_OK pts=0 x=0 y=0[0m
+[0;32mI (389725) WaveshareAMOLED2_06: touch-int irq=1 int=0 ready=1[0m
+[0;32mI (389725) WaveshareAMOLED2_06: touch#177 irq=1 probe=0 int=0 ESP_OK pts=1 x=326 y=135[0m
+[0;32mI (389795) WaveshareAMOLED2_06: touch#178 irq=5 probe=0 int=0 ESP_OK pts=1 x=290 y=162[0m
+[0;32mI (389825) WaveshareAMOLED2_06: touch#179 irq=1 probe=0 int=0 ESP_OK pts=1 x=280 y=170[0m
+[1;31mE (389865) i2c.master: I2C bus is still busy but software timeout detected[0m
+[0;32mI (389865) WaveshareAMOLED2_06: touch#180 irq=1 probe=0 int=0 ESP_OK pts=4 x=0 y=501[0m
+[0;32mI (389865) WaveshareAMOLED2_06: touch-int irq=1 int=1 ready=1[0m
+[0;32mI (389865) WaveshareAMOLED2_06: touch-int irq=1 int=0 ready=1[0m
+[0;32mI (389935) WaveshareAMOLED2_06: touch#181 irq=5 probe=0 int=0 ESP_OK pts=1 x=208 y=239[0m
+[0;32mI (389965) WaveshareAMOLED2_06: touch#182 irq=1 probe=0 int=0 ESP_OK pts=1 x=197 y=256[0m
+[0;32mI (389985) WaveshareAMOLED2_06: touch#183 irq=1 probe=0 int=0 ESP_OK pts=1 x=193 y=263[0m
+[0;32mI (390095) WaveshareAMOLED2_06: touch#184 irq=7 probe=0 int=0 ESP_OK pts=1 x=202 y=341[0m
+[0;32mI (390115) WaveshareAMOLED2_06: touch#185 irq=1 probe=0 int=0 ESP_OK pts=1 x=217 y=350[0m
+[0;32mI (390145) WaveshareAMOLED2_06: touch#186 irq=1 probe=0 int=0 ESP_OK pts=1 x=259 y=338[0m
+[0;32mI (390245) WaveshareAMOLED2_06: touch#187 irq=6 probe=0 int=0 ESP_OK pts=1 x=341 y=266[0m
+[0;32mI (390265) WaveshareAMOLED2_06: touch#188 irq=1 probe=0 int=0 ESP_OK pts=1 x=353 y=245[0m
+[0;32mI (390295) WaveshareAMOLED2_06: touch#189 irq=1 probe=0 int=0 ESP_OK pts=1 x=361 y=230[0m
+[0;32mI (390395) WaveshareAMOLED2_06: touch#190 irq=6 probe=0 int=0 ESP_OK pts=1 x=367 y=208[0m
+[0;32mI (390415) WaveshareAMOLED2_06: touch#191 irq=1 probe=0 int=0 ESP_OK pts=1 x=360 y=206[0m
+[0;32mI (390445) WaveshareAMOLED2_06: touch#192 irq=1 probe=0 int=0 ESP_OK pts=1 x=348 y=206[0m
+[0;32mI (390545) WaveshareAMOLED2_06: touch#193 irq=7 probe=0 int=0 ESP_OK pts=1 x=254 y=228[0m
+[0;32mI (390575) WaveshareAMOLED2_06: touch#194 irq=1 probe=0 int=0 ESP_OK pts=1 x=233 y=235[0m
+[0;32mI (390605) WaveshareAMOLED2_06: touch#195 irq=1 probe=0 int=0 ESP_OK pts=1 x=205 y=242[0m
+[0;32mI (390705) WaveshareAMOLED2_06: touch#196 irq=7 probe=0 int=0 ESP_OK pts=1 x=120 y=289[0m
+[1;31mE (390705) WebSocket: WebSocket handshake timeout[0m
+[1;31mE (390715) WS: Failed to connect to websocket server, code=0[0m
+[0;32mI (390715) Application: STATE: idle[0m
+[0;32mI (390715) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (390715) Application: [STATE] Device entering IDLE state - wake word detection enabled[0m
+[0;32mI (390715) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (390715) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[0;32mI (390715) AudioService: [WAKE_WORD] Wake word detection is now ACTIVE[0m
+[0;33mW (390715) Application: Alert [circle_xmark] Ошибка: Невозможно подключиться к сервису, попробуйте позже[0m
+[0;32mI (390715) WaveshareAMOLED2_06: Chat [system]: Невозможно подключиться к сервису, попробу�
+[0;32mI (390715) I2S_IF: Mode 0 need extend bits 64 to 32[0m
+[0;32mI (390715) I2S_IF: channel mode 0 bits:16/32 channel:2 mask:1[0m
+[0;32mI (390715) I2S_IF: STD Mode 1 bits:16/32 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (390735) WaveshareAMOLED2_06: touch#197 irq=1 probe=0 int=0 ESP_OK pts=1 x=107 y=308[0m
+[0;32mI (390745) Adev_Codec: Open codec device OK[0m
+[0;32mI (390745) AudioCodec: Set output enable to true[0m
+[0;32mI (390745) AudioService: OpusHead: version=1, channels=1, sample_rate=16000[0m
+[0;32mI (390775) WaveshareAMOLED2_06: touch#198 irq=1 probe=0 int=0 ESP_OK pts=1 x=101 y=325[0m
+[0;32mI (390865) WaveshareAMOLED2_06: touch#199 irq=6 probe=0 int=0 ESP_OK pts=1 x=150 y=382[0m
+[0;32mI (390895) WaveshareAMOLED2_06: touch#200 irq=1 probe=0 int=0 ESP_OK pts=1 x=180 y=378[0m
+[0;32mI (390925) WaveshareAMOLED2_06: touch#201 irq=1 probe=0 int=0 ESP_OK pts=1 x=210 y=371[0m
+[0;32mI (391035) WaveshareAMOLED2_06: touch#202 irq=7 probe=0 int=0 ESP_OK pts=1 x=314 y=295[0m
+[0;32mI (391035) Application: STATE: connecting[0m
+[0;32mI (391045) WS: Protocol v3 framing: raw Opus frames[0m
+[0;32mI (391045) WS: Connecting to websocket server: ws://90.156.254.46:8080/ws with version: 3[0m
+[0;32mI (391055) WaveshareAMOLED2_06: touch#203 irq=1 probe=0 int=0 ESP_OK pts=1 x=322 y=280[0m
+[0;32mI (391075) WaveshareAMOLED2_06: touch#204 irq=1 probe=0 int=0 ESP_OK pts=1 x=324 y=274[0m
+[0;32mI (391195) WaveshareAMOLED2_06: touch#205 irq=7 probe=0 int=0 ESP_OK pts=1 x=287 y=204[0m
+[0;32mI (391215) WaveshareAMOLED2_06: touch#206 irq=1 probe=0 int=0 ESP_OK pts=1 x=270 y=190[0m
+[0;32mI (391235) WaveshareAMOLED2_06: touch#207 irq=1 probe=0 int=0 ESP_OK pts=1 x=259 y=183[0m
+[0;32mI (391345) WaveshareAMOLED2_06: touch#208 irq=7 probe=0 int=0 ESP_OK pts=1 x=159 y=151[0m
+[0;32mI (391375) WaveshareAMOLED2_06: touch#209 irq=1 probe=0 int=0 ESP_OK pts=1 x=142 y=149[0m
+[0;32mI (391395) WaveshareAMOLED2_06: touch#210 irq=1 probe=0 int=0 ESP_OK pts=1 x=128 y=148[0m
+[0;32mI (391505) WaveshareAMOLED2_06: touch#211 irq=7 probe=0 int=0 ESP_OK pts=1 x=96 y=214[0m
+[0;32mI (391525) WaveshareAMOLED2_06: touch#212 irq=1 probe=0 int=0 ESP_OK pts=1 x=97 y=242[0m
+[0;32mI (391545) WaveshareAMOLED2_06: touch#213 irq=1 probe=0 int=0 ESP_OK pts=1 x=98 y=254[0m
+[0;32mI (391655) WaveshareAMOLED2_06: touch-int irq=6 int=1 ready=1[0m
+[0;32mI (391655) WaveshareAMOLED2_06: touch#214 irq=6 probe=0 int=1 ESP_OK pts=1 x=100 y=331[0m
+[0;32mI (391655) WaveshareAMOLED2_06: touch-int irq=1 int=0 ready=1[0m
+[0;32mI (391685) WaveshareAMOLED2_06: touch#215 irq=1 probe=0 int=0 ESP_OK pts=1 x=106 y=343[0m
+[0;32mI (391715) WaveshareAMOLED2_06: touch#216 irq=1 probe=0 int=0 ESP_OK pts=1 x=118 y=364[0m
+[0;32mI (391805) WaveshareAMOLED2_06: touch#217 irq=6 probe=0 int=0 ESP_OK pts=1 x=167 y=399[0m
+[0;32mI (391825) WaveshareAMOLED2_06: touch#218 irq=1 probe=0 int=0 ESP_OK pts=1 x=179 y=403[0m
+[0;32mI (391855) WaveshareAMOLED2_06: touch#219 irq=1 probe=0 int=0 ESP_OK pts=1 x=188 y=405[0m
+[0;32mI (391965) WaveshareAMOLED2_06: touch#220 irq=7 probe=0 int=0 ESP_OK pts=1 x=227 y=379[0m
+[0;32mI (391985) WaveshareAMOLED2_06: touch#221 irq=1 probe=0 int=0 ESP_OK pts=1 x=232 y=366[0m
+[0;32mI (392015) WaveshareAMOLED2_06: touch#222 irq=1 probe=0 int=0 ESP_OK pts=1 x=228 y=344[0m
+[0;32mI (392115) WaveshareAMOLED2_06: touch#223 irq=7 probe=0 int=0 ESP_OK pts=1 x=178 y=259[0m
+[0;32mI (392135) WaveshareAMOLED2_06: touch#224 irq=1 probe=0 int=0 ESP_OK pts=1 x=170 y=252[0m
+[0;32mI (392155) WaveshareAMOLED2_06: touch#225 irq=1 probe=0 int=0 ESP_OK pts=1 x=166 y=250[0m
+[0;32mI (392265) WaveshareAMOLED2_06: touch-int irq=6 int=1 ready=1[0m
+[0;32mI (392265) WaveshareAMOLED2_06: touch#226 irq=6 probe=0 int=1 ESP_OK pts=1 x=83 y=275[0m
+[0;32mI (392265) WaveshareAMOLED2_06: touch-int irq=1 int=0 ready=1[0m
+[0;32mI (392285) WaveshareAMOLED2_06: touch#227 irq=1 probe=0 int=0 ESP_OK pts=1 x=71 y=283[0m
+[0;32mI (392315) WaveshareAMOLED2_06: touch#228 irq=1 probe=0 int=0 ESP_OK pts=1 x=51 y=305[0m
+[0;32mI (392415) WaveshareAMOLED2_06: touch#229 irq=6 probe=0 int=0 ESP_OK pts=1 x=41 y=376[0m
+[0;32mI (392445) WaveshareAMOLED2_06: touch#230 irq=1 probe=0 int=0 ESP_OK pts=1 x=47 y=392[0m
+[0;32mI (392475) WaveshareAMOLED2_06: touch#231 irq=1 probe=0 int=0 ESP_OK pts=1 x=55 y=403[0m
+[0;32mI (392575) WaveshareAMOLED2_06: touch#232 irq=7 probe=0 int=0 ESP_OK pts=1 x=139 y=416[0m
+[0;32mI (392595) WaveshareAMOLED2_06: touch#233 irq=1 probe=0 int=0 ESP_OK pts=1 x=166 y=407[0m
+[0;32mI (392625) WaveshareAMOLED2_06: touch#234 irq=1 probe=0 int=0 ESP_OK pts=1 x=185 y=396[0m
+[0;32mI (392725) WaveshareAMOLED2_06: touch-int irq=6 int=1 ready=1[0m
+[0;32mI (392725) WaveshareAMOLED2_06: touch#235 irq=6 probe=0 int=1 ESP_OK pts=0 x=0 y=0[0m
+[0;32mI (392775) WaveshareAMOLED2_06: touch#236 irq=0 probe=1 int=1 ESP_OK pts=0 x=0 y=0[0m
+[0;32mI (397775) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (402775) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (403035) WebSocket: WebSocket handshake timeout[0m
+[1;31mE (403045) WS: Failed to connect to websocket server, code=0[0m
+[0;33mW (403045) Application: Cannot send character event: failed to open audio channel[0m
+[0;32mI (403045) Application: STATE: idle[0m
+[0;32mI (403045) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (403055) Application: [STATE] Device entering IDLE state - wake word detection enabled[0m
+[0;32mI (403055) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (403055) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[0;32mI (403055) AudioService: [WAKE_WORD] Wake word detection is now ACTIVE[0m
+[0;33mW (403305) Application: Alert [circle_xmark] Ошибка: Невозможно подключиться к сервису, попробуйте позже[0m
+[0;32mI (403305) WaveshareAMOLED2_06: Chat [system]: Невозможно подключиться к сервису, попробу�
+[0;32mI (403305) AudioService: OpusHead: version=1, channels=1, sample_rate=16000[0m
+[0;32mI (403595) Application: STATE: connecting[0m
+[0;32mI (403605) WS: Protocol v3 framing: raw Opus frames[0m
+[0;32mI (403605) WS: Connecting to websocket server: ws://90.156.254.46:8080/ws with version: 3[0m
+[0;32mI (407815) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (412835) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (415555) WebSocket: WebSocket handshake timeout[0m
+[1;31mE (415565) WS: Failed to connect to websocket server, code=0[0m
+[0;33mW (415565) Application: Cannot send character event: failed to open audio channel[0m
+[0;32mI (415565) Application: STATE: idle[0m
+[0;32mI (415565) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (415575) Application: [STATE] Device entering IDLE state - wake word detection enabled[0m
+[0;32mI (415575) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (415575) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[0;32mI (415575) AudioService: [WAKE_WORD] Wake word detection is now ACTIVE[0m
+[0;33mW (415825) Application: Alert [circle_xmark] Ошибка: Невозможно подключиться к сервису, попробуйте позже[0m
+[0;32mI (415825) WaveshareAMOLED2_06: Chat [system]: Невозможно подключиться к сервису, попробу�
+[0;32mI (415825) AudioService: OpusHead: version=1, channels=1, sample_rate=16000[0m
+[0;32mI (417855) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (422865) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (423435) SystemInfo: free sram: 9707 minimal sram: 2179[0m
+[0;32mI (427925) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (431905) I2S_IF: Pending out channel for in channel running[0m
+[0;32mI (431905) AudioCodec: Set output enable to false[0m
+[0;32mI (432965) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (433435) SystemInfo: free sram: 9707 minimal sram: 2179[0m
+[0;32mI (437985) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (443035) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (443505) SystemInfo: free sram: 9707 minimal sram: 2179[0m
+[0;32mI (448065) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (448145) wifi:[ADDBA]RX DELBA, reason:37, delete tid:5, initiator:1(originator)[0m
+[0;32mI (448155) wifi:<ba-del>idx:1, tid:5[0m
+[0;32mI (453075) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (453485) SystemInfo: free sram: 9771 minimal sram: 2179[0m
+[0;32mI (458105) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (463165) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (463335) SystemInfo: free sram: 9559 minimal sram: 2179[0m
+[0;32mI (468185) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (473215) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (473475) SystemInfo: free sram: 9771 minimal sram: 2179[0m
+[0;32mI (475865) PowerSaveTimer: Entering dim mode[0m
+[0;32mI (475865) Backlight: Set brightness to 30[0m
+[0;32mI (478225) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (483265) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (483605) SystemInfo: free sram: 9771 minimal sram: 2179[0m
+[0;32mI (488285) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (493305) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (493385) SystemInfo: free sram: 9771 minimal sram: 2179[0m
+[0;32mI (498335) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (503345) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (503475) SystemInfo: free sram: 10287 minimal sram: 2179[0m
+[0;32mI (508415) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (513435) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (513435) SystemInfo: free sram: 10287 minimal sram: 2179[0m
+[0;32mI (518455) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (519235) WaveshareAMOLED2_06: touch-int irq=1 int=0 ready=1[0m
+[0;32mI (519235) WaveshareAMOLED2_06: touch#237 irq=1 probe=0 int=0 ESP_OK pts=1 x=43 y=202[0m
+
+assert failed: spi_flash_disable_interrupts_caches_and_other_cpu cache_utils.c:126 (esp_task_stack_is_sane_cache_disabled())
+
+
+Backtrace: 0x4038cd89:0x3c358b80 0x4038cd55:0x3c358ba0 0x4038b425:0x3c358bc0 0x40379500:0x3c358ce0 0x4037941b:0x3c358d00 0x40379426:0x3c358d20 0x40390985:0x3c358d40 0x403909b5:0x3c358d80 0x4039048a:0x3c358da0 0x42120b81:0x3c358de0 0x4200c27e:0x3c358e10 0x421d1eb2:0x3c358e30 0x4200d112:0x3c358e50 0x4200b34b:0x3c358eb0 0x4200b8b7:0x3c358f00 0x4200c090:0x3c358f70 0x4200ae49:0x3c358f90 0x4202109d:0x3c358fc0 0x42022ca8:0x3c358ff0 0x42027be9:0x3c359050 0x420104d1:0x3c359070 0x420243bb:0x3c359090 0x420295a4:0x3c3590c0
+
+
+
+
+ELF file SHA256: 8f72dcea6
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038cefa
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (36) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (36) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (36) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (37) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (37) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (37) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (38) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (38) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (39) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (39) esp_psram: Speed: 80MHz[0m
+[0;32mI (39) cpu_start: Multicore app[0m
+[0;32mI (48) cpu_start: Pro cpu start user code[0m
+[0;32mI (48) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (48) app_init: Application information:[0m
+[0;32mI (48) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     Jun 17 2026 01:10:54[0m
+[0;32mI (48) app_init: ELF file SHA256:  8f72dcea6...[0m
+[0;32mI (49) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (49) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (49) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (49) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2310 len 00037400 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (50) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (50) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (51) spi_flash: detected chip: gd[0m
+[0;32mI (51) spi_flash: flash io: qio[0m
+[0;32mI (52) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (52) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (53) main_task: Started on CPU0[0m
+[0;32mI (63) esp_psram: Reserving pool of 128K of internal memory for DMA/internal allocations[0m
+[0;32mI (63) main_task: Calling app_main()[0m
+[0;32mI (83) main: Getting Application instance...[0m
+[0;32mI (83) main: Application instance obtained, calling Start()...[0m
+[0;32mI (83) Application: Application::Start() called[0m
+[0;32mI (83) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (83) button: IoT Button Version: 4.1.6[0m
+[0;32mI (83) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (113) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (113) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (113) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (113) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (113) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (113) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (113) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (113) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (433) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (433) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (433) Display: Power management not supported[0m
+[0;32mI (433) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (433) LcdDisplay: Размер: 410x502[0m
+[0;32mI (433) LcdDisplay: Panel handle: 0x3fcededc[0m
+[0;32mI (433) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (433) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (433) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (523) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (623) LcdDisplay: Включение дисплея...[0m
+[0;32mI (623) LcdDisplay: Дисплей включен[0m
+[0;32mI (623) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (623) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (623) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (623) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (623) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (623) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (623) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (623) LVGL: Starting LVGL task[0m
+[0;32mI (623) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (623) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (623) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (623) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (623) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (623) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (623) LcdDisplay: Настройка UI...[0m
+[0;32mI (623) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (623) LcdDisplay: Тема найдена: 0x3fcee054[0m
+[0;32mI (623) LcdDisplay: Шрифты загружены: text=0x3c26b430, icon=0x3c25cf34, large_icon=0x3c25cf34[0m
+[0;32mI (623) LcdDisplay: Активный экран найден: 0x3fcee9d8[0m
+[0;32mI (633) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (633) LcdDisplay:   container_: 0x3fceebbc[0m
+[0;32mI (633) LcdDisplay:   emoji_box_: 0x3fceeca4[0m
+[0;32mI (633) LcdDisplay:   emoji_label_: 0x3fceed48[0m
+[0;32mI (633) LcdDisplay:   emoji_image_: 0x3fce25c0[0m
+[0;32mI (633) LcdDisplay:   preview_image_: 0x3fce2658[0m
+[0;32mI (633) LcdDisplay:   top_bar_: 0x3fce26fc[0m
+[0;32mI (633) LcdDisplay:   status_bar_: 0x3fce2bcc[0m
+[0;32mI (633) LcdDisplay:   content_: 0[0m
+[0;32mI (633) LcdDisplay:   bottom_bar_: 0x3fce2f78[0m
+[0;32mI (633) LcdDisplay:   chat_message_label_: 0x3fce3018[0m
+[0;32mI (633) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (633) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (693) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (773) Backlight: Set brightness to 100[0m
+[0;32mI (773) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (773) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;32mI (773) WaveshareAMOLED2_06: FT3168 probe: ESP_OK[0m
+[0;32mI (773) WaveshareAMOLED2_06: FT3168 regs[2-6]: ESP_OK 01 81 22 01 3E[0m
+[0;32mI (773) WaveshareAMOLED2_06: FT5x06-compatible touch enabled on GPIO38 falling edge[0m
+[0;32mI (773) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+[0;32mI (773) QMI8658: QMI8658 initialized successfully[0m
+[0;32mI (773) XiaoBridge: Init XIAO UART bridge[0m
+[0;32mI (773) XiaoBridge:   Port: UART_NUM_1[0m
+[0;32mI (773) XiaoBridge:   Baud: 115200[0m
+[0;32mI (773) XiaoBridge:   TX Pin: GPIO17[0m
+[0;32mI (773) XiaoBridge:   RX Pin: GPIO18[0m
+[0;32mI (773) uart: ESP_INTR_FLAG_IRAM flag not set while CONFIG_UART_ISR_IN_IRAM is enabled, flag updated[0m
+[0;32mI (783) WaveshareAMOLED2_06: touch-int irq=1 int=0 ready=1[0m
+[0;32mI (783) WaveshareAMOLED2_06: touch#1 irq=1 probe=0 int=0 ESP_OK pts=1 x=294 y=315[0m
+[0;32mI (813) WaveshareAMOLED2_06: touch#2 irq=1 probe=0 int=0 ESP_OK pts=1 x=299 y=309[0m
+[0;32mI (843) WaveshareAMOLED2_06: touch#3 irq=1 probe=0 int=0 ESP_OK pts=1 x=303 y=303[0m
+[0;32mI (863) WaveshareAMOLED2_06: touch#4 irq=1 probe=0 int=0 ESP_OK pts=1 x=306 y=296[0m
+[0;32mI (873) XiaoBridge: Set pose: home[0m
+[0;32mI (873) XiaoBridge: XIAO bridge UART initialized[0m
+[0;32mI (873) WaveshareAMOLED2_06: ServoController OK[0m
+
+AMOLED command console ready. Type HELP.
+[0;32mI (873) WaveshareAMOLED2_06: Vibration motor disabled: set VIBRATION_MOTOR_ENABLED and GPIO after wiring[0m
+[0;32mI (873) WaveshareAMOLED2_06: Shake interaction ready[0m
+[0;32mI (873) MCP: Add tool: self.system.reconfigure_wifi[0m
+[0;32mI (873) MCP: Add tool: self.robot.set_servo[0m
+[0;32mI (873) MCP: Add tool: self.robot.set_pose[0m
+[0;32mI (873) MCP: Add tool: self.robot.move_servos[0m
+[0;32mI (873) MCP: Add tool: self.robot.set_led[0m
+[0;32mI (873) MCP: Add tool: self.robot.led_default[0m
+[0;32mI (873) MCP: Add tool: self.robot.led_off[0m
+[0;32mI (873) MCP: Add tool: self.robot.led_test[0m
+[0;32mI (873) WaveshareAMOLED2_06: Robot MCP tools registered[0m
+[0;32mI (873) MCP: Add tool: self.hardware.get_motion[0m
+[0;32mI (873) MCP: Add tool: self.hardware.get_touch[0m
+[0;32mI (873) MCP: Add tool: self.hardware.get_sdcard[0m
+[0;32mI (873) MCP: Add tool: self.hardware.get_xiao_status[0m
+[0;32mI (873) MCP: Add tool: self.hardware.get_proximity[0m
+[0;32mI (873) MCP: Add tool: self.sensor.get_radar[0m
+[0;32mI (873) MCP: Add tool: self.sensor.get_distance[0m
+[0;32mI (873) MCP: Add tool: self.camera.get_status[0m
+[0;32mI (873) MCP: Add tool: self.camera.capture_frame[0m
+[0;32mI (873) MCP: Add tool: self.camera.stream_off[0m
+[0;32mI (873) BLE_INIT: BT controller compile version [b7de11e][0m
+[0;32mI (873) BLE_INIT: Using main XTAL as clock source[0m
+[0;32mI (873) BLE_INIT: Feature Config, ADV:1, BLE_50:1, DTM:1, SCAN:1, CCA:0, SMP:1, CONNECT:1[0m
+[0;32mI (873) BLE_INIT: Bluetooth MAC: 3c:dc:75:6f:cc:6e[0m
+[0;32mI (873) phy_init: phy_version 711,97bcf0a2,Aug 25 2025,19:04:10[0m
+[0;32mI (893) WaveshareAMOLED2_06: touch#5 irq=1 probe=0 int=0 ESP_OK pts=1 x=304 y=289[0m
+[0;32mI (923) NimBLE: GAP procedure initiated: stop advertising.[0m
+
+[0;32mI (923) NimBLE: GAP procedure initiated: stop advertising.[0m
+
+[0;32mI (923) NimBLE: GAP procedure initiated: advertise; [0m
+[0;32mI (923) NimBLE: disc_mode=2[0m
+[0;32mI (923) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=0 adv_itvl_max=0[0m
+[0;32mI (923) NimBLE: [0m
+
+[0;32mI (933) HomeBotBLE: HomeBot BLE service starting[0m
+[0;32mI (1003) WaveshareAMOLED2_06: touch#6 irq=1 probe=0 int=0 ESP_OK pts=1 x=296 y=285[0m
+[0;32mI (1003) Application: Board instance obtained[0m
+[0;32mI (1003) Application: STATE: starting[0m
+[0;32mI (1003) Application: Device state set to Starting[0m
+[0;32mI (1003) Application: Getting display from board...[0m
+[0;32mI (1003) Application: Display obtained: 0x3fce3614[0m
+[0;32mI (1003) Application: Setting chat message...[0m
+[0;32mI (1003) WaveshareAMOLED2_06: Chat [system]: waveshare-s3-touch-amoled-2.06/2.0.5[0m
+[0;32mI (1003) Application: Chat message set[0m
+[0;32mI (1003) Application: Getting audio codec from board...[0m
+[0;32mI (1003) BoxAudioCodec: Duplex channels created[0m
+[0;32mI (1013) ES8311: Work in Slave mode[0m
+[0;32mI (1023) ES7210: Work in Slave mode[0m
+[0;32mI (1023) WaveshareAMOLED2_06: touch#7 irq=1 probe=0 int=0 ESP_OK pts=1 x=228 y=303[0m
+[0;32mI (1033) ES7210: Enable ES7210_INPUT_MIC1[0m
+[0;32mI (1033) ES7210: Enable ES7210_INPUT_MIC2[0m
+[0;32mI (1033) ES7210: Enable ES7210_INPUT_MIC3[0m
+[0;32mI (1043) ES7210: Enable ES7210_INPUT_MIC4[0m
+[0;32mI (1043) ES7210: Enable TDM mode[0m
+[0;32mI (1043) BoxAudioCodec: BoxAudioDevice initialized[0m
+[0;32mI (1043) Application: Audio codec obtained: 0x3fcacaa8[0m
+[0;32mI (1043) Application: Initializing audio service...[0m
+[0;32mI (1043) AudioCodec: Enabling TX channel (speaker)[0m
+[0;32mI (1043) AudioCodec: Enabling RX channel (microphone)[0m
+[0;32mI (1043) I2S_IF: channel mode 2 bits:16/16 channel:4 mask:3[0m
+[0;32mI (1053) I2S_IF: TDM Mode 0 bits:16/16 channel:4 sample_rate:24000 mask:3[0m
+[0;32mI (1053) I2S_IF: channel mode 0 bits:16/16 channel:4 mask:3[0m
+[0;32mI (1053) I2S_IF: STD Mode 1 bits:32/32 channel:4 sample_rate:24000 mask:0[0m
+[0;32mI (1053) ES7210: Bits 16[0m
+[0;32mI (1053) WaveshareAMOLED2_06: touch#8 irq=1 probe=0 int=0 ESP_OK pts=1 x=209 y=313[0m
+[0;32mI (1063) ES7210: Enable ES7210_INPUT_MIC1[0m
+[0;32mI (1063) ES7210: Enable ES7210_INPUT_MIC2[0m
+[0;32mI (1063) ES7210: Enable ES7210_INPUT_MIC3[0m
+[0;32mI (1073) ES7210: Enable ES7210_INPUT_MIC4[0m
+[0;32mI (1073) ES7210: Enable TDM mode[0m
+[0;32mI (1083) ES7210: Unmuted[0m
+[0;32mI (1083) Adev_Codec: Open codec device OK[0m
+[0;32mI (1153) WaveshareAMOLED2_06: touch#9 irq=1 probe=0 int=0 ESP_OK pts=1 x=193 y=324[0m
+[0;32mI (1153) AudioCodec: Set input enable to true[0m
+[0;32mI (1153) I2S_IF: Mode 0 need extend bits 64 to 32[0m
+[0;32mI (1153) I2S_IF: channel mode 0 bits:16/32 channel:2 mask:1[0m
+[0;32mI (1153) I2S_IF: STD Mode 1 bits:16/32 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (1173) Adev_Codec: Open codec device OK[0m
+[0;32mI (1173) AudioCodec: Set output enable to true[0m
+[0;32mI (1173) AudioCodec: Audio codec started - Input: enabled, Output: enabled[0m
+[0;32mI (1173) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (1173) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (1173) OpusResampler: Resampler configured with input sample rate 16000 and output sample rate 24000[0m
+[0;32mI (1173) Application: Starting audio service...[0m
+[0;32mI (1173) Application: Audio service started[0m
+[0;32mI (1183) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (1183) Application: Starting network...[0m
+[0;32mI (1183) WaveshareAMOLED2_06: touch#10 irq=1 probe=0 int=0 ESP_OK pts=1 x=158 y=339[0m
+[0;32mI (1183) pp: pp rom version: e7ae62f[0m
+[0;32mI (1183) net80211: net80211 rom version: e7ae62f[0m
+[0;32mI (1193) wifi:wifi driver task: 3fcc52fc, prio:23, stack:6656, core=0[0m
+[0;32mI (1193) wifi:wifi firmware version: b37c951[0m
+[0;32mI (1193) wifi:wifi certification version: v7.0[0m
+[0;32mI (1193) wifi:config NVS flash: disabled[0m
+[0;32mI (1193) wifi:config nano formatting: disabled[0m
+[0;32mI (1193) wifi:Init data frame dynamic rx buffer num: 6[0m
+[0;32mI (1193) wifi:Init dynamic rx mgmt buffer num: 5[0m
+[0;32mI (1193) wifi:Init management short buffer num: 32[0m
+[0;32mI (1193) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1193) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (1193) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1193) wifi:Init static rx buffer num: 3[0m
+[0;32mI (1193) wifi:Init dynamic rx buffer num: 6[0m
+[0;32mI (1193) wifi_init: rx ba win: 3[0m
+[0;32mI (1193) wifi_init: accept mbox: 6[0m
+[0;32mI (1193) wifi_init: tcpip mbox: 16[0m
+[0;32mI (1193) wifi_init: udp mbox: 6[0m
+[0;32mI (1193) wifi_init: tcp mbox: 6[0m
+[0;32mI (1193) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1193) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1193) wifi_init: tcp mss: 1440[0m
+[0;32mI (1193) wifi:mode : sta (3c:dc:75:6f:cc:6c)[0m
+[0;32mI (1193) wifi:enable tsf[0m
+[0;33mW (1193) Display: ShowNotification: Сканирование Wi-Fi...[0m
+[0;32mI (1203) WaveshareAMOLED2_06: touch#11 irq=1 probe=0 int=0 ESP_OK pts=1 x=149 y=336[0m
+[0;32mI (1223) WaveshareAMOLED2_06: touch#12 irq=1 probe=0 int=0 ESP_OK pts=1 x=132 y=332[0m
+[0;32mI (1313) WaveshareAMOLED2_06: touch#13 irq=6 probe=0 int=0 ESP_OK pts=1 x=116 y=329[0m
+[0;32mI (1333) WaveshareAMOLED2_06: touch#14 irq=1 probe=0 int=0 ESP_OK pts=1 x=131 y=336[0m
+[0;32mI (1363) WaveshareAMOLED2_06: touch#15 irq=1 probe=0 int=0 ESP_OK pts=1 x=152 y=344[0m
+[0;32mI (1453) WaveshareAMOLED2_06: touch#16 irq=6 probe=0 int=0 ESP_OK pts=1 x=219 y=360[0m
+[0;32mI (1473) WaveshareAMOLED2_06: touch#17 irq=1 probe=0 int=0 ESP_OK pts=1 x=234 y=362[0m
+[0;32mI (1503) WaveshareAMOLED2_06: touch#18 irq=1 probe=0 int=0 ESP_OK pts=1 x=250 y=363[0m
+[0;32mI (1593) WaveshareAMOLED2_06: touch#19 irq=6 probe=0 int=0 ESP_OK pts=1 x=269 y=364[0m
+[0;32mI (1623) WaveshareAMOLED2_06: touch#20 irq=1 probe=0 int=0 ESP_OK pts=1 x=254 y=365[0m
+[0;32mI (1643) WaveshareAMOLED2_06: touch#21 irq=1 probe=0 int=0 ESP_OK pts=1 x=221 y=368[0m
+[0;32mI (1733) WaveshareAMOLED2_06: touch#22 irq=5 probe=0 int=0 ESP_OK pts=1 x=162 y=390[0m
+[0;32mI (1763) WaveshareAMOLED2_06: touch#23 irq=1 probe=0 int=0 ESP_OK pts=1 x=157 y=391[0m
+[0;32mI (1793) WaveshareAMOLED2_06: touch#24 irq=1 probe=0 int=0 ESP_OK pts=0 x=0 y=0[0m
+[0;32mI (1883) WaveshareAMOLED2_06: touch#25 irq=5 probe=0 int=0 ESP_OK pts=1 x=139 y=383[0m
+[0;32mI (1903) WaveshareAMOLED2_06: touch#26 irq=1 probe=0 int=0 ESP_OK pts=1 x=124 y=384[0m
+[0;32mI (1933) WaveshareAMOLED2_06: touch#27 irq=1 probe=0 int=0 ESP_OK pts=1 x=108 y=389[0m
+[0;32mI (2023) WaveshareAMOLED2_06: touch#28 irq=5 probe=0 int=0 ESP_OK pts=1 x=80 y=401[0m
+[0;32mI (2043) WaveshareAMOLED2_06: touch#29 irq=1 probe=0 int=0 ESP_OK pts=1 x=80 y=404[0m
+[0;32mI (2073) WaveshareAMOLED2_06: touch#30 irq=1 probe=0 int=0 ESP_OK pts=1 x=93 y=408[0m
+[0;32mI (2163) WaveshareAMOLED2_06: touch#31 irq=5 probe=0 int=0 ESP_OK pts=1 x=150 y=417[0m
+[0;32mI (2183) WaveshareAMOLED2_06: touch#32 irq=1 probe=0 int=0 ESP_OK pts=1 x=168 y=419[0m
+[0;32mI (2213) WaveshareAMOLED2_06: touch#33 irq=1 probe=0 int=0 ESP_OK pts=1 x=194 y=420[0m
+[0;32mI (2313) WaveshareAMOLED2_06: touch#34 irq=5 probe=0 int=0 ESP_OK pts=1 x=239 y=424[0m
+[0;32mI (2323) WaveshareAMOLED2_06: touch#35 irq=1 probe=0 int=0 ESP_OK pts=1 x=247 y=425[0m
+[0;32mI (2353) WaveshareAMOLED2_06: touch#36 irq=1 probe=0 int=0 ESP_OK pts=1 x=252 y=426[0m
+[0;32mI (2453) WaveshareAMOLED2_06: touch#37 irq=6 probe=0 int=0 ESP_OK pts=1 x=263 y=427[0m
+[0;32mI (2483) WaveshareAMOLED2_06: touch#38 irq=1 probe=0 int=0 ESP_OK pts=1 x=264 y=427[0m
+[0;32mI (2513) WaveshareAMOLED2_06: touch#39 irq=1 probe=0 int=0 ESP_OK pts=1 x=264 y=427[0m
+[0;32mI (2543) WaveshareAMOLED2_06: touch#40 irq=1 probe=0 int=0 ESP_OK pts=1 x=264 y=428[0m
+[0;32mI (2563) WaveshareAMOLED2_06: touch#41 irq=1 probe=0 int=0 ESP_OK pts=1 x=260 y=428[0m
+[0;32mI (2673) WaveshareAMOLED2_06: touch#42 irq=6 probe=0 int=0 ESP_OK pts=1 x=232 y=427[0m
+[0;32mI (2693) WaveshareAMOLED2_06: touch#43 irq=1 probe=0 int=0 ESP_OK pts=1 x=224 y=424[0m
+[0;32mI (2723) WaveshareAMOLED2_06: touch#44 irq=1 probe=0 int=0 ESP_OK pts=1 x=214 y=411[0m
+[0;32mI (2813) WaveshareAMOLED2_06: touch#45 irq=5 probe=0 int=0 ESP_OK pts=1 x=180 y=343[0m
+[0;32mI (2833) WaveshareAMOLED2_06: touch#46 irq=1 probe=0 int=0 ESP_OK pts=1 x=171 y=313[0m
+[0;32mI (2863) WaveshareAMOLED2_06: touch#47 irq=1 probe=0 int=0 ESP_OK pts=1 x=165 y=288[0m
+[0;32mI (2953) WaveshareAMOLED2_06: touch#48 irq=6 probe=0 int=0 ESP_OK pts=1 x=157 y=231[0m
+[0;32mI (2983) WaveshareAMOLED2_06: touch#49 irq=1 probe=0 int=0 ESP_OK pts=1 x=156 y=224[0m
+[0;32mI (3003) WaveshareAMOLED2_06: touch#50 irq=1 probe=0 int=0 ESP_OK pts=1 x=160 y=223[0m
+[0;32mI (3093) WaveshareAMOLED2_06: touch-int irq=3 int=1 ready=1[0m
+[0;32mI (3093) WaveshareAMOLED2_06: touch#51 irq=3 probe=0 int=1 ESP_OK pts=0 x=0 y=0[0m
+[0;32m

@@ -12,7 +12,9 @@
 #include "axp2101.h"
 #include "i2c_device.h"
 #include "servo_controller.h"
+#include "homebot_ble_service.h"
 #include "cat_display.h"
+#include "startup_media.h"
 #include <wifi_station.h>
 #include <qmi8658.h>
 
@@ -22,21 +24,37 @@
 #include <esp_lcd_panel_ops.h>
 #include <esp_lcd_panel_vendor.h>
 #include <esp_lcd_touch.h>
-#include <esp_lcd_touch_ft5x06.h>
 #include <driver/i2c_master.h>
 #include <driver/spi_master.h>
 #include <driver/sdmmc_host.h>
 #include <esp_vfs_fat.h>
 #include <esp_lvgl_port.h>
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
 #include <sdmmc_cmd.h>
 #include "settings.h"
 
+#include <algorithm>
+#include <cctype>
+#include <cmath>
+#include <cstdio>
 #include <sstream>
 #include <vector>
 #include <mutex>
 #include <cstring>
 
 #define TAG "WaveshareAMOLED2_06"
+
+#define FT3168_I2C_ADDRESS       0x38
+#define FT3168_REG_FINGER_NUM    0x02
+#define FT3168_REG_X1_POSH       0x03
+#define FT3168_REG_X1_POSL       0x04
+#define FT3168_REG_Y1_POSH       0x05
+#define FT3168_REG_Y1_POSL       0x06
+#define FT3168_REG_DEVICE_ID     0xA0
+#define FT3168_REG_POWER_MODE    0xA5
+#define FT3168_POWER_MONITOR     0x01
+#define FT3168_MAX_POINTS        5
 
 // ── AXP2101 ──────────────────────────────────────────────────────────────────
 
@@ -56,6 +74,31 @@ public:
         WriteReg(0x61, 0x02);
         WriteReg(0x62, 0x0A);
         WriteReg(0x63, 0x01);
+    }
+
+    esp_err_t GetBatteryStatus(int& level, bool& charging, bool& discharging) {
+        uint8_t status = 0;
+        esp_err_t ret = ReadByte(0x01, status);
+        if (ret != ESP_OK) {
+            return ret;
+        }
+
+        uint8_t capacity = 0;
+        ret = ReadByte(0xA4, capacity);
+        if (ret != ESP_OK) {
+            return ret;
+        }
+
+        const int current_direction = (status & 0b01100000) >> 5;
+        charging = current_direction == 1;
+        discharging = current_direction == 2;
+        level = capacity;
+        return ESP_OK;
+    }
+
+private:
+    esp_err_t ReadByte(uint8_t reg, uint8_t& value) {
+        return i2c_master_transmit_receive(i2c_device_, &reg, 1, &value, 1, 100);
     }
 };
 
@@ -171,7 +214,8 @@ public:
     void SetPowerSaveMode(bool on) override {
         if (!cat_) return;
         if (on) {
-            cat_->FillScreen(0x0000);
+            cat_->SetState(CatDisplay::State::SLEEPING);
+            cat_->Redraw();
         } else {
             cat_->SetState(CatDisplay::State::IDLE);
             cat_->Redraw();
@@ -196,6 +240,7 @@ private:
 class WaveshareEsp32s3TouchAMOLED2inch06 : public WifiBoard {
 private:
     i2c_master_bus_handle_t   i2c_bus_         = nullptr;
+    std::mutex                i2c_mutex_;
     esp_lcd_panel_io_handle_t panel_io_        = nullptr;
     esp_lcd_panel_handle_t    panel_handle_    = nullptr;
     Pmic*                     pmic_            = nullptr;
@@ -206,27 +251,59 @@ private:
     CustomBacklight*          backlight_       = nullptr;
     PowerSaveTimer*           power_save_timer_= nullptr;
     ServoController*          servo_controller_= nullptr;
+    HomeBotBleService         homebot_ble_;
     esp_lcd_touch_handle_t    touch_           = nullptr;
     esp_timer_handle_t        touch_timer_     = nullptr;
+    TaskHandle_t              touch_task_      = nullptr;
+    StackType_t*              touch_stack_     = nullptr;
+    StaticTask_t*             touch_tcb_       = nullptr;
     esp_lcd_panel_io_handle_t touch_io_        = nullptr;
+    i2c_master_dev_handle_t   ft3168_dev_      = nullptr;
+    bool                      touch_ready_     = false;
+    bool                      touch_woke_from_sleep_ = false;
+    bool                      last_touch_pressed_ = false;
+    uint16_t                  last_touch_x_    = 0;
+    uint16_t                  last_touch_y_    = 0;
+    uint8_t                   last_touch_points_ = 0;
+    esp_err_t                 last_touch_status_ = ESP_ERR_INVALID_STATE;
+    std::mutex                touch_state_mutex_;
     sdmmc_card_t*             sdcard_          = nullptr;
     bool                      sdcard_mounted_  = false;
     qmi8658_dev_t             imu_             = {};
     bool                      imu_ready_       = false;
+    std::mutex                imu_mutex_;
+    bool                      vibration_ready_ = false;
+    TaskHandle_t              motion_task_     = nullptr;
+    int64_t                   last_shake_us_   = 0;
+    TaskHandle_t              serial_console_task_ = nullptr;
 
     // ── Power save ──
 
     void InitializePowerSaveTimer() {
-        power_save_timer_ = new PowerSaveTimer(-1, 60, 300);
-        power_save_timer_->OnEnterSleepMode([this]() {
+        constexpr int kSecondsToDim   = 60;
+        constexpr int kSecondsToSleep = 30 * 60;
+        power_save_timer_ = new PowerSaveTimer(-1, kSecondsToSleep, -1, kSecondsToDim);
+        power_save_timer_->OnEnterDimMode([this]() {
+            GetBacklight()->SetBrightness(30);
             GetDisplay()->SetPowerSaveMode(true);
-            GetBacklight()->SetBrightness(20);
+        });
+        power_save_timer_->OnExitDimMode([this]() {
+            GetDisplay()->SetPowerSaveMode(false);
+            GetBacklight()->RestoreBrightness();
+        });
+        power_save_timer_->OnEnterSleepMode([this]() {
+            GetBacklight()->SetBrightness(5);
+            if (servo_controller_) {
+                servo_controller_->SetPowerSaveMode(true);
+            }
         });
         power_save_timer_->OnExitSleepMode([this]() {
             GetDisplay()->SetPowerSaveMode(false);
             GetBacklight()->RestoreBrightness();
+            if (servo_controller_) {
+                servo_controller_->SetPowerSaveMode(false);
+            }
         });
-        power_save_timer_->OnShutdownRequest([this]() { pmic_->PowerOff(); });
         power_save_timer_->SetEnabled(true);
     }
 
@@ -250,6 +327,24 @@ private:
         return i2c_master_probe(i2c_bus_, addr, pdMS_TO_TICKS(100)) == ESP_OK;
     }
 
+    void LogI2cScan(const char* reason) {
+        std::ostringstream oss;
+        oss << reason << " I2C scan:";
+        bool found = false;
+        for (uint8_t addr = 0x08; addr < 0x78; ++addr) {
+            if (ProbeI2cDevice(addr)) {
+                char buf[8];
+                snprintf(buf, sizeof(buf), " 0x%02X", addr);
+                oss << buf;
+                found = true;
+            }
+        }
+        if (!found) {
+            oss << " none";
+        }
+        ESP_LOGW(TAG, "%s", oss.str().c_str());
+    }
+
     void InitializeAxp2101() {
         ESP_LOGI(TAG, "Init AXP2101");
         pmic_ = new Pmic(i2c_bus_, 0x34);
@@ -269,15 +364,25 @@ private:
         ESP_ERROR_CHECK(spi_bus_initialize(SPI2_HOST, &buscfg, SPI_DMA_CH_AUTO));
     }
 
-    // ── Display ──
+    // ── Display — Phase 1: hardware panel only (no LVGL) ────────────────────
+    // After this call panel_handle_ is ready and the display shows whatever
+    // is drawn via esp_lcd_panel_draw_bitmap.  LVGL is NOT started yet, so
+    // it is safe to draw a splash image directly to the panel.
 
-    void InitializeDisplay() {
-        // 1. Panel IO (QSPI)
-        esp_lcd_panel_io_spi_config_t io_config =
-            SH8601_PANEL_IO_QSPI_CONFIG(EXAMPLE_PIN_NUM_LCD_CS, nullptr, nullptr);
+    void InitializeLcdPanel() {
+        // Panel IO (QSPI)
+        esp_lcd_panel_io_spi_config_t io_config = {};
+        io_config.cs_gpio_num = EXAMPLE_PIN_NUM_LCD_CS;
+        io_config.dc_gpio_num = static_cast<gpio_num_t>(-1);
+        io_config.spi_mode = 0;
+        io_config.pclk_hz = 40 * 1000 * 1000;
+        io_config.trans_queue_depth = 10;
+        io_config.lcd_cmd_bits = 32;
+        io_config.lcd_param_bits = 8;
+        io_config.flags.quad_mode = true;
         ESP_ERROR_CHECK(esp_lcd_new_panel_io_spi(SPI2_HOST, &io_config, &panel_io_));
 
-        // 2. Panel driver
+        // Panel driver
         const sh8601_vendor_config_t vendor_config = {
             .init_cmds      = vendor_specific_init,
             .init_cmds_size = sizeof(vendor_specific_init) /
@@ -301,8 +406,16 @@ private:
         }
         esp_lcd_panel_mirror(panel, DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y);
         esp_lcd_panel_disp_on_off(panel, true);
+    }
 
-        // 3. LVGL display in the SH8601 native orientation. This panel driver
+    // ── Display — Phase 2: LVGL + CatDisplay + backlight ────────────────────
+    // Requires panel_handle_ and panel_io_ to already be set up by
+    // InitializeLcdPanel().
+
+    void InitializeDisplay() {
+        esp_lcd_panel_handle_t panel = panel_handle_;
+
+        // LVGL display in the SH8601 native orientation. This panel driver
         // does not support hardware swap_xy.
         lvgl_display_ = new CustomLcdDisplay(
             panel_io_, panel,
@@ -310,7 +423,7 @@ private:
             DISPLAY_OFFSET_X, DISPLAY_OFFSET_Y,
             DISPLAY_MIRROR_X, DISPLAY_MIRROR_Y, DISPLAY_SWAP_XY);
 
-        // 4. Cat animation — LVGL canvas covering the full physical screen.
+        // Cat animation — LVGL canvas covering the full physical screen.
         lv_obj_t* canvas_obj = nullptr;
         if (lvgl_port_lock(1000)) {
             const size_t buf_bytes = (size_t)DISPLAY_WIDTH * DISPLAY_HEIGHT * sizeof(uint16_t);
@@ -333,92 +446,440 @@ private:
             cat_display_ = nullptr;
         }
 
-        // 5. Adapter routes voice-assistant calls to cat
+        // Adapter routes voice-assistant calls to cat
         display_adapter_ = new CatDisplayAdapter(cat_display_, lvgl_display_);
 
-        // 6. Backlight
+        // Backlight
         backlight_ = new CustomBacklight(panel_io_);
-        backlight_->SetBrightness(100, true);
+        backlight_->RestoreBrightness();
     }
 
     // ── Touch ──
 
-    void InitializeTouch() {
-        ESP_LOGI(TAG, "Init FT5x06 touch");
-        if (!ProbeI2cDevice(ESP_LCD_TOUCH_IO_I2C_FT5x06_ADDRESS)) {
-            ESP_LOGW(TAG, "FT5x06 touch not found at 0x%02X", ESP_LCD_TOUCH_IO_I2C_FT5x06_ADDRESS);
-            return;
+    esp_err_t Ft3168ReadReg(uint8_t reg, uint8_t* data, size_t len) {
+        if (!ft3168_dev_) {
+            return ESP_ERR_INVALID_STATE;
         }
-
-        esp_lcd_touch_config_t tp_cfg = {
-            .x_max = DISPLAY_WIDTH,
-            .y_max = DISPLAY_HEIGHT,
-            .rst_gpio_num = TOUCH_RST_PIN,
-            .int_gpio_num = TOUCH_INT_PIN,
-            .levels = {
-                .reset = 0,
-                .interrupt = 0,
-            },
-            .flags = {
-                .swap_xy = DISPLAY_SWAP_XY,
-                .mirror_x = DISPLAY_MIRROR_X,
-                .mirror_y = DISPLAY_MIRROR_Y,
-            },
-        };
-        esp_lcd_panel_io_i2c_config_t tp_io_config = ESP_LCD_TOUCH_IO_I2C_FT5x06_CONFIG();
-        tp_io_config.scl_speed_hz = 400000;
-
-        esp_err_t ret = esp_lcd_new_panel_io_i2c(i2c_bus_, &tp_io_config, &touch_io_);
-        if (ret != ESP_OK) {
-            ESP_LOGE(TAG, "Touch I2C IO init failed: %s", esp_err_to_name(ret));
-            return;
-        }
-        ret = esp_lcd_touch_new_i2c_ft5x06(touch_io_, &tp_cfg, &touch_);
-        if (ret != ESP_OK) {
-            ESP_LOGE(TAG, "FT5x06 init failed: %s", esp_err_to_name(ret));
-            touch_ = nullptr;
-            return;
-        }
-
-        const esp_timer_create_args_t timer_args = {
-            .callback = &WaveshareEsp32s3TouchAMOLED2inch06::TouchTimerCallback,
-            .arg = this,
-            .dispatch_method = ESP_TIMER_TASK,
-            .name = "touch_poll",
-            .skip_unhandled_events = true,
-        };
-        ESP_ERROR_CHECK(esp_timer_create(&timer_args, &touch_timer_));
-        ESP_ERROR_CHECK(esp_timer_start_periodic(touch_timer_, 50 * 1000));
+        std::lock_guard<std::mutex> lock(i2c_mutex_);
+        return i2c_master_transmit_receive(ft3168_dev_, &reg, 1, data, len, pdMS_TO_TICKS(50));
     }
 
-    static void TouchTimerCallback(void* arg) {
-        auto* board = static_cast<WaveshareEsp32s3TouchAMOLED2inch06*>(arg);
-        if (!board || !board->touch_) {
+    esp_err_t Ft3168ReadReg8WithStop(uint8_t reg, uint8_t* value) {
+        if (!ft3168_dev_) {
+            return ESP_ERR_INVALID_STATE;
+        }
+        std::lock_guard<std::mutex> lock(i2c_mutex_);
+        esp_err_t ret = i2c_master_transmit(ft3168_dev_, &reg, 1, pdMS_TO_TICKS(100));
+        if (ret != ESP_OK) {
+            return ret;
+        }
+        return i2c_master_receive(ft3168_dev_, value, 1, pdMS_TO_TICKS(100));
+    }
+
+    esp_err_t Ft3168WriteReg(uint8_t reg, uint8_t value) {
+        if (!ft3168_dev_) {
+            return ESP_ERR_INVALID_STATE;
+        }
+        const uint8_t data[] = {reg, value};
+        std::lock_guard<std::mutex> lock(i2c_mutex_);
+        return i2c_master_transmit(ft3168_dev_, data, sizeof(data), pdMS_TO_TICKS(50));
+    }
+
+    void LogI2cProbe(const char* reason) {
+        if (!i2c_bus_) {
             return;
         }
 
-        static bool was_touched = false;
-        static int64_t touch_start_us = 0;
-        esp_lcd_touch_point_data_t point = {};
-        uint8_t points = 0;
-
-        if (esp_lcd_touch_read_data(board->touch_) != ESP_OK) {
-            return;
-        }
-        bool touched = esp_lcd_touch_get_data(board->touch_, &point, &points, 1) == ESP_OK && points > 0;
-        int64_t now = esp_timer_get_time();
-
-        if (touched && !was_touched) {
-            was_touched = true;
-            touch_start_us = now;
-            if (board->power_save_timer_) {
-                board->power_save_timer_->WakeUp();
+        char found[160] = {};
+        size_t offset = 0;
+        for (uint8_t addr = 0x08; addr < 0x78; ++addr) {
+            esp_err_t ret = i2c_master_probe(i2c_bus_, addr, pdMS_TO_TICKS(20));
+            if (ret == ESP_OK && offset < sizeof(found)) {
+                int written = snprintf(found + offset, sizeof(found) - offset,
+                                       "%s0x%02X", offset ? " " : "", addr);
+                if (written > 0) {
+                    offset += std::min<size_t>(written, sizeof(found) - offset);
+                }
             }
-        } else if (!touched && was_touched) {
+        }
+        ESP_LOGI(TAG, "I2C probe %s: %s", reason, offset ? found : "no ACK");
+    }
+
+    void ConfigureTouchIntInput() {
+        if (TOUCH_INT_PIN == GPIO_NUM_NC) {
+            return;
+        }
+        gpio_config_t int_cfg = {
+            .pin_bit_mask = BIT64(TOUCH_INT_PIN),
+            .mode = GPIO_MODE_INPUT,
+            .pull_up_en = GPIO_PULLUP_ENABLE,
+            .pull_down_en = GPIO_PULLDOWN_DISABLE,
+            .intr_type = GPIO_INTR_NEGEDGE,
+        };
+        gpio_config(&int_cfg);
+    }
+
+    void WakeFt3168I2c() {
+        if (TOUCH_INT_PIN == GPIO_NUM_NC) {
+            return;
+        }
+
+        // FT3168 can NACK I2C in Hibernate. The Waveshare/FT3168 wake sequence is
+        // to let the host hold INT low for at least 5 ms, then release it.
+        gpio_config_t int_wake_cfg = {
+            .pin_bit_mask = BIT64(TOUCH_INT_PIN),
+            .mode = GPIO_MODE_OUTPUT_OD,
+            .pull_up_en = GPIO_PULLUP_ENABLE,
+            .pull_down_en = GPIO_PULLDOWN_DISABLE,
+            .intr_type = GPIO_INTR_DISABLE,
+        };
+        gpio_config(&int_wake_cfg);
+        gpio_set_level(TOUCH_INT_PIN, 0);
+        vTaskDelay(pdMS_TO_TICKS(8));
+        gpio_set_level(TOUCH_INT_PIN, 1);
+        vTaskDelay(pdMS_TO_TICKS(10));
+        ConfigureTouchIntInput();
+    }
+
+    bool IsFt3168SleepError(esp_err_t ret) {
+        return ret == ESP_ERR_INVALID_RESPONSE || ret == ESP_ERR_TIMEOUT;
+    }
+
+    void NormalizeTouchCoordinates(uint16_t* x, uint16_t* y) {
+        uint16_t nx = *x;
+        uint16_t ny = *y;
+
+        if (DISPLAY_SWAP_XY) {
+            std::swap(nx, ny);
+        }
+
+        nx = std::min<uint16_t>(nx, DISPLAY_WIDTH - 1);
+        ny = std::min<uint16_t>(ny, DISPLAY_HEIGHT - 1);
+
+        if (DISPLAY_MIRROR_X) {
+            nx = (DISPLAY_WIDTH - 1) - nx;
+        }
+        if (DISPLAY_MIRROR_Y) {
+            ny = (DISPLAY_HEIGHT - 1) - ny;
+        }
+
+        *x = nx;
+        *y = ny;
+    }
+
+    void DisableTouchAfterI2cFailure(esp_err_t failure) {
+        ESP_LOGW(TAG, "Touch disabled after I2C failure: %s", esp_err_to_name(failure));
+        touch_ready_ = false;
+        if (ft3168_dev_) {
+            i2c_master_bus_rm_device(ft3168_dev_);
+            ft3168_dev_ = nullptr;
+        }
+        const esp_err_t reset_status = i2c_master_bus_reset(i2c_bus_);
+        if (reset_status != ESP_OK) {
+            ESP_LOGW(TAG, "I2C bus recovery after touch failure failed: %s",
+                     esp_err_to_name(reset_status));
+        }
+    }
+
+    esp_err_t ReadFt3168Touch(uint16_t* x, uint16_t* y, uint8_t* point_count) {
+        uint8_t reg = FT3168_REG_FINGER_NUM;
+        uint8_t data[5] = {};
+        esp_err_t ret = ESP_FAIL;
+        for (int attempt = 0; attempt < 3; ++attempt) {
+            memset(data, 0, sizeof(data));
+            {
+                std::lock_guard<std::mutex> lock(i2c_mutex_);
+                ret = i2c_master_transmit_receive(ft3168_dev_, &reg, 1, data, sizeof(data), pdMS_TO_TICKS(100));
+            }
+            if (ret == ESP_OK) {
+                break;
+            }
+            if (!IsFt3168SleepError(ret)) {
+                break;
+            }
+            vTaskDelay(pdMS_TO_TICKS(3));
+        }
+        if (ret != ESP_OK) {
+            return ret;
+        }
+
+        // data layout from reg 0x02: [finger_num][x1h][x1l][y1h][y1l]
+        uint8_t fingers = data[0] & 0x0f;
+        if (fingers == 0 || fingers > FT3168_MAX_POINTS) {
+            *x = 0;
+            *y = 0;
+            *point_count = 0;
+            return ESP_OK;
+        }
+
+        *x = ((uint16_t)(data[1] & 0x0f) << 8) | data[2];
+        *y = ((uint16_t)(data[3] & 0x0f) << 8) | data[4];
+        NormalizeTouchCoordinates(x, y);
+        *point_count = fingers;
+        return ESP_OK;
+    }
+
+    void InitializeTouch() {
+        ESP_LOGI(TAG, "Init FT5x06-compatible touch at 0x%02X", FT3168_I2C_ADDRESS);
+        ConfigureTouchIntInput();
+
+        if (TOUCH_RST_ENABLED && TOUCH_RST_PIN != GPIO_NUM_NC) {
+            gpio_config_t rst_cfg = {
+                .pin_bit_mask = BIT64(TOUCH_RST_PIN),
+                .mode = GPIO_MODE_OUTPUT,
+                .pull_up_en = GPIO_PULLUP_DISABLE,
+                .pull_down_en = GPIO_PULLDOWN_DISABLE,
+                .intr_type = GPIO_INTR_DISABLE,
+            };
+            gpio_config(&rst_cfg);
+            gpio_set_level(TOUCH_RST_PIN, 1);
+            vTaskDelay(pdMS_TO_TICKS(1));
+            gpio_set_level(TOUCH_RST_PIN, 0);
+            vTaskDelay(pdMS_TO_TICKS(20));
+            gpio_set_level(TOUCH_RST_PIN, 1);
+            vTaskDelay(pdMS_TO_TICKS(50));
+        }
+
+        // Waveshare's Arduino DriveBus talks to the FT3168 at 100 kHz.
+        i2c_device_config_t dev_cfg = {
+            .dev_addr_length = I2C_ADDR_BIT_LEN_7,
+            .device_address = FT3168_I2C_ADDRESS,
+            .scl_speed_hz = 100000,
+            .scl_wait_us = 20000,
+            .flags = {},
+        };
+
+        esp_err_t ret = i2c_master_bus_add_device(i2c_bus_, &dev_cfg, &ft3168_dev_);
+        if (ret != ESP_OK) {
+            ESP_LOGE(TAG, "Touch I2C device init failed: %s", esp_err_to_name(ret));
+            return;
+        }
+
+        esp_err_t probe_ret = ESP_FAIL;
+        for (int attempt = 0; attempt < 50; ++attempt) {
+            probe_ret = i2c_master_probe(i2c_bus_, FT3168_I2C_ADDRESS, pdMS_TO_TICKS(100));
+            if (probe_ret == ESP_OK) {
+                break;
+            }
+            if (attempt == 0 || (attempt + 1) % 10 == 0) {
+                ESP_LOGW(TAG, "FT3168 probe attempt %d failed: %s",
+                         attempt + 1, esp_err_to_name(probe_ret));
+                LogI2cScan("while waiting for FT3168");
+            }
+            if ((attempt + 1) % 10 == 0) {
+                esp_err_t reset_ret = i2c_master_bus_reset(i2c_bus_);
+                if (reset_ret != ESP_OK) {
+                    ESP_LOGW(TAG, "I2C bus reset while waiting for FT3168 failed: %s",
+                             esp_err_to_name(reset_ret));
+                }
+            }
+            vTaskDelay(pdMS_TO_TICKS(100));
+        }
+        ESP_LOGI(TAG, "FT3168 probe: %s", esp_err_to_name(probe_ret));
+
+        // Verify comms with the repeated-start transaction used by the touch task.
+        uint8_t reg2 = FT3168_REG_FINGER_NUM;
+        uint8_t touch_data[5] = {};
+        esp_err_t touch_ret;
+        {
+            std::lock_guard<std::mutex> lock(i2c_mutex_);
+            touch_ret = i2c_master_transmit_receive(ft3168_dev_, &reg2, 1, touch_data, sizeof(touch_data), pdMS_TO_TICKS(100));
+        }
+        ESP_LOGI(TAG, "FT3168 regs[2-6]: %s %02X %02X %02X %02X %02X",
+                 esp_err_to_name(touch_ret), touch_data[0], touch_data[1],
+                 touch_data[2], touch_data[3], touch_data[4]);
+
+        // FT3x68 default touch interrupt is an active-low pulse.
+        esp_err_t isr_ret = gpio_install_isr_service(0);
+        if (isr_ret != ESP_OK && isr_ret != ESP_ERR_INVALID_STATE) {
+            ESP_LOGW(TAG, "Touch ISR service install failed: %s", esp_err_to_name(isr_ret));
+        }
+
+        touch_ready_ = true;
+        ESP_LOGI(TAG, "FT5x06-compatible touch enabled on GPIO%d falling edge", TOUCH_INT_PIN);
+
+        // Stack in PSRAM so we don't eat internal SRAM (which fragments DMA pools).
+        constexpr uint32_t kStackWords = 4096 / sizeof(StackType_t);
+        touch_stack_ = static_cast<StackType_t*>(
+            heap_caps_malloc(kStackWords * sizeof(StackType_t),
+                             MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT));
+        touch_tcb_ = static_cast<StaticTask_t*>(
+            heap_caps_malloc(sizeof(StaticTask_t),
+                             MALLOC_CAP_INTERNAL | MALLOC_CAP_8BIT));
+        if (!touch_stack_ || !touch_tcb_) {
+            ESP_LOGE(TAG, "Failed to allocate touch task memory");
+            return;
+        }
+        touch_task_ = xTaskCreateStaticPinnedToCore(
+            TouchTask, "touch_reader", kStackWords,
+            this, 5, touch_stack_, touch_tcb_, 0);
+        if (touch_task_) {
+            esp_err_t add_ret = gpio_isr_handler_add(TOUCH_INT_PIN, TouchIsrHandler, this);
+            if (add_ret != ESP_OK) {
+                ESP_LOGW(TAG, "Touch ISR handler add failed: %s", esp_err_to_name(add_ret));
+            }
+        }
+    }
+
+    static void IRAM_ATTR TouchIsrHandler(void* arg) {
+        auto* board = static_cast<WaveshareEsp32s3TouchAMOLED2inch06*>(arg);
+        BaseType_t higher_priority_woken = pdFALSE;
+        if (board->touch_task_) {
+            vTaskNotifyGiveFromISR(board->touch_task_, &higher_priority_woken);
+        }
+        if (higher_priority_woken == pdTRUE) {
+            portYIELD_FROM_ISR();
+        }
+    }
+
+    static void TouchTask(void* arg) {
+        auto* board = static_cast<WaveshareEsp32s3TouchAMOLED2inch06*>(arg);
+        bool was_touched = false;
+        int64_t touch_start_us = 0;
+        int64_t last_touch_us = 0;
+        int64_t last_probe_us = 0;
+        int64_t last_read_us = 0;
+        int64_t last_int_log_us = 0;
+        int64_t last_error_log_us = 0;
+        int64_t ignore_irq_until_us = 0;
+        int last_int_level = -1;
+        uint16_t last_x = 0, last_y = 0;
+
+        auto finish_touch = [&]() {
             was_touched = false;
-            int64_t duration_ms = (now - touch_start_us) / 1000;
-            if (duration_ms > 40 && duration_ms < 1200) {
+            const int64_t duration_ms = (last_touch_us - touch_start_us) / 1000;
+            {
+                std::lock_guard<std::mutex> lock(board->touch_state_mutex_);
+                board->last_touch_status_ = ESP_OK;
+                board->last_touch_pressed_ = false;
+                board->last_touch_points_ = 0;
+            }
+            if (board->touch_woke_from_sleep_) {
+                board->touch_woke_from_sleep_ = false;
+                return;
+            }
+            if (duration_ms >= 0 && duration_ms < 1200) {
                 Application::GetInstance().ToggleChatState();
+            } else if (duration_ms >= 1200 && duration_ms < 5000) {
+                char event_context[96];
+                snprintf(event_context, sizeof(event_context),
+                         "{\"x\":%u,\"y\":%u,\"duration_ms\":%lld}",
+                         static_cast<unsigned>(last_x),
+                         static_cast<unsigned>(last_y),
+                         static_cast<long long>(duration_ms));
+                Application::GetInstance().SendCharacterEvent("pet", event_context);
+            }
+        };
+
+        while (true) {
+            const uint32_t notified = ulTaskNotifyTake(pdTRUE, pdMS_TO_TICKS(50));
+            const int64_t now = esp_timer_get_time();
+            const int int_level = TOUCH_INT_PIN == GPIO_NUM_NC ? 0 : gpio_get_level(TOUCH_INT_PIN);
+            bool read_due = notified != 0 || int_level == 0 || was_touched;
+            if (int_level != last_int_level || (now - last_int_log_us) > 5000000LL) {
+                ESP_LOGI(TAG, "touch-int irq=%lu int=%d ready=%d",
+                         static_cast<unsigned long>(notified), int_level, board->touch_ready_ ? 1 : 0);
+                last_int_level = int_level;
+                last_int_log_us = now;
+            }
+
+            if (notified && now < ignore_irq_until_us && int_level != 0) {
+                continue;
+            }
+
+            if (!read_due) {
+                continue;
+            }
+            if (was_touched && !notified && int_level != 0) {
+                if ((now - last_probe_us) < 50000LL) {
+                    continue;
+                }
+                last_probe_us = now;
+            }
+            if (was_touched && (now - last_read_us) < 15000LL) {
+                ulTaskNotifyTake(pdTRUE, 0);
+                continue;
+            }
+
+            uint16_t x = 0, y = 0;
+            uint8_t points = 0;
+            if (notified && !was_touched) {
+                vTaskDelay(pdMS_TO_TICKS(5));
+            }
+            esp_err_t ret = board->ReadFt3168Touch(&x, &y, &points);
+            last_read_us = esp_timer_get_time();
+
+            // Diagnostic: log touch movement at a bounded rate and any status change.
+            {
+                static uint32_t n = 0;
+                static esp_err_t prev = ESP_OK;
+                static uint16_t log_x = 0;
+                static uint16_t log_y = 0;
+                static int64_t last_point_log_us = 0;
+                ++n;
+                const uint16_t dx = x > log_x ? x - log_x : log_x - x;
+                const uint16_t dy = y > log_y ? y - log_y : log_y - y;
+                const bool moved = (dx + dy) >= 8;
+                const bool should_log =
+                    (ret == ESP_OK && points > 0 && (moved || (now - last_point_log_us) > 150000LL)) ||
+                    ret != prev ||
+                    (now - last_error_log_us) > 1000000LL;
+                if (should_log) {
+                    ESP_LOGI(TAG, "touch#%lu irq=%lu probe=%d int=%d %s pts=%u x=%u y=%u",
+                             static_cast<unsigned long>(n),
+                             static_cast<unsigned long>(notified),
+                             (was_touched && !notified) ? 1 : 0,
+                             int_level,
+                             esp_err_to_name(ret), points, x, y);
+                    prev = ret;
+                    if (ret != ESP_OK) {
+                        last_error_log_us = now;
+                    } else if (points > 0) {
+                        log_x = x;
+                        log_y = y;
+                        last_point_log_us = now;
+                    }
+                }
+            }
+
+            if (ret == ESP_OK && points > 0) {
+                ignore_irq_until_us = 0;
+                last_x = x;
+                last_y = y;
+                last_touch_us = now;
+                {
+                    std::lock_guard<std::mutex> lock(board->touch_state_mutex_);
+                    board->last_touch_status_ = ESP_OK;
+                    board->last_touch_pressed_ = true;
+                    board->last_touch_points_ = points;
+                    board->last_touch_x_ = x;
+                    board->last_touch_y_ = y;
+                }
+                if (!was_touched) {
+                    was_touched = true;
+                    touch_start_us = now;
+                    board->touch_woke_from_sleep_ =
+                        board->power_save_timer_ &&
+                        (board->power_save_timer_->IsSleeping() ||
+                         board->power_save_timer_->IsDimmed());
+                    if (board->power_save_timer_) {
+                        board->power_save_timer_->WakeUp();
+                    }
+                    if (board->touch_woke_from_sleep_) {
+                        ESP_LOGI(TAG, "Touch wake-up");
+                    }
+                    if (board->cat_display_) {
+                        board->cat_display_->SpawnTouchBubbles(x, y);
+                    }
+                }
+            } else {
+                if (ret != ESP_OK && board->IsFt3168SleepError(ret)) {
+                    ignore_irq_until_us = now + 250000LL;
+                }
+                if (was_touched && (now - last_touch_us) > 100000LL) {
+                // No touch for 100ms — finger lifted.
+                    finish_touch();
+                }
             }
         }
     }
@@ -484,6 +945,124 @@ private:
         imu_ready_ = true;
     }
 
+    // ── Motion interaction / optional haptic motor ──
+
+    void InitializeVibrationMotor() {
+#if VIBRATION_MOTOR_ENABLED
+        gpio_config_t config = {
+            .pin_bit_mask = BIT64(VIBRATION_MOTOR_GPIO),
+            .mode = GPIO_MODE_OUTPUT,
+            .pull_up_en = GPIO_PULLUP_DISABLE,
+            .pull_down_en = GPIO_PULLDOWN_DISABLE,
+            .intr_type = GPIO_INTR_DISABLE,
+        };
+        if (gpio_config(&config) != ESP_OK) {
+            ESP_LOGE(TAG, "Vibration motor GPIO setup failed");
+            return;
+        }
+        vibration_ready_ = true;
+        gpio_set_level(VIBRATION_MOTOR_GPIO, VIBRATION_MOTOR_ACTIVE_HIGH ? 0 : 1);
+        ESP_LOGI(TAG, "Vibration motor enabled on GPIO%d", VIBRATION_MOTOR_GPIO);
+#else
+        ESP_LOGI(TAG, "Vibration motor disabled: set VIBRATION_MOTOR_ENABLED and GPIO after wiring");
+#endif
+    }
+
+    void SetVibration(bool enabled) {
+#if VIBRATION_MOTOR_ENABLED
+        if (vibration_ready_) {
+            gpio_set_level(VIBRATION_MOTOR_GPIO,
+                           enabled == VIBRATION_MOTOR_ACTIVE_HIGH ? 1 : 0);
+        }
+#else
+        (void)enabled;
+#endif
+    }
+
+    void RunShakeReaction(float impulse, float rotation) {
+        ESP_LOGI(TAG, "Strong shake detected: impulse=%.1f m/s2 rotation=%.1f dps",
+                 impulse, rotation);
+        if (power_save_timer_) {
+            power_save_timer_->WakeUp();
+        }
+        if (cat_display_) {
+            cat_display_->PlayDizzy();
+        }
+        char event_context[96];
+        snprintf(event_context, sizeof(event_context),
+                 "{\"impulse_mps2\":%.1f,\"rotation_dps\":%.1f,\"reaction\":\"dizzy\"}",
+                 impulse, rotation);
+        Application::GetInstance().SendCharacterEvent("shake", event_context);
+
+        SetVibration(true);
+        vTaskDelay(pdMS_TO_TICKS(120));
+        SetVibration(false);
+        if (servo_controller_) {
+            servo_controller_->SetLed(255, 205, 45);
+            servo_controller_->SetPose("dizzy");
+            servo_controller_->SetDefaultLed();
+        }
+        SetVibration(true);
+        vTaskDelay(pdMS_TO_TICKS(100));
+        SetVibration(false);
+    }
+
+    static void MotionInteractionTask(void* arg) {
+        auto* board = static_cast<WaveshareEsp32s3TouchAMOLED2inch06*>(arg);
+        int shake_samples = 0;
+        while (true) {
+            qmi8658_data_t data = {};
+            esp_err_t read_status = ESP_ERR_INVALID_STATE;
+            if (board->imu_ready_) {
+                std::lock_guard<std::mutex> lock(board->imu_mutex_);
+                std::lock_guard<std::mutex> i2c_lock(board->i2c_mutex_);
+                read_status = qmi8658_read_sensor_data(&board->imu_, &data);
+            }
+            if (read_status == ESP_OK) {
+                const float accel = sqrtf(data.accelX * data.accelX +
+                                          data.accelY * data.accelY +
+                                          data.accelZ * data.accelZ);
+                const float impulse = fabsf(accel - 9.81f);
+                const float rotation = sqrtf(data.gyroX * data.gyroX +
+                                             data.gyroY * data.gyroY +
+                                             data.gyroZ * data.gyroZ);
+                const bool strong = (impulse > 10.0f && rotation > 130.0f) ||
+                                    impulse > 19.0f || rotation > 550.0f;
+                shake_samples = strong ? shake_samples + 1 : std::max(0, shake_samples - 1);
+
+                const int64_t now = esp_timer_get_time();
+                if ((shake_samples >= 2 || impulse > 28.0f) &&
+                    now - board->last_shake_us_ > 4000000LL) {
+                    board->last_shake_us_ = now;
+                    shake_samples = 0;
+                    board->RunShakeReaction(impulse, rotation);
+                }
+            }
+            vTaskDelay(pdMS_TO_TICKS(35));
+        }
+    }
+
+    void InitializeMotionInteraction() {
+        InitializeVibrationMotor();
+        if (!imu_ready_) {
+            ESP_LOGW(TAG, "Shake interaction disabled: IMU not ready");
+            return;
+        }
+        BaseType_t ret = xTaskCreate(
+            MotionInteractionTask,
+            "shake_interaction",
+            4096,
+            this,
+            3,
+            &motion_task_);
+        if (ret != pdPASS) {
+            motion_task_ = nullptr;
+            ESP_LOGE(TAG, "Failed to start shake interaction task");
+        } else {
+            ESP_LOGI(TAG, "Shake interaction ready");
+        }
+    }
+
     // ── Button ──
 
     void InitializeButtons() {
@@ -498,7 +1077,7 @@ private:
             power_save_timer_->WakeUp();
         });
 #if CONFIG_USE_DEVICE_AEC
-        boot_button_.OnDoubleClick([this]() {
+        boot_button_.OnDoubleClick([]() {
             auto& app = Application::GetInstance();
             if (app.GetDeviceState() == kDeviceStateIdle)
                 app.SetAecMode(app.GetAecMode() == kAecOff ? kAecOnDeviceSide : kAecOff);
@@ -517,6 +1096,247 @@ private:
             delete servo_controller_;
             servo_controller_ = nullptr;
         }
+        // Console always starts, regardless of servo availability
+        InitializeSerialCommandConsole();
+    }
+
+    static std::string Trim(const std::string& value) {
+        size_t first = value.find_first_not_of(" \t\r\n");
+        if (first == std::string::npos) {
+            return "";
+        }
+        size_t last = value.find_last_not_of(" \t\r\n");
+        return value.substr(first, last - first + 1);
+    }
+
+    static std::string Uppercase(std::string value) {
+        for (auto& ch : value) {
+            ch = (char)std::toupper((unsigned char)ch);
+        }
+        return value;
+    }
+
+    static bool LooksLikeSerialCommand(const std::string& line) {
+        std::string trimmed = Trim(line);
+        if (trimmed.empty()) {
+            return false;
+        }
+        unsigned char first = (unsigned char)trimmed[0];
+        if (!std::isalpha(first) && first != '?') {
+            return false;
+        }
+        for (unsigned char ch : trimmed) {
+            if (ch < 32 || ch > 126) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    void PrintSerialCommandHelp() {
+        printf("\nAMOLED console commands:\n");
+        printf("  HELP\n");
+        printf("  CHAT                           — toggle voice assistant\n");
+        printf("  EMOTION <happy|sad|angry|shy|love|sleep>\n");
+        printf("  STATUS?\n");
+        printf("  DIST?\n");
+        printf("  RADAR?                         — C1001 presence/motion/distance\n");
+        printf("  SERVO <yaw> <pitch>\n");
+        printf("  YAW <angle>\n");
+        printf("  PITCH <angle>\n");
+        printf("  POSE <home|left|right|up|down|nod|shake|dance>\n");
+        printf("  LED <r> <g> <b>\n");
+        printf("  LEDDEFAULT\n");
+        printf("  LEDTEST\n");
+        printf("  LEDOFF\n");
+        printf("  FRAME\n");
+        printf("  STREAM OFF\n\n");
+    }
+
+    void HandleSerialCommand(const std::string& raw_line) {
+        std::string line = Trim(raw_line);
+        if (line.empty()) {
+            return;
+        }
+
+        std::istringstream iss(line);
+        std::string command;
+        iss >> command;
+        command = Uppercase(command);
+        if (command.size() > 1 && command.back() == '?') {
+            command.pop_back();
+        }
+
+        if (command == "HELP" || command == "?") {
+            PrintSerialCommandHelp();
+            if (!servo_controller_) printf("  (XIAO bridge not connected — servo commands unavailable)\n");
+            fflush(stdout);
+            return;
+        } else if (command == "CHAT" || command == "VOICE") {
+            Application::GetInstance().ToggleChatState();
+            printf("OK CHAT\n");
+            fflush(stdout);
+            return;
+        } else if (command == "EMOTION") {
+            std::string emo;
+            if (iss >> emo) {
+                if (cat_display_) cat_display_->SetStateFromEmotion(emo.c_str());
+                printf("OK EMOTION %s\n", emo.c_str());
+            } else {
+                printf("ERR usage: EMOTION <happy|sad|angry|shy|love|sleep>\n");
+            }
+            fflush(stdout);
+            return;
+        } else if (!servo_controller_) {
+            printf("ERR XIAO bridge not ready\n");
+            fflush(stdout);
+        } else if (command == "STATUS") {
+            std::string response;
+            printf("%s\n", servo_controller_->RequestStatus(response) ? response.c_str() : "ERR STATUS_TIMEOUT");
+        } else if (command == "DIST" || command == "DISTANCE") {
+            std::string response;
+            printf("%s\n", servo_controller_->RequestDistance(response) ? response.c_str() : "ERR DIST_TIMEOUT");
+        } else if (command == "RADAR") {
+            std::string response;
+            printf("%s\n", servo_controller_->RequestRadar(response) ? response.c_str() : "ERR RADAR_TIMEOUT");
+        } else if (command == "YAW") {
+            int angle = 0;
+            if (iss >> angle) {
+                printf("%s\n", servo_controller_->SetServoAngle(SERVO_HEAD_YAW_NUM, angle) ? "OK YAW" : "ERR YAW");
+            } else {
+                printf("ERR usage: YAW <angle>\n");
+            }
+        } else if (command == "PITCH") {
+            int angle = 0;
+            if (iss >> angle) {
+                printf("%s\n", servo_controller_->SetServoAngle(SERVO_HEAD_PITCH_NUM, angle) ? "OK PITCH" : "ERR PITCH");
+            } else {
+                printf("ERR usage: PITCH <angle>\n");
+            }
+        } else if (command == "SERVO") {
+            int yaw = 0;
+            int pitch = 0;
+            if (iss >> yaw >> pitch) {
+                bool ok = servo_controller_->SetMultipleServos({
+                    {SERVO_HEAD_YAW_NUM, yaw},
+                    {SERVO_HEAD_PITCH_NUM, pitch},
+                });
+                printf("%s\n", ok ? "OK SERVO" : "ERR SERVO");
+            } else {
+                printf("ERR usage: SERVO <yaw> <pitch>\n");
+            }
+        } else if (command == "POSE") {
+            std::string pose;
+            if (iss >> pose) {
+                printf("%s\n", servo_controller_->SetPose(pose) ? "OK POSE" : "ERR POSE");
+            } else {
+                printf("ERR usage: POSE <name>\n");
+            }
+        } else if (command == "LED") {
+            int r = 0;
+            int g = 0;
+            int b = 0;
+            if (iss >> r >> g >> b) {
+                printf("%s\n", servo_controller_->SetLed(r, g, b) ? "OK LED" : "ERR LED");
+            } else {
+                printf("ERR usage: LED <r> <g> <b>\n");
+            }
+        } else if (command == "LEDDEFAULT") {
+            printf("%s\n", servo_controller_->SetDefaultLed() ? "OK LEDDEFAULT" : "ERR LEDDEFAULT");
+        } else if (command == "LEDTEST") {
+            printf("%s\n", servo_controller_->LedTest() ? "OK LEDTEST" : "ERR LEDTEST");
+        } else if (command == "LEDOFF") {
+            printf("%s\n", servo_controller_->LedOff() ? "OK LEDOFF" : "ERR LEDOFF");
+        } else if (command == "FRAME") {
+            std::string jpeg;
+            std::string error;
+            uint32_t frame_id = 0;
+            if (servo_controller_->RequestFrame(jpeg, frame_id, error)) {
+                printf("OK FRAME id=%lu bytes=%u\n", (unsigned long)frame_id, (unsigned)jpeg.size());
+            } else {
+                printf("ERR FRAME %s\n", error.c_str());
+            }
+        } else if (command == "STREAM") {
+            std::string arg;
+            iss >> arg;
+            if (Uppercase(arg) == "OFF") {
+                printf("%s\n", servo_controller_->CameraStreamOff() ? "OK STREAM_OFF" : "ERR STREAM_OFF");
+            } else {
+                printf("ERR only STREAM OFF is supported from AMOLED console\n");
+            }
+        } else {
+            printf("ERR UNKNOWN_CMD. Type HELP\n");
+        }
+        fflush(stdout);
+    }
+
+    static void SerialConsoleTask(void* arg) {
+        auto* board = static_cast<WaveshareEsp32s3TouchAMOLED2inch06*>(arg);
+        std::string line;
+        bool last_was_cr = false;
+        int64_t last_char_us = 0;
+        printf("\nAMOLED command console ready. Type HELP.\n");
+        fflush(stdout);
+        while (true) {
+            int ch = fgetc(stdin);
+            if (ch == EOF) {
+                if (!line.empty() && esp_timer_get_time() - last_char_us > 500000) {
+                    if (LooksLikeSerialCommand(line)) {
+                        printf("AMOLED> %s\n", line.c_str());
+                        fflush(stdout);
+                        board->HandleSerialCommand(line);
+                    }
+                    line.clear();
+                    last_was_cr = false;
+                }
+                vTaskDelay(pdMS_TO_TICKS(20));
+                continue;
+            }
+            if (ch == '\r' || ch == '\n') {
+                if (ch == '\n' && last_was_cr) {
+                    last_was_cr = false;
+                    continue;
+                }
+                last_was_cr = ch == '\r';
+                if (LooksLikeSerialCommand(line)) {
+                    printf("AMOLED> %s\n", line.c_str());
+                    fflush(stdout);
+                    board->HandleSerialCommand(line);
+                }
+                line.clear();
+                continue;
+            }
+            last_was_cr = false;
+            if (ch >= 32 && ch <= 126) {
+                if (line.size() >= 160) {
+                    line.clear();
+                    continue;
+                }
+                line.push_back((char)ch);
+                last_char_us = esp_timer_get_time();
+            }
+        }
+    }
+
+    void InitializeSerialCommandConsole() {
+        if (serial_console_task_) {
+            return;
+        }
+        // USB Serial/JTAG as primary console: IDF uses blocking VFS for stdin. Never call
+        // usb_serial_jtag_vfs_use_nonblocking() here — it triggers assert in usb_serial_jtag_read
+        // when typing in idf.py monitor (IDF v6.x usb_serial_jtag_vfs.c).
+
+        BaseType_t ret = xTaskCreate(
+            SerialConsoleTask,
+            "amoled_console",
+            4096,
+            this,
+            2,
+            &serial_console_task_);
+        if (ret != pdPASS) {
+            serial_console_task_ = nullptr;
+            ESP_LOGE(TAG, "Failed to start AMOLED command console");
+        }
     }
 
     void RegisterMcpTools() {
@@ -533,10 +1353,10 @@ private:
         if (!servo_controller_) return;
 
         mcp.AddTool("self.robot.set_servo",
-            "Управление сервоприводом (1-10), угол 0-180°",
+            "Управление сервоприводами головы через XIAO: 1=yaw, 2=pitch, угол 40-80°",
             PropertyList({
-                Property("servo_num", kPropertyTypeInteger, 1,  1, 10),
-                Property("angle",     kPropertyTypeInteger, 90, 0, 180),
+                Property("servo_num", kPropertyTypeInteger, 1,  1, 2),
+                Property("angle",     kPropertyTypeInteger, SERVO_HOME_ANGLE, SERVO_MIN_ANGLE, SERVO_MAX_ANGLE),
             }),
             [this](const PropertyList& p) -> ReturnValue {
                 return servo_controller_ &&
@@ -545,8 +1365,8 @@ private:
             });
 
         mcp.AddTool("self.robot.set_pose",
-            "Поза робота: home/reset, wave/wave_hand, dance/dancing, "
-            "greet/greeting, sad/sad_pose, happy/happy_pose",
+            "Поза головы: home/reset, left/right/up/down, nod, shake, dance, "
+            "dizzy, greet/greeting, sad/sad_pose, happy/happy_pose",
             PropertyList({ Property("pose", kPropertyTypeString) }),
             [this](const PropertyList& p) -> ReturnValue {
                 return servo_controller_ &&
@@ -554,7 +1374,7 @@ private:
             });
 
         mcp.AddTool("self.robot.move_servos",
-            "Несколько сервоприводов: 'S1:45,S2:120'",
+            "Несколько сервоприводов головы через XIAO: 'S1:45,S2:120'",
             PropertyList({ Property("servos", kPropertyTypeString) }),
             [this](const PropertyList& p) -> ReturnValue {
                 std::string s = p["servos"].value<std::string>();
@@ -577,6 +1397,40 @@ private:
                        servo_controller_->SetMultipleServos(cmds);
             });
 
+        mcp.AddTool("self.robot.set_led",
+            "Set XIAO LED ring color. RGB values 0-255.",
+            PropertyList({
+                Property("r", kPropertyTypeInteger, XIAO_LED_DEFAULT_R, 0, 255),
+                Property("g", kPropertyTypeInteger, XIAO_LED_DEFAULT_G, 0, 255),
+                Property("b", kPropertyTypeInteger, XIAO_LED_DEFAULT_B, 0, 255),
+            }),
+            [this](const PropertyList& p) -> ReturnValue {
+                return servo_controller_ &&
+                       servo_controller_->SetLed(
+                           p["r"].value<int>(), p["g"].value<int>(), p["b"].value<int>());
+            });
+
+        mcp.AddTool("self.robot.led_default",
+            "Set XIAO LED ring to default neon blue.",
+            PropertyList(),
+            [this](const PropertyList&) -> ReturnValue {
+                return servo_controller_ && servo_controller_->SetDefaultLed();
+            });
+
+        mcp.AddTool("self.robot.led_off",
+            "Turn off XIAO LED ring.",
+            PropertyList(),
+            [this](const PropertyList&) -> ReturnValue {
+                return servo_controller_ && servo_controller_->LedOff();
+            });
+
+        mcp.AddTool("self.robot.led_test",
+            "Run XIAO LED ring RGB/white test animation.",
+            PropertyList(),
+            [this](const PropertyList&) -> ReturnValue {
+                return servo_controller_ && servo_controller_->LedTest();
+            });
+
         ESP_LOGI(TAG, "Robot MCP tools registered");
     }
 
@@ -593,7 +1447,12 @@ private:
                     return root;
                 }
                 qmi8658_data_t data = {};
-                esp_err_t ret = qmi8658_read_sensor_data(&imu_, &data);
+                esp_err_t ret;
+                {
+                    std::lock_guard<std::mutex> lock(imu_mutex_);
+                    std::lock_guard<std::mutex> i2c_lock(i2c_mutex_);
+                    ret = qmi8658_read_sensor_data(&imu_, &data);
+                }
                 if (ret != ESP_OK) {
                     cJSON_AddStringToObject(root, "error", esp_err_to_name(ret));
                     return root;
@@ -616,26 +1475,54 @@ private:
             });
 
         mcp.AddTool("self.hardware.get_touch",
-            "Read the FT5x06 touchscreen state.",
+            "Read the touchscreen state.",
             PropertyList(),
             [this](const PropertyList&) -> ReturnValue {
                 cJSON* root = cJSON_CreateObject();
-                cJSON_AddBoolToObject(root, "ready", touch_ != nullptr);
-                if (!touch_) {
+                cJSON_AddBoolToObject(root, "ready", touch_ready_);
+                if (!touch_ready_) {
                     return root;
                 }
-                esp_lcd_touch_point_data_t point = {};
+                uint16_t x = 0;
+                uint16_t y = 0;
                 uint8_t points = 0;
-                esp_err_t ret = esp_lcd_touch_read_data(touch_);
-                cJSON_AddStringToObject(root, "read_status", esp_err_to_name(ret));
-                bool touched = ret == ESP_OK && esp_lcd_touch_get_data(touch_, &point, &points, 1) == ESP_OK && points > 0;
-                cJSON_AddBoolToObject(root, "touched", touched);
-                cJSON_AddNumberToObject(root, "points", points);
-                if (touched) {
-                    cJSON_AddNumberToObject(root, "x", point.x);
-                    cJSON_AddNumberToObject(root, "y", point.y);
-                    cJSON_AddNumberToObject(root, "strength", point.strength);
+                esp_err_t ret = ESP_OK;
+                bool read_now = true;
+                if (read_now) {
+                    ret = ReadFt3168Touch(&x, &y, &points);
+                    {
+                        std::lock_guard<std::mutex> lock(touch_state_mutex_);
+                        last_touch_status_ = ret;
+                        last_touch_pressed_ = ret == ESP_OK && points > 0;
+                        last_touch_points_ = ret == ESP_OK ? points : 0;
+                        if (last_touch_pressed_) {
+                            last_touch_x_ = x;
+                            last_touch_y_ = y;
+                        }
+                    }
+                } else {
+                    std::lock_guard<std::mutex> lock(touch_state_mutex_);
+                    ret = last_touch_status_ == ESP_ERR_INVALID_STATE ? ESP_OK : last_touch_status_;
+                    points = last_touch_pressed_ ? last_touch_points_ : 0;
+                    x = last_touch_x_;
+                    y = last_touch_y_;
                 }
+                cJSON_AddStringToObject(root, "read_status", esp_err_to_name(ret));
+                cJSON_AddBoolToObject(root, "read_now", read_now);
+                cJSON_AddNumberToObject(root, "int_level", TOUCH_INT_PIN == GPIO_NUM_NC ? -1 : gpio_get_level(TOUCH_INT_PIN));
+                cJSON_AddBoolToObject(root, "touched", points > 0);
+                cJSON_AddNumberToObject(root, "points", points);
+                if (points > 0) {
+                    cJSON_AddNumberToObject(root, "x", x);
+                    cJSON_AddNumberToObject(root, "y", y);
+                } else {
+                    std::lock_guard<std::mutex> lock(touch_state_mutex_);
+                    cJSON_AddBoolToObject(root, "last_touched", last_touch_pressed_);
+                    cJSON_AddNumberToObject(root, "last_points", last_touch_points_);
+                    cJSON_AddNumberToObject(root, "last_x", last_touch_x_);
+                    cJSON_AddNumberToObject(root, "last_y", last_touch_y_);
+                }
+                cJSON_AddStringToObject(root, "controller", "FT5x06-compatible");
                 return root;
             });
 
@@ -654,25 +1541,218 @@ private:
                 }
                 return root;
             });
+
+        mcp.AddTool("self.hardware.get_xiao_status",
+            "Read status line from external XIAO camera/servo/LED/proximity bridge.",
+            PropertyList(),
+            [this](const PropertyList&) -> ReturnValue {
+                cJSON* root = cJSON_CreateObject();
+                cJSON_AddBoolToObject(root, "ready", servo_controller_ != nullptr);
+                if (!servo_controller_) {
+                    return root;
+                }
+                std::string response;
+                bool ok = servo_controller_->RequestStatus(response);
+                cJSON_AddBoolToObject(root, "ok", ok);
+                if (ok) {
+                    cJSON_AddStringToObject(root, "response", response.c_str());
+                } else {
+                    cJSON_AddStringToObject(root, "error", "timeout");
+                }
+                return root;
+            });
+
+        mcp.AddTool("self.hardware.get_proximity",
+            "Read VL53L0X proximity distance from the external XIAO bridge.",
+            PropertyList(),
+            [this](const PropertyList&) -> ReturnValue {
+                cJSON* root = cJSON_CreateObject();
+                cJSON_AddBoolToObject(root, "ready", servo_controller_ != nullptr);
+                if (!servo_controller_) {
+                    return root;
+                }
+                std::string response;
+                bool ok = servo_controller_->RequestDistance(response);
+                cJSON_AddBoolToObject(root, "ok", ok);
+                if (ok) {
+                    cJSON_AddStringToObject(root, "response", response.c_str());
+                    int distance_mm = -1;
+                    if (sscanf(response.c_str(), "DIST %d", &distance_mm) == 1) {
+                        cJSON_AddNumberToObject(root, "distance_mm", distance_mm);
+                    }
+                } else {
+                    cJSON_AddStringToObject(root, "error", "timeout");
+                }
+                return root;
+            });
+
+        mcp.AddTool("self.sensor.get_radar",
+            "Read DFRobot C1001 24GHz radar data from the XIAO bridge: human presence, motion direction, distance.",
+            PropertyList(),
+            [this](const PropertyList&) -> ReturnValue {
+                cJSON* root = cJSON_CreateObject();
+                cJSON_AddBoolToObject(root, "ready", servo_controller_ != nullptr);
+                if (!servo_controller_) {
+                    return root;
+                }
+                std::string response;
+                bool ok = servo_controller_->RequestRadar(response);
+                cJSON_AddBoolToObject(root, "ok", ok);
+                if (ok) {
+                    cJSON_AddStringToObject(root, "response", response.c_str());
+                    int presence = -1, motion = -1, range = -1;
+                    if (sscanf(response.c_str(), "RADAR presence=%d motion=%d range=%d",
+                               &presence, &motion, &range) == 3) {
+                        cJSON_AddBoolToObject(root, "human_present", presence == 1);
+                        // motion: 0=none 1=still 2=active
+                        const char* motion_str = motion == 0 ? "none" :
+                                                 motion == 1 ? "still" : "active";
+                        cJSON_AddStringToObject(root, "motion", motion_str);
+                        cJSON_AddNumberToObject(root, "moving_range_cm", range);
+                    }
+                } else {
+                    cJSON_AddStringToObject(root, "error", "timeout");
+                }
+                return root;
+            });
+
+        mcp.AddTool("self.sensor.get_distance",
+            "Read VL53L0X distance from the external XIAO bridge. Alias for proximity.",
+            PropertyList(),
+            [this](const PropertyList&) -> ReturnValue {
+                cJSON* root = cJSON_CreateObject();
+                cJSON_AddBoolToObject(root, "ready", servo_controller_ != nullptr);
+                if (!servo_controller_) {
+                    return root;
+                }
+                std::string response;
+                bool ok = servo_controller_->RequestDistance(response);
+                cJSON_AddBoolToObject(root, "ok", ok);
+                if (ok) {
+                    cJSON_AddStringToObject(root, "response", response.c_str());
+                    int distance_mm = -1;
+                    if (sscanf(response.c_str(), "DIST %d", &distance_mm) == 1) {
+                        cJSON_AddNumberToObject(root, "distance_mm", distance_mm);
+                    }
+                } else {
+                    cJSON_AddStringToObject(root, "error", "timeout");
+                }
+                return root;
+            });
+
+        mcp.AddTool("self.camera.get_status",
+            "Read XIAO camera bridge status: camera, VL53L0X, stream and servo state.",
+            PropertyList(),
+            [this](const PropertyList&) -> ReturnValue {
+                cJSON* root = cJSON_CreateObject();
+                cJSON_AddBoolToObject(root, "ready", servo_controller_ != nullptr);
+                if (!servo_controller_) {
+                    return root;
+                }
+                std::string response;
+                bool ok = servo_controller_->RequestStatus(response);
+                cJSON_AddBoolToObject(root, "ok", ok);
+                if (!ok) {
+                    cJSON_AddStringToObject(root, "error", "timeout");
+                    return root;
+                }
+                cJSON_AddStringToObject(root, "response", response.c_str());
+                int camera = 0, vl53 = 0, c1001 = 0, sd = 0;
+                int servos = 0, led = 0, stream = 0, yaw = 0, pitch = 0, wifi = 0;
+                // New format: STATUS camera=%d vl53=%d c1001=%d sd=%d servos=%d led=%d stream=%d yaw=%d pitch=%d wifi=%d
+                int parsed = sscanf(response.c_str(),
+                    "STATUS camera=%d vl53=%d c1001=%d sd=%d servos=%d led=%d stream=%d yaw=%d pitch=%d wifi=%d",
+                    &camera, &vl53, &c1001, &sd, &servos, &led, &stream, &yaw, &pitch, &wifi);
+                if (parsed >= 2) {
+                    cJSON_AddBoolToObject(root, "camera_ready",  camera  != 0);
+                    cJSON_AddBoolToObject(root, "vl53_ready",    vl53    != 0);
+                    cJSON_AddBoolToObject(root, "c1001_ready",   c1001   != 0);
+                    cJSON_AddBoolToObject(root, "sd_ok",         sd      != 0);
+                    cJSON_AddBoolToObject(root, "servos_ok",     servos  != 0);
+                    cJSON_AddBoolToObject(root, "led_ok",        led     != 0);
+                    cJSON_AddBoolToObject(root, "stream_enabled",stream  != 0);
+                    cJSON_AddNumberToObject(root, "yaw",   yaw);
+                    cJSON_AddNumberToObject(root, "pitch", pitch);
+                    cJSON_AddBoolToObject(root, "wifi",    wifi != 0);
+                }
+                return root;
+            });
+
+        mcp.AddTool("self.camera.capture_frame",
+            "Capture one JPEG frame from the external XIAO camera bridge.",
+            PropertyList(),
+            [this](const PropertyList&) -> ReturnValue {
+                cJSON* error_root = nullptr;
+                if (!servo_controller_) {
+                    error_root = cJSON_CreateObject();
+                    cJSON_AddBoolToObject(error_root, "ok", false);
+                    cJSON_AddStringToObject(error_root, "error", "XIAO bridge not ready");
+                    return error_root;
+                }
+
+                std::string jpeg;
+                std::string error;
+                uint32_t frame_id = 0;
+                bool ok = servo_controller_->RequestFrame(jpeg, frame_id, error);
+                if (!ok) {
+                    error_root = cJSON_CreateObject();
+                    cJSON_AddBoolToObject(error_root, "ok", false);
+                    cJSON_AddStringToObject(error_root, "error", error.c_str());
+                    return error_root;
+                }
+
+                return new ImageContent("image/jpeg", jpeg);
+            });
+
+        mcp.AddTool("self.camera.stream_off",
+            "Stop XIAO camera UART stream mode.",
+            PropertyList(),
+            [this](const PropertyList&) -> ReturnValue {
+                return servo_controller_ && servo_controller_->CameraStreamOff();
+            });
     }
 
 public:
     WaveshareEsp32s3TouchAMOLED2inch06() : boot_button_(BOOT_BUTTON_GPIO) {
         InitializeCodecI2c();
         InitializeAxp2101();
+        InitializeSdCard();          // must be before splash/audio
         InitializeSpi();
-        InitializeDisplay();
-        InitializeTouch();
+        InitializeLcdPanel();        // hardware panel only, no LVGL yet
+
+        // Show splash and play startup chime before LVGL takes over the panel.
+        startup_show_splash(panel_handle_, DISPLAY_WIDTH, DISPLAY_HEIGHT,
+                            SDCARD_MOUNT_POINT "/assets/logo_mediarise.png");
+        startup_play_wav(i2c_bus_, SDCARD_MOUNT_POINT "/assets/load.wav");
+
+        InitializeDisplay();         // LVGL + CatDisplay + backlight
         InitializeButtons();
         InitializePowerSaveTimer();
-        InitializeSdCard();
+        InitializeTouch();
         InitializeImu();
         InitializeServoController();
+        InitializeMotionInteraction();
+        homebot_ble_.SetXiaoController(servo_controller_);
         RegisterMcpTools();
         RegisterHardwareMcpTools();
+        homebot_ble_.Start();
     }
 
     ~WaveshareEsp32s3TouchAMOLED2inch06() {
+        if (motion_task_) {
+            vTaskDelete(motion_task_);
+            motion_task_ = nullptr;
+        }
+        SetVibration(false);
+        if (TOUCH_INT_PIN != GPIO_NUM_NC) {
+            gpio_isr_handler_remove(TOUCH_INT_PIN);
+        }
+        if (touch_task_) {
+            vTaskDelete(touch_task_);
+            touch_task_ = nullptr;
+        }
+        heap_caps_free(touch_stack_);  touch_stack_ = nullptr;
+        heap_caps_free(touch_tcb_);    touch_tcb_   = nullptr;
         if (touch_timer_) {
             esp_timer_stop(touch_timer_);
             esp_timer_delete(touch_timer_);
@@ -682,16 +1762,31 @@ public:
             touch_->del(touch_);
             touch_ = nullptr;
         }
+        if (ft3168_dev_) {
+            i2c_master_bus_rm_device(ft3168_dev_);
+            ft3168_dev_ = nullptr;
+        }
         if (sdcard_mounted_ && sdcard_) {
             esp_vfs_fat_sdcard_unmount(SDCARD_MOUNT_POINT, sdcard_);
             sdcard_ = nullptr;
             sdcard_mounted_ = false;
+        }
+        if (serial_console_task_) {
+            vTaskDelete(serial_console_task_);
+            serial_console_task_ = nullptr;
         }
         delete servo_controller_;
         servo_controller_ = nullptr;
     }
 
     // ── Board API ──
+
+    virtual void StartNetwork() override {
+        WifiBoard::StartNetwork();
+        if (servo_controller_) {
+            servo_controller_->InitEspNow();
+        }
+    }
 
     virtual AudioCodec* GetAudioCodec() override {
         static BoxAudioCodec audio_codec(
@@ -717,13 +1812,23 @@ public:
 
     virtual bool GetBatteryLevel(int& level, bool& charging, bool& discharging) override {
         static bool last_dis = false;
-        charging    = pmic_->IsCharging();
-        discharging = pmic_->IsDischarging();
+        static uint32_t read_failures = 0;
+        esp_err_t ret;
+        {
+            std::lock_guard<std::mutex> lock(i2c_mutex_);
+            ret = pmic_->GetBatteryStatus(level, charging, discharging);
+        }
+        if (ret != ESP_OK) {
+            if (read_failures++ == 0 || read_failures % 20 == 0) {
+                ESP_LOGW(TAG, "Battery status read skipped: %s", esp_err_to_name(ret));
+            }
+            return false;
+        }
+        read_failures = 0;
         if (discharging != last_dis) {
             power_save_timer_->SetEnabled(discharging);
             last_dis = discharging;
         }
-        level = pmic_->GetBatteryLevel();
         return true;
     }
 

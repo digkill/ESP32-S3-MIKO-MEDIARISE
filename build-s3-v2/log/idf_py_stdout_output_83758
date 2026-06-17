@@ -1,0 +1,1444 @@
+Command: /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf_monitor.py -p /dev/cu.usbmodem1101 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/xiaozhi.elf /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/bootloader/bootloader.elf -m '/Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python' '/Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf.py' '-B' 'xiaozhi-esp32/build-s3-v2' '-p' '/dev/cu.usbmodem1101'
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40041a7c
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (35) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (35) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (36) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (36) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (36) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (37) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (37) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (38) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (38) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (39) esp_psram: Speed: 80MHz[0m
+[0;32mI (39) cpu_start: Multicore app[0m
+[0;32mI (48) cpu_start: Pro cpu start user code[0m
+[0;32mI (48) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (48) app_init: Application information:[0m
+[0;32mI (48) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     May 25 2026 19:19:38[0m
+[0;32mI (48) app_init: ELF file SHA256:  edbfa84b2...[0m
+[0;32mI (48) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (49) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (49) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (49) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2300 len 00037410 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (50) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (50) spi_flash: detected chip: gd[0m
+[0;32mI (51) spi_flash: flash io: qio[0m
+[0;32mI (51) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (52) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (53) main_task: Started on CPU0[0m
+[0;32mI (63) esp_psram: Reserving pool of 64K of internal memory for DMA/internal allocations[0m
+[0;32mI (63) main_task: Calling app_main()[0m
+[0;32mI (83) main: Getting Application instance...[0m
+[0;32mI (83) main: Application instance obtained, calling Start()...[0m
+[0;32mI (83) Application: Application::Start() called[0m
+[0;32mI (83) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (83) button: IoT Button Version: 4.1.6[0m
+[0;32mI (83) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (113) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (113) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (113) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (113) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (113) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (113) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (113) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (113) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (433) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (433) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (433) Display: Power management not supported[0m
+[0;32mI (433) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (433) LcdDisplay: Размер: 410x502[0m
+[0;32mI (433) LcdDisplay: Panel handle: 0x3fcede5c[0m
+[0;32mI (433) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (433) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (433) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (523) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (623) LcdDisplay: Включение дисплея...[0m
+[0;32mI (623) LcdDisplay: Дисплей включен[0m
+[0;32mI (623) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (623) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (623) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (623) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (623) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (623) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (623) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (623) LVGL: Starting LVGL task[0m
+[0;32mI (623) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (623) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (623) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (623) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (623) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (623) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (623) LcdDisplay: Настройка UI...[0m
+[0;32mI (623) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (623) LcdDisplay: Тема найдена: 0x3fcedfd4[0m
+[0;32mI (623) LcdDisplay: Шрифты загружены: text=0x3c26b340, icon=0x3c25ce44, large_icon=0x3c25ce44[0m
+[0;32mI (623) LcdDisplay: Активный экран найден: 0x3fcee958[0m
+[0;32mI (633) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (633) LcdDisplay:   container_: 0x3fceeb3c[0m
+[0;32mI (633) LcdDisplay:   emoji_box_: 0x3fceec24[0m
+[0;32mI (633) LcdDisplay:   emoji_label_: 0x3fceecc8[0m
+[0;32mI (633) LcdDisplay:   emoji_image_: 0x3fcd2578[0m
+[0;32mI (633) LcdDisplay:   preview_image_: 0x3fcd25d8[0m
+[0;32mI (633) LcdDisplay:   top_bar_: 0x3fcd266c[0m
+[0;32mI (633) LcdDisplay:   status_bar_: 0x3fcd2b3c[0m
+[0;32mI (633) LcdDisplay:   content_: 0[0m
+[0;32mI (633) LcdDisplay:   bottom_bar_: 0x3fcd2ee8[0m
+[0;32mI (633) LcdDisplay:   chat_message_label_: 0x3fcd2f88[0m
+[0;32mI (633) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (633) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (693) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (773) Backlight: Set brightness to 100[0m
+[0;32mI (773) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (773) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+[0;32mI (773) QMI8658: QMI8658 initialized successfully[0m
+[0;32mI (773) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (913) WaveshareAMOLED2_06: Touch disabled after I2C failure: ESP_ERR_INVALID_RESPONSE[0m
+[0;32mI (913) XiaoBridge: Init XIAO UART bridge[0m
+[0;32mI (913) XiaoBridge:   Port: UART_NUM_1[0m
+[0;32mI (913) XiaoBridge:   Baud: 115200[0m
+[0;32mI (913) XiaoBridge:   TX Pin: GPIO17[0m
+[0;32mI (913) XiaoBridge:   RX Pin: GPIO18[0m
+[0;32mI (913) uart: ESP_INTR_FLAG_IRAM flag not set while CONFIG_UART_ISR_IN_IRAM is enabled, flag updated[0m
+[0;32mI (1013) XiaoBridge: Set pose: home[0m
+[0;32mI (1013) XiaoBridge: XIAO bridge UART initialized[0m
+[0;32mI (1013) WaveshareAMOLED2_06: ServoController OK[0m
+
+AMOLED command console ready. Type HELP.
+[0;32mI (1013) WaveshareAMOLED2_06: Vibration motor disabled: set VIBRATION_MOTOR_ENABLED and GPIO after wiring[0m
+[0;32mI (1013) WaveshareAMOLED2_06: Shake interaction ready[0m
+[0;32mI (1013) MCP: Add tool: self.system.reconfigure_wifi[0m
+[0;32mI (1013) MCP: Add tool: self.robot.set_servo[0m
+[0;32mI (1013) MCP: Add tool: self.robot.set_pose[0m
+[0;32mI (1013) MCP: Add tool: self.robot.move_servos[0m
+[0;32mI (1013) MCP: Add tool: self.robot.set_led[0m
+[0;32mI (1013) MCP: Add tool: self.robot.led_default[0m
+[0;32mI (1013) MCP: Add tool: self.robot.led_off[0m
+[0;32mI (1013) MCP: Add tool: self.robot.led_test[0m
+[0;32mI (1013) WaveshareAMOLED2_06: Robot MCP tools registered[0m
+[0;32mI (1013) MCP: Add tool: self.hardware.get_motion[0m
+[0;32mI (1013) MCP: Add tool: self.hardware.get_touch[0m
+[0;32mI (1013) MCP: Add tool: self.hardware.get_sdcard[0m
+[0;32mI (1013) MCP: Add tool: self.hardware.get_xiao_status[0m
+[0;32mI (1013) MCP: Add tool: self.hardware.get_proximity[0m
+[0;32mI (1013) MCP: Add tool: self.sensor.get_radar[0m
+[0;32mI (1013) MCP: Add tool: self.sensor.get_distance[0m
+[0;32mI (1013) MCP: Add tool: self.camera.get_status[0m
+[0;32mI (1013) MCP: Add tool: self.camera.capture_frame[0m
+[0;32mI (1013) MCP: Add tool: self.camera.stream_off[0m
+[0;32mI (1013) BLE_INIT: BT controller compile version [b7de11e][0m
+[0;32mI (1013) BLE_INIT: Using main XTAL as clock source[0m
+[0;32mI (1013) BLE_INIT: Feature Config, ADV:1, BLE_50:1, DTM:1, SCAN:1, CCA:0, SMP:1, CONNECT:1[0m
+[0;32mI (1013) BLE_INIT: Bluetooth MAC: 3c:dc:75:6f:cc:6e[0m
+[0;32mI (1013) phy_init: phy_version 711,97bcf0a2,Aug 25 2025,19:04:10[0m
+[0;32mI (1053) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;32mI (1083) NimBLE: GAP procedure initiated: stop advertising.[0m
+
+[0;32mI (1083) NimBLE: GAP procedure initiated: stop advertising.[0m
+
+[0;32mI (1083) NimBLE: GAP procedure initiated: advertise; [0m
+[0;32mI (1083) NimBLE: disc_mode=2[0m
+[0;32mI (1083) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=0 adv_itvl_max=0[0m
+[0;32mI (1083) NimBLE: [0m
+
+[0;32mI (1083) HomeBotBLE: HomeBot BLE service starting[0m
+[0;32mI (1163) Application: Board instance obtained[0m
+[0;32mI (1163) Application: STATE: starting[0m
+[0;32mI (1163) Application: Device state set to Starting[0m
+[0;32mI (1163) Application: Getting display from board...[0m
+[0;32mI (1163) Application: Display obtained: 0x3fcd34dc[0m
+[0;32mI (1163) Application: Setting chat message...[0m
+[0;32mI (1163) WaveshareAMOLED2_06: Chat [system]: waveshare-s3-touch-amoled-2.06/2.0.5[0m
+[0;32mI (1163) Application: Chat message set[0m
+[0;32mI (1163) Application: Getting audio codec from board...[0m
+[0;32mI (1163) BoxAudioCodec: Duplex channels created[0m
+[0;32mI (1173) ES8311: Work in Slave mode[0m
+[0;32mI (1173) ES7210: Work in Slave mode[0m
+[0;32mI (1183) ES7210: Enable ES7210_INPUT_MIC1[0m
+[0;32mI (1183) ES7210: Enable ES7210_INPUT_MIC2[0m
+[0;32mI (1193) ES7210: Enable ES7210_INPUT_MIC3[0m
+[0;32mI (1193) ES7210: Enable ES7210_INPUT_MIC4[0m
+[0;32mI (1193) ES7210: Enable TDM mode[0m
+[0;32mI (1203) BoxAudioCodec: BoxAudioDevice initialized[0m
+[0;32mI (1203) Application: Audio codec obtained: 0x3fcacaa8[0m
+[0;32mI (1203) Application: Initializing audio service...[0m
+[0;32mI (1203) AudioCodec: Enabling TX channel (speaker)[0m
+[0;32mI (1203) AudioCodec: Enabling RX channel (microphone)[0m
+[0;32mI (1203) I2S_IF: channel mode 2 bits:16/16 channel:4 mask:3[0m
+[0;32mI (1203) I2S_IF: TDM Mode 0 bits:16/16 channel:4 sample_rate:24000 mask:3[0m
+[0;32mI (1203) I2S_IF: channel mode 0 bits:16/16 channel:4 mask:3[0m
+[0;32mI (1203) I2S_IF: STD Mode 1 bits:32/32 channel:4 sample_rate:24000 mask:0[0m
+[0;32mI (1203) ES7210: Bits 16[0m
+[0;32mI (1213) ES7210: Enable ES7210_INPUT_MIC1[0m
+[0;32mI (1213) ES7210: Enable ES7210_INPUT_MIC2[0m
+[0;32mI (1223) ES7210: Enable ES7210_INPUT_MIC3[0m
+[0;32mI (1223) ES7210: Enable ES7210_INPUT_MIC4[0m
+[0;32mI (1223) ES7210: Enable TDM mode[0m
+[0;32mI (1233) ES7210: Unmuted[0m
+[0;32mI (1233) Adev_Codec: Open codec device OK[0m
+[0;32mI (1233) AudioCodec: Set input enable to true[0m
+[0;32mI (1313) I2S_IF: Mode 0 need extend bits 64 to 32[0m
+[0;32mI (1313) I2S_IF: channel mode 0 bits:16/32 channel:2 mask:1[0m
+[0;32mI (1313) I2S_IF: STD Mode 1 bits:16/32 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (1323) Adev_Codec: Open codec device OK[0m
+[0;32mI (1323) AudioCodec: Set output enable to true[0m
+[0;32mI (1323) AudioCodec: Audio codec started - Input: enabled, Output: enabled[0m
+[0;32mI (1333) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (1333) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (1333) OpusResampler: Resampler configured with input sample rate 16000 and output sample rate 24000[0m
+[0;32mI (1333) Application: Starting audio service...[0m
+[0;32mI (1333) Application: Audio service started[0m
+[0;32mI (1333) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (1333) Application: Starting network...[0m
+[0;32mI (1333) pp: pp rom version: e7ae62f[0m
+[0;32mI (1333) net80211: net80211 rom version: e7ae62f[0m
+[0;32mI (1343) wifi:wifi driver task: 3fce3a38, prio:23, stack:6656, core=0[0m
+[0;32mI (1343) wifi:wifi firmware version: b37c951[0m
+[0;32mI (1343) wifi:wifi certification version: v7.0[0m
+[0;32mI (1343) wifi:config NVS flash: disabled[0m
+[0;32mI (1343) wifi:config nano formatting: disabled[0m
+[0;32mI (1343) wifi:Init data frame dynamic rx buffer num: 6[0m
+[0;32mI (1343) wifi:Init dynamic rx mgmt buffer num: 5[0m
+[0;32mI (1343) wifi:Init management short buffer num: 32[0m
+[0;32mI (1343) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1343) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (1343) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1343) wifi:Init static rx buffer num: 3[0m
+[0;32mI (1343) wifi:Init dynamic rx buffer num: 6[0m
+[0;32mI (1343) wifi_init: rx ba win: 3[0m
+[0;32mI (1343) wifi_init: accept mbox: 6[0m
+[0;32mI (1343) wifi_init: tcpip mbox: 16[0m
+[0;32mI (1343) wifi_init: udp mbox: 6[0m
+[0;32mI (1343) wifi_init: tcp mbox: 6[0m
+[0;32mI (1343) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1343) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1343) wifi_init: tcp mss: 1440[0m
+[0;32mI (1343) wifi:mode : sta (3c:dc:75:6f:cc:6c)[0m
+[0;32mI (1343) wifi:enable tsf[0m
+[0;33mW (1353) Display: ShowNotification: Сканирование Wi-Fi...[0m
+[0;32mI (8633) WifiStation: Found AP: muza 2.4, BSSID: 58:25:75:f4:d3:10, RSSI: -67, Channel: 1, Authmode: 4[0m
+[0;33mW (8643) Display: ShowNotification: Подключение к muza 2.4...[0m
+[0;33mW (8643) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2[0m
+[0;32mI (8843) wifi:new:<1,1>, old:<1,0>, ap:<255,255>, sta:<1,1>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (8843) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (8853) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (8863) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (8903) wifi:connected with muza 2.4, aid = 4, channel 1, 40U, bssid = 58:25:75:f4:d3:10[0m
+[0;32mI (8903) wifi:security: WPA2-PSK, phy: bgn, rssi: -65, cipher(pairwise:0x3, group:0x1), pmf:0[0m
+[0;32mI (8903) wifi:pm start, type: 1[0m
+
+[0;32mI (8903) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (8903) wifi:set rx beacon pti, rx_bcn_pti: 14, bcn_timeout: 25000, mt_pti: 14, mt_time: 10000[0m
+[0;32mI (8923) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (11103) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:1, winSize:64[0m
+[0;32mI (11683) SystemInfo: free sram: 52927 minimal sram: 51535[0m
+[0;32mI (12103) esp_netif_handlers: sta ip: 192.168.0.52, mask: 255.255.255.0, gw: 192.168.0.1[0m
+[0;32mI (12103) WifiStation: Got IP: 192.168.0.52[0m
+[0;33mW (12103) Display: ShowNotification: Подключено к muza 2.4[0m
+[0;32mI (12103) ESPNOW: espnow [version: 2.0] init[0m
+[0;32mI (12103) XiaoBridge: ESP-NOW XIAO bridge enabled on Wi-Fi channel 1[0m
+[0;33mW (13173) XiaoBridge: ESP-NOW timeout for command: PING[0m
+[0;33mW (13173) XiaoBridge: ESP-NOW initialized; XIAO peer has not replied yet[0m
+[0;32mI (13173) Application: Network started[0m
+[0;32mI (13173) Application: Updating status bar...[0m
+[0;32mI (13453) Application: Status bar updated[0m
+[0;32mI (13453) Assets: The storage free size is 21568 KB[0m
+[0;32mI (13453) Assets: The partition size is 8192 KB[0m
+[0;32mI (13713) Assets: The checksum calculation time is 261 ms[0m
+[0;32mI (13723) MODEL_LOADER: Successfully load srmodels[0m
+[0;32mI (13723) Assets: Refreshing display theme...[0m
+[0;33mW (13723) Ota: Serial number missing in eFuse, fallback to MAC: 3CDC756FCC6C[0m
+[0;32mI (13723) MCP: Add tool: self.get_device_status[0m
+[0;32mI (13723) MCP: Add tool: self.audio_speaker.set_volume[0m
+[0;32mI (13723) MCP: Add tool: self.screen.set_brightness[0m
+[0;32mI (13723) MCP: Add tool: self.get_system_info [user][0m
+[0;32mI (13723) MCP: Add tool: self.reboot [user][0m
+[0;32mI (13723) MCP: Add tool: self.upgrade_firmware [user][0m
+[0;32mI (13723) MCP: Add tool: self.assets.set_download_url [user][0m
+[0;33mW (13723) Application: No protocol specified in the OTA config, using WebSocket default[0m
+[0;32mI (13723) SystemInfo: free sram: 45519 minimal sram: 42943[0m
+[0;32mI (13723) Application: STATE: idle[0m
+[0;32mI (13723) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (13723) Application: [STATE] Device entering IDLE state - wake word detection enabled[0m
+[0;32mI (13723) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (13723) AudioService: [WAKE_WORD] Initializing wake word handler...[0m
+[0;32mI (13723) AfeWakeWord: Model 0: wn9_hiesp[0m
+[0;32mI (13723) AfeWakeWord: [WAKE_WORD] Loaded model: wn9_hiesp[0m
+[0;32mI (13723) AfeWakeWord: [WAKE_WORD] Available wake words: Hi,ESP[0m
+[0;32mI (13723) AfeWakeWord: [WAKE_WORD] Registered wake word: 'Hi,ESP'[0m
+[0;32mI (13723) AfeWakeWord: [WAKE_WORD] Total wake words registered: 1[0m
+[0;32mI (13723) AFE_CONFIG: Set WakeNet Model: wn9_hiesp[0m
+[0;32mI (13743) SystemInfo: free sram: 35887 minimal sram: 34335[0m
+MC Quantized wakenet9: wakeNet9_v1h24_Hi,ESP_3_0.63_0.635, tigger:v4, mode:0, p:0, (Apr 28 2026 09:55:03)
+------ns: 
+[0;32mI (13873) AfeWakeWord: Audio detection task started, feed size: 512 fetch size: 512[0m
+[0;32mI (13873) AudioService: [WAKE_WORD] Wake word handler initialized successfully[0m
+[0;32mI (13873) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[0;32mI (14003) AudioService: [WAKE_WORD] Wake word detection is now ACTIVE[0m
+[0;33mW (14003) Display: ShowNotification: Версия [0m
+[0;32mI (14003) AudioService: OpusHead: version=1, channels=1, sample_rate=16000[0m
+[0;32mI (14003) AudioService: DecodeQueue push #1: q=0 bytes=59 sr=16000 fd=60[0m
+[0;32mI (14003) AudioService: Resampling audio from 16000 to 24000[0m
+[0;32mI (14003) OpusResampler: Resampler configured with input sample rate 16000 and output sample rate 24000[0m
+[0;32mI (14003) AudioService: Decoded packet #1: pcm_samples=960 sr=16000[0m
+[0;32mI (14023) AudioService: DecodeQueue push #2: q=0 bytes=146 sr=16000 fd=60[0m
+[0;32mI (14023) AudioService: Decoded packet #2: pcm_samples=960 sr=16000[0m
+[0;32mI (14023) AudioService: DecodeQueue push #3: q=0 bytes=131 sr=16000 fd=60[0m
+[0;32mI (14033) AudioService: Decoded packet #3: pcm_samples=960 sr=16000[0m
+[0;32mI (14033) AudioService: DecodeQueue push #4: q=0 bytes=152 sr=16000 fd=60[0m
+[0;32mI (14033) AudioService: Decoded packet #4: pcm_samples=960 sr=16000[0m
+[0;32mI (14033) AudioService: DecodeQueue push #5: q=0 bytes=154 sr=16000 fd=60[0m
+[0;32mI (14053) AudioService: Decoded packet #5: pcm_samples=960 sr=16000[0m
+[0;32mI (14363) main: Application::Start() returned[0m
+[0;32mI (14363) main_task: Returned from app_main()[0m
+[0;32mI (23833) SystemInfo: free sram: 22611 minimal sram: 10859[0m
+[0;32mI (30573) I2S_IF: Pending out channel for in channel running[0m
+[0;32mI (30573) AudioCodec: Set output enable to false[0m
+[0;32mI (33823) SystemInfo: free sram: 22615 minimal sram: 10859[0m
+[0;33mW (43573) WaveshareAMOLED2_06: Battery status read skipped: ESP_ERR_TIMEOUT[0m
+[0;32mI (43723) SystemInfo: free sram: 22611 minimal sram: 10859[0m
+[0;32mI (53773) SystemInfo: free sram: 22611 minimal sram: 10859[0m
+[0;32mI (63633) SystemInfo: free sram: 22599 minimal sram: 10859[0m
+[0;32mI (73813) SystemInfo: free sram: 23115 minimal sram: 10859[0m
+[0;32mI (83683) SystemInfo: free sram: 23115 minimal sram: 10859[0m
+[0;32mI (93883) SystemInfo: free sram: 22599 minimal sram: 10859[0m
+[0;32mI (103843) SystemInfo: free sram: 22599 minimal sram: 10859[0m
+[0;32mI (113793) SystemInfo: free sram: 22599 minimal sram: 10859[0m
+[0;32mI (121043) WaveshareAMOLED2_06: Strong shake detected: impulse=38.7 m/s2 rotation=391.6 dps[0m
+[0;32mI (121093) Application: STATE: connecting[0m
+[0;32mI (121093) WS: Protocol v3 framing: raw Opus frames[0m
+[0;32mI (121093) WS: Connecting to websocket server: ws://90.156.254.46:8080/ws with version: 3[0m
+[0;32mI (121173) XiaoBridge: Set pose: dizzy[0m
+[0;32mI (121243) wifi:<ba-add>idx:1 (ifx:0, 58:25:75:f4:d3:10), tid:5, ssn:1, winSize:64[0m
+[0;32mI (121713) WS: Session ID: 46e50cd3-0906-4e68-bc5c-b252f1a077f2[0m
+[0;32mI (121713) WS: Server hello audio_params: sample_rate=24000, frame_duration=60[0m
+[0;32mI (121713) Application: [AUDIO_CHANNEL] Audio channel opened[0m
+[0;32mI (121713) Application: [AUDIO_CHANNEL] Server sample rate: 24000 Hz, Device sample rate: 24000 Hz[0m
+[0;32mI (121713) wifi:Set ps type: 0, coexist: 1[0m
+
+[0;32mI (121713) wifi:Coexist!!! Wi-Fi station would only keep waked when available[0m
+
+[0;32mI (121713) Application: STATE: idle[0m
+[0;32mI (121713) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (121713) Application: [STATE] Device entering IDLE state - wake word detection enabled[0m
+[0;32mI (121713) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (121713) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[0;32mI (121713) AudioService: [WAKE_WORD] Wake word detection is now ACTIVE[0m
+[0;32mI (121713) Application: [CHARACTER_EVENT] shake {"impulse_mps2":38.7,"rotation_dps":391.6,"reaction":"dizzy"}[0m
+[0;32mI (121713) Protocol: [PROTOCOL] Sending character event: shake[0m
+[0;32mI (121793) XiaoBridge: Set pose: home[0m
+[0;32mI (124303) XiaoBridge: Set pose: dizzy[0m
+[0;32mI (124423) Application: [RESPONSE] LLM emotion: dizzy[0m
+[0;32mI (124423) Application: [RESPONSE] LLM text: Meow... dizzy![0m
+[0;32mI (124973) XiaoBridge: Set pose: home[0m
+[0;32mI (124973) WaveshareAMOLED2_06: Chat [assistant]: Meow... dizzy![0m
+[0;32mI (125763) Application: [RESPONSE] TTS started - server will send audio[0m
+[0;32mI (125763) Application: STATE: speaking[0m
+[0;32mI (125773) Application: [STATE] Device entering SPEAKING state[0m
+[0;32mI (125773) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (125773) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[0;32mI (125773) AudioService: [WAKE_WORD] Wake word detection is now ACTIVE[0m
+[0;32mI (125773) Application: [STATE] Voice processing disabled, wake word: enabled (AFE)[0m
+[0;32mI (125923) WS: RX audio packet #1: len=57 payload=53 (bp3)[0m
+[0;32mI (125923) Application: [AUDIO_RECEIVE] Received audio packet #1, size: 53 bytes, timestamp: 0[0m
+[0;32mI (125933) I2S_IF: Mode 0 need extend bits 64 to 32[0m
+[0;32mI (125933) I2S_IF: channel mode 0 bits:16/32 channel:2 mask:1[0m
+[0;32mI (125933) I2S_IF: STD Mode 1 bits:16/32 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (125933) WS: RX audio packet #2: len=70 payload=66 (bp3)[0m
+[0;32mI (125933) Application: [AUDIO_RECEIVE] Received audio packet #2, size: 66 bytes, timestamp: 0[0m
+[0;32mI (125943) WS: RX audio packet #3: len=74 payload=70 (bp3)[0m
+[0;32mI (125943) Application: [AUDIO_RECEIVE] Received audio packet #3, size: 70 bytes, timestamp: 0[0m
+[0;32mI (125953) WS: RX audio packet #4: len=73 payload=69 (bp3)[0m
+[0;32mI (125953) Application: [AUDIO_RECEIVE] Received audio packet #4, size: 69 bytes, timestamp: 0[0m
+[0;32mI (125953) WS: RX audio packet #5: len=79 payload=75 (bp3)[0m
+[0;32mI (125953) Application: [AUDIO_RECEIVE] Received audio packet #5, size: 75 bytes, timestamp: 0[0m
+[0;32mI (125963) Application: [AUDIO_RECEIVE] Received audio packet #6, size: 70 bytes, timestamp: 0[0m
+[0;32mI (125973) Application: [AUDIO_RECEIVE] Received audio packet #7, size: 70 bytes, timestamp: 0[0m
+[0;32mI (125983) Application: [AUDIO_RECEIVE] Received audio packet #8, size: 71 bytes, timestamp: 0[0m
+[0;32mI (125993) Adev_Codec: Open codec device OK[0m
+[0;32mI (125993) AudioCodec: Set output enable to true[0m
+[0;32mI (126013) Application: [AUDIO_RECEIVE] Received audio packet #9, size: 77 bytes, timestamp: 0[0m
+[0;32mI (126023) Application: [AUDIO_RECEIVE] Received audio packet #10, size: 68 bytes, timestamp: 0[0m
+[0;32mI (126033) Application: [AUDIO_RECEIVE] Received audio packet #11, size: 74 bytes, timestamp: 0[0m
+[0;32mI (126033) Application: [AUDIO_RECEIVE] Received audio packet #12, size: 86 bytes, timestamp: 0[0m
+[0;32mI (126173) Application: [AUDIO_RECEIVE] Received audio packet #13, size: 83 bytes, timestamp: 0[0m
+[0;32mI (126183) Application: [AUDIO_RECEIVE] Received audio packet #14, size: 70 bytes, timestamp: 0[0m
+[0;32mI (126193) Application: [AUDIO_RECEIVE] Received audio packet #15, size: 74 bytes, timestamp: 0[0m
+[0;32mI (126193) Application: [AUDIO_RECEIVE] Received audio packet #16, size: 80 bytes, timestamp: 0[0m
+[0;32mI (126203) Application: [AUDIO_RECEIVE] Received audio packet #17, size: 79 bytes, timestamp: 0[0m
+[0;32mI (126203) Application: [AUDIO_RECEIVE] Received audio packet #18, size: 79 bytes, timestamp: 0[0m
+[0;32mI (126213) Application: [AUDIO_RECEIVE] Received audio packet #19, size: 72 bytes, timestamp: 0[0m
+[0;32mI (126223) Application: [AUDIO_RECEIVE] Received audio packet #20, size: 77 bytes, timestamp: 0[0m
+[0;32mI (126423) Application: [AUDIO_RECEIVE] Received audio packet #21, size: 68 bytes, timestamp: 0[0m
+[0;32mI (126433) Application: [AUDIO_RECEIVE] Received audio packet #22, size: 59 bytes, timestamp: 0[0m
+[0;32mI (126443) Application: [AUDIO_RECEIVE] Received audio packet #23, size: 62 bytes, timestamp: 0[0m
+[0;32mI (126443) Application: [AUDIO_RECEIVE] Received audio packet #24, size: 63 bytes, timestamp: 0[0m
+[0;32mI (126453) Application: [AUDIO_RECEIVE] Received audio packet #25, size: 64 bytes, timestamp: 0[0m
+[0;32mI (126463) Application: [AUDIO_RECEIVE] Received audio packet #26, size: 63 bytes, timestamp: 0[0m
+[0;32mI (126463) Application: [AUDIO_RECEIVE] Received audio packet #27, size: 57 bytes, timestamp: 0[0m
+[0;32mI (126473) Application: [AUDIO_RECEIVE] Received audio packet #28, size: 51 bytes, timestamp: 0[0m
+[0;32mI (126483) Application: [AUDIO_RECEIVE] Received audio packet #29, size: 49 bytes, timestamp: 0[0m
+[0;32mI (126483) Application: [AUDIO_RECEIVE] Received audio packet #30, size: 52 bytes, timestamp: 0[0m
+[0;32mI (126493) Application: [AUDIO_RECEIVE] Received audio packet #31, size: 53 bytes, timestamp: 0[0m
+[0;32mI (126513) Application: [AUDIO_RECEIVE] Received audio packet #32, size: 62 bytes, timestamp: 0[0m
+[0;32mI (126523) Application: [AUDIO_RECEIVE] Received audio packet #33, size: 62 bytes, timestamp: 0[0m
+[0;32mI (126523) Application: [AUDIO_RECEIVE] Received audio packet #34, size: 64 bytes, timestamp: 0[0m
+[0;32mI (126533) Application: [AUDIO_RECEIVE] Received audio packet #35, size: 43 bytes, timestamp: 0[0m
+[0;32mI (126533) Application: [RESPONSE] TTS stopped[0m
+[0;32mI (126533) Application: STATE: listening[0m
+[0;32mI (126533) Application: [LISTENING_START] Starting to listen, mode: auto[0m
+[0;32mI (126533) Protocol: [PROTOCOL] Sending start listening command, mode: auto[0m
+------ns: 
+[1;31mE (126573) AfeAudioProcessor: Failed to create audio processor task[0m
+[0;32mI (126583) AudioService: [WAKE_WORD] Disabling wake word detection[0m
+[0;32mI (126583) AfeWakeWord: [WAKE_WORD] Stopping wake word detection[0m
+[0;32mI (126583) AudioService: [WAKE_WORD] Wake word detection is now INACTIVE[0m
+[0;32mI (126583) Application: [LISTENING_START] Voice processing enabled, wake word detection disabled[0m
+[0;32mI (135833) SystemInfo: free sram: 2239 minimal sram: 623[0m
+[0;32mI (142133) I2S_IF: Pending out channel for in channel running[0m
+[0;32mI (142133) AudioCodec: Set output enable to false[0m
+[0;32mI (145763) SystemInfo: free sram: 2239 minimal sram: 623[0m
+[0;32mI (149553) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (149553) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (155763) SystemInfo: free sram: 2299 minimal sram: 623[0m
+[0;32mI (157373) wifi:[ADDBA]RX DELBA, reason:37, delete tid:5, initiator:1(originator)[0m
+[0;32mI (157373) wifi:<ba-del>idx:1, tid:5[0m
+[0;32mI (165773) SystemInfo: free sram: 2359 minimal sram: 623[0m
+[0;32mI (175783) SystemInfo: free sram: 2359 minimal sram: 623[0m
+[0;32mI (185813) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (188853) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:27, winSize:64[0m
+[0;32mI (195573) SystemInfo: free sram: 2147 minimal sram: 623[0m
+[0;32mI (205803) SystemInfo: free sram: 2295 minimal sram: 623[0m
+[0;32mI (215463) SystemInfo: free sram: 2295 minimal sram: 623[0m
+[0;32mI (225843) SystemInfo: free sram: 2295 minimal sram: 623[0m
+[0;32mI (235843) SystemInfo: free sram: 2295 minimal sram: 623[0m
+[0;32mI (245853) SystemInfo: free sram: 2295 minimal sram: 623[0m
+[0;32mI (249563) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (249563) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (255833) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (265863) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (275623) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (285803) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (295883) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (305893) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (315763) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (325763) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (335953) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (345693) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (355933) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (358843) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:29, winSize:64[0m
+[0;32mI (365693) SystemInfo: free sram: 2299 minimal sram: 623[0m
+[0;32mI (375803) SystemInfo: free sram: 2299 minimal sram: 623[0m
+[0;32mI (385713) SystemInfo: free sram: 2299 minimal sram: 623[0m
+[0;32mI (389573) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (389573) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (395873) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (405533) SystemInfo: free sram: 2219 minimal sram: 623[0m
+[0;32mI (415593) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (415993) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:31, winSize:64[0m
+[0;32mI (425773) SystemInfo: free sram: 2299 minimal sram: 623[0m
+[0;32mI (435623) SystemInfo: free sram: 1847 minimal sram: 623[0m
+[0;32mI (445783) SystemInfo: free sram: 2299 minimal sram: 623[0m
+[0;32mI (446733) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (446733) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (455773) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (465963) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (475873) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (485823) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (495743) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (505583) SystemInfo: free sram: 2219 minimal sram: 623[0m
+[0;32mI (515663) SystemInfo: free sram: 1851 minimal sram: 623[0m
+[0;32mI (525873) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (535753) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (545823) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (555863) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (565603) SystemInfo: free sram: 2219 minimal sram: 623[0m
+[0;32mI (575843) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (585613) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (595853) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (605793) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (615953) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (625543) SystemInfo: free sram: 2219 minimal sram: 623[0m
+[0;32mI (635643) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (645853) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (655863) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (665763) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (675583) SystemInfo: free sram: 2219 minimal sram: 623[0m
+[0;32mI (685843) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (695863) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (705953) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (715813) SystemInfo: free sram: 2367 minimal sram: 623[0m
+[0;32mI (725723) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (735823) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (745753) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (755853) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (765823) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (775703) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (776103) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:32, winSize:64[0m
+[0;32mI (785573) SystemInfo: free sram: 2155 minimal sram: 623[0m
+[0;32mI (795643) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (805563) SystemInfo: free sram: 1639 minimal sram: 623[0m
+[0;32mI (806843) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (806843) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (815743) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (825653) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (828853) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:33, winSize:64[0m
+[0;32mI (835803) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (845783) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (855713) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (859593) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (859593) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (865713) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (865893) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:35, winSize:64[0m
+[0;32mI (875833) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (885923) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (895753) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (896633) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (896633) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (905853) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (915693) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (918853) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:36, winSize:64[0m
+[0;32mI (925793) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (935723) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (945813) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (949623) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (949623) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (955913) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (965843) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (975773) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (985603) SystemInfo: free sram: 2215 minimal sram: 623[0m
+[0;32mI (995873) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1005953) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1015863) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1025863) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1028843) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:37, winSize:64[0m
+[0;32mI (1035873) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1045813) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1055813) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1059583) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (1059583) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (1065893) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1075763) SystemInfo: free sram: 1847 minimal sram: 623[0m
+[0;32mI (1085803) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1095823) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1105753) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1115613) SystemInfo: free sram: 1699 minimal sram: 623[0m
+[0;32mI (1125853) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1135883) SystemInfo: free sram: 1847 minimal sram: 623[0m
+[0;32mI (1145943) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1155743) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1165863) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:40, winSize:64[0m
+[0;32mI (1165863) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1175863) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1185573) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1195863) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1196593) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (1196593) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (1205803) SystemInfo: free sram: 1847 minimal sram: 623[0m
+[0;32mI (1215723) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1225933) SystemInfo: free sram: 1847 minimal sram: 623[0m
+[0;32mI (1235883) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1245713) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1255713) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1265893) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1275813) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1285773) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1295603) SystemInfo: free sram: 2215 minimal sram: 623[0m
+[0;32mI (1305603) SystemInfo: free sram: 2215 minimal sram: 623[0m
+[0;32mI (1315723) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1325713) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1335853) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1345773) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1355753) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1365853) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1375703) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1378843) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:41, winSize:64[0m
+[0;32mI (1385923) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1395913) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1405813) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1409583) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (1409583) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (1415813) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1425643) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1435863) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1445803) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1455843) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1465763) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:43, winSize:64[0m
+[0;32mI (1465783) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1475683) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1485773) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1495783) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1496503) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (1496503) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (1505783) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1515903) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1525503) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:45, winSize:64[0m
+[0;32mI (1525783) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1535733) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1545783) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1555853) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1556243) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (1556243) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (1565873) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1575883) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1585903) SystemInfo: free sram: 1847 minimal sram: 623[0m
+[0;32mI (1595893) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1605913) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1615893) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1625843) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1635683) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1645683) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1655743) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1665863) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1675703) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1685823) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1695753) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1698843) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:46, winSize:64[0m
+[0;32mI (1705813) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1715843) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1725713) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1729573) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (1729573) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (1735643) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1745873) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1755843) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1765703) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:48, winSize:64[0m
+[0;32mI (1765753) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1775763) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1785673) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1795703) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1805863) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1815743) SystemInfo: free sram: 2303 minimal sram: 623[0m
+[0;32mI (1819543) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (1819543) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (1825763) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1835563) SystemInfo: free sram: 2215 minimal sram: 623[0m
+[0;32mI (1845793) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1855803) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1865563) SystemInfo: free sram: 2215 minimal sram: 623[0m
+[0;32mI (1875773) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1885933) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1895963) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1905733) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1915763) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1925833) SystemInfo: free sram: 2235 minimal sram: 623[0m
+[0;32mI (1935793) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1945833) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1955853) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1965743) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1975803) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1985723) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (1995553) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (2005913) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (2015903) SystemInfo: free sram: 2363 minimal sram: 623[0m
+[0;32mI (2016123) WaveshareAMOLED2_06: Strong shake detected: impulse=13.1 m/s2 rotation=339.9 dps[0m
+[1;31mE (2016163) Protocol: Channel timeout 1889 seconds[0m
+[0;32mI (2016173) Application: STATE: connecting[0m
+[0;32mI (2016173) WS: Protocol v3 framing: raw Opus frames[0m
+[1;31mE (2016173) EspTcp: TCP receive failed: -1[0m
+[0;32mI (2016173) WS: Websocket disconnected[0m
+[0;32mI (2016173) Application: [AUDIO_CHANNEL] Audio channel closed[0m
+[0;32mI (2016173) wifi:Set ps type: 1, coexist: 1[0m
+
+[0;32mI (2016173) WS: Connecting to websocket server: ws://90.156.254.46:8080/ws with version: 3[0m
+[0;32mI (2016213) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:5, ssn:17, winSize:64[0m
+[0;32mI (2016263) XiaoBridge: Set pose: dizzy[0m
+[0;32mI (2016863) XiaoBridge: Set pose: home[0m
+[0;32mI (2017493) WS: Session ID: 7ef443a6-e172-4e1d-b62c-f8a47665283f[0m
+[0;32mI (2017493) WS: Server hello audio_params: sample_rate=24000, frame_duration=60[0m
+[0;32mI (2017543) Application: [AUDIO_CHANNEL] Audio channel opened[0m
+[0;32mI (2017543) Application: [AUDIO_CHANNEL] Server sample rate: 24000 Hz, Device sample rate: 24000 Hz[0m
+[0;32mI (2017543) wifi:Set ps type: 0, coexist: 1[0m
+
+[0;32mI (2017543) wifi:Coexist!!! Wi-Fi station would only keep waked when available[0m
+
+[0;32mI (2017543) Application: STATE: idle[0m
+[0;32mI (2017543) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (2017543) Application: [STATE] Device entering IDLE state - wake word detection enabled[0m
+[0;32mI (2017553) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (2017553) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[0;32mI (2017553) AudioService: [WAKE_WORD] Wake word detection is now ACTIVE[0m
+[0;32mI (2017553) Application: [CHARACTER_EVENT] shake {"impulse_mps2":13.1,"rotation_dps":339.9,"reaction":"dizzy"}[0m
+[0;32mI (2017553) Protocol: [PROTOCOL] Sending character event: shake[0m
+[0;32mI (2022013) XiaoBridge: Set pose: dizzy[0m
+[0;32mI (2022173) Application: [RESPONSE] LLM emotion: dizzy[0m
+[0;32mI (2022173) Application: [RESPONSE] LLM text: Meow... dizzy![0m
+[0;32mI (2022623) XiaoBridge: Set pose: home[0m
+[0;32mI (2022623) WaveshareAMOLED2_06: Chat [assistant]: Meow... dizzy![0m
+[0;32mI (2023813) Application: [RESPONSE] TTS started - server will send audio[0m
+[0;32mI (2023813) Application: STATE: speaking[0m
+[0;32mI (2023823) Application: [STATE] Device entering SPEAKING state[0m
+[0;32mI (2023823) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (2023823) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[0;32mI (2023823) AudioService: [WAKE_WORD] Wake word detection is now ACTIVE[0m
+[0;32mI (2023823) Application: [STATE] Voice processing disabled, wake word: enabled (AFE)[0m
+[0;32mI (2023923) Application: [AUDIO_RECEIVE] Received audio packet #36, size: 44 bytes, timestamp: 0[0m
+[0;32mI (2023943) Application: [AUDIO_RECEIVE] Received audio packet #37, size: 98 bytes, timestamp: 0[0m
+[0;32mI (2023953) Application: [AUDIO_RECEIVE] Received audio packet #38, size: 84 bytes, timestamp: 0[0m
+[0;32mI (2023953) Application: [AUDIO_RECEIVE] Received audio packet #39, size: 78 bytes, timestamp: 0[0m
+[0;32mI (2023963) I2S_IF: Mode 0 need extend bits 64 to 32[0m
+[0;32mI (2023963) I2S_IF: channel mode 0 bits:16/32 channel:2 mask:1[0m
+[0;32mI (2023963) I2S_IF: STD Mode 1 bits:16/32 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (2023963) Application: [AUDIO_RECEIVE] Received audio packet #40, size: 78 bytes, timestamp: 0[0m
+[0;32mI (2023973) Application: [AUDIO_RECEIVE] Received audio packet #41, size: 72 bytes, timestamp: 0[0m
+[0;32mI (2023993) Adev_Codec: Open codec device OK[0m
+[0;32mI (2023993) AudioCodec: Set output enable to true[0m
+[0;32mI (2024003) Application: [AUDIO_RECEIVE] Received audio packet #42, size: 57 bytes, timestamp: 0[0m
+[0;32mI (2024013) Application: [AUDIO_RECEIVE] Received audio packet #43, size: 64 bytes, timestamp: 0[0m
+[0;32mI (2024023) Application: [AUDIO_RECEIVE] Received audio packet #44, size: 59 bytes, timestamp: 0[0m
+[0;32mI (2024183) Application: [AUDIO_RECEIVE] Received audio packet #45, size: 55 bytes, timestamp: 0[0m
+[0;32mI (2024193) Application: [AUDIO_RECEIVE] Received audio packet #46, size: 61 bytes, timestamp: 0[0m
+[0;32mI (2024203) Application: [AUDIO_RECEIVE] Received audio packet #47, size: 65 bytes, timestamp: 0[0m
+[0;32mI (2024203) Application: [AUDIO_RECEIVE] Received audio packet #48, size: 68 bytes, timestamp: 0[0m
+[0;32mI (2024213) Application: [AUDIO_RECEIVE] Received audio packet #49, size: 80 bytes, timestamp: 0[0m
+[0;32mI (2024213) Application: [AUDIO_RECEIVE] Received audio packet #50, size: 61 bytes, timestamp: 0[0m
+[0;32mI (2024223) Application: [AUDIO_RECEIVE] Received audio packet #51, size: 49 bytes, timestamp: 0[0m
+[0;32mI (2024233) Application: [AUDIO_RECEIVE] Received audio packet #52, size: 53 bytes, timestamp: 0[0m
+[0;32mI (2024423) Application: [AUDIO_RECEIVE] Received audio packet #53, size: 54 bytes, timestamp: 0[0m
+[0;32mI (2024433) Application: [AUDIO_RECEIVE] Received audio packet #54, size: 49 bytes, timestamp: 0[0m
+[0;32mI (2024433) Application: [AUDIO_RECEIVE] Received audio packet #55, size: 50 bytes, timestamp: 0[0m
+[0;32mI (2024443) Application: [AUDIO_RECEIVE] Received audio packet #56, size: 68 bytes, timestamp: 0[0m
+[0;32mI (2024453) Application: [AUDIO_RECEIVE] Received audio packet #57, size: 72 bytes, timestamp: 0[0m
+[0;32mI (2024453) Application: [AUDIO_RECEIVE] Received audio packet #58, size: 78 bytes, timestamp: 0[0m
+[0;32mI (2024463) Application: [AUDIO_RECEIVE] Received audio packet #59, size: 73 bytes, timestamp: 0[0m
+[0;32mI (2024463) Application: [AUDIO_RECEIVE] Received audio packet #60, size: 68 bytes, timestamp: 0[0m
+[0;32mI (2024473) Application: [AUDIO_RECEIVE] Received audio packet #61, size: 79 bytes, timestamp: 0[0m
+[0;32mI (2024483) Application: [AUDIO_RECEIVE] Received audio packet #62, size: 72 bytes, timestamp: 0[0m
+[0;32mI (2024493) Application: [AUDIO_RECEIVE] Received audio packet #63, size: 74 bytes, timestamp: 0[0m
+[0;32mI (2024493) Application: [AUDIO_RECEIVE] Received audio packet #64, size: 76 bytes, timestamp: 0[0m
+[0;32mI (2024503) Application: [AUDIO_RECEIVE] Received audio packet #65, size: 73 bytes, timestamp: 0[0m
+[0;32mI (2024513) Application: [AUDIO_RECEIVE] Received audio packet #66, size: 85 bytes, timestamp: 0[0m
+[0;32mI (2024523) Application: [AUDIO_RECEIVE] Received audio packet #67, size: 72 bytes, timestamp: 0[0m
+[0;32mI (2024523) Application: [AUDIO_RECEIVE] Received audio packet #68, size: 71 bytes, timestamp: 0[0m
+[0;32mI (2024673) Application: [AUDIO_RECEIVE] Received audio packet #69, size: 71 bytes, timestamp: 0[0m
+[0;32mI (2024673) Application: [AUDIO_RECEIVE] Received audio packet #70, size: 77 bytes, timestamp: 0[0m
+[0;32mI (2024683) Application: [AUDIO_RECEIVE] Received audio packet #71, size: 74 bytes, timestamp: 0[0m
+[0;32mI (2024693) Application: [AUDIO_RECEIVE] Received audio packet #72, size: 69 bytes, timestamp: 0[0m
+[0;32mI (2024693) Application: [AUDIO_RECEIVE] Received audio packet #73, size: 71 bytes, timestamp: 0[0m
+[0;32mI (2024703) Application: [AUDIO_RECEIVE] Received audio packet #74, size: 42 bytes, timestamp: 0[0m
+[0;32mI (2024713) Application: [RESPONSE] TTS stopped[0m
+[0;32mI (2024713) Application: STATE: listening[0m
+[0;32mI (2024713) Application: [LISTENING_START] Starting to listen, mode: auto[0m
+[0;32mI (2024713) Protocol: [PROTOCOL] Sending start listening command, mode: auto[0m
+[0;32mI (2024713) AudioService: [WAKE_WORD] Disabling wake word detection[0m
+[0;32mI (2024713) AfeWakeWord: [WAKE_WORD] Stopping wake word detection[0m
+[0;32mI (2024713) AudioService: [WAKE_WORD] Wake word detection is now INACTIVE[0m
+[0;32mI (2024713) Application: [LISTENING_START] Voice processing enabled, wake word detection disabled[0m
+[0;32mI (2034713) SystemInfo: free sram: 2795 minimal sram: 199[0m
+[0;32mI (2040193) I2S_IF: Pending out channel for in channel running[0m
+[0;32mI (2040193) AudioCodec: Set output enable to false[0m
+[0;32mI (2044673) SystemInfo: free sram: 2795 minimal sram: 199[0m
+[0;32mI (2054793) SystemInfo: free sram: 2795 minimal sram: 199[0m
+[0;32mI (2055523) wifi:[ADDBA]RX DELBA, reason:37, delete tid:5, initiator:1(originator)[0m
+[0;32mI (2055523) wifi:<ba-del>idx:0, tid:5[0m
+[0;32mI (2064813) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2074843) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2084723) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2094603) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (2094953) WaveshareAMOLED2_06: Strong shake detected: impulse=40.1 m/s2 rotation=771.6 dps[0m
+[0;32mI (2094993) Application: [CHARACTER_EVENT] shake {"impulse_mps2":40.1,"rotation_dps":771.6,"reaction":"dizzy"}[0m
+[0;32mI (2094993) Protocol: [PROTOCOL] Sending character event: shake[0m
+[0;32mI (2095043) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:50, winSize:64[0m
+[0;32mI (2095083) XiaoBridge: Set pose: dizzy[0m
+[0;32mI (2095113) wifi:<ba-add>idx:1 (ifx:0, 58:25:75:f4:d3:10), tid:5, ssn:35, winSize:64[0m
+[0;32mI (2095803) XiaoBridge: Set pose: home[0m
+[0;32mI (2098993) XiaoBridge: Set pose: dizzy[0m
+[0;32mI (2099173) Application: [RESPONSE] LLM emotion: dizzy[0m
+[0;32mI (2099173) Application: [RESPONSE] LLM text: Meow... dizzy...[0m
+[0;32mI (2099613) XiaoBridge: Set pose: home[0m
+[0;32mI (2099613) WaveshareAMOLED2_06: Chat [assistant]: Meow... dizzy...[0m
+[0;32mI (2104863) SystemInfo: free sram: 2727 minimal sram: 199[0m
+[0;32mI (2114753) SystemInfo: free sram: 2727 minimal sram: 199[0m
+[0;32mI (2124633) SystemInfo: free sram: 2211 minimal sram: 199[0m
+[0;32mI (2130423) wifi:[ADDBA]RX DELBA, reason:37, delete tid:5, initiator:1(originator)[0m
+[0;32mI (2130423) wifi:<ba-del>idx:1, tid:5[0m
+[0;32mI (2134603) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (2139543) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (2139543) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (2144573) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (2154913) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2164873) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2174773) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2184873) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2194793) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2204603) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (2214873) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2215613) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:53, winSize:64[0m
+[0;32mI (2224733) SystemInfo: free sram: 2275 minimal sram: 199[0m
+[0;32mI (2234653) SystemInfo: free sram: 2791 minimal sram: 199[0m
+[0;32mI (2244623) SystemInfo: free sram: 2791 minimal sram: 199[0m
+[0;32mI (2246363) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (2246363) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (2254593) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2264813) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2274833) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2284693) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2294813) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2304933) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2314743) SystemInfo: free sram: 2863 minimal sram: 199[0m
+[0;32mI (2324673) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2334783) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2344833) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2354863) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2364573) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (2368843) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:54, winSize:64[0m
+[0;32mI (2374723) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (2384823) SystemInfo: free sram: 2283 minimal sram: 199[0m
+[0;32mI (2394813) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (2399593) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (2399593) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (2404863) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2414823) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2424573) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (2434763) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2444553) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (2454893) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2464933) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2474823) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2484873) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2494793) SystemInfo: free sram: 2339 minimal sram: 199[0m
+[0;32mI (2504813) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2514753) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2515543) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:56, winSize:64[0m
+[0;32mI (2524773) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (2534573) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (2544693) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (2546283) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (2546283) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (2554733) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2564783) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2574903) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2584823) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2594493) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2604773) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2614623) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2624883) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2634863) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2644753) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2654793) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2664833) SystemInfo: free sram: 2339 minimal sram: 199[0m
+[0;32mI (2674863) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2684733) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2694763) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2704823) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2714693) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2724863) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2734863) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2744733) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2754753) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2764713) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2774783) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2784573) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (2794863) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2804673) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2814873) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2824773) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2834833) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2844753) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2854763) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2864583) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (2874833) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2884713) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2894773) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2904873) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2914713) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2918823) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:57, winSize:64[0m
+[0;32mI (2924753) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (2934923) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (2944743) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (2949573) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (2949573) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (2954813) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2964883) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (2965453) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:59, winSize:64[0m
+[0;32mI (2974573) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (2984743) SystemInfo: free sram: 2283 minimal sram: 199[0m
+[0;32mI (2994943) SystemInfo: free sram: 2283 minimal sram: 199[0m
+[0;33mW (2995733) WaveshareAMOLED2_06: Battery status read skipped: ESP_ERR_TIMEOUT[0m
+[0;32mI (3004803) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (3009513) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (3009513) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (3014893) SystemInfo: free sram: 2339 minimal sram: 199[0m
+[0;32mI (3024773) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3034723) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3044933) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3054813) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3064783) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3074813) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3084823) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;33mW (3092733) WaveshareAMOLED2_06: Battery status read skipped: ESP_ERR_TIMEOUT[0m
+[0;32mI (3094863) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3104793) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3114603) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (3124713) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3134903) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3144953) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3154723) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3164833) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3174863) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3184753) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3194943) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3204843) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3214753) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3224603) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (3234623) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3244933) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3254653) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3264813) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3274863) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3284903) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3294863) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3304863) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3314813) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3324703) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3334933) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3344813) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3354833) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3358833) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:61, winSize:64[0m
+[0;32mI (3364733) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (3374873) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (3384923) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (3393223) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (3393223) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (3394573) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (3404943) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3414823) SystemInfo: free sram: 2727 minimal sram: 199[0m
+[0;32mI (3424783) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3434823) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3444743) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3454593) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3464773) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3474843) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3484803) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3494593) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3504803) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3514753) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3524723) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3534733) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3544863) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3554913) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3564853) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3574673) SystemInfo: free sram: 2403 minimal sram: 199[0m
+[0;32mI (3584843) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3594533) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3604873) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3614613) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3624543) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (3634823) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3644703) SystemInfo: free sram: 2339 minimal sram: 199[0m
+[0;32mI (3654723) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3664713) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3674703) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3684763) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3694893) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3704863) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3714773) SystemInfo: free sram: 2339 minimal sram: 199[0m
+[0;32mI (3715293) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:65, winSize:64[0m
+[0;32mI (3724953) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (3734593) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (3744823) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (3746033) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (3746033) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (3754763) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3764793) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3774903) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3784873) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3794703) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3804823) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3814703) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3824573) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (3834833) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3844753) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3854713) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3864903) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3874683) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3884873) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3894673) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3904863) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3908823) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:66, winSize:64[0m
+[0;32mI (3914833) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (3924743) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (3934693) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (3939563) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (3939563) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (3944603) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (3954883) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3964543) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (3974633) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (3978863) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:67, winSize:64[0m
+[0;32mI (3984823) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (3994893) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (4004923) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (4009593) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (4009593) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (4014823) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4015223) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:69, winSize:64[0m
+[0;32mI (4024563) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (4034743) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (4044723) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (4045963) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (4045963) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (4054883) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4064723) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4074903) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4084553) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (4088853) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:70, winSize:64[0m
+[0;32mI (4094883) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (4104953) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (4114843) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (4119593) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (4119593) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (4124743) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4134563) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (4144903) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4154733) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4164703) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4174893) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4184633) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4194893) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4204883) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4214683) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4224903) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4234743) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4244823) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4254793) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4264813) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4274813) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4284843) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4294903) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4304853) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4314713) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4315153) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:72, winSize:64[0m
+[0;32mI (4324583) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (4334773) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (4344823) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (4345893) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (4345893) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (4354863) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4364633) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4374843) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4384753) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4394943) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4404803) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4414793) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4424843) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4428803) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:73, winSize:64[0m
+[0;32mI (4434783) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (4444823) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (4454723) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (4459533) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (4459533) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (4464903) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4474813) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4484823) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4488813) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:74, winSize:64[0m
+[0;32mI (4494903) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;33mW (4496763) WaveshareAMOLED2_06: Battery status read skipped: ESP_ERR_TIMEOUT[0m
+[0;32mI (4504763) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (4514793) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (4519553) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (4519553) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (4524863) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4534753) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4544383) SystemInfo: free sram: 2579 minimal sram: 199[0m
+[0;32mI (4554563) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (4564783) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4574913) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;33mW (4582613) WaveshareAMOLED2_06: Battery status read skipped: ESP_ERR_TIMEOUT[0m
+[0;32mI (4584773) SystemInfo: free sram: 2339 minimal sram: 199[0m
+[0;32mI (4594863) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4604903) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4614543) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (4624813) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4634713) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4644753) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4654773) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4664893) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4674743) SystemInfo: free sram: 2727 minimal sram: 199[0m
+[0;32mI (4684873) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4694753) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4704763) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4714783) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4724643) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4734913) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4744883) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4754543) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (4764813) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4765073) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:76, winSize:64[0m
+[0;32mI (4774763) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (4784563) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (4794833) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (4795823) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (4795823) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (4804713) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4814693) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4824843) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4834873) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4844723) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4854693) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4864913) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4874713) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4884903) SystemInfo: free sram: 2339 minimal sram: 199[0m
+[0;32mI (4894873) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4904823) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4914793) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4924773) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4934713) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4944793) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4954853) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4964813) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4974603) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4984713) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (4994833) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (5004813) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (5014833) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (5024873) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (5034853) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (5044873) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (5054773) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (5064613) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (5074563) SystemInfo: free sram: 2707 minimal sram: 199[0m
+[0;32mI (5078843) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:77, winSize:64[0m
+[0;32mI (5084843) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (5094863) SystemInfo: free sram: 2283 minimal sram: 199[0m
+[0;32mI (5104743) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (5109583) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (5109583) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (5114703) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (5124873) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (5128813) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:78, winSize:64[0m
+[0;32mI (5134773) SystemInfo: free sram: 2283 minimal sram: 199[0m
+[0;32mI (5144843) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (5154733) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (5159623) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (5159623) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (5164933) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (5174933) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (5184823) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (5188833) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:80, winSize:64[0m
+[0;32mI (5194843) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (5204883) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (5214783) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (5224573) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5234803) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (5244833) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (5254723) SystemInfo: free sram: 2799 minimal sram: 199[0m
+[0;32mI (5259503) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (5259503) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (5264853) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (5274723) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (5284763) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (5294733) SystemInfo: free sram: 2855 minimal sram: 199[0m
+[0;32mI (5304773) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5314813) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5324713) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5334953) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5344953) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5354833) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5364633) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5374623) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5384833) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;33mW (5393723) WaveshareAMOLED2_06: Battery status read skipped: ESP_ERR_TIMEOUT[0m
+[0;32mI (5394563) SystemInfo: free sram: 2503 minimal sram: 199[0m
+[0;32mI (5398833) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:85, winSize:64[0m
+[0;32mI (5404593) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (5414913) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (5424943) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (5429573) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (5429573) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (5434823) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5444623) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5454723) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5464943) SystemInfo: free sram: 2135 minimal sram: 199[0m
+[0;32mI (5474723) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5484943) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5494763) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5504713) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5514853) SystemInfo: free sram: 2135 minimal sram: 199[0m
+[0;33mW (5520803) WaveshareAMOLED2_06: Battery status read skipped: ESP_ERR_TIMEOUT[0m
+[0;32mI (5524723) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5534743) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5544773) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5554933) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5564783) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5574843) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5584763) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5594783) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5604663) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5614763) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5624713) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5634833) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5644843) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5654743) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5664703) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5664883) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:87, winSize:64[0m
+[0;32mI (5674753) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (5684973) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (5694883) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (5695623) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (5695623) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (5704773) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5714823) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5724913) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5734823) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5744883) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5754813) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5764623) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5774733) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5784923) SystemInfo: free sram: 2135 minimal sram: 199[0m
+[0;32mI (5794883) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5804923) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5808843) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:88, winSize:64[0m
+[0;32mI (5814813) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (5824783) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (5834593) SystemInfo: free sram: 2447 minimal sram: 199[0m
+[0;32mI (5839583) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (5839583) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (5844893) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5854873) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5864733) SystemInfo: free sram: 2523 minimal sram: 199[0m
+[0;32mI (5874703) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5884843) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5894733) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5904843) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5914723) SystemInfo: free sram: 2135 minimal sram: 199[0m
+[0;33mW (5923583) WaveshareAMOLED2_06: Battery status read skipped: ESP_ERR_TIMEOUT[0m
+[0;32mI (5924823) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5934863) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5944873) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5954783) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5964763) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5974783) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5984813) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (5994613) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6004843) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6014743) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6024933) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6034963) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6044663) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6054903) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6064783) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6074823) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6084893) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6094943) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6104603) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6114773) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:90, winSize:64[0m
+[0;32mI (6114823) SystemInfo: free sram: 2591 minimal sram: 199[0m
+[0;32mI (6124713) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (6134743) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (6144723) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (6145513) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (6145513) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (6154613) SystemInfo: free sram: 2511 minimal sram: 199[0m
+[0;32mI (6164713) SystemInfo: free sram: 2659 minimal sram: 199[0m
+[0;32mI (6174833) SystemInfo: free sram: 2143 minimal sram: 199[0m
+[0;32mI (6184723) SystemInfo: free sram: 2659 minimal sram: 199[0m
+[0;32mI (6194923) SystemInfo: free sram: 2659 minimal sram: 199[0m
+[0;32mI (6204573) SystemInfo: free sram: 2499 minimal sram: 199[0m
+[0;32mI (6208823) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:91, winSize:64[0m
+[0;32mI (6214793) SystemInfo: free sram: 2599 minimal sram: 199[0m
+[0;32mI (6224743) SystemInfo: free sram: 2599 minimal sram: 199[0m
+[0;32mI (6234783) SystemInfo: free sram: 2599 minimal sram: 199[0m
+[0;32mI (6239563) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (6239563) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (6244853) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6254853) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6264883) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6274833) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6284843) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6294543) SystemInfo: free sram: 2503 minimal sram: 199[0m
+[0;32mI (6304893) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6314743) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6324793) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6334573) SystemInfo: free sram: 2503 minimal sram: 199[0m
+[0;32mI (6344853) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6354863) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6364893) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6374803) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6384713) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6394813) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6404843) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6414723) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6424733) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6434763) SystemInfo: free sram: 2135 minimal sram: 199[0m
+[0;32mI (6444803) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6454853) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6464703) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6474623) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6484773) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6494863) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6504833) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6514903) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6524763) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6534563) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6544563) SystemInfo: free sram: 2503 minimal sram: 199[0m
+[0;32mI (6554773) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6558893) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:92, winSize:64[0m
+[0;32mI (6564573) SystemInfo: free sram: 2447 minimal sram: 199[0m
+[0;32mI (6574543) SystemInfo: free sram: 2447 minimal sram: 199[0m
+[0;32mI (6584623) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (6594953) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (6595383) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (6595383) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (6604913) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6614563) SystemInfo: free sram: 2503 minimal sram: 199[0m
+[0;32mI (6624583) SystemInfo: free sram: 2503 minimal sram: 199[0m
+[0;32mI (6634763) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6644943) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6654803) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6664703) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6664733) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:96, winSize:64[0m
+[0;32mI (6674753) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (6684783) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (6694763) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (6695473) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (6695473) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (6704663) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6714833) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6724613) SystemInfo: free sram: 2503 minimal sram: 199[0m
+[0;32mI (6734733) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6744773) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6754823) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6764843) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;33mW (6765653) WaveshareAMOLED2_06: Battery status read skipped: ESP_ERR_TIMEOUT[0m
+[0;32mI (6774793) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6784663) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6794843) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6804663) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6814613) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6824553) SystemInfo: free sram: 2503 minimal sram: 199[0m
+[0;32mI (6834843) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6844863) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6850663) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:97, winSize:64[0m
+[0;32mI (6854933) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (6864583) SystemInfo: free sram: 2447 minimal sram: 199[0m
+[0;32mI (6874553) SystemInfo: free sram: 2447 minimal sram: 199[0m
+[0;32mI (6881403) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (6881403) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (6884943) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6888853) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:98, winSize:64[0m
+[0;32mI (6894843) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (6904903) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (6914843) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (6924753) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (6932563) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (6932563) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (6934873) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6944893) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6954953) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6964843) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (6967173) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:100, winSize:64[0m
+[0;32mI (6974593) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (6984533) SystemInfo: free sram: 2447 minimal sram: 199[0m
+[0;32mI (6994923) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (6997913) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (6997913) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (7004783) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7014903) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7024883) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7034753) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7044793) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7054753) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7064653) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7074903) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7078803) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:101, winSize:64[0m
+[0;32mI (7084873) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7094813) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7104773) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7114813) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7124603) SystemInfo: free sram: 2447 minimal sram: 199[0m
+[0;32mI (7134753) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7139513) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (7139513) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (7144733) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;33mW (7146703) WaveshareAMOLED2_06: Battery status read skipped: ESP_ERR_TIMEOUT[0m
+[0;32mI (7154843) SystemInfo: free sram: 2671 minimal sram: 199[0m
+[0;32mI (7164703) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7174753) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7184833) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7194863) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7204743) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7210693) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:103, winSize:64[0m
+[0;32mI (7214833) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7224723) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7234853) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7242103) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (7242103) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (7244853) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7254723) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7264883) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7274873) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7284833) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7288823) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:105, winSize:64[0m
+[0;32mI (7294903) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7304653) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7314893) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7324813) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7334843) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7344723) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7345213) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (7345213) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (7354833) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7364833) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7374623) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7384813) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7394893) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7404943) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7414803) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7424853) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7434623) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7444573) SystemInfo: free sram: 2503 minimal sram: 199[0m
+[0;32mI (7454913) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7464813) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;33mW (7469773) WaveshareAMOLED2_06: Battery status read skipped: ESP_ERR_TIMEOUT[0m
+[0;32mI (7474783) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7484903) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7494953) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7504873) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7514843) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7524753) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7534763) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7544853) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7554673) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7564873) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7574913) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7584743) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7594743) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7604753) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7614453) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:109, winSize:64[0m
+[0;32mI (7614813) SystemInfo: free sram: 2591 minimal sram: 199[0m
+[0;32mI (7624853) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7634783) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7644823) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7645193) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (7645193) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (7654703) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7664803) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7674743) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7684843) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7694763) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7704583) SystemInfo: free sram: 2503 minimal sram: 199[0m
+[0;32mI (7714873) SystemInfo: free sram: 2651 minimal sram: 199[0m
+[0;32mI (7718813) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:110, winSize:64[0m
+[0;32mI (7724403) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7734903) SystemInfo: free sram: 2595 minimal sram: 199[0m
+[0;32mI (7744883) SystemInfo: free sram: 2595 minimal sram: 199[0m

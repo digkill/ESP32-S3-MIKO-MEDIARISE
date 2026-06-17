@@ -1,0 +1,17 @@
+Command: cmake -G Ninja -B /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3 -DPYTHON_DEPS_CHECKED=1 -DPYTHON=/Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python -DESP_PLATFORM=1 -DSDKCONFIG=/tmp/xiaozhi-homebot-sdkconfig.esp32s3 -DSDKCONFIG_DEFAULTS=/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/sdkconfig.defaults.esp32s3 -DIDF_TARGET=esp32s3 -DCCACHE_ENABLE=False /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32
+Loading defaults file /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/sdkconfig.defaults.esp32s3...
+Configuration Report                                                            
+ ────────────────────────────────────────────────────────────────────────────── 
+   Parser Version: 1                                                            
+   Verbosity: default                                                           
+   Defaults policy: sdkconfig                                                   
+   Status: Finished with notifications                                          
+                                                                                
+  Disabled Symbols/Choices With User-Set Value                                  
+   ──────────────────────────────────────────────────────────────────────────   
+    * MBEDTLS_DYNAMIC_FREE_CONFIG_DATA (defined at                              
+    /Users/digkill/.espressif/v6.0.1/esp-idf/components/mbedtls/Kconfig:244)    
+    with user-set value y from                                                  
+    /var/folders/6z/w0nwvf514mn4r3dt6kgfpjkr0000gn/T/kconfgen_tmpkai32qh_       
+   ──────────────────────────────────────────────────────────────────────────   
+ ────────────────────────────────────────────────────────────────────────────── 

@@ -1,0 +1,7 @@
+Command: /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf_monitor.py -p /dev/cu.usbmodem1101 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/xiaozhi.elf /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/bootloader/bootloader.elf -m '/Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python' '/Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf.py' '-B' 'xiaozhi-esp32/build-s3-v2' '-p' '/dev/cu.usbmodem1101'
+[0;33m--- esp-idf-monitor 1.9.0 on /dev/cu.usbmodem1101 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0m--- 0x420257ae: [0;33mCatDisplay::FillTriangle(int, int, int, int, int, int, unsigned short)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/boards/waveshare-s3-touch-amoled-2.06/cat_display.cc[0m[0m:[1;31m498[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 4446b002f9e7fd38e14b69c39505b686a5497c21b6b45e41395982d0f78a04b9[0m

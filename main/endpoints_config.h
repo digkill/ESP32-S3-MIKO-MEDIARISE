@@ -4,8 +4,8 @@
 // Auto-generated from .env file
 // Do not edit manually - regenerate using: python scripts/load_env_to_settings.py --generate-header
 
-#define DEFAULT_OTA_URL "http://212.67.8.211:8070/ota/"
-#define DEFAULT_WEBSOCKET_URL "ws://212.67.8.211:8071/ws"
+#define DEFAULT_OTA_URL "http://90.156.254.46:8080/ota/"
+#define DEFAULT_WEBSOCKET_URL "ws://90.156.254.46:8080/ws"
 #define DEFAULT_WEBSOCKET_VERSION 3
 #define DEFAULT_WEBSOCKET_BP3_HEADER 0
 #define DEFAULT_WIFI_SSID "muza 2.4"

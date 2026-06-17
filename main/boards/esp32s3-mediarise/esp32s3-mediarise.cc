@@ -14,13 +14,12 @@
 
 #include <esp_lcd_panel_io.h>
 #include <esp_lcd_panel_ops.h>
-#include <esp_lcd_panel_vendor.h>  // Встроенный драйвер ST7789 из ESP-LCD
+#include <esp_lcd_panel_vendor.h>
 #include "system_reset.h"
 #include "driver/gpio.h"
 #include "driver/spi_master.h"
 #include <esp_timer.h>
 #include "i2c_device.h"
-#include <esp_lcd_panel_vendor.h>
 #include <driver/spi_common.h>
 #include "power_save_timer.h"
 #include <esp_sleep.h>
@@ -278,7 +277,6 @@ private:
 
 class ESP32S3_MediaRise : public WifiBoard {
 private:
-    i2c_master_bus_handle_t codec_i2c_bus_ = nullptr;
     i2c_master_bus_handle_t i2c_bus_ = nullptr;
     Button boot_button_;
     Display* display_ = nullptr;
@@ -289,8 +287,6 @@ private:
     PowerManager* power_manager_ = nullptr;
     SimpleDisplay* simple_display_ = nullptr;  // Простой дисплей без LVGL
     ServoController* servo_controller_ = nullptr;
-    uint8_t codec_i2c_addr_ = AUDIO_CODEC_ES8311_ADDR;
-    bool codec_i2c_present_ = false;
 
     void InitializePowerSaveTimer() {
         rtc_gpio_init(GPIO_NUM_3);
@@ -324,6 +320,10 @@ private:
     }
 
     void InitializePowerManager() {
+        if (BATTERY_CHARGING_PIN == GPIO_NUM_NC) {
+            ESP_LOGW(TAG, "BATTERY_CHARGING_PIN not configured, PowerManager skipped");
+            return;
+        }
         power_manager_ = new PowerManager(BATTERY_CHARGING_PIN, ADC_CHANNEL_0);
         power_manager_->OnChargingStatusChanged([this](bool is_charging) {
             if (is_charging) {
@@ -332,68 +332,6 @@ private:
                 power_save_timer_->SetEnabled(true);
             }
         });
-    }
-
-    void InitializeCodecI2c() {
-        // Initialize I2C peripheral
-        i2c_master_bus_config_t i2c_bus_cfg = {
-            .i2c_port = I2C_NUM_0,
-            .sda_io_num = AUDIO_CODEC_I2C_SDA_PIN,
-            .scl_io_num = AUDIO_CODEC_I2C_SCL_PIN,
-            .clk_source = I2C_CLK_SRC_DEFAULT,
-            .glitch_ignore_cnt = 7,
-            .intr_priority = 0,
-            .trans_queue_depth = 0,
-            .flags = {
-                .enable_internal_pullup = 1,
-            },
-        };
-        ESP_ERROR_CHECK(i2c_new_master_bus(&i2c_bus_cfg, &codec_i2c_bus_));
-    }
-
-    bool ProbeI2cDevice(i2c_master_bus_handle_t i2c_bus, uint8_t addr) {
-        if (!i2c_bus) {
-            return false;
-        }
-        i2c_master_dev_handle_t dev = nullptr;
-        i2c_device_config_t cfg = {
-            .dev_addr_length = I2C_ADDR_BIT_LEN_7,
-            .device_address = addr,
-            .scl_speed_hz = 400 * 1000,
-            .scl_wait_us = 0,
-            .flags = {
-                .disable_ack_check = 0,
-            },
-        };
-        esp_err_t ret = i2c_master_bus_add_device(i2c_bus, &cfg, &dev);
-        if (ret != ESP_OK || dev == nullptr) {
-            return false;
-        }
-        uint8_t reg = 0x00;
-        uint8_t val = 0;
-        ret = i2c_master_transmit_receive(dev, &reg, 1, &val, 1, 100);
-        i2c_master_bus_rm_device(dev);
-        return ret == ESP_OK;
-    }
-
-    void DetectCodecAddress() {
-        codec_i2c_present_ = false;
-        if (!codec_i2c_bus_) {
-            ESP_LOGE(TAG, "Codec I2C bus not initialized");
-            return;
-        }
-        const uint8_t candidates[] = {AUDIO_CODEC_ES8311_ADDR, AUDIO_CODEC_ES8311_ADDR_ALT};
-        for (uint8_t addr : candidates) {
-            if (ProbeI2cDevice(codec_i2c_bus_, addr)) {
-                codec_i2c_addr_ = addr;
-                codec_i2c_present_ = true;
-                ESP_LOGI(TAG, "ES8311 найден по адресу 0x%02X", addr);
-                return;
-            }
-        }
-        ESP_LOGE(TAG,
-            "ES8311 не найден (SDA=%d SCL=%d). Проверьте адрес/подключение.",
-            AUDIO_CODEC_I2C_SDA_PIN, AUDIO_CODEC_I2C_SCL_PIN);
     }
 
     void InitializeCodecI2c_Touch() {
@@ -1209,37 +1147,16 @@ public:
     }
 
     virtual AudioCodec* GetAudioCodec() override {
-#if AUDIO_CODEC_TYPE_PCM5101
-        static NoAudioCodecSimplex no_audio(
+        // PCM5101 DAC (speaker only). DIN=NC means no physical mic, RX returns silence.
+        static NoAudioCodecDuplex no_audio(
             AUDIO_INPUT_SAMPLE_RATE,
             AUDIO_OUTPUT_SAMPLE_RATE,
             AUDIO_I2S_SPK_GPIO_BCLK,
             AUDIO_I2S_SPK_GPIO_LRCK,
             AUDIO_I2S_SPK_GPIO_DOUT,
-            I2S_STD_SLOT_LEFT,
-            AUDIO_I2S_MIC_GPIO_SCK,
-            AUDIO_I2S_MIC_GPIO_WS,
-            AUDIO_I2S_MIC_GPIO_DIN,
-            I2S_STD_SLOT_RIGHT);
-        no_audio.SetPaPin(AUDIO_CODEC_PA_PIN, AUDIO_CODEC_PA_INVERT);
-        return &no_audio;
-#else
-        static NoAudioCodecDuplex no_audio(
-            AUDIO_INPUT_SAMPLE_RATE,
-            AUDIO_OUTPUT_SAMPLE_RATE,
-            AUDIO_I2S_GPIO_BCLK,
-            AUDIO_I2S_GPIO_WS,
-            AUDIO_I2S_GPIO_DOUT,
             AUDIO_I2S_GPIO_DIN);
         no_audio.SetPaPin(AUDIO_CODEC_PA_PIN, AUDIO_CODEC_PA_INVERT);
-        if (!codec_i2c_present_) {
-            return &no_audio;
-        }
-        static Es8311AudioCodec audio_codec(codec_i2c_bus_, I2C_NUM_0, AUDIO_INPUT_SAMPLE_RATE, AUDIO_OUTPUT_SAMPLE_RATE,
-            AUDIO_I2S_GPIO_MCLK, AUDIO_I2S_GPIO_BCLK, AUDIO_I2S_GPIO_WS, AUDIO_I2S_GPIO_DOUT, AUDIO_I2S_GPIO_DIN,
-            AUDIO_CODEC_PA_PIN, codec_i2c_addr_);
-        return &audio_codec;
-#endif
+        return &no_audio;
     }
 
     Cst816d* GetTouchpad() {

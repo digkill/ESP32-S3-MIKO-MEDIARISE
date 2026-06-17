@@ -16,19 +16,26 @@ public:
         ANGRY,
         SHY,
         LOVE,
+        COFFEE,
+        DANCE,
+        CURIOUS,
+        CELEBRATE,
+        DIZZY,
         SLEEPING,
     };
 
-    CatDisplay(int width, int height, lv_obj_t* canvas);
+    CatDisplay(int width, int height, lv_obj_t* canvas, float presentation_scale = 1.0f);
     ~CatDisplay();
 
     bool Init();
 
     void SetState(State state);
     State GetState() const { return state_; }
+    void PlayDizzy(uint32_t duration_ms = 3600);
 
     void SetStateFromStatus(const char* status);
     void SetStateFromEmotion(const char* emotion);
+    void SpawnTouchBubbles(int raw_x, int raw_y);
     void SetBatteryStatus(int level, bool charging);
 
     void Update();
@@ -62,6 +69,7 @@ private:
     static void AnimationTimerCallback(void* arg);
 
     int S(float value) const;
+    int U(float value) const;
     int X(float value) const;
     int Y(float value) const;
 
@@ -89,6 +97,11 @@ private:
     void DrawWhiskers(int cx, int cy, uint16_t color, float spread, float bias);
     void DrawBlush(int cx, int cy, uint16_t color);
     void DrawSparkle(int cx, int cy, int size, uint16_t color);
+    void DrawCoffeeCup(int cx, int cy, uint16_t color);
+    void DrawDizzyOrbit(int face_bob, uint16_t color);
+    void DrawCatEars(int face_bob, const EmotionProfile& profile);
+    void DrawZzz(int cx, int cy, uint16_t color);
+    void DrawBubble(int cx, int cy, int radius, uint16_t color);
     void FlushCanvas();
 
     int physical_width_;
@@ -96,6 +109,7 @@ private:
     int width_;
     int height_;
     bool rotate_cw_;
+    float presentation_scale_;
     int status_bar_height_;
     float scale_;
     int origin_x_;
@@ -107,6 +121,7 @@ private:
 
     State state_;
     int64_t state_enter_us_;
+    int64_t dizzy_until_us_ = 0;
     int64_t last_update_us_;
 
     float blink_t_;
@@ -123,4 +138,15 @@ private:
 
     int battery_level_ = -1;
     bool battery_charging_ = false;
+
+    struct Bubble {
+        float x, y;
+        float vx, vy;
+        float radius;
+        float alpha;
+        bool active = false;
+    };
+    static constexpr int kMaxBubbles = 6;
+    Bubble bubbles_[kMaxBubbles] = {};
+    uint32_t bubble_seed_ = 0x5EED1234;
 };

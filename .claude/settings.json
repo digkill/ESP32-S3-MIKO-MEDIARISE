@@ -13,7 +13,12 @@
       "Bash(git -C /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32 log --oneline -10)",
       "Bash(git -C /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32 diff --name-only)",
       "Bash(find ~/.espressif/esp-idf-* /Users/digkill/.espressif -name \"esp_cache.h\")",
-      "Bash(IDF_PYTHON_ENV_PATH=/Users/digkill/.espressif/python_env/idf5.5_py3.12_env /Users/digkill/.espressif/python_env/idf5.5_py3.12_env/bin/python /Users/digkill/esp/esp-idf-5.5.2/tools/idf.py build)"
+      "Bash(IDF_PYTHON_ENV_PATH=/Users/digkill/.espressif/python_env/idf5.5_py3.12_env /Users/digkill/.espressif/python_env/idf5.5_py3.12_env/bin/python /Users/digkill/esp/esp-idf-5.5.2/tools/idf.py build)",
+      "WebFetch(domain:wiki.dfrobot.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(gh api *)",
+      "Bash(curl --version)",
+      "Bash(curl -s --max-time 30 \"https://raw.githubusercontent.com/lieff/minimp3/master/minimp3.h\" -o /tmp/minimp3.h)"
     ]
   }
 }

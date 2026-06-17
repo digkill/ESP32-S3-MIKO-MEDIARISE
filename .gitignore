@@ -1,5 +1,7 @@
 tmp/
-components/
+components/*
+!components/json/
+!components/json/CMakeLists.txt
 managed_components/
 build/
 .vscode/

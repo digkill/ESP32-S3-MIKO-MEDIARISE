@@ -1,0 +1,2 @@
+"-specs=/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-homebot-ble/bootloader/specs/picolibc.specs"
+-march=rv32imac_zicsr_zifencei_zaamo_zalrsc

@@ -8,6 +8,11 @@
 
 #define TAG "ServoController"
 
+static constexpr int kServoHomeAngle = 90;
+static constexpr int kServoMaxDeviation = 20;
+static constexpr int kServoMinAngle = kServoHomeAngle - kServoMaxDeviation;
+static constexpr int kServoMaxAngle = kServoHomeAngle + kServoMaxDeviation;
+
 ServoController::ServoController() 
     : uart_port_(SERVO_UART_PORT_NUM), initialized_(false) {
 }
@@ -68,7 +73,7 @@ bool ServoController::Init() {
 
     // Отправка тестовой команды для проверки связи
     vTaskDelay(pdMS_TO_TICKS(100));
-    SetServoAngle(1, 90); // Установить сервопривод 1 в среднее положение
+    SetServoAngle(1, kServoHomeAngle); // Установить сервопривод 1 в среднее положение
 
     return true;
 }
@@ -102,7 +107,7 @@ bool ServoController::SetServoAngle(int servo_num, int angle) {
     }
 
     // Ограничение угла
-    angle = std::max(0, std::min(180, angle));
+    angle = std::max(kServoMinAngle, std::min(kServoMaxAngle, angle));
 
     // Формирование команды: "S1:45"
     std::ostringstream cmd;
@@ -129,52 +134,53 @@ bool ServoController::SetPose(const std::string& pose_name) {
     if (pose_name == "home" || pose_name == "reset") {
         // Домашняя поза - все сервоприводы в среднее положение
         std::vector<std::pair<int, int>> home_pose = {
-            {1, 90}, {2, 90}, {3, 90}, {4, 90}
+            {1, kServoHomeAngle}, {2, kServoHomeAngle},
+            {3, kServoHomeAngle}, {4, kServoHomeAngle}
         };
         return SetMultipleServos(home_pose);
     }
     else if (pose_name == "wave" || pose_name == "wave_hand") {
         // Поза "махать рукой" - поднять одну руку и махать
-        SetServoAngle(1, 45);  // Левая рука вверх
+        SetServoAngle(1, kServoMinAngle);  // Левая рука вверх
         vTaskDelay(pdMS_TO_TICKS(200));
-        SetServoAngle(1, 135); // Мах вправо
+        SetServoAngle(1, kServoMaxAngle); // Мах вправо
         vTaskDelay(pdMS_TO_TICKS(200));
-        SetServoAngle(1, 45);  // Мах влево
+        SetServoAngle(1, kServoMinAngle);  // Мах влево
         vTaskDelay(pdMS_TO_TICKS(200));
-        SetServoAngle(1, 90);  // Вернуть в центр
+        SetServoAngle(1, kServoHomeAngle);  // Вернуть в центр
         return true;
     }
     else if (pose_name == "dance" || pose_name == "dancing") {
         // Танец - последовательность движений
-        SetServoAngle(1, 45);
-        SetServoAngle(2, 135);
+        SetServoAngle(1, kServoMinAngle);
+        SetServoAngle(2, kServoMaxAngle);
         vTaskDelay(pdMS_TO_TICKS(300));
-        SetServoAngle(1, 135);
-        SetServoAngle(2, 45);
+        SetServoAngle(1, kServoMaxAngle);
+        SetServoAngle(2, kServoMinAngle);
         vTaskDelay(pdMS_TO_TICKS(300));
-        SetServoAngle(1, 90);
-        SetServoAngle(2, 90);
+        SetServoAngle(1, kServoHomeAngle);
+        SetServoAngle(2, kServoHomeAngle);
         return true;
     }
     else if (pose_name == "greet" || pose_name == "greeting") {
         // Приветствие - поднять обе руки
-        SetServoAngle(1, 60);
-        SetServoAngle(2, 120);
+        SetServoAngle(1, kServoMinAngle);
+        SetServoAngle(2, kServoMaxAngle);
         vTaskDelay(pdMS_TO_TICKS(500));
-        SetServoAngle(1, 90);
-        SetServoAngle(2, 90);
+        SetServoAngle(1, kServoHomeAngle);
+        SetServoAngle(2, kServoHomeAngle);
         return true;
     }
     else if (pose_name == "sad" || pose_name == "sad_pose") {
         // Грустная поза - опустить руки
-        SetServoAngle(1, 150);
-        SetServoAngle(2, 30);
+        SetServoAngle(1, kServoMaxAngle);
+        SetServoAngle(2, kServoMinAngle);
         return true;
     }
     else if (pose_name == "happy" || pose_name == "happy_pose") {
         // Радостная поза - поднять руки вверх
-        SetServoAngle(1, 30);
-        SetServoAngle(2, 150);
+        SetServoAngle(1, kServoMinAngle);
+        SetServoAngle(2, kServoMaxAngle);
         return true;
     }
     else {
@@ -182,7 +188,6 @@ bool ServoController::SetPose(const std::string& pose_name) {
         return false;
     }
 }
-
 
 
 

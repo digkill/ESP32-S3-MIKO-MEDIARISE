@@ -1,0 +1,14 @@
+Command: ninja flash
+
+A fatal error occurred: Could not open /dev/tty.usbmodem101, the port is busy or doesn't exist.
+([Errno 2] could not open port /dev/tty.usbmodem101: [Errno 2] No such file or directory: '/dev/tty.usbmodem101')
+
+Hint: Check if the port is correct and ESP connected
+
+CMake Error at /Users/digkill/.espressif/v6.0.1/esp-idf/components/esptool_py/run_serial_tool.cmake:67 (message):
+  
+  /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python;-m;esptool;--chip;esp32s3
+  failed.
+
+
+
