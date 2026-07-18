@@ -1,0 +1,2 @@
+source /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-codex-wifi/bootloader/gdbinit/symbols
+source /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-codex-wifi/bootloader/gdbinit/connect

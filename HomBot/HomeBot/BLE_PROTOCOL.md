@@ -42,9 +42,12 @@ Supported command types:
 | `time.set` | `{"unixMilliseconds":0,"timeZone":"Asia/Yekaterinburg"}` | Set clock/display time |
 | `emotion.set` | `{"name":"happy"}` | Set display emotion |
 | `emotion.set` | `{"name":"coffee"}` | Show the animated coffee cat state |
+| `emotion.video` | `{"name":"happy"}` | Play the full-screen MJPEG clip `/sdcard/<name>_emotion.mp4` (e.g. `happy_emotion.mp4`); UI is paused for the clip duration. Boards without an SD/video display reply `unsupported` |
 | `scene.play` | `{"name":"dance"}` | Run a composed face/head/LED scene: `dance`, `greet`, `curious`, `love`, `celebrate`, `coffee`, `sleep` or `idle` |
 | `media.control` | `{"action":"stop"}` | Stop current speech/audio activity |
 | `audio.volume` | `{"percent":50}` | Set output volume from 0 to 100 |
+| `audio.mute` | `{"muted":true}` | Mute all sound (output volume 0). `{"muted":false}` restores the previous volume |
+| `power.save` | `{"enabled":true}` | Enter low-power mode: dim screen to 5%, pause display and Wi-Fi. `{"enabled":false}` restores brightness and normal mode |
 | `display.brightness` | `{"percent":75}` | Set and save AMOLED brightness from 5 to 100 percent |
 | `speech.read` | `{"text":"..."}` | Send a direct `tts` request so the connected voice service reads the supplied text |
 | `dialog.send` | `{"text":"...","language":"Русский"}` | Ask the voice service for a spoken assistant reply |

@@ -2,7 +2,10 @@
 
 #include <lvgl.h>
 #include <esp_timer.h>
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
 #include <stdint.h>
+#include <mutex>
 
 class CatDisplay {
 public:
@@ -30,12 +33,13 @@ public:
     bool Init();
 
     void SetState(State state);
-    State GetState() const { return state_; }
+    State GetState() const;
     void PlayDizzy(uint32_t duration_ms = 3600);
 
     void SetStateFromStatus(const char* status);
     void SetStateFromEmotion(const char* emotion);
     void SpawnTouchBubbles(int raw_x, int raw_y);
+    void AddTrailPoint(int raw_x, int raw_y);
     void SetBatteryStatus(int level, bool charging);
 
     void Update();
@@ -67,6 +71,7 @@ public:
 
 private:
     static void AnimationTimerCallback(void* arg);
+    static void AnimationTask(void* arg);
 
     int S(float value) const;
     int U(float value) const;
@@ -118,6 +123,9 @@ private:
     lv_obj_t* canvas_ = nullptr;
     uint16_t* canvas_buf_ = nullptr;  // direct pointer to pixel data (draw_buf->data)
     esp_timer_handle_t animation_timer_ = nullptr;
+    TaskHandle_t animation_task_ = nullptr;
+    bool animation_task_stop_ = false;
+    mutable std::recursive_mutex state_mutex_;
 
     State state_;
     int64_t state_enter_us_;
@@ -149,4 +157,14 @@ private:
     static constexpr int kMaxBubbles = 6;
     Bubble bubbles_[kMaxBubbles] = {};
     uint32_t bubble_seed_ = 0x5EED1234;
+
+    struct TrailPoint {
+        float x, y;
+        float alpha;
+        uint16_t color;
+        bool active = false;
+    };
+    static constexpr int kMaxTrail = 64;
+    TrailPoint trail_[kMaxTrail] = {};
+    uint8_t trail_hue_ = 0;
 };

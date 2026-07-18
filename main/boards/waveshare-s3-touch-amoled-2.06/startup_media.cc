@@ -1,17 +1,26 @@
 #include "startup_media.h"
 #include "config.h"
 #include "audio_codec.h"
+#include "jpeg_to_image.h"
 
 #include <esp_log.h>
 #include <esp_heap_caps.h>
+#include <esp_task_wdt.h>
+#include <esp_timer.h>
+#include <esp_lcd_panel_io.h>
 #include <driver/i2s_std.h>
 #include <esp_codec_dev.h>
 #include <esp_codec_dev_defaults.h>
+
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
+#include <freertos/semphr.h>
 
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
 #include <algorithm>
+#include <vector>
 
 #define TAG_SM "StartupMedia"
 
@@ -290,7 +299,7 @@ void startup_play_wav(i2c_master_bus_handle_t i2c_bus, const char* wav_path)
         .mclk_multiple   = 0,
     };
     esp_codec_dev_open(dev, &info);
-    esp_codec_dev_set_out_vol(dev, 80);
+    esp_codec_dev_set_out_vol(dev, AUDIO_MAX_OUTPUT_VOLUME);
 
     // ── Stream PCM ────────────────────────────────────────────────────────────
     constexpr size_t READ_SIZE = 2048; // bytes per read (mono or stereo)
@@ -337,4 +346,515 @@ void startup_play_wav(i2c_master_bus_handle_t i2c_bus, const char* wav_path)
     i2s_del_channel(tx_handle);
 
     ESP_LOGI(TAG_SM, "Startup audio done");
+}
+
+// ── MP4 (MJPEG) intro video ───────────────────────────────────────────────────
+
+struct Mp4Atom {
+    uint64_t offset;
+    uint64_t size;
+};
+
+static uint32_t read_be32(const uint8_t* p)
+{
+    return ((uint32_t)p[0] << 24) | ((uint32_t)p[1] << 16) | ((uint32_t)p[2] << 8) | (uint32_t)p[3];
+}
+
+static uint64_t read_be64(const uint8_t* p)
+{
+    return ((uint64_t)read_be32(p) << 32) | read_be32(p + 4);
+}
+
+static bool find_atom_in_range(FILE* f, const char* type, Mp4Atom* out, uint64_t range_start, uint64_t range_end)
+{
+    uint64_t pos = range_start;
+
+    while (pos + 8 <= range_end) {
+        fseek(f, (long)pos, SEEK_SET);
+        uint8_t header[8];
+        if (fread(header, 1, 8, f) != 8) {
+            return false;
+        }
+
+        uint64_t size = read_be32(header);
+        char atom_type[5] = {};
+        memcpy(atom_type, header + 4, 4);
+
+        uint64_t header_size = 8;
+        if (size == 1) {
+            uint8_t ext[8];
+            if (fread(ext, 1, 8, f) != 8) {
+                return false;
+            }
+            size = read_be64(ext);
+            header_size = 16;
+        }
+
+        if (size < header_size || pos + size > range_end) {
+            return false;
+        }
+
+        if (strcmp(atom_type, type) == 0) {
+            out->offset = pos + header_size;
+            out->size = size - header_size;
+            return true;
+        }
+
+        const bool container =
+            strcmp(atom_type, "moov") == 0 ||
+            strcmp(atom_type, "trak") == 0 ||
+            strcmp(atom_type, "mdia") == 0 ||
+            strcmp(atom_type, "minf") == 0 ||
+            strcmp(atom_type, "stbl") == 0;
+
+        if (container && find_atom_in_range(f, type, out, pos + header_size, pos + size)) {
+            return true;
+        }
+
+        pos += size;
+    }
+
+    return false;
+}
+
+static bool find_top_level_atom(FILE* f, const char* type, Mp4Atom* out)
+{
+    fseek(f, 0, SEEK_END);
+    const uint64_t file_size = (uint64_t)ftell(f);
+    return find_atom_in_range(f, type, out, 0, file_size);
+}
+
+static bool read_mp4_duration_ms(FILE* f, uint32_t* duration_ms)
+{
+    Mp4Atom mvhd;
+    if (!find_top_level_atom(f, "mvhd", &mvhd)) {
+        return false;
+    }
+
+    fseek(f, (long)mvhd.offset, SEEK_SET);
+    uint8_t header[32];
+    if (fread(header, 1, sizeof(header), f) != sizeof(header)) {
+        return false;
+    }
+
+    const uint8_t version = header[0];
+    uint32_t timescale = 0;
+    uint64_t duration = 0;
+
+    if (version == 0) {
+        timescale = read_be32(header + 12);
+        duration = read_be32(header + 16);
+    } else if (version == 1) {
+        duration = read_be64(header + 8);
+        timescale = read_be32(header + 20);
+    }
+
+    if (timescale == 0 || duration == 0) {
+        return false;
+    }
+
+    *duration_ms = (uint32_t)((duration * 1000ULL) / timescale);
+    return true;
+}
+
+static bool collect_mjpeg_frames(const uint8_t* data, size_t size,
+                                 std::vector<std::pair<uint32_t, uint32_t>>& frames)
+{
+    if (!data || size < 4) {
+        return false;
+    }
+
+    bool in_frame = false;
+    uint32_t frame_start = 0;
+
+    for (size_t i = 1; i < size; ++i) {
+        if (!in_frame && data[i - 1] == 0xFF && data[i] == 0xD8) {
+            in_frame = true;
+            frame_start = (uint32_t)(i - 1);
+        } else if (in_frame && data[i - 1] == 0xFF && data[i] == 0xD9) {
+            const uint32_t frame_end = (uint32_t)(i + 1);
+            const uint32_t frame_size = frame_end - frame_start;
+            if (frame_size > 4 && frame_size < 2 * 1024 * 1024) {
+                frames.emplace_back(frame_start, frame_size);
+            }
+            in_frame = false;
+        }
+    }
+
+    return !frames.empty();
+}
+
+// ── Stripe blitter ────────────────────────────────────────────────────────────
+// esp_lcd_panel_draw_bitmap DMA-reads the pixel buffer while the CPU keeps
+// running. Feeding the whole ~411 KB PSRAM framebuffer to the 40 MHz QSPI
+// panel starves the SPI FIFO ("spi_master: DMA TX underflow detected") and
+// permanently wedges the panel IO transaction queue, so every later draw
+// fails with "recycle spi transactions failed". Instead the frame is sent as
+// horizontal stripes copied through small internal-RAM bounce buffers.
+//
+// Buffer-reuse safety without any panel IO callback (so the player can also
+// run at runtime without disturbing the callback LVGL registers on this IO):
+// each draw_bitmap starts with CASET/RASET params, and panel_io_spi_tx_param
+// recycles (waits for) every queued color transaction first. So when
+// draw_bitmap(stripe N) returns, stripe N-1 has fully left its bounce buffer,
+// and alternating two buffers is enough.
+
+struct StripeBlitter {
+    esp_lcd_panel_handle_t panel = nullptr;
+    int display_w = 0;
+    int stripe_rows = 0;
+    uint16_t* bounce[2] = {nullptr, nullptr};
+    int next_buf = 0;
+    bool owns_buffers = false;
+};
+
+static void blitter_deinit(StripeBlitter* b)
+{
+    // The last stripe may still be streaming out of a bounce buffer
+    // (~24 KB @ 40 MHz QSPI takes ~1.5 ms); let it finish before the memory
+    // is freed or handed back to LVGL.
+    vTaskDelay(pdMS_TO_TICKS(10));
+    for (auto& buf : b->bounce) {
+        if (b->owns_buffers) {
+            heap_caps_free(buf);
+        }
+        buf = nullptr;
+    }
+}
+
+static bool blitter_init(StripeBlitter* b,
+                         esp_lcd_panel_handle_t panel,
+                         int display_w,
+                         void* external_mem, size_t external_bytes)
+{
+    b->panel = panel;
+    b->display_w = display_w;
+
+    const size_t row_bytes = (size_t)display_w * sizeof(uint16_t);
+
+    // Runtime playback borrows LVGL's idle draw buffer (LVGL is locked for
+    // the whole clip): the internal DMA heap is too depleted by then to
+    // allocate anything. The buffer is split into a pair of bounce halves.
+    // The SH8601 needs 2-pixel-aligned addresses (see rounder_event_cb in
+    // the board display code), so the stripe height stays even.
+    if (external_mem != nullptr) {
+        const int rows = (int)(external_bytes / 2 / row_bytes) & ~1;
+        if (rows < 2) {
+            ESP_LOGE(TAG_SM, "External blit buffer too small: %u bytes",
+                     (unsigned)external_bytes);
+            return false;
+        }
+        b->stripe_rows = rows;
+        b->bounce[0] = (uint16_t*)external_mem;
+        b->bounce[1] = (uint16_t*)((uint8_t*)external_mem + (size_t)rows * row_bytes);
+        b->owns_buffers = false;
+        return true;
+    }
+
+    // Startup path: internal RAM is still plentiful, allocate ~24 KB stripes.
+    b->owns_buffers = true;
+    int rows = std::max(8, (int)(24 * 1024 / row_bytes)) & ~1;
+    while (rows >= 2) {
+        for (auto& buf : b->bounce) {
+            buf = (uint16_t*)heap_caps_malloc((size_t)rows * row_bytes, MALLOC_CAP_DMA);
+        }
+        if (b->bounce[0] && b->bounce[1]) {
+            b->stripe_rows = rows;
+            if (rows < 8) {
+                ESP_LOGW(TAG_SM, "Low DMA memory: using %d-row stripes", rows);
+            }
+            return true;
+        }
+        for (auto& buf : b->bounce) {
+            heap_caps_free(buf);
+            buf = nullptr;
+        }
+        rows = (rows / 2) & ~1;
+    }
+    ESP_LOGE(TAG_SM, "Stripe blitter init failed: internal DMA heap exhausted "
+             "(largest block %u bytes)",
+             (unsigned)heap_caps_get_largest_free_block(MALLOC_CAP_DMA));
+    return false;
+}
+
+static void blitter_blit(StripeBlitter* b, const uint16_t* framebuffer, int display_h)
+{
+    for (int y = 0; y < display_h; y += b->stripe_rows) {
+        const int rows = std::min(b->stripe_rows, display_h - y);
+        // Alternating two buffers is safe: draw_bitmap's leading CASET/RASET
+        // params recycle the previously queued color transaction, so by the
+        // time we come back to a buffer its transfer has finished.
+        uint16_t* buf = b->bounce[b->next_buf];
+        b->next_buf ^= 1;
+        memcpy(buf, framebuffer + (size_t)y * b->display_w,
+               (size_t)rows * b->display_w * sizeof(uint16_t));
+        esp_lcd_panel_draw_bitmap(b->panel, 0, y, b->display_w, y + rows, buf);
+    }
+}
+
+// The JPEG decoder pads its output up to whole MCUs (multiples of 8/16); the
+// padding rows/columns contain garbage (typically green). Read the true frame
+// dimensions from the SOF marker so rendering can crop the padding away.
+static bool jpeg_sof_dimensions(const uint8_t* jpeg, size_t len, int* w, int* h)
+{
+    size_t i = 2; // skip SOI
+    while (i + 9 < len && jpeg[i] == 0xFF) {
+        const uint8_t marker = jpeg[i + 1];
+        if (marker == 0xD8 || marker == 0x01 || (marker >= 0xD0 && marker <= 0xD7)) {
+            i += 2;
+            continue;
+        }
+        if (marker >= 0xC0 && marker <= 0xCF &&
+            marker != 0xC4 && marker != 0xC8 && marker != 0xCC) { // SOFn
+            *h = ((int)jpeg[i + 5] << 8) | jpeg[i + 6];
+            *w = ((int)jpeg[i + 7] << 8) | jpeg[i + 8];
+            return *w > 0 && *h > 0;
+        }
+        const size_t seg_len = ((size_t)jpeg[i + 2] << 8) | jpeg[i + 3];
+        if (seg_len < 2) {
+            return false;
+        }
+        i += 2 + seg_len;
+    }
+    return false;
+}
+
+// Rendering bypasses LVGL; the panel expects the same byte order as
+// lvgl_port with swap_bytes=1 (see SpiLcdDisplay).
+static inline uint16_t panel_pixel(uint16_t le)
+{
+    return __builtin_bswap16(le);
+}
+
+static void render_rgb565_frame(int display_w, int display_h,
+                                uint16_t* framebuffer,
+                                const uint8_t* rgb565,
+                                int img_w, int img_h, int src_stride_px)
+{
+    const bool rotate_cw = display_h > display_w;
+    const int view_w = rotate_cw ? display_h : display_w;
+    const int view_h = rotate_cw ? display_w : display_h;
+    const uint16_t* src = (const uint16_t*)rgb565;
+
+    if (rotate_cw && img_w == view_w && img_h == view_h) {
+        // Full-screen rotation covers every framebuffer pixel, no clear
+        // needed. Work in tiles: the rotated writes are strided by a whole
+        // display row, so tiling keeps them inside the cache instead of
+        // thrashing PSRAM (which made this path ~10x slower).
+        constexpr int TILE = 32;
+        for (int ty = 0; ty < img_h; ty += TILE) {
+            const int ty_end = std::min(ty + TILE, img_h);
+            for (int tx = 0; tx < img_w; tx += TILE) {
+                const int tx_end = std::min(tx + TILE, img_w);
+                for (int ly = ty; ly < ty_end; ++ly) {
+                    const uint16_t* row = src + (size_t)ly * src_stride_px;
+                    const int px = view_h - 1 - ly;
+                    for (int lx = tx; lx < tx_end; ++lx) {
+                        framebuffer[(size_t)lx * display_w + px] = panel_pixel(row[lx]);
+                    }
+                }
+            }
+        }
+    } else {
+        // Stretch to the full landscape view — the video always spans the
+        // whole display, no letterbox bars. Covers every pixel, no clear
+        // needed. Same tiling as above to keep the rotated writes cached.
+        std::vector<int> sx_map(view_w);
+        for (int dx = 0; dx < view_w; ++dx) {
+            sx_map[dx] = (int)(((int64_t)dx * img_w) / view_w);
+        }
+
+        constexpr int TILE = 32;
+        for (int tdy = 0; tdy < view_h; tdy += TILE) {
+            const int tdy_end = std::min(tdy + TILE, view_h);
+            for (int tdx = 0; tdx < view_w; tdx += TILE) {
+                const int tdx_end = std::min(tdx + TILE, view_w);
+                for (int dy = tdy; dy < tdy_end; ++dy) {
+                    const int sy = (int)(((int64_t)dy * img_h) / view_h);
+                    const uint16_t* src_row = src + (size_t)sy * src_stride_px;
+                    if (rotate_cw) {
+                        const int px = view_h - 1 - dy;
+                        for (int dx = tdx; dx < tdx_end; ++dx) {
+                            framebuffer[(size_t)dx * display_w + px] = panel_pixel(src_row[sx_map[dx]]);
+                        }
+                    } else {
+                        uint16_t* dst_row = framebuffer + (size_t)dy * display_w;
+                        for (int dx = tdx; dx < tdx_end; ++dx) {
+                            dst_row[dx] = panel_pixel(src_row[sx_map[dx]]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+static void play_mp4_impl(esp_lcd_panel_handle_t panel,
+                          int display_w, int display_h,
+                          const char* mp4_path,
+                          void* blit_mem, size_t blit_bytes)
+{
+    if (!panel || !mp4_path) {
+        return;
+    }
+
+    FILE* f = fopen(mp4_path, "rb");
+    if (!f) {
+        ESP_LOGW(TAG_SM, "MP4 not found: %s", mp4_path);
+        return;
+    }
+
+    Mp4Atom mdat;
+    if (!find_top_level_atom(f, "mdat", &mdat)) {
+        fclose(f);
+        ESP_LOGW(TAG_SM, "MP4 mdat atom not found: %s", mp4_path);
+        return;
+    }
+
+    if (mdat.size == 0 || mdat.size > 8 * 1024 * 1024) {
+        fclose(f);
+        ESP_LOGW(TAG_SM, "MP4 mdat too large for intro playback: %" PRIu64 " bytes", mdat.size);
+        return;
+    }
+
+    ESP_LOGI(TAG_SM, "Loading intro MP4 mdat (%" PRIu64 " bytes)...", mdat.size);
+    uint8_t* mdat_buf = (uint8_t*)heap_caps_malloc((size_t)mdat.size, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
+    if (!mdat_buf) {
+        fclose(f);
+        ESP_LOGE(TAG_SM, "No PSRAM for intro MP4 scan buffer");
+        return;
+    }
+
+    fseek(f, (long)mdat.offset, SEEK_SET);
+    if (fread(mdat_buf, 1, (size_t)mdat.size, f) != mdat.size) {
+        heap_caps_free(mdat_buf);
+        fclose(f);
+        ESP_LOGW(TAG_SM, "Failed to read MP4 mdat: %s", mp4_path);
+        return;
+    }
+
+    std::vector<std::pair<uint32_t, uint32_t>> frames;
+    if (!collect_mjpeg_frames(mdat_buf, (size_t)mdat.size, frames)) {
+        heap_caps_free(mdat_buf);
+        fclose(f);
+        ESP_LOGW(TAG_SM, "No MJPEG frames in: %s (use ffmpeg -c:v mjpeg)", mp4_path);
+        return;
+    }
+
+    uint32_t duration_ms = 0;
+    uint32_t frame_delay_ms = 66;
+    if (read_mp4_duration_ms(f, &duration_ms) && duration_ms > 0) {
+        frame_delay_ms = std::max<uint32_t>(1, duration_ms / (uint32_t)frames.size());
+    }
+    fclose(f);
+
+    const size_t fb_bytes = (size_t)display_w * display_h * sizeof(uint16_t);
+    uint16_t* framebuffer = (uint16_t*)heap_caps_malloc(fb_bytes, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT);
+    if (!framebuffer) {
+        heap_caps_free(mdat_buf);
+        ESP_LOGE(TAG_SM, "No PSRAM for intro video framebuffer");
+        return;
+    }
+
+    StripeBlitter blitter;
+    if (!blitter_init(&blitter, panel, display_w, blit_mem, blit_bytes)) {
+        heap_caps_free(framebuffer);
+        heap_caps_free(mdat_buf);
+        return;
+    }
+
+    ESP_LOGI(TAG_SM, "Playing MP4: %s (%u frames, %" PRIu32 " ms/frame)",
+             mp4_path, (unsigned)frames.size(), frame_delay_ms);
+
+    // At runtime this runs on the TWDT-subscribed main loop for the whole
+    // clip; pet the watchdog so it doesn't spam backtraces. At startup the
+    // caller is not subscribed and resetting would log an error every frame.
+    const bool wdt_subscribed = esp_task_wdt_status(nullptr) == ESP_OK;
+
+    size_t shown = 0;
+    const int64_t frame_start_us = esp_timer_get_time();
+    for (size_t i = 0; i < frames.size(); ++i) {
+        if (wdt_subscribed) {
+            esp_task_wdt_reset();
+        }
+
+        // Drop late frames (decode can be slower than the nominal frame rate)
+        // so the intro keeps real-time pace instead of playing in slow motion.
+        if (i + 1 < frames.size()) {
+            const int64_t elapsed_us = esp_timer_get_time() - frame_start_us;
+            const size_t due = (size_t)(elapsed_us / ((int64_t)frame_delay_ms * 1000LL));
+            if (i < due) {
+                continue;
+            }
+        }
+
+        const auto& frame = frames[i];
+        const uint8_t* jpeg_ptr = mdat_buf + frame.first;
+
+        const int64_t t_decode = esp_timer_get_time();
+        uint8_t* rgb565 = nullptr;
+        size_t rgb_len = 0;
+        size_t img_w = 0;
+        size_t img_h = 0;
+        size_t stride = 0;
+        if (jpeg_to_image(jpeg_ptr, frame.second, &rgb565, &rgb_len, &img_w, &img_h, &stride) != ESP_OK ||
+            !rgb565 || img_w == 0 || img_h == 0) {
+            heap_caps_free(rgb565);
+            ESP_LOGW(TAG_SM, "JPEG decode failed for intro frame %u", (unsigned)i);
+            continue;
+        }
+
+        // Crop MCU padding (green garbage) using the true SOF dimensions.
+        int true_w = (int)img_w;
+        int true_h = (int)img_h;
+        jpeg_sof_dimensions(jpeg_ptr, frame.second, &true_w, &true_h);
+        true_w = std::min(true_w, (int)img_w);
+        true_h = std::min(true_h, (int)img_h);
+
+        const int64_t t_render = esp_timer_get_time();
+        render_rgb565_frame(display_w, display_h, framebuffer, rgb565,
+                            true_w, true_h, (int)(stride / sizeof(uint16_t)));
+        heap_caps_free(rgb565);
+        const int64_t t_blit = esp_timer_get_time();
+        blitter_blit(&blitter, framebuffer, display_h);
+
+        if (shown == 0) {
+            ESP_LOGI(TAG_SM, "First frame: decoded %ux%u (SOF %dx%d), "
+                     "decode %d ms, render %d ms, blit %d ms",
+                     (unsigned)img_w, (unsigned)img_h, true_w, true_h,
+                     (int)((t_render - t_decode) / 1000),
+                     (int)((t_blit - t_render) / 1000),
+                     (int)((esp_timer_get_time() - t_blit) / 1000));
+        }
+        shown++;
+
+        const int64_t target_us = frame_start_us + (int64_t)(i + 1) * (int64_t)frame_delay_ms * 1000LL;
+        const int64_t now_us = esp_timer_get_time();
+        const int64_t wait_us = target_us - now_us;
+        if (wait_us > 0) {
+            vTaskDelay(pdMS_TO_TICKS((uint32_t)((wait_us + 999) / 1000)));
+        }
+    }
+
+    blitter_deinit(&blitter);
+    heap_caps_free(framebuffer);
+    heap_caps_free(mdat_buf);
+    ESP_LOGI(TAG_SM, "MP4 done (%u/%u frames shown)",
+             (unsigned)shown, (unsigned)frames.size());
+}
+
+void startup_play_mp4(esp_lcd_panel_handle_t panel,
+                      int display_w, int display_h,
+                      const char* mp4_path)
+{
+    play_mp4_impl(panel, display_w, display_h, mp4_path, nullptr, 0);
+}
+
+void startup_play_mp4_with_blit_buffer(esp_lcd_panel_handle_t panel,
+                                       int display_w, int display_h,
+                                       const char* mp4_path,
+                                       void* blit_mem, size_t blit_bytes)
+{
+    play_mp4_impl(panel, display_w, display_h, mp4_path, blit_mem, blit_bytes);
 }

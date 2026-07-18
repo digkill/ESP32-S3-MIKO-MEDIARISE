@@ -1,0 +1,24 @@
+Command: ninja size
+[0/1] cd /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-codex-wifi && /opt/homebrew/bin/cmake -D "IDF_SIZE_TOOL=/Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python;-m;esp_idf_size" -D MAP_FILE=/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-codex-wifi/xiaozhi.map -D OUTPUT_JSON= -P /Users/digkill/.espressif/v6.0.1/esp-idf/tools/cmake/run_size_tool.cmake
+                           Memory Type Usage Summary                            
+┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Memory            ┃              ┃          ┃                ┃               ┃
+┃ Type/Section      ┃ Used [bytes] ┃ Used [%] ┃ Remain [bytes] ┃ Total [bytes] ┃
+┡━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ Flash Code        │      2101844 │          │                │               │
+│    .text          │      2101844 │          │                │               │
+│ Flash Data        │       854440 │          │                │               │
+│    .rodata        │       804388 │          │                │               │
+│    .eh_frame      │        49732 │          │                │               │
+│    .appdesc       │          256 │          │                │               │
+│    .tdata         │           64 │          │                │               │
+│ DIRAM             │       168097 │    49.19 │         173663 │        341760 │
+│    .text          │       103279 │    30.22 │                │               │
+│    .data          │        36310 │    10.62 │                │               │
+│    .bss           │        27480 │     8.04 │                │               │
+│    .vectors       │         1028 │      0.3 │                │               │
+│ RTC FAST          │           40 │     0.49 │           8152 │          8192 │
+│    .rtc_reserved  │           40 │     0.49 │                │               │
+│ RTC SLOW          │           36 │     0.44 │           8156 │          8192 │
+│    .force_slow    │           36 │     0.44 │                │               │
+└───────────────────┴──────────────┴──────────┴────────────────┴───────────────┘

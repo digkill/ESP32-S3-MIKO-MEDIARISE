@@ -1,0 +1,54 @@
+# ── Target ────────────────────────────────────────────────────────────────────
+CONFIG_IDF_TARGET="esp32s3"
+
+# ── Flash / PSRAM (XIAO ESP32-S3 Sense: 8 MB Flash, 8 MB OPI PSRAM) ──────────
+CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y
+CONFIG_ESPTOOLPY_FLASHFREQ_80M=y
+CONFIG_SPIRAM=y
+CONFIG_SPIRAM_MODE_OCT=y
+CONFIG_SPIRAM_SPEED_80M=y
+CONFIG_SPIRAM_BOOT_INIT=y
+CONFIG_SPIRAM_USE_MALLOC=y
+CONFIG_SPIRAM_MALLOC_ALWAYSINTERNAL=16384
+CONFIG_SPIRAM_ALLOW_BSS_SEG_EXTERNAL_MEMORY=y
+
+# ── Partition table ────────────────────────────────────────────────────────────
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+
+# ── CPU ───────────────────────────────────────────────────────────────────────
+CONFIG_ESP32S3_DEFAULT_CPU_FREQ_240=y
+
+# ── Stack ─────────────────────────────────────────────────────────────────────
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=8192
+
+# ── Logging / console ─────────────────────────────────────────────────────────
+# C1001 on D6/D7 (GPIO43/44) shares USB Serial/JTAG pads. Runtime code in
+# c1001.cc releases the PHY before UART1 init; USB monitor works until then.
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y
+CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG=y
+CONFIG_ESP_CONSOLE_SECONDARY_NONE=y
+
+# ── mDNS ──────────────────────────────────────────────────────────────────────
+CONFIG_MDNS_MAX_SERVICES=5
+
+# ── WiFi ──────────────────────────────────────────────────────────────────────
+CONFIG_ESP_WIFI_STATIC_RX_BUFFER_NUM=4
+CONFIG_ESP_WIFI_DYNAMIC_RX_BUFFER_NUM=8
+
+# ── HTTP server ───────────────────────────────────────────────────────────────
+CONFIG_HTTPD_MAX_REQ_HDR_LEN=1024
+CONFIG_HTTPD_MAX_URI_LEN=512
+
+# ── Task Watchdog ─────────────────────────────────────────────────────────────
+CONFIG_ESP_TASK_WDT_TIMEOUT_S=10
+CONFIG_ESP_TASK_WDT_PANIC=n
+# tcpip_thread briefly starves IDLE during timer bursts — don't alert on that
+CONFIG_ESP_TASK_WDT_CHECK_IDLE_TASK_CPU0=n
+CONFIG_ESP_TASK_WDT_CHECK_IDLE_TASK_CPU1=n
+
+# ── lwIP ──────────────────────────────────────────────────────────────────────
+CONFIG_LWIP_TCP_MAXRTX=6
+CONFIG_LWIP_TCP_SYNMAXRTX=6
+# IPv6 not needed; disabling removes nd6_tmr/mld6_tmr/dhcp6_tmr from tcpip
+CONFIG_LWIP_IPV6=n

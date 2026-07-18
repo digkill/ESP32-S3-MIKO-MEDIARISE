@@ -1,0 +1,1790 @@
+Command: /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf_monitor.py -p /dev/cu.usbmodem101 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/xiaozhi.elf /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/bootloader/bootloader.elf -m '/Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python' '/Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf.py' '-B' 'xiaozhi-esp32/build-s3-v2' '-p' '/dev/cu.usbmodem101'
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x42025806
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (36) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (36) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (36) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (37) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (37) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (37) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (37) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (38) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (38) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (38) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (38) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (38) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (39) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (39) esp_psram: Speed: 80MHz[0m
+[0;32mI (40) cpu_start: Multicore app[0m
+[0;32mI (48) cpu_start: Pro cpu start user code[0m
+[0;32mI (48) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (49) app_init: Application information:[0m
+[0;32mI (49) app_init: Project name:     xiaozhi[0m
+[0;32mI (49) app_init: App version:      2.0.5[0m
+[0;32mI (49) app_init: Compile time:     Jun 17 2026 01:10:54[0m
+[0;32mI (49) app_init: ELF file SHA256:  681644bc2...[0m
+[0;32mI (49) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (49) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (50) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (50) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (50) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (50) heap_init: At 3FCB2310 len 00037400 (221 KiB): RAM[0m
+[0;32mI (50) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (50) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (50) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (51) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (51) spi_flash: detected chip: gd[0m
+[0;32mI (51) spi_flash: flash io: qio[0m
+[0;32mI (52) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (53) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (54) main_task: Started on CPU0[0m
+[0;32mI (64) esp_psram: Reserving pool of 128K of internal memory for DMA/internal allocations[0m
+[0;32mI (64) main_task: Calling app_main()[0m
+[0;32mI (84) main: Getting Application instance...[0m
+[0;32mI (84) main: Application instance obtained, calling Start()...[0m
+[0;32mI (84) Application: Application::Start() called[0m
+[0;32mI (84) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (84) button: IoT Button Version: 4.1.6[0m
+[0;32mI (84) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (114) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (114) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (114) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (114) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (114) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (114) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (114) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (114) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (434) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (434) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (434) Display: Power management not supported[0m
+[0;32mI (434) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (434) LcdDisplay: Размер: 410x502[0m
+[0;32mI (434) LcdDisplay: Panel handle: 0x3fcededc[0m
+[0;32mI (434) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (434) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (434) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (524) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (624) LcdDisplay: Включение дисплея...[0m
+[0;32mI (624) LcdDisplay: Дисплей включен[0m
+[0;32mI (624) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (624) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (624) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (624) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (624) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (624) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (624) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (624) LVGL: Starting LVGL task[0m
+[0;32mI (624) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (624) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (624) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (624) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (624) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (624) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (624) LcdDisplay: Настройка UI...[0m
+[0;32mI (624) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (624) LcdDisplay: Тема найдена: 0x3fcee054[0m
+[0;32mI (624) LcdDisplay: Шрифты загружены: text=0x3c26b430, icon=0x3c25cf34, large_icon=0x3c25cf34[0m
+[0;32mI (624) LcdDisplay: Активный экран найден: 0x3fcee9d8[0m
+[0;32mI (634) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (634) LcdDisplay:   container_: 0x3fceebbc[0m
+[0;32mI (634) LcdDisplay:   emoji_box_: 0x3fceeca4[0m
+[0;32mI (634) LcdDisplay:   emoji_label_: 0x3fceed48[0m
+[0;32mI (634) LcdDisplay:   emoji_image_: 0x3fce25c0[0m
+[0;32mI (634) LcdDisplay:   preview_image_: 0x3fce2658[0m
+[0;32mI (634) LcdDisplay:   top_bar_: 0x3fce26fc[0m
+[0;32mI (634) LcdDisplay:   status_bar_: 0x3fce2bcc[0m
+[0;32mI (634) LcdDisplay:   content_: 0[0m
+[0;32mI (634) LcdDisplay:   bottom_bar_: 0x3fce2f78[0m
+[0;32mI (634) LcdDisplay:   chat_message_label_: 0x3fce3018[0m
+[0;32mI (634) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (634) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (694) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (774) Backlight: Set brightness to 100[0m
+[0;32mI (774) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (774) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (774) WaveshareAMOLED2_06: FT3168 probe attempt 1 failed: ESP_ERR_NOT_FOUND[0m
+[1;31mE (784) i2c.master: probe device timeout. Please check if xfer_timeout_ms and pull-ups are correctly set up[0m
+[0;33mW (794) WaveshareAMOLED2_06: while waiting for FT3168 I2C scan: 0x18 0x34 0x40 0x51 0x6B[0m
+[0;33mW (1694) WaveshareAMOLED2_06: FT3168 probe attempt 10 failed: ESP_ERR_NOT_FOUND[0m
+[1;31mE (1704) i2c.master: probe device timeout. Please check if xfer_timeout_ms and pull-ups are correctly set up[0m
+[0;33mW (1704) WaveshareAMOLED2_06: while waiting for FT3168 I2C scan: 0x18 0x34 0x40 0x51 0x6B[0m
+[0;33mW (2704) WaveshareAMOLED2_06: FT3168 probe attempt 20 failed: ESP_ERR_NOT_FOUND[0m
+[0;33mW (2714) WaveshareAMOLED2_06: while waiting for FT3168 I2C scan: 0x18 0x34 0x40 0x51 0x6B[0m
+[0;32mI (2914) WaveshareAMOLED2_06: FT3168 probe: ESP_OK[0m
+[0;32mI (2914) WaveshareAMOLED2_06: FT3168 regs[2-6]: ESP_OK 00 40 C4 01 94[0m
+[0;32mI (2914) WaveshareAMOLED2_06: FT5x06-compatible touch enabled on GPIO38 falling edge[0m
+[0;32mI (2914) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+[0;32mI (2914) QMI8658: QMI8658 initialized successfully[0m
+[0;32mI (2914) XiaoBridge: Init XIAO UART bridge[0m
+[0;32mI (2914) XiaoBridge:   Port: UART_NUM_1[0m
+[0;32mI (2914) XiaoBridge:   Baud: 115200[0m
+[0;32mI (2914) XiaoBridge:   TX Pin: GPIO17[0m
+[0;32mI (2914) XiaoBridge:   RX Pin: GPIO18[0m
+[0;32mI (2914) uart: ESP_INTR_FLAG_IRAM flag not set while CONFIG_UART_ISR_IN_IRAM is enabled, flag updated[0m
+[0;32mI (2964) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (3014) XiaoBridge: Set pose: home[0m
+[0;32mI (3014) XiaoBridge: XIAO bridge UART initialized[0m
+[0;32mI (3014) WaveshareAMOLED2_06: ServoController OK[0m
+
+AMOLED command console ready. Type HELP.
+[0;32mI (3014) WaveshareAMOLED2_06: Vibration motor disabled: set VIBRATION_MOTOR_ENABLED and GPIO after wiring[0m
+[0;32mI (3014) WaveshareAMOLED2_06: Shake interaction ready[0m
+[0;32mI (3014) MCP: Add tool: self.system.reconfigure_wifi[0m
+[0;32mI (3014) MCP: Add tool: self.robot.set_servo[0m
+[0;32mI (3014) MCP: Add tool: self.robot.set_pose[0m
+[0;32mI (3014) MCP: Add tool: self.robot.move_servos[0m
+[0;32mI (3014) MCP: Add tool: self.robot.set_led[0m
+[0;32mI (3014) MCP: Add tool: self.robot.led_default[0m
+[0;32mI (3014) MCP: Add tool: self.robot.led_off[0m
+[0;32mI (3014) MCP: Add tool: self.robot.led_test[0m
+[0;32mI (3014) WaveshareAMOLED2_06: Robot MCP tools registered[0m
+[0;32mI (3014) MCP: Add tool: self.hardware.get_motion[0m
+[0;32mI (3014) MCP: Add tool: self.hardware.get_touch[0m
+[0;32mI (3014) MCP: Add tool: self.hardware.get_sdcard[0m
+[0;32mI (3014) MCP: Add tool: self.hardware.get_xiao_status[0m
+[0;32mI (3014) MCP: Add tool: self.hardware.get_proximity[0m
+[0;32mI (3014) MCP: Add tool: self.sensor.get_radar[0m
+[0;32mI (3014) MCP: Add tool: self.sensor.get_distance[0m
+[0;32mI (3014) MCP: Add tool: self.camera.get_status[0m
+[0;32mI (3014) MCP: Add tool: self.camera.capture_frame[0m
+[0;32mI (3014) MCP: Add tool: self.camera.stream_off[0m
+[0;32mI (3014) BLE_INIT: BT controller compile version [b7de11e][0m
+[0;32mI (3014) BLE_INIT: Using main XTAL as clock source[0m
+[0;32mI (3014) BLE_INIT: Feature Config, ADV:1, BLE_50:1, DTM:1, SCAN:1, CCA:0, SMP:1, CONNECT:1[0m
+[0;32mI (3014) BLE_INIT: Bluetooth MAC: 3c:dc:75:6f:cc:6e[0m
+[0;32mI (3014) phy_init: phy_version 711,97bcf0a2,Aug 25 2025,19:04:10[0m
+[0;32mI (3064) NimBLE: GAP procedure initiated: stop advertising.[0m
+
+[0;32mI (3064) NimBLE: GAP procedure initiated: stop advertising.[0m
+
+[0;32mI (3064) NimBLE: GAP procedure initiated: advertise; [0m
+[0;32mI (3064) NimBLE: disc_mode=2[0m
+[0;32mI (3064) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=0 adv_itvl_max=0[0m
+[0;32mI (3064) NimBLE: [0m
+
+[0;32mI (3064) HomeBotBLE: HomeBot BLE service starting[0m
+[0;32mI (3144) Application: Board instance obtained[0m
+[0;32mI (3144) Application: STATE: starting[0m
+[0;32mI (3154) Application: Device state set to Starting[0m
+[0;32mI (3154) Application: Getting display from board...[0m
+[0;32mI (3154) Application: Display obtained: 0x3fce34e0[0m
+[0;32mI (3154) Application: Setting chat message...[0m
+[0;32mI (3154) WaveshareAMOLED2_06: Chat [system]: waveshare-s3-touch-amoled-2.06/2.0.5[0m
+[0;32mI (3154) Application: Chat message set[0m
+[0;32mI (3154) Application: Getting audio codec from board...[0m
+[0;32mI (3154) BoxAudioCodec: Duplex channels created[0m
+[0;32mI (3154) ES8311: Work in Slave mode[0m
+[0;32mI (3164) ES7210: Work in Slave mode[0m
+[0;32mI (3174) ES7210: Enable ES7210_INPUT_MIC1[0m
+[0;32mI (3174) ES7210: Enable ES7210_INPUT_MIC2[0m
+[0;32mI (3174) ES7210: Enable ES7210_INPUT_MIC3[0m
+[0;32mI (3184) ES7210: Enable ES7210_INPUT_MIC4[0m
+[0;32mI (3184) ES7210: Enable TDM mode[0m
+[0;32mI (3194) BoxAudioCodec: BoxAudioDevice initialized[0m
+[0;32mI (3194) Application: Audio codec obtained: 0x3fcacaa8[0m
+[0;32mI (3194) Application: Initializing audio service...[0m
+[0;32mI (3194) AudioCodec: Enabling TX channel (speaker)[0m
+[0;32mI (3194) AudioCodec: Enabling RX channel (microphone)[0m
+[0;32mI (3194) I2S_IF: channel mode 2 bits:16/16 channel:4 mask:3[0m
+[0;32mI (3194) I2S_IF: TDM Mode 0 bits:16/16 channel:4 sample_rate:24000 mask:3[0m
+[0;32mI (3194) I2S_IF: channel mode 0 bits:16/16 channel:4 mask:3[0m
+[0;32mI (3194) I2S_IF: STD Mode 1 bits:32/32 channel:4 sample_rate:24000 mask:0[0m
+[0;32mI (3194) ES7210: Bits 16[0m
+[0;32mI (3204) ES7210: Enable ES7210_INPUT_MIC1[0m
+[0;32mI (3204) ES7210: Enable ES7210_INPUT_MIC2[0m
+[0;32mI (3204) ES7210: Enable ES7210_INPUT_MIC3[0m
+[0;32mI (3214) ES7210: Enable ES7210_INPUT_MIC4[0m
+[0;32mI (3214) ES7210: Enable TDM mode[0m
+[0;32mI (3294) ES7210: Unmuted[0m
+[0;32mI (3294) Adev_Codec: Open codec device OK[0m
+[0;32mI (3294) AudioCodec: Set input enable to true[0m
+[0;32mI (3294) I2S_IF: Mode 0 need extend bits 64 to 32[0m
+[0;32mI (3304) I2S_IF: channel mode 0 bits:16/32 channel:2 mask:1[0m
+[0;32mI (3304) I2S_IF: STD Mode 1 bits:16/32 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (3314) Adev_Codec: Open codec device OK[0m
+[0;32mI (3314) AudioCodec: Set output enable to true[0m
+[0;32mI (3314) AudioCodec: Audio codec started - Input: enabled, Output: enabled[0m
+[0;32mI (3314) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (3324) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (3324) OpusResampler: Resampler configured with input sample rate 16000 and output sample rate 24000[0m
+[0;32mI (3324) Application: Starting audio service...[0m
+[0;32mI (3324) Application: Audio service started[0m
+[0;32mI (3324) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (3324) Application: Starting network...[0m
+[0;32mI (3324) pp: pp rom version: e7ae62f[0m
+[0;32mI (3324) net80211: net80211 rom version: e7ae62f[0m
+[0;32mI (3334) wifi:wifi driver task: 3fcc51d0, prio:23, stack:6656, core=0[0m
+[0;32mI (3334) wifi:wifi firmware version: b37c951[0m
+[0;32mI (3334) wifi:wifi certification version: v7.0[0m
+[0;32mI (3334) wifi:config NVS flash: disabled[0m
+[0;32mI (3334) wifi:config nano formatting: disabled[0m
+[0;32mI (3334) wifi:Init data frame dynamic rx buffer num: 6[0m
+[0;32mI (3334) wifi:Init dynamic rx mgmt buffer num: 5[0m
+[0;32mI (3334) wifi:Init management short buffer num: 32[0m
+[0;32mI (3334) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (3334) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (3334) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (3334) wifi:Init static rx buffer num: 3[0m
+[0;32mI (3334) wifi:Init dynamic rx buffer num: 6[0m
+[0;32mI (3334) wifi_init: rx ba win: 3[0m
+[0;32mI (3334) wifi_init: accept mbox: 6[0m
+[0;32mI (3334) wifi_init: tcpip mbox: 16[0m
+[0;32mI (3334) wifi_init: udp mbox: 6[0m
+[0;32mI (3334) wifi_init: tcp mbox: 6[0m
+[0;32mI (3334) wifi_init: tcp tx win: 5760[0m
+[0;32mI (3334) wifi_init: tcp rx win: 5760[0m
+[0;32mI (3334) wifi_init: tcp mss: 1440[0m
+[0;32mI (3334) wifi:mode : sta (3c:dc:75:6f:cc:6c)[0m
+[0;32mI (3334) wifi:enable tsf[0m
+[0;33mW (3334) Display: ShowNotification: Сканирование Wi-Fi...[0m
+[0;32mI (8014) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (11064) WifiStation: Found AP: muza 2.4, BSSID: 58:25:75:f4:d3:10, RSSI: -66, Channel: 1, Authmode: 4[0m
+[0;33mW (11074) Display: ShowNotification: Подключение к muza 2.4...[0m
+[0;33mW (11074) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2[0m
+[0;32mI (11424) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (11424) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (11424) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (12314) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (12394) wifi:connected with muza 2.4, aid = 3, channel 1, BW20, bssid = 58:25:75:f4:d3:10[0m
+[0;32mI (12394) wifi:security: WPA2-PSK, phy: bgn, rssi: -54, cipher(pairwise:0x3, group:0x1), pmf:0[0m
+[0;32mI (12394) wifi:pm start, type: 1[0m
+
+[0;32mI (12394) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (12394) wifi:set rx beacon pti, rx_bcn_pti: 14, bcn_timeout: 25000, mt_pti: 14, mt_time: 10000[0m
+[0;32mI (12504) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (13054) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (13844) SystemInfo: free sram: 52547 minimal sram: 51255[0m
+[0;32mI (14584) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:1, winSize:64[0m
+[0;32mI (15554) AudioCodec: Set input enable to false[0m
+[0;32mI (15564) AudioCodec: Set output enable to false[0m
+[0;32mI (15584) esp_netif_handlers: sta ip: 192.168.0.52, mask: 255.255.255.0, gw: 192.168.0.1[0m
+[0;32mI (15584) WifiStation: Got IP: 192.168.0.52[0m
+[0;33mW (15584) Display: ShowNotification: Подключено к muza 2.4[0m
+[0;32mI (15584) ESPNOW: espnow [version: 2.0] init[0m
+[0;32mI (15584) XiaoBridge: ESP-NOW XIAO bridge enabled on Wi-Fi channel 1[0m
+[0;32mI (15584) XiaoBridge: ESP-NOW XIAO peer online: PONG[0m
+[0;32mI (15584) Application: Network started[0m
+[0;32mI (15584) Application: Updating status bar...[0m
+[0;32mI (15584) Application: Status bar updated[0m
+[0;32mI (15584) Assets: The storage free size is 21568 KB[0m
+[0;32mI (15584) Assets: The partition size is 8192 KB[0m
+[0;32mI (15924) Assets: The checksum calculation time is 340 ms[0m
+[0;32mI (15934) MODEL_LOADER: Successfully load srmodels[0m
+[0;32mI (15934) Assets: Refreshing display theme...[0m
+[0;33mW (15934) Ota: Serial number missing in eFuse, fallback to MAC: 3CDC756FCC6C[0m
+[0;32mI (15934) MCP: Add tool: self.get_device_status[0m
+[0;32mI (15934) MCP: Add tool: self.audio_speaker.set_volume[0m
+[0;32mI (15934) MCP: Add tool: self.screen.set_brightness[0m
+[0;32mI (15934) MCP: Add tool: self.get_system_info [user][0m
+[0;32mI (15934) MCP: Add tool: self.reboot [user][0m
+[0;32mI (15934) MCP: Add tool: self.upgrade_firmware [user][0m
+[0;32mI (15934) MCP: Add tool: self.assets.set_download_url [user][0m
+[0;33mW (15934) Application: No protocol specified in the OTA config, using WebSocket default[0m
+[0;32mI (15934) SystemInfo: free sram: 45183 minimal sram: 42623[0m
+[0;32mI (15934) Application: STATE: idle[0m
+[0;32mI (15934) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (16014) Application: [STATE] Device entering IDLE state - wake word detection enabled[0m
+[0;32mI (16014) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (16014) AudioService: [WAKE_WORD] Initializing wake word handler...[0m
+[0;32mI (16014) AfeWakeWord: Model 0: wn9_hiesp[0m
+[0;32mI (16014) AfeWakeWord: [WAKE_WORD] Loaded model: wn9_hiesp[0m
+[0;32mI (16014) AfeWakeWord: [WAKE_WORD] Available wake words: Hi,ESP[0m
+[0;32mI (16014) AfeWakeWord: [WAKE_WORD] Registered wake word: 'Hi,ESP'[0m
+[0;32mI (16014) AfeWakeWord: [WAKE_WORD] Total wake words registered: 1[0m
+[0;32mI (16014) AFE_CONFIG: Set WakeNet Model: wn9_hiesp[0m
+MC Quantized wakenet9: wakeNet9_v1h24_Hi,ESP_3_0.63_0.635, tigger:v4, mode:0, p:0, (Apr 28 2026 09:55:03)
+------ns: 
+[0;32mI (16084) AfeWakeWord: Audio detection task started, feed size: 512 fetch size: 512[0m
+[0;32mI (16084) AudioService: [WAKE_WORD] Wake word handler initialized successfully[0m
+[0;32mI (16084) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[1;31mE (16084) i2s_common: i2s_channel_disable(1260): the channel has not been enabled yet[0m
+[0;32mI (16084) I2S_IF: channel mode 2 bits:16/16 channel:4 mask:3[0m
+[0;32mI (16084) I2S_IF: TDM Mode 0 bits:16/16 channel:4 sample_rate:24000 mask:3[0m
+[1;31mE (16084) i2s_common: i2s_channel_disable(1260): the channel has not been enabled yet[0m
+[0;32mI (16084) I2S_IF: channel mode 0 bits:16/16 channel:4 mask:3[0m
+[1;31mE (16084) i2s_common: i2s_alloc_dma_desc(542): allocate DMA buffer failed[0m
+[1;31mE (16084) i2s_std: i2s_std_set_slot(158): allocate memory for dma descriptor failed[0m
+[1;31mE (16084) i2s_std: i2s_channel_reconfig_std_slot(458): set i2s standard slot failed[0m
+Guru Meditation Error: Core  0 panic'ed (StoreProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x42090de5  PS      : 0x00060430  A0      : 0x82091076  A1      : 0x3fcc6c20  
+A2      : 0x3c360488  A3      : 0x3fcc6c40  A4      : 0x00000020  A5      : 0x3fcf046c  
+A6      : 0x00000020  A7      : 0x00000001  A8      : 0x00000000  A9      : 0x3fcc6bf0  
+A10     : 0x00000101  A11     : 0x00000101  A12     : 0x00000018  A13     : 0x00000003  
+A14     : 0x3fcf03a0  A15     : 0x3fcc6c40  SAR     : 0x00000004  EXCCAUSE: 0x0000001d  
+EXCVADDR: 0x00000000  LBEG    : 0x400570e8  LEND    : 0x400570f3  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x42090de2:0x3fcc6c20 0x42091073:0x3fcc6cf0 0x420911db:0x3fcc6d40 0x4209046b:0x3fcc6d90 0x420121d7:0x3fcc6db0 0x4201160f:0x3fcc6de0 0x42011988:0x3fcc6e50 0x42011a5a:0x3fcc6ea0
+
+
+
+
+ELF file SHA256: 681644bc2
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038cefa
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (36) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (36) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (36) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (37) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (37) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (37) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (38) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (38) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (39) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (39) esp_psram: Speed: 80MHz[0m
+[0;32mI (39) cpu_start: Multicore app[0m
+[0;32mI (48) cpu_start: Pro cpu start user code[0m
+[0;32mI (48) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (48) app_init: Application information:[0m
+[0;32mI (48) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     Jun 17 2026 01:10:54[0m
+[0;32mI (49) app_init: ELF file SHA256:  681644bc2...[0m
+[0;32mI (49) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (49) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (49) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (49) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2310 len 00037400 (221 KiB): RAM[0m
+[0;32mI (50) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (50) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (50) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (51) spi_flash: detected chip: gd[0m
+[0;32mI (51) spi_flash: flash io: qio[0m
+[0;32mI (52) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (52) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (53) main_task: Started on CPU0[0m
+[0;32mI (63) esp_psram: Reserving pool of 128K of internal memory for DMA/internal allocations[0m
+[0;32mI (63) main_task: Calling app_main()[0m
+[0;32mI (83) main: Getting Application instance...[0m
+[0;32mI (83) main: Application instance obtained, calling Start()...[0m
+[0;32mI (83) Application: Application::Start() called[0m
+[0;32mI (83) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (83) button: IoT Button Version: 4.1.6[0m
+[0;32mI (83) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (113) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (113) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (113) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (113) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (113) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (113) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (113) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (113) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (433) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (433) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (433) Display: Power management not supported[0m
+[0;32mI (433) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (433) LcdDisplay: Размер: 410x502[0m
+[0;32mI (433) LcdDisplay: Panel handle: 0x3fcededc[0m
+[0;32mI (433) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (433) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (433) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (523) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (623) LcdDisplay: Включение дисплея...[0m
+[0;32mI (623) LcdDisplay: Дисплей включен[0m
+[0;32mI (623) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (623) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (623) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (623) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (623) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (623) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (623) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (623) LVGL: Starting LVGL task[0m
+[0;32mI (623) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (623) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (623) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (623) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (623) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (623) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (623) LcdDisplay: Настройка UI...[0m
+[0;32mI (623) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (623) LcdDisplay: Тема найдена: 0x3fcee054[0m
+[0;32mI (623) LcdDisplay: Шрифты загружены: text=0x3c26b430, icon=0x3c25cf34, large_icon=0x3c25cf34[0m
+[0;32mI (623) LcdDisplay: Активный экран найден: 0x3fcee9d8[0m
+[0;32mI (633) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (633) LcdDisplay:   container_: 0x3fceebbc[0m
+[0;32mI (633) LcdDisplay:   emoji_box_: 0x3fceeca4[0m
+[0;32mI (633) LcdDisplay:   emoji_label_: 0x3fceed48[0m
+[0;32mI (633) LcdDisplay:   emoji_image_: 0x3fce25c0[0m
+[0;32mI (633) LcdDisplay:   preview_image_: 0x3fce2658[0m
+[0;32mI (633) LcdDisplay:   top_bar_: 0x3fce26fc[0m
+[0;32mI (633) LcdDisplay:   status_bar_: 0x3fce2bcc[0m
+[0;32mI (633) LcdDisplay:   content_: 0[0m
+[0;32mI (633) LcdDisplay:   bottom_bar_: 0x3fce2f78[0m
+[0;32mI (633) LcdDisplay:   chat_message_label_: 0x3fce3018[0m
+[0;32mI (633) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (633) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (693) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (773) Backlight: Set brightness to 100[0m
+[0;32mI (773) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (773) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;32mI (773) WaveshareAMOLED2_06: FT3168 probe: ESP_OK[0m
+[0;32mI (773) WaveshareAMOLED2_06: FT3168 regs[2-6]: ESP_OK 00 40 C4 01 94[0m
+[0;32mI (773) WaveshareAMOLED2_06: FT5x06-compatible touch enabled on GPIO38 falling edge[0m
+[0;32mI (773) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+[0;32mI (773) QMI8658: QMI8658 initialized successfully[0m
+[0;32mI (773) XiaoBridge: Init XIAO UART bridge[0m
+[0;32mI (773) XiaoBridge:   Port: UART_NUM_1[0m
+[0;32mI (773) XiaoBridge:   Baud: 115200[0m
+[0;32mI (773) XiaoBridge:   TX Pin: GPIO17[0m
+[0;32mI (773) XiaoBridge:   RX Pin: GPIO18[0m
+[0;32mI (773) uart: ESP_INTR_FLAG_IRAM flag not set while CONFIG_UART_ISR_IN_IRAM is enabled, flag updated[0m
+[0;32mI (823) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (873) XiaoBridge: Set pose: home[0m
+[0;32mI (873) XiaoBridge: XIAO bridge UART initialized[0m
+[0;32mI (873) WaveshareAMOLED2_06: ServoController OK[0m
+
+AMOLED command console ready. Type HELP.
+[0;32mI (873) WaveshareAMOLED2_06: Vibration motor disabled: set VIBRATION_MOTOR_ENABLED and GPIO after wiring[0m
+[0;32mI (873) WaveshareAMOLED2_06: Shake interaction ready[0m
+[0;32mI (873) MCP: Add tool: self.system.reconfigure_wifi[0m
+[0;32mI (873) MCP: Add tool: self.robot.set_servo[0m
+[0;32mI (873) MCP: Add tool: self.robot.set_pose[0m
+[0;32mI (873) MCP: Add tool: self.robot.move_servos[0m
+[0;32mI (873) MCP: Add tool: self.robot.set_led[0m
+[0;32mI (873) MCP: Add tool: self.robot.led_default[0m
+[0;32mI (873) MCP: Add tool: self.robot.led_off[0m
+[0;32mI (873) MCP: Add tool: self.robot.led_test[0m
+[0;32mI (873) WaveshareAMOLED2_06: Robot MCP tools registered[0m
+[0;32mI (873) MCP: Add tool: self.hardware.get_motion[0m
+[0;32mI (873) MCP: Add tool: self.hardware.get_touch[0m
+[0;32mI (873) MCP: Add tool: self.hardware.get_sdcard[0m
+[0;32mI (873) MCP: Add tool: self.hardware.get_xiao_status[0m
+[0;32mI (873) MCP: Add tool: self.hardware.get_proximity[0m
+[0;32mI (873) MCP: Add tool: self.sensor.get_radar[0m
+[0;32mI (873) MCP: Add tool: self.sensor.get_distance[0m
+[0;32mI (873) MCP: Add tool: self.camera.get_status[0m
+[0;32mI (873) MCP: Add tool: self.camera.capture_frame[0m
+[0;32mI (873) MCP: Add tool: self.camera.stream_off[0m
+[0;32mI (873) BLE_INIT: BT controller compile version [b7de11e][0m
+[0;32mI (873) BLE_INIT: Using main XTAL as clock source[0m
+[0;32mI (873) BLE_INIT: Feature Config, ADV:1, BLE_50:1, DTM:1, SCAN:1, CCA:0, SMP:1, CONNECT:1[0m
+[0;32mI (873) BLE_INIT: Bluetooth MAC: 3c:dc:75:6f:cc:6e[0m
+[0;32mI (873) phy_init: phy_version 711,97bcf0a2,Aug 25 2025,19:04:10[0m
+[0;32mI (923) NimBLE: GAP procedure initiated: stop advertising.[0m
+
+[0;32mI (923) NimBLE: GAP procedure initiated: stop advertising.[0m
+
+[0;32mI (923) NimBLE: GAP procedure initiated: advertise; [0m
+[0;32mI (923) NimBLE: disc_mode=2[0m
+[0;32mI (923) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=0 adv_itvl_max=0[0m
+[0;32mI (923) NimBLE: [0m
+
+[0;32mI (923) HomeBotBLE: HomeBot BLE service starting[0m
+[0;32mI (1003) Application: Board instance obtained[0m
+[0;32mI (1003) Application: STATE: starting[0m
+[0;32mI (1003) Application: Device state set to Starting[0m
+[0;32mI (1003) Application: Getting display from board...[0m
+[0;32mI (1003) Application: Display obtained: 0x3fce34e0[0m
+[0;32mI (1003) Application: Setting chat message...[0m
+[0;32mI (1003) WaveshareAMOLED2_06: Chat [system]: waveshare-s3-touch-amoled-2.06/2.0.5[0m
+[0;32mI (1003) Application: Chat message set[0m
+[0;32mI (1003) Application: Getting audio codec from board...[0m
+[0;32mI (1003) BoxAudioCodec: Duplex channels created[0m
+[0;32mI (1013) ES8311: Work in Slave mode[0m
+[0;32mI (1023) ES7210: Work in Slave mode[0m
+[0;32mI (1023) ES7210: Enable ES7210_INPUT_MIC1[0m
+[0;32mI (1033) ES7210: Enable ES7210_INPUT_MIC2[0m
+[0;32mI (1033) ES7210: Enable ES7210_INPUT_MIC3[0m
+[0;32mI (1033) ES7210: Enable ES7210_INPUT_MIC4[0m
+[0;32mI (1043) ES7210: Enable TDM mode[0m
+[0;32mI (1043) BoxAudioCodec: BoxAudioDevice initialized[0m
+[0;32mI (1043) Application: Audio codec obtained: 0x3fcacaa8[0m
+[0;32mI (1043) Application: Initializing audio service...[0m
+[0;32mI (1043) AudioCodec: Enabling TX channel (speaker)[0m
+[0;32mI (1043) AudioCodec: Enabling RX channel (microphone)[0m
+[0;32mI (1043) I2S_IF: channel mode 2 bits:16/16 channel:4 mask:3[0m
+[0;32mI (1043) I2S_IF: TDM Mode 0 bits:16/16 channel:4 sample_rate:24000 mask:3[0m
+[0;32mI (1043) I2S_IF: channel mode 0 bits:16/16 channel:4 mask:3[0m
+[0;32mI (1043) I2S_IF: STD Mode 1 bits:32/32 channel:4 sample_rate:24000 mask:0[0m
+[0;32mI (1043) ES7210: Bits 16[0m
+[0;32mI (1053) ES7210: Enable ES7210_INPUT_MIC1[0m
+[0;32mI (1063) ES7210: Enable ES7210_INPUT_MIC2[0m
+[0;32mI (1063) ES7210: Enable ES7210_INPUT_MIC3[0m
+[0;32mI (1063) ES7210: Enable ES7210_INPUT_MIC4[0m
+[0;32mI (1073) ES7210: Enable TDM mode[0m
+[0;32mI (1073) ES7210: Unmuted[0m
+[0;32mI (1073) Adev_Codec: Open codec device OK[0m
+[0;32mI (1073) AudioCodec: Set input enable to true[0m
+[0;32mI (1073) I2S_IF: Mode 0 need extend bits 64 to 32[0m
+[0;32mI (1073) I2S_IF: channel mode 0 bits:16/32 channel:2 mask:1[0m
+[0;32mI (1083) I2S_IF: STD Mode 1 bits:16/32 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (1173) Adev_Codec: Open codec device OK[0m
+[0;32mI (1173) AudioCodec: Set output enable to true[0m
+[0;32mI (1173) AudioCodec: Audio codec started - Input: enabled, Output: enabled[0m
+[0;32mI (1173) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (1173) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (1173) OpusResampler: Resampler configured with input sample rate 16000 and output sample rate 24000[0m
+[0;32mI (1173) Application: Starting audio service...[0m
+[0;32mI (1173) Application: Audio service started[0m
+[0;32mI (1173) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (1173) Application: Starting network...[0m
+[0;32mI (1183) pp: pp rom version: e7ae62f[0m
+[0;32mI (1183) net80211: net80211 rom version: e7ae62f[0m
+[0;32mI (1193) wifi:wifi driver task: 3fcc51d0, prio:23, stack:6656, core=0[0m
+[0;32mI (1193) wifi:wifi firmware version: b37c951[0m
+[0;32mI (1193) wifi:wifi certification version: v7.0[0m
+[0;32mI (1193) wifi:config NVS flash: disabled[0m
+[0;32mI (1193) wifi:config nano formatting: disabled[0m
+[0;32mI (1193) wifi:Init data frame dynamic rx buffer num: 6[0m
+[0;32mI (1193) wifi:Init dynamic rx mgmt buffer num: 5[0m
+[0;32mI (1193) wifi:Init management short buffer num: 32[0m
+[0;32mI (1193) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1193) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (1193) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1193) wifi:Init static rx buffer num: 3[0m
+[0;32mI (1193) wifi:Init dynamic rx buffer num: 6[0m
+[0;32mI (1193) wifi_init: rx ba win: 3[0m
+[0;32mI (1193) wifi_init: accept mbox: 6[0m
+[0;32mI (1193) wifi_init: tcpip mbox: 16[0m
+[0;32mI (1193) wifi_init: udp mbox: 6[0m
+[0;32mI (1193) wifi_init: tcp mbox: 6[0m
+[0;32mI (1193) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1193) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1193) wifi_init: tcp mss: 1440[0m
+[0;32mI (1193) wifi:mode : sta (3c:dc:75:6f:cc:6c)[0m
+[0;32mI (1193) wifi:enable tsf[0m
+[0;33mW (1193) Display: ShowNotification: Сканирование Wi-Fi...[0m
+[0;32mI (5823) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (8513) WifiStation: Found AP: muza 2.4, BSSID: 58:25:75:f4:d3:10, RSSI: -55, Channel: 1, Authmode: 4[0m
+[0;33mW (8513) Display: ShowNotification: Подключение к muza 2.4...[0m
+[0;33mW (8513) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2[0m
+[0;32mI (8923) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (8923) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (8933) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (8943) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (8963) wifi:connected with muza 2.4, aid = 3, channel 1, BW20, bssid = 58:25:75:f4:d3:10[0m
+[0;32mI (8963) wifi:security: WPA2-PSK, phy: bgn, rssi: -58, cipher(pairwise:0x3, group:0x1), pmf:0[0m
+[0;32mI (8963) wifi:pm start, type: 1[0m
+
+[0;32mI (8963) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (8963) wifi:set rx beacon pti, rx_bcn_pti: 14, bcn_timeout: 25000, mt_pti: 14, mt_time: 10000[0m
+[0;32mI (9013) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (10853) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (11203) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:2, winSize:64[0m
+[0;32mI (11343) SystemInfo: free sram: 52635 minimal sram: 51187[0m
+[0;32mI (12273) esp_netif_handlers: sta ip: 192.168.0.52, mask: 255.255.255.0, gw: 192.168.0.1[0m
+[0;32mI (12273) WifiStation: Got IP: 192.168.0.52[0m
+[0;33mW (12273) Display: ShowNotification: Подключено к muza 2.4[0m
+[0;32mI (12273) ESPNOW: espnow [version: 2.0] init[0m
+[0;32mI (12273) XiaoBridge: ESP-NOW XIAO bridge enabled on Wi-Fi channel 1[0m
+[0;32mI (12283) XiaoBridge: ESP-NOW XIAO peer online: PONG[0m
+[0;32mI (12283) Application: Network started[0m
+[0;32mI (12283) Application: Updating status bar...[0m
+[0;32mI (12553) Application: Status bar updated[0m
+[0;32mI (12563) Assets: The storage free size is 21568 KB[0m
+[0;32mI (12563) Assets: The partition size is 8192 KB[0m
+[0;32mI (12903) Assets: The checksum calculation time is 341 ms[0m
+[0;32mI (12903) MODEL_LOADER: Successfully load srmodels[0m
+[0;32mI (12903) Assets: Refreshing display theme...[0m
+[0;33mW (12903) Ota: Serial number missing in eFuse, fallback to MAC: 3CDC756FCC6C[0m
+[0;32mI (12903) MCP: Add tool: self.get_device_status[0m
+[0;32mI (12903) MCP: Add tool: self.audio_speaker.set_volume[0m
+[0;32mI (12903) MCP: Add tool: self.screen.set_brightness[0m
+[0;32mI (12903) MCP: Add tool: self.get_system_info [user][0m
+[0;32mI (12903) MCP: Add tool: self.reboot [user][0m
+[0;32mI (12913) MCP: Add tool: self.upgrade_firmware [user][0m
+[0;32mI (12913) MCP: Add tool: self.assets.set_download_url [user][0m
+[0;33mW (12913) Application: No protocol specified in the OTA config, using WebSocket default[0m
+[0;32mI (12913) SystemInfo: free sram: 44867 minimal sram: 42467[0m
+[0;32mI (12913) Application: STATE: idle[0m
+[0;32mI (12913) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (12913) Application: [STATE] Device entering IDLE state - wake word detection enabled[0m
+[0;32mI (12913) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (12913) AudioService: [WAKE_WORD] Initializing wake word handler...[0m
+[0;32mI (12913) AfeWakeWord: Model 0: wn9_hiesp[0m
+[0;32mI (12913) AfeWakeWord: [WAKE_WORD] Loaded model: wn9_hiesp[0m
+[0;32mI (12913) AfeWakeWord: [WAKE_WORD] Available wake words: Hi,ESP[0m
+[0;32mI (12913) AfeWakeWord: [WAKE_WORD] Registered wake word: 'Hi,ESP'[0m
+[0;32mI (12913) AfeWakeWord: [WAKE_WORD] Total wake words registered: 1[0m
+[0;32mI (12913) AFE_CONFIG: Set WakeNet Model: wn9_hiesp[0m
+MC Quantized wakenet9: wakeNet9_v1h24_Hi,ESP_3_0.63_0.635, tigger:v4, mode:0, p:0, (Apr 28 2026 09:55:03)
+------ns: 
+[0;32mI (13053) AfeWakeWord: Audio detection task started, feed size: 512 fetch size: 512[0m
+[0;32mI (13053) AudioService: [WAKE_WORD] Wake word handler initialized successfully[0m
+[0;32mI (13053) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[0;32mI (13073) AudioService: [WAKE_WORD] Wake word detection is now ACTIVE[0m
+[0;33mW (13073) Display: ShowNotification: Версия [0m
+[0;32mI (13073) AudioService: OpusHead: version=1, channels=1, sample_rate=16000[0m
+[0;32mI (13073) AudioService: DecodeQueue push #1: q=0 bytes=59 sr=16000 fd=60[0m
+[0;32mI (13083) AudioService: Resampling audio from 16000 to 24000[0m
+[0;32mI (13083) OpusResampler: Resampler configured with input sample rate 16000 and output sample rate 24000[0m
+[0;32mI (13083) AudioService: Decoded packet #1: pcm_samples=960 sr=16000[0m
+[0;32mI (13093) AudioService: DecodeQueue push #2: q=0 bytes=146 sr=16000 fd=60[0m
+[0;32mI (13093) AudioService: Decoded packet #2: pcm_samples=960 sr=16000[0m
+[0;32mI (13093) AudioService: DecodeQueue push #3: q=0 bytes=131 sr=16000 fd=60[0m
+[0;32mI (13103) AudioService: Decoded packet #3: pcm_samples=960 sr=16000[0m
+[0;32mI (13103) AudioService: DecodeQueue push #4: q=0 bytes=152 sr=16000 fd=60[0m
+[0;32mI (13113) AudioService: Decoded packet #4: pcm_samples=960 sr=16000[0m
+[0;32mI (13223) AudioService: DecodeQueue push #5: q=0 bytes=154 sr=16000 fd=60[0m
+[0;32mI (13223) AudioService: Decoded packet #5: pcm_samples=960 sr=16000[0m
+[0;32mI (13423) main: Application::Start() returned[0m
+[0;32mI (13423) main_task: Returned from app_main()[0m
+[0;32mI (15863) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (20893) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (22403) SystemInfo: free sram: 22667 minimal sram: 10587[0m
+[0;32mI (25933) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (29523) I2S_IF: Pending out channel for in channel running[0m
+[0;32mI (29533) AudioCodec: Set output enable to false[0m
+[0;32mI (30973) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (32473) SystemInfo: free sram: 22815 minimal sram: 10587[0m
+[0;32mI (36043) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (41073) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (42573) SystemInfo: free sram: 22299 minimal sram: 10587[0m
+[0;32mI (46163) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (51193) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (52753) SystemInfo: free sram: 22299 minimal sram: 10587[0m
+[0;32mI (56203) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (61293) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (61573) wifi:<ba-add>idx:1 (ifx:0, 58:25:75:f4:d3:10), tid:5, ssn:1, winSize:64[0m
+[0;32mI (62753) SystemInfo: free sram: 22115 minimal sram: 10587[0m
+[0;32mI (66303) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (71373) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (72673) SystemInfo: free sram: 22619 minimal sram: 10587[0m
+[0;32mI (73823) PowerSaveTimer: Entering dim mode[0m
+[0;32mI (73823) Backlight: Set brightness to 30[0m
+[0;32mI (75973) wifi:[ADDBA]RX DELBA, reason:37, delete tid:5, initiator:1(originator)[0m
+[0;32mI (75973) wifi:<ba-del>idx:1, tid:5[0m
+[0;32mI (75973) wifi:[ADDBA]RX DELBA, reason:36, delete tid:0, initiator:0(recipient)[0m
+[0;32mI (75973) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (75973) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (76403) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (76693) wifi:state: run -> init (0xe00)[0m
+[0;32mI (76693) wifi:pm stop, total sleep time: 1008256 us / 67722607 us[0m
+
+[0;32mI (76693) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (76693) WifiStation: Reconnecting muza 2.4 (attempt 1 / 5)[0m
+[0;32mI (76843) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (76843) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (76843) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (76863) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (76903) wifi:connected with muza 2.4, aid = 1, channel 1, BW20, bssid = 58:25:75:f4:d3:10[0m
+[0;32mI (76903) wifi:security: WPA2-PSK, phy: bgn, rssi: -57, cipher(pairwise:0x3, group:0x1), pmf:0[0m
+[0;32mI (76903) wifi:pm start, type: 1[0m
+
+[0;32mI (76903) wifi:set rx beacon pti, rx_bcn_pti: 14, bcn_timeout: 25000, mt_pti: 14, mt_time: 10000[0m
+[0;32mI (76973) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (76983) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:2, winSize:64[0m
+[0;32mI (80093) esp_netif_handlers: sta ip: 192.168.0.52, mask: 255.255.255.0, gw: 192.168.0.1[0m
+[0;32mI (80093) WifiStation: Got IP: 192.168.0.52[0m
+[0;33mW (80093) Display: ShowNotification: Подключено к muza 2.4[0m
+[0;32mI (81473) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (82533) SystemInfo: free sram: 22743 minimal sram: 10587[0m
+[0;32mI (86483) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (91493) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (92403) SystemInfo: free sram: 22743 minimal sram: 10587[0m
+[0;32mI (96533) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (101603) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (102523) SystemInfo: free sram: 22227 minimal sram: 10587[0m
+[0;32mI (106623) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (111663) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (112463) SystemInfo: free sram: 22227 minimal sram: 10587[0m
+[0;32mI (116713) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (121753) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (122433) SystemInfo: free sram: 22743 minimal sram: 10587[0m
+[0;32mI (126803) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (131863) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (132353) SystemInfo: free sram: 22615 minimal sram: 10587[0m
+[0;32mI (136873) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (141933) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (142533) SystemInfo: free sram: 22307 minimal sram: 10587[0m
+[0;32mI (146963) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (151963) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (152323) SystemInfo: free sram: 22159 minimal sram: 10587[0m
+[0;32mI (156983) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (162093) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (162513) SystemInfo: free sram: 22823 minimal sram: 10587[0m
+[0;32mI (167143) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (172173) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (172673) SystemInfo: free sram: 22307 minimal sram: 10587[0m
+[0;32mI (177183) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (182223) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (182403) SystemInfo: free sram: 22307 minimal sram: 10587[0m
+[0;32mI (187243) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (189253) WaveshareAMOLED2_06: Strong shake detected: impulse=0.2 m/s2 rotation=821.1 dps[0m
+[0;32mI (189593) Backlight: Set brightness to 100[0m
+[0;32mI (189643) Application: STATE: connecting[0m
+[0;32mI (189643) WS: Protocol v3 framing: raw Opus frames[0m
+[0;32mI (189643) WS: Connecting to websocket server: ws://90.156.254.46:8080/ws with version: 3[0m
+[0;32mI (189723) XiaoBridge: Set pose: dizzy[0m
+[0;32mI (189793) wifi:<ba-add>idx:1 (ifx:0, 58:25:75:f4:d3:10), tid:5, ssn:1, winSize:64[0m
+[0;32mI (190333) XiaoBridge: Set pose: home[0m
+[0;32mI (190543) WS: Session ID: 9f9edede-ce35-407d-a042-d1ef1de1a203[0m
+[0;32mI (190543) WS: Server hello audio_params: sample_rate=24000, frame_duration=60[0m
+[0;32mI (190543) Application: [AUDIO_CHANNEL] Audio channel opened[0m
+[0;32mI (190543) Application: [AUDIO_CHANNEL] Server sample rate: 24000 Hz, Device sample rate: 24000 Hz[0m
+[0;32mI (190543) wifi:Set ps type: 0, coexist: 1[0m
+
+[0;32mI (190543) wifi:Coexist!!! Wi-Fi station would only keep waked when available[0m
+
+[0;32mI (190543) Application: STATE: idle[0m
+[0;32mI (190543) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (190543) Application: [STATE] Device entering IDLE state - wake word detection enabled[0m
+[0;32mI (190543) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (190543) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[0;32mI (190543) AudioService: [WAKE_WORD] Wake word detection is now ACTIVE[0m
+[0;32mI (190543) Application: [CHARACTER_EVENT] shake {"impulse_mps2":0.2,"rotation_dps":821.1,"reaction":"dizzy"}[0m
+[0;32mI (190543) Protocol: [PROTOCOL] Sending character event: shake[0m
+[0;32mI (192263) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (194453) XiaoBridge: Set pose: dizzy[0m
+[0;32mI (194743) Application: [RESPONSE] LLM emotion: dizzy[0m
+[0;32mI (194743) Application: [RESPONSE] LLM text: Meow... dizzy![0m
+[0;32mI (195063) XiaoBridge: Set pose: home[0m
+[0;32mI (195063) WaveshareAMOLED2_06: Chat [assistant]: Meow... dizzy![0m
+[0;32mI (195603) Application: [RESPONSE] TTS started - server will send audio[0m
+[0;32mI (195613) Application: STATE: speaking[0m
+[0;32mI (195613) Application: [STATE] Device entering SPEAKING state[0m
+[0;32mI (195613) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (195613) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[0;32mI (195613) AudioService: [WAKE_WORD] Wake word detection is now ACTIVE[0m
+[0;32mI (195613) Application: [STATE] Voice processing disabled, wake word: enabled (AFE)[0m
+[0;32mI (195743) WS: RX audio packet #1: len=51 payload=47 (bp3)[0m
+[0;32mI (195743) Application: [AUDIO_RECEIVE] Received audio packet #1, size: 47 bytes, timestamp: 0[0m
+[0;32mI (195753) I2S_IF: Mode 0 need extend bits 64 to 32[0m
+[0;32mI (195753) I2S_IF: channel mode 0 bits:16/32 channel:2 mask:1[0m
+[0;32mI (195753) I2S_IF: STD Mode 1 bits:16/32 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (195753) WS: RX audio packet #2: len=82 payload=78 (bp3)[0m
+[0;32mI (195753) Application: [AUDIO_RECEIVE] Received audio packet #2, size: 78 bytes, timestamp: 0[0m
+[0;32mI (195763) WS: RX audio packet #3: len=61 payload=57 (bp3)[0m
+[0;32mI (195763) Application: [AUDIO_RECEIVE] Received audio packet #3, size: 57 bytes, timestamp: 0[0m
+[0;32mI (195773) WS: RX audio packet #4: len=56 payload=52 (bp3)[0m
+[0;32mI (195773) Application: [AUDIO_RECEIVE] Received audio packet #4, size: 52 bytes, timestamp: 0[0m
+[0;32mI (195773) WS: RX audio packet #5: len=79 payload=75 (bp3)[0m
+[0;32mI (195773) Application: [AUDIO_RECEIVE] Received audio packet #5, size: 75 bytes, timestamp: 0[0m
+[0;32mI (195783) Application: [AUDIO_RECEIVE] Received audio packet #6, size: 70 bytes, timestamp: 0[0m
+[0;32mI (195793) Application: [AUDIO_RECEIVE] Received audio packet #7, size: 80 bytes, timestamp: 0[0m
+[0;32mI (195803) Adev_Codec: Open codec device OK[0m
+[0;32mI (195803) AudioCodec: Set output enable to true[0m
+[0;32mI (195823) Application: [AUDIO_RECEIVE] Received audio packet #8, size: 76 bytes, timestamp: 0[0m
+[0;32mI (195833) Application: [AUDIO_RECEIVE] Received audio packet #9, size: 77 bytes, timestamp: 0[0m
+[0;32mI (195843) Application: [AUDIO_RECEIVE] Received audio packet #10, size: 72 bytes, timestamp: 0[0m
+[0;32mI (195843) Application: [AUDIO_RECEIVE] Received audio packet #11, size: 72 bytes, timestamp: 0[0m
+[0;32mI (195983) Application: [AUDIO_RECEIVE] Received audio packet #12, size: 83 bytes, timestamp: 0[0m
+[0;32mI (195983) Application: [AUDIO_RECEIVE] Received audio packet #13, size: 76 bytes, timestamp: 0[0m
+[0;32mI (195993) Application: [AUDIO_RECEIVE] Received audio packet #14, size: 79 bytes, timestamp: 0[0m
+[0;32mI (196003) Application: [AUDIO_RECEIVE] Received audio packet #15, size: 79 bytes, timestamp: 0[0m
+[0;32mI (196003) Application: [AUDIO_RECEIVE] Received audio packet #16, size: 82 bytes, timestamp: 0[0m
+[0;32mI (196013) Application: [AUDIO_RECEIVE] Received audio packet #17, size: 77 bytes, timestamp: 0[0m
+[0;32mI (196023) Application: [AUDIO_RECEIVE] Received audio packet #18, size: 75 bytes, timestamp: 0[0m
+[0;32mI (196023) Application: [AUDIO_RECEIVE] Received audio packet #19, size: 76 bytes, timestamp: 0[0m
+[0;32mI (196233) Application: [AUDIO_RECEIVE] Received audio packet #20, size: 78 bytes, timestamp: 0[0m
+[0;32mI (196233) Application: [AUDIO_RECEIVE] Received audio packet #21, size: 72 bytes, timestamp: 0[0m
+[0;32mI (196243) Application: [AUDIO_RECEIVE] Received audio packet #22, size: 75 bytes, timestamp: 0[0m
+[0;32mI (196253) Application: [AUDIO_RECEIVE] Received audio packet #23, size: 72 bytes, timestamp: 0[0m
+[0;32mI (196253) Application: [AUDIO_RECEIVE] Received audio packet #24, size: 73 bytes, timestamp: 0[0m
+[0;32mI (196263) Application: [AUDIO_RECEIVE] Received audio packet #25, size: 67 bytes, timestamp: 0[0m
+[0;32mI (196273) Application: [AUDIO_RECEIVE] Received audio packet #26, size: 70 bytes, timestamp: 0[0m
+[0;32mI (196273) Application: [AUDIO_RECEIVE] Received audio packet #27, size: 62 bytes, timestamp: 0[0m
+[0;32mI (196283) Application: [AUDIO_RECEIVE] Received audio packet #28, size: 70 bytes, timestamp: 0[0m
+[0;32mI (196293) Application: [AUDIO_RECEIVE] Received audio packet #29, size: 64 bytes, timestamp: 0[0m
+[0;32mI (196293) Application: [AUDIO_RECEIVE] Received audio packet #30, size: 52 bytes, timestamp: 0[0m
+[0;32mI (196303) Application: [AUDIO_RECEIVE] Received audio packet #31, size: 50 bytes, timestamp: 0[0m
+[0;32mI (196313) Application: [AUDIO_RECEIVE] Received audio packet #32, size: 52 bytes, timestamp: 0[0m
+[0;32mI (196323) Application: [AUDIO_RECEIVE] Received audio packet #33, size: 45 bytes, timestamp: 0[0m
+[0;32mI (196323) Application: [AUDIO_RECEIVE] Received audio packet #34, size: 48 bytes, timestamp: 0[0m
+[0;32mI (196483) Application: [RESPONSE] TTS stopped[0m
+[0;32mI (196483) Application: STATE: listening[0m
+[0;32mI (196483) Application: [LISTENING_START] Starting to listen, mode: auto[0m
+[0;32mI (196483) Protocol: [PROTOCOL] Sending start listening command, mode: auto[0m
+------ns: 
+[0;32mI (196523) AfeAudioProcessor: Audio communication task started, feed size: 256 fetch size: 512[0m
+[0;32mI (196523) AudioService: [WAKE_WORD] Disabling wake word detection[0m
+[0;32mI (196523) AfeWakeWord: [WAKE_WORD] Stopping wake word detection[0m
+[0;32mI (196523) AudioService: [WAKE_WORD] Wake word detection is now INACTIVE[0m
+[0;32mI (196523) Application: [LISTENING_START] Voice processing enabled, wake word detection disabled[0m
+[0;32mI (196793) Application: [AUDIO_SEND] Sent 1 audio packet(s) to server[0m
+[0;32mI (196993) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (197143) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (197313) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (197393) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (197623) Application: [AUDIO_SEND] Sent 3 audio packet(s) to server[0m
+[0;32mI (197823) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (198003) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (198183) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (198363) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (198533) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (198543) Application: [RESPONSE] STT transcription: Thank you.[0m
+[0;32mI (198543) WaveshareAMOLED2_06: Chat [user]: Thank you.[0m
+[0;32mI (198873) Application: [AUDIO_SEND] Sent 3 audio packet(s) to server[0m
+[0;32mI (199063) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (199243) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (199383) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (199713) Application: [AUDIO_SEND] Sent 3 audio packet(s) to server[0m
+[0;32mI (199903) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (200093) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (200273) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (200483) Application: [AUDIO_SEND] Sent 3 audio packet(s) to server[0m
+[0;32mI (200603) Application: [AUDIO_SEND] Sent 1 audio packet(s) to server[0m
+[0;32mI (200803) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (200983) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (201153) Application: [AUDIO_SEND] Sent 3 audio packet(s) to server[0m
+[0;32mI (201303) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (201653) Application: [AUDIO_SEND] Sent 3 audio packet(s) to server[0m
+[0;32mI (201833) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (201993) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (202023) XiaoBridge: Set pose: nod[0m
+[0;32mI (202103) Application: [RESPONSE] LLM emotion: happy[0m
+[0;32mI (202103) Application: [RESPONSE] LLM text: Purr, welcome![0m
+[0;32mI (202283) Application: [RESPONSE] TTS sentence: Purr, welcome![0m
+[0;32mI (202423) Application: [AUDIO_SEND] Sent 4 audio packet(s) to server[0m
+[0;32mI (202423) WaveshareAMOLED2_06: Chat [assistant]: Purr, welcome![0m
+[0;32mI (202433) WaveshareAMOLED2_06: Chat [assistant]: Purr, welcome![0m
+[0;32mI (202503) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (202753) Application: [AUDIO_SEND] Sent 4 audio packet(s) to server[0m
+[0;32mI (202893) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (203063) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (203233) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (203393) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (203563) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (203733) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (203843) Application: [RESPONSE] TTS started - server will send audio[0m
+[0;32mI (203903) Application: STATE: speaking[0m
+[0;32mI (203903) Application: [STATE] Device entering SPEAKING state[0m
+[0;32mI (203903) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (203903) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[0;32mI (203903) AudioService: [WAKE_WORD] Wake word detection is now ACTIVE[0m
+[0;32mI (203903) Application: [STATE] Voice processing disabled, wake word: enabled (AFE)[0m
+[0;32mI (203913) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (203993) Application: [AUDIO_RECEIVE] Received audio packet #35, size: 45 bytes, timestamp: 0[0m
+[0;32mI (204003) Application: [AUDIO_RECEIVE] Received audio packet #36, size: 62 bytes, timestamp: 0[0m
+[0;32mI (204013) Application: [AUDIO_RECEIVE] Received audio packet #37, size: 70 bytes, timestamp: 0[0m
+[0;32mI (204023) Application: [AUDIO_RECEIVE] Received audio packet #38, size: 82 bytes, timestamp: 0[0m
+[0;32mI (204033) Application: [AUDIO_RECEIVE] Received audio packet #39, size: 72 bytes, timestamp: 0[0m
+[0;32mI (204043) Application: [AUDIO_RECEIVE] Received audio packet #40, size: 68 bytes, timestamp: 0[0m
+[0;32mI (204053) Application: [AUDIO_RECEIVE] Received audio packet #41, size: 59 bytes, timestamp: 0[0m
+[0;32mI (204063) Application: [AUDIO_RECEIVE] Received audio packet #42, size: 56 bytes, timestamp: 0[0m
+[0;32mI (204073) Application: [AUDIO_RECEIVE] Received audio packet #43, size: 67 bytes, timestamp: 0[0m
+[0;32mI (204073) Application: [AUDIO_RECEIVE] Received audio packet #44, size: 65 bytes, timestamp: 0[0m
+[0;32mI (204083) Application: [AUDIO_RECEIVE] Received audio packet #45, size: 73 bytes, timestamp: 0[0m
+[0;32mI (204093) Application: [AUDIO_RECEIVE] Received audio packet #46, size: 69 bytes, timestamp: 0[0m
+[0;32mI (204093) Application: [AUDIO_RECEIVE] Received audio packet #47, size: 68 bytes, timestamp: 0[0m
+[0;32mI (204233) Application: [AUDIO_RECEIVE] Received audio packet #48, size: 71 bytes, timestamp: 0[0m
+[0;32mI (204233) Application: [AUDIO_RECEIVE] Received audio packet #49, size: 79 bytes, timestamp: 0[0m
+[0;32mI (204243) Application: [AUDIO_RECEIVE] Received audio packet #50, size: 78 bytes, timestamp: 0[0m
+[0;32mI (204253) Application: [AUDIO_RECEIVE] Received audio packet #51, size: 66 bytes, timestamp: 0[0m
+[0;32mI (204253) Application: [AUDIO_RECEIVE] Received audio packet #52, size: 67 bytes, timestamp: 0[0m
+[0;32mI (204263) Application: [AUDIO_RECEIVE] Received audio packet #53, size: 70 bytes, timestamp: 0[0m
+[0;32mI (204273) Application: [AUDIO_RECEIVE] Received audio packet #54, size: 75 bytes, timestamp: 0[0m
+[0;32mI (204533) Application: [AUDIO_RECEIVE] Received audio packet #55, size: 51 bytes, timestamp: 0[0m
+[0;32mI (204543) Application: [AUDIO_RECEIVE] Received audio packet #56, size: 53 bytes, timestamp: 0[0m
+[0;32mI (204583) Application: [AUDIO_RECEIVE] Received audio packet #57, size: 71 bytes, timestamp: 0[0m
+[0;32mI (204593) Application: [AUDIO_RECEIVE] Received audio packet #58, size: 74 bytes, timestamp: 0[0m
+[0;32mI (204593) Application: [AUDIO_RECEIVE] Received audio packet #59, size: 76 bytes, timestamp: 0[0m
+[0;32mI (204603) Application: [AUDIO_RECEIVE] Received audio packet #60, size: 72 bytes, timestamp: 0[0m
+[0;32mI (204613) Application: [AUDIO_RECEIVE] Received audio packet #61, size: 73 bytes, timestamp: 0[0m
+[0;32mI (204613) Application: [AUDIO_RECEIVE] Received audio packet #62, size: 78 bytes, timestamp: 0[0m
+[0;32mI (204623) Application: [AUDIO_RECEIVE] Received audio packet #63, size: 68 bytes, timestamp: 0[0m
+[0;32mI (204633) Application: [AUDIO_RECEIVE] Received audio packet #64, size: 68 bytes, timestamp: 0[0m
+[0;32mI (204633) Application: [AUDIO_RECEIVE] Received audio packet #65, size: 75 bytes, timestamp: 0[0m
+[0;32mI (204643) Application: [AUDIO_RECEIVE] Received audio packet #66, size: 73 bytes, timestamp: 0[0m
+[0;32mI (204653) Application: [AUDIO_RECEIVE] Received audio packet #67, size: 81 bytes, timestamp: 0[0m
+[0;32mI (204653) Application: [AUDIO_RECEIVE] Received audio packet #68, size: 58 bytes, timestamp: 0[0m
+[0;32mI (204663) Application: [AUDIO_RECEIVE] Received audio packet #69, size: 60 bytes, timestamp: 0[0m
+[0;32mI (204673) Application: [AUDIO_RECEIVE] Received audio packet #70, size: 54 bytes, timestamp: 0[0m
+[0;32mI (204673) Application: [AUDIO_RECEIVE] Received audio packet #71, size: 66 bytes, timestamp: 0[0m
+[0;32mI (204683) Application: [AUDIO_RECEIVE] Received audio packet #72, size: 46 bytes, timestamp: 0[0m
+[0;32mI (204733) Application: [RESPONSE] TTS stopped[0m
+[0;32mI (204773) Application: STATE: listening[0m
+[0;32mI (204773) Application: [LISTENING_START] Starting to listen, mode: auto[0m
+[0;32mI (204773) Protocol: [PROTOCOL] Sending start listening command, mode: auto[0m
+[0;32mI (204773) AudioService: [WAKE_WORD] Disabling wake word detection[0m
+[0;32mI (204773) AfeWakeWord: [WAKE_WORD] Stopping wake word detection[0m
+[0;32mI (204773) AudioService: [WAKE_WORD] Wake word detection is now INACTIVE[0m
+[0;32mI (204773) Application: [LISTENING_START] Voice processing enabled, wake word detection disabled[0m
+[0;32mI (205513) Application: [AUDIO_SEND] Sent 3 audio packet(s) to server[0m
+[0;32mI (205673) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (205833) Application: [AUDIO_SEND] Sent 1 audio packet(s) to server[0m
+[0;32mI (206053) Application: [AUDIO_SEND] Sent 3 audio packet(s) to server[0m
+[0;32mI (206213) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (206583) Application: [AUDIO_SEND] Sent 3 audio packet(s) to server[0m
+[0;32mI (206783) Application: [AUDIO_SEND] Sent 3 audio packet(s) to server[0m
+[0;32mI (206943) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (207123) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (207213) Application: [RESPONSE] STT transcription: you[0m
+[0;32mI (207303) WaveshareAMOLED2_06: Chat [user]: you[0m
+[0;32mI (207303) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (207443) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (207663) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (207713) Application: [AUDIO_SEND] Sent 3 audio packet(s) to server[0m
+[0;32mI (207893) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (208063) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (208243) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (208433) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (208613) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (208783) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (208963) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (209143) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (209323) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (209653) Application: [AUDIO_SEND] Sent 3 audio packet(s) to server[0m
+[0;32mI (209843) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (210003) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (210163) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (210323) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (210493) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (210833) Application: [AUDIO_SEND] Sent 3 audio packet(s) to server[0m
+[0;32mI (211063) Application: [AUDIO_SEND] Sent 3 audio packet(s) to server[0m
+[0;32mI (211193) Application: [AUDIO_SEND] Sent 1 audio packet(s) to server[0m
+[0;32mI (211393) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (211563) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (211753) Application: [RESPONSE] LLM emotion: curious[0m
+[0;32mI (211753) Application: [RESPONSE] LLM text: Meow?[0m
+[0;32mI (211933) Application: [AUDIO_SEND] Sent 4 audio packet(s) to server[0m
+[0;32mI (211933) XiaoBridge: Set pose: nod[0m
+[0;32mI (212023) Application: [RESPONSE] TTS sentence: Meow?[0m
+[0;32mI (212383) Application: [AUDIO_SEND] Sent 4 audio packet(s) to server[0m
+[0;32mI (212383) WaveshareAMOLED2_06: Chat [assistant]: Meow?[0m
+[0;32mI (212383) WaveshareAMOLED2_06: Chat [assistant]: Meow?[0m
+[0;32mI (212703) Application: [AUDIO_SEND] Sent 4 audio packet(s) to server[0m
+[0;32mI (212763) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (212783) Application: [RESPONSE] TTS started - server will send audio[0m
+[0;32mI (212853) Application: STATE: speaking[0m
+[0;32mI (212853) Application: [STATE] Device entering SPEAKING state[0m
+[0;32mI (212853) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (212853) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[0;32mI (212853) AudioService: [WAKE_WORD] Wake word detection is now ACTIVE[0m
+[0;32mI (212853) Application: [STATE] Voice processing disabled, wake word: enabled (AFE)[0m
+[0;32mI (212853) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (212863) Application: [AUDIO_RECEIVE] Received audio packet #73, size: 51 bytes, timestamp: 0[0m
+[0;32mI (212863) Application: [AUDIO_RECEIVE] Received audio packet #74, size: 89 bytes, timestamp: 0[0m
+[0;32mI (212873) Application: [AUDIO_RECEIVE] Received audio packet #75, size: 81 bytes, timestamp: 0[0m
+[0;32mI (212873) Application: [AUDIO_RECEIVE] Received audio packet #76, size: 77 bytes, timestamp: 0[0m
+[0;32mI (212943) Application: [AUDIO_RECEIVE] Received audio packet #77, size: 72 bytes, timestamp: 0[0m
+[0;32mI (212943) Application: [AUDIO_RECEIVE] Received audio packet #78, size: 66 bytes, timestamp: 0[0m
+[0;32mI (212953) Application: [AUDIO_RECEIVE] Received audio packet #79, size: 78 bytes, timestamp: 0[0m
+[0;32mI (212973) Application: [AUDIO_RECEIVE] Received audio packet #80, size: 68 bytes, timestamp: 0[0m
+[0;32mI (212983) Application: [AUDIO_RECEIVE] Received audio packet #81, size: 64 bytes, timestamp: 0[0m
+[0;32mI (213023) Application: [AUDIO_RECEIVE] Received audio packet #82, size: 60 bytes, timestamp: 0[0m
+[0;32mI (213033) Application: [AUDIO_RECEIVE] Received audio packet #83, size: 67 bytes, timestamp: 0[0m
+[0;32mI (213033) Application: [AUDIO_RECEIVE] Received audio packet #84, size: 64 bytes, timestamp: 0[0m
+[0;32mI (213263) Application: [AUDIO_RECEIVE] Received audio packet #85, size: 81 bytes, timestamp: 0[0m
+[0;32mI (213273) Application: [AUDIO_RECEIVE] Received audio packet #86, size: 71 bytes, timestamp: 0[0m
+[0;32mI (213293) Application: [AUDIO_RECEIVE] Received audio packet #87, size: 68 bytes, timestamp: 0[0m
+[0;32mI (213293) Application: [AUDIO_RECEIVE] Received audio packet #88, size: 65 bytes, timestamp: 0[0m
+[0;32mI (213303) Application: [AUDIO_RECEIVE] Received audio packet #89, size: 56 bytes, timestamp: 0[0m
+[0;32mI (213313) Application: [AUDIO_RECEIVE] Received audio packet #90, size: 57 bytes, timestamp: 0[0m
+[0;32mI (213323) Application: [AUDIO_RECEIVE] Received audio packet #91, size: 56 bytes, timestamp: 0[0m
+[0;32mI (213333) Application: [AUDIO_RECEIVE] Received audio packet #92, size: 48 bytes, timestamp: 0[0m
+[0;32mI (213333) Application: [AUDIO_RECEIVE] Received audio packet #93, size: 50 bytes, timestamp: 0[0m
+[0;32mI (213343) Application: [AUDIO_RECEIVE] Received audio packet #94, size: 52 bytes, timestamp: 0[0m
+[0;32mI (213353) Application: [AUDIO_RECEIVE] Received audio packet #95, size: 45 bytes, timestamp: 0[0m
+[0;32mI (213483) Application: [AUDIO_RECEIVE] Received audio packet #96, size: 51 bytes, timestamp: 0[0m
+[0;32mI (213493) Application: [RESPONSE] TTS stopped[0m
+[0;32mI (213663) Application: STATE: listening[0m
+[0;32mI (213663) Application: [LISTENING_START] Starting to listen, mode: auto[0m
+[0;32mI (213663) Protocol: [PROTOCOL] Sending start listening command, mode: auto[0m
+[0;32mI (213663) AudioService: [WAKE_WORD] Disabling wake word detection[0m
+[0;32mI (213663) AfeWakeWord: [WAKE_WORD] Stopping wake word detection[0m
+[0;32mI (213663) AudioService: [WAKE_WORD] Wake word detection is now INACTIVE[0m
+[0;32mI (213663) Application: [LISTENING_START] Voice processing enabled, wake word detection disabled[0m
+[0;32mI (213993) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (214113) Application: [RESPONSE] STT transcription: Thank you.[0m
+[0;32mI (214153) WaveshareAMOLED2_06: Chat [user]: Thank you.[0m
+[0;32mI (214153) Application: [AUDIO_SEND] Sent 1 audio packet(s) to server[0m
+[0;32mI (214323) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (214713) Application: [AUDIO_SEND] Sent 5 audio packet(s) to server[0m
+[0;32mI (214933) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (215103) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (215283) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (215453) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (215753) Application: [AUDIO_SEND] Sent 3 audio packet(s) to server[0m
+[0;32mI (215953) Application: [AUDIO_SEND] Sent 3 audio packet(s) to server[0m
+[0;32mI (216083) Application: [AUDIO_SEND] Sent 1 audio packet(s) to server[0m
+[0;32mI (216263) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (216623) Application: [AUDIO_SEND] Sent 5 audio packet(s) to server[0m
+[0;32mI (216783) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (216973) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (217153) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (217283) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (217413) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (217733) Application: [AUDIO_SEND] Sent 3 audio packet(s) to server[0m
+[0;32mI (217823) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (217883) Application: [AUDIO_SEND] Sent 1 audio packet(s) to server[0m
+[0;32mI (218113) Application: [AUDIO_SEND] Sent 3 audio packet(s) to server[0m
+[0;32mI (218273) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (218413) Application: [AUDIO_SEND] Sent 1 audio packet(s) to server[0m
+[0;32mI (218843) Application: [AUDIO_SEND] Sent 5 audio packet(s) to server[0m
+[0;32mI (219013) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (219193) Application: [AUDIO_SEND] Sent 2 audio packet(s) to server[0m
+[0;32mI (219333) Application: [AUDIO_SEND] Sent 1 audio packet(s) to server[0m
+[0;32mI (219713) Application: [AUDIO_SEND] Sent 5 audio packet(s) to server[0m
+[0;32mI (222813) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (222823) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (222893) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (227963) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (228873) I2S_IF: Pending out channel for in channel running[0m
+[0;32mI (228873) AudioCodec: Set output enable to false[0m
+[1;31mE (229923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (229923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (229923) task_wdt: Tasks currently running:[0m
+[1;31mE (229923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (229923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (229923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (232993) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (238043) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (239923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (239923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (239923) task_wdt: Tasks currently running:[0m
+[1;31mE (239923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (239923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (239923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420072D5:0x3FCD98E0 0x4211F116:0x3FCD9900 0x4211DE33:0x3FCD9940 0x4211D7C3:0x3FCD9990 0x4211D469:0x3FCD99C0 0x4211D9BA:0x3FCD9A10 0x420EAEEA:0x3FCD9A40 0x420F4394:0x3FCD9AB0 0x420F555E:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (243083) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (248103) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (249923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (249923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (249923) task_wdt: Tasks currently running:[0m
+[1;31mE (249923) task_wdt: CPU 0: wifi[0m
+[1;31mE (249923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (249923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F94AA:0x3FCD9130 0x421EA8EE:0x3FCD9150 0x4211302F:0x3FCD9170 0x420F7127:0x3FCD9220 0x420F783E:0x3FCD9280 0x4211313D:0x3FCD93C0 0x42110347:0x3FCD93E0 0x420F5EC4:0x3FCD9400 0x420F5F10:0x3FCD9420 0x420F5F89:0x3FCD9450 0x420F709A:0x3FCD9470 0x4210AEF0:0x3FCD9490 0x421EA289:0x3FCD9580 0x420F04F1:0x3FCD95A0 0x420F451B:0x3FCD95E0 0x420F484C:0x3FCD9720 0x420F45C1:0x3FCD9810 0x420F484C:0x3FCD9950 0x420F4C59:0x3FCD9A40 0x420F4D0B:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (253193) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (258293) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (259923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (259923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (259923) task_wdt: Tasks currently running:[0m
+[1;31mE (259923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (259923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (259923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (263323) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (268433) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (269923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (269923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (269923) task_wdt: Tasks currently running:[0m
+[1;31mE (269923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (269923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (269923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (273523) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (278613) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (279923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (279923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (279923) task_wdt: Tasks currently running:[0m
+[1;31mE (279923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (279923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (279923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (280703) wifi:[ADDBA]RX DELBA, reason:37, delete tid:5, initiator:1(originator)[0m
+[0;32mI (280703) wifi:<ba-del>idx:1, tid:5[0m
+[0;32mI (281223) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:5, ssn:160, winSize:64[0m
+[0;32mI (283643) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (288743) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (289923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (289923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (289923) task_wdt: Tasks currently running:[0m
+[1;31mE (289923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (289923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (289923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (293823) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (298853) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (299923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (299923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (299923) task_wdt: Tasks currently running:[0m
+[1;31mE (299923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (299923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (299923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (303903) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (309003) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (309923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (309923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (309923) task_wdt: Tasks currently running:[0m
+[1;31mE (309923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (309923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (309923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (311973) wifi:[ADDBA]RX DELBA, reason:37, delete tid:5, initiator:1(originator)[0m
+[0;32mI (311973) wifi:<ba-del>idx:0, tid:5[0m
+[0;32mI (314083) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (319103) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (319923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (319923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (319923) task_wdt: Tasks currently running:[0m
+[1;31mE (319923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (319923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (319923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (324203) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (329233) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (329923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (329923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (329923) task_wdt: Tasks currently running:[0m
+[1;31mE (329923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (329923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (329923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (334283) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (339323) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (339923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (339923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (339923) task_wdt: Tasks currently running:[0m
+[1;31mE (339923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (339923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (339923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (344203) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:5, ssn:161, winSize:64[0m
+[0;32mI (344343) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (349433) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (349923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (349923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (349923) task_wdt: Tasks currently running:[0m
+[1;31mE (349923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (349923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (349923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (354453) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (359453) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (359923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (359923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (359923) task_wdt: Tasks currently running:[0m
+[1;31mE (359923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (359923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (359923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (364503) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (369533) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (369923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (369923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (369923) task_wdt: Tasks currently running:[0m
+[1;31mE (369923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (369923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (369923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (374573) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (374993) wifi:[ADDBA]RX DELBA, reason:37, delete tid:5, initiator:1(originator)[0m
+[0;32mI (374993) wifi:<ba-del>idx:0, tid:5[0m
+[0;32mI (379613) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (379923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (379923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (379923) task_wdt: Tasks currently running:[0m
+[1;31mE (379923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (379923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (379923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (384613) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (389663) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (389923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (389923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (389923) task_wdt: Tasks currently running:[0m
+[1;31mE (389923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (389923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (389923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (394753) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (399773) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (399923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (399923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (399923) task_wdt: Tasks currently running:[0m
+[1;31mE (399923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (399923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (399923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (404793) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (409803) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (409923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (409923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (409923) task_wdt: Tasks currently running:[0m
+[1;31mE (409923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (409923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (409923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (414983) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (419923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (419923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (419923) task_wdt: Tasks currently running:[0m
+[1;31mE (419923) task_wdt: CPU 0: IDLE0[0m
+[1;31mE (419923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (419923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420EF4C8:0x3FCD90E0 0x421EA289:0x3FCD9120 0x4210ABD0:0x3FCD9140 0x421EA289:0x3FCD9230 0x420F04F1:0x3FCD9250 0x420F0ACD:0x3FCD9290 0x420F1F2D:0x3FCD92C0 0x420F250F:0x3FCD9300 0x420EF1D3:0x3FCD9370 0x420EF816:0x3FCD9430 0x421EA289:0x3FCD9470 0x4210ABD0:0x3FCD9490 0x421EA289:0x3FCD9580 0x420F04F1:0x3FCD95A0 0x420F456D:0x3FCD95E0 0x420F484C:0x3FCD9720 0x420F45C1:0x3FCD9810 0x420F484C:0x3FCD9950 0x420F4C59:0x3FCD9A40 0x420F4D0B:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (420073) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (425083) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (429923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (429923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (429923) task_wdt: Tasks currently running:[0m
+[1;31mE (429923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (429923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (429923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (430153) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (435153) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (439923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (439923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (439923) task_wdt: Tasks currently running:[0m
+[1;31mE (439923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (439923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (439923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (440213) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (445253) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (449923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (449923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (449923) task_wdt: Tasks currently running:[0m
+[1;31mE (449923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (449923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (449923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (450283) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (455343) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (459923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (459923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (459923) task_wdt: Tasks currently running:[0m
+[1;31mE (459923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (459923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (459923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (460353) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (461923) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:24, winSize:64[0m
+[0;32mI (465383) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (467053) Application: [RESPONSE] LLM emotion: happy[0m
+[0;32mI (467063) Application: [RESPONSE] LLM text: Meow! You're welcome![0m
+[0;32mI (467063) Application: [RESPONSE] TTS sentence: Meow! You're welcome![0m
+[0;32mI (467083) wifi:<ba-add>idx:1 (ifx:0, 58:25:75:f4:d3:10), tid:5, ssn:163, winSize:64[0m
+[1;31mE (469923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (469923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (469923) task_wdt: Tasks currently running:[0m
+[1;31mE (469923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (469923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (469923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (470483) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (475583) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (479923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (479923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (479923) task_wdt: Tasks currently running:[0m
+[1;31mE (479923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (479923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (479923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40034736:0x3FCD9A00 0x420F90D7:0x3FCD9A20 0x420EAD3E:0x3FCD9A40 0x420F4394:0x3FCD9AB0 0x420F555E:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (480683) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (485683) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (489923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (489923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (489923) task_wdt: Tasks currently running:[0m
+[1;31mE (489923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (489923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (489923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (490733) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (492663) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (492663) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (495733) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (497823) wifi:[ADDBA]RX DELBA, reason:37, delete tid:5, initiator:1(originator)[0m
+[0;32mI (497823) wifi:<ba-del>idx:1, tid:5[0m
+[1;31mE (499923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (499923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (499923) task_wdt: Tasks currently running:[0m
+[1;31mE (499923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (499923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (499923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (500773) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (505893) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (509923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (509923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (509923) task_wdt: Tasks currently running:[0m
+[1;31mE (509923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (509923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (509923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F9127:0x3FCD9A20 0x420EAD3E:0x3FCD9A40 0x420F4394:0x3FCD9AB0 0x420F555E:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (510983) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (516083) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (519923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (519923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (519923) task_wdt: Tasks currently running:[0m
+[1;31mE (519923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (519923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (519923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (521183) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (526203) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (529923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (529923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (529923) task_wdt: Tasks currently running:[0m
+[1;31mE (529923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (529923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (529923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (531203) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (536243) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (539923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (539923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (539923) task_wdt: Tasks currently running:[0m
+[1;31mE (539923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (539923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (539923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (541263) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (546303) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (549923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (549923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (549923) task_wdt: Tasks currently running:[0m
+[1;31mE (549923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (549923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (549923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (551393) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (556493) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (559923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (559923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (559923) task_wdt: Tasks currently running:[0m
+[1;31mE (559923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (559923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (559923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (561523) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (566533) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (569923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (569923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (569923) task_wdt: Tasks currently running:[0m
+[1;31mE (569923) task_wdt: CPU 0: wifi[0m
+[1;31mE (569923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (569923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F949E:0x3FCD9130 0x421EA8EE:0x3FCD9150 0x4211302F:0x3FCD9170 0x420F7127:0x3FCD9220 0x420F783E:0x3FCD9280 0x4211313D:0x3FCD93C0 0x42110347:0x3FCD93E0 0x420F5EC4:0x3FCD9400 0x420F5F10:0x3FCD9420 0x420F5F89:0x3FCD9450 0x420F709A:0x3FCD9470 0x4210AEF0:0x3FCD9490 0x421EA289:0x3FCD9580 0x420F04F1:0x3FCD95A0 0x420F451B:0x3FCD95E0 0x420F484C:0x3FCD9720 0x420F45C1:0x3FCD9810 0x420F484C:0x3FCD9950 0x420F4C59:0x3FCD9A40 0x420F4D0B:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (571533) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (576543) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (579923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (579923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (579923) task_wdt: Tasks currently running:[0m
+[1;31mE (579923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (579923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (579923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (581603) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (581733) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:25, winSize:64[0m
+[0;32mI (586703) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (589923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (589923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (589923) task_wdt: Tasks currently running:[0m
+[1;31mE (589923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (589923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (589923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40056F59:0x3FCD91B0 0x42104988:0x3FCD91C0 0x4211B465:0x3FCD91E0 0x421169EA:0x3FCD9230 0x4211277D:0x3FCD92B0 0x420F6932:0x3FCD93B0 0x420F6F35:0x3FCD9430 0x42112D7D:0x3FCD94E0 0x42110357:0x3FCD9500 0x420F5EC4:0x3FCD9520 0x420F5F10:0x3FCD9540 0x420F5F89:0x3FCD9570 0x420F6D25:0x3FCD9590 0x42109FE2:0x3FCD96D0 0x421EA289:0x3FCD97B0 0x420F04F1:0x3FCD97D0 0x420F451B:0x3FCD9810 0x420F484C:0x3FCD9950 0x420F4C59:0x3FCD9A40 0x420F4D0B:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (589963) wifi:<ba-add>idx:1 (ifx:0, 58:25:75:f4:d3:10), tid:5, ssn:164, winSize:64[0m
+[0;32mI (591703) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (596713) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (599923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (599923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (599923) task_wdt: Tasks currently running:[0m
+[1;31mE (599923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (599923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (599923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F90DF:0x3FCD9A20 0x420EAD3E:0x3FCD9A40 0x420F4394:0x3FCD9AB0 0x420F555E:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (601763) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (606773) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (609923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (609923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (609923) task_wdt: Tasks currently running:[0m
+[1;31mE (609923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (609923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (609923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (611793) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (612473) wifi:[ADDBA]RX DELBA, reason:37, delete tid:0, initiator:1(originator)[0m
+[0;32mI (612473) wifi:<ba-del>idx:0, tid:0[0m
+[0;32mI (616843) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (619923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (619923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (619923) task_wdt: Tasks currently running:[0m
+[1;31mE (619923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (619923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (619923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (620703) wifi:[ADDBA]RX DELBA, reason:37, delete tid:5, initiator:1(originator)[0m
+[0;32mI (620703) wifi:<ba-del>idx:1, tid:5[0m
+[0;32mI (621853) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (626943) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (629923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (629923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (629923) task_wdt: Tasks currently running:[0m
+[1;31mE (629923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (629923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (629923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (631963) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (637013) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (639923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (639923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (639923) task_wdt: Tasks currently running:[0m
+[1;31mE (639923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (639923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (639923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (642103) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (647283) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (649923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (649923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (649923) task_wdt: Tasks currently running:[0m
+[1;31mE (649923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (649923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (649923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F47FA:0x3FCD9950 0x420F4BFB:0x3FCD9A40 0x420F4D17:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (652303) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (657303) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (659923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (659923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (659923) task_wdt: Tasks currently running:[0m
+[1;31mE (659923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (659923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (659923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F6214:0x3FCD99E0 0x421EA48D:0x3FCD9A00 0x420F6299:0x3FCD9A20 0x420F646F:0x3FCD9A40 0x420F4414:0x3FCD9A60 0x420F4D92:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (662353) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (667453) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (669923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (669923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (669923) task_wdt: Tasks currently running:[0m
+[1;31mE (669923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (669923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (669923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (672453) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (677503) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (679923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (679923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (679923) task_wdt: Tasks currently running:[0m
+[1;31mE (679923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (679923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (679923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x4003474B:0x3FCD9A00 0x420F90C7:0x3FCD9A20 0x420EAD3E:0x3FCD9A40 0x420F4394:0x3FCD9AB0 0x420F555E:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (682603) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (687703) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (689923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (689923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (689923) task_wdt: Tasks currently running:[0m
+[1;31mE (689923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (689923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (689923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (692813) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (697833) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (699923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (699923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (699923) task_wdt: Tasks currently running:[0m
+[1;31mE (699923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (699923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (699923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (702833) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (707883) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (709923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (709923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (709923) task_wdt: Tasks currently running:[0m
+[1;31mE (709923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (709923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (709923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (712993) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (717993) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (719923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (719923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (719923) task_wdt: Tasks currently running:[0m
+[1;31mE (719923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (719923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (719923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (723113) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (728113) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (729923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (729923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (729923) task_wdt: Tasks currently running:[0m
+[1;31mE (729923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (729923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (729923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x400021D5:0x3FCD9A20 0x420EAD3E:0x3FCD9A40 0x420F4394:0x3FCD9AB0 0x420F555E:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (733153) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (738183) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (739923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (739923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (739923) task_wdt: Tasks currently running:[0m
+[1;31mE (739923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (739923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (739923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40034745:0x3FCD9A00 0x420F90F7:0x3FCD9A20 0x420EAD3E:0x3FCD9A40 0x420F4394:0x3FCD9AB0 0x420F555E:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (743203) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (748313) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (749923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (749923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (749923) task_wdt: Tasks currently running:[0m
+[1;31mE (749923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (749923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (749923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (753403) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (758403) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (759923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (759923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (759923) task_wdt: Tasks currently running:[0m
+[1;31mE (759923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (759923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (759923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x4211E093:0x3FCD9920 0x4211D787:0x3FCD9970 0x4211D1E8:0x3FCD99A0 0x4211D3DB:0x3FCD99C0 0x4211D9BA:0x3FCD9A10 0x420EAEEA:0x3FCD9A40 0x420F4394:0x3FCD9AB0 0x420F555E:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (763453) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (768503) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (769923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (769923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (769923) task_wdt: Tasks currently running:[0m
+[1;31mE (769923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (769923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (769923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (773523) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (778543) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (779923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (779923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (779923) task_wdt: Tasks currently running:[0m
+[1;31mE (779923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (779923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (779923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (783553) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (788553) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (789923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (789923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (789923) task_wdt: Tasks currently running:[0m
+[1;31mE (789923) task_wdt: CPU 0: IDLE0[0m
+[1;31mE (789923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (789923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F4300:0x3FCD9A40 0x420F4C7D:0x3FCD9A60 0x420F4DA7:0x3FCD9A90 0x420F554F:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (790933) Application: [RESPONSE] TTS started - server will send audio[0m
+[0;32mI (790953) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:5, ssn:165, winSize:64[0m
+[0;32mI (793623) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (798703) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (799923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (799923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (799923) task_wdt: Tasks currently running:[0m
+[1;31mE (799923) task_wdt: CPU 0: esp_timer[0m
+[1;31mE (799923) task_wdt: CPU 1: IDLE1[0m
+[1;31mE (799923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x40389AB3:0x3FCB7600 0x421FE107:0x3FCB7620 0x421FF49B:0x3FCB7640
+
+[0;32mI (803703) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (808773) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (809923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (809923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (809923) task_wdt: Tasks currently running:[0m
+[1;31mE (809923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (809923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (809923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x420F90AC:0x3FCD9A20 0x420EAD3E:0x3FCD9A40 0x420F4394:0x3FCD9AB0 0x420F555E:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (813873) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (818973) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (819923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (819923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (819923) task_wdt: Tasks currently running:[0m
+[1;31mE (819923) task_wdt: CPU 0: audio_input[0m
+[1;31mE (819923) task_wdt: CPU 1: taskLVGL[0m
+[1;31mE (819923) task_wdt: Print CPU 1 backtrace[0m
+
+
+Backtrace: 0x40381D3A:0x3FCA8CE0 0x403815D3:0x3FCA8D00 0x4003474B:0x3FCD9A00 0x420F90E7:0x3FCD9A20 0x420EAD3E:0x3FCD9A40 0x420F4394:0x3FCD9AB0 0x420F555E:0x3FCD9AE0 0x421046D0:0x3FCD9B70 0x420EA551:0x3FCD9B90
+
+[0;32mI (822053) wifi:[ADDBA]RX DELBA, reason:37, delete tid:5, initiator:1(originator)[0m
+[0;32mI (822053) wifi:<ba-del>idx:0, tid:5[0m
+[0;32mI (824063) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (829163) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (829923) task_wdt: Task watchdog got triggered. The following tasks/users did not reset the watchdog in time:[0m
+[1;31mE (829923) task_wdt:  - main_event_loop (CPU 1)[0m
+[1;31mE (829923) task_wdt: Tasks currently running:[0m
+[1;31m

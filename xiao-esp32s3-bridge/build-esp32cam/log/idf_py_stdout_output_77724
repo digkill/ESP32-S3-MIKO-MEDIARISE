@@ -1,0 +1,27 @@
+Command: ninja all
+[1/18] Performing build step for 'bootloader'
+[1/1] cd /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/xiao-esp32s3-bridge/build-esp32cam/bootloader && /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/xiao-esp32s3-bridge/build-esp32cam/bootloader/bootloader.bin
+Bootloader binary size 0x6610 bytes. 0x9f0 bytes (9%) free.
+[2/18] No install step for 'bootloader'
+[3/18] Completed 'bootloader'
+[4/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/led_ring.cc.obj
+[5/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/servo.cc.obj
+[6/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/vl53l0x.cc.obj
+[7/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/http_server.cc.obj
+[8/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/c1001.cc.obj
+[9/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/espnow_bridge.cc.obj
+[10/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/camera.cc.obj
+[11/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/vision_upload.cc.obj
+[12/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/command.cc.obj
+[13/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/main.cc.obj
+[14/18] Linking C static library esp-idf/main/libmain.a
+[15/18] Generating esp-idf/esp_system/ld/sections.ld
+[16/18] Linking CXX executable xiao_esp32s3_bridge.elf
+[17/18] Generating binary image from built executable
+esptool v5.3.dev3
+Creating ESP32 image...
+Merged 3 ELF sections.
+Successfully created ESP32 image.
+Generated /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/xiao-esp32s3-bridge/build-esp32cam/xiao_esp32s3_bridge.bin
+[18/18] cd /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/xiao-esp32s3-bridge/build-esp32cam && /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/xiao-esp32s3-bridge/build-esp32cam/partition_table/partition-table.bin /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/xiao-esp32s3-bridge/build-esp32cam/xiao_esp32s3_bridge.bin
+xiao_esp32s3_bridge.bin binary size 0x11dd70 bytes. Smallest app partition is 0x300000 bytes. 0x1e2290 bytes (63%) free.

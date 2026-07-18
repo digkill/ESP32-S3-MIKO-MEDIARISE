@@ -1,0 +1,27 @@
+Command: ninja all
+[1/18] Performing build step for 'bootloader'
+[1/1] cd /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/bootloader && /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/bootloader/bootloader.bin
+Bootloader binary size 0x4120 bytes. 0x3ee0 bytes (49%) free.
+[2/18] No install step for 'bootloader'
+[3/18] Completed 'bootloader'
+[4/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/system_info.cc.obj
+[5/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/time_service.cc.obj
+[6/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/audio/audio_codec.cc.obj
+[7/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/waveshare-s3-touch-amoled-2.06/servo_controller.cc.obj
+[8/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/waveshare-s3-touch-amoled-2.06/startup_media.cc.obj
+[9/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/common/wifi_board.cc.obj
+[10/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/waveshare-s3-touch-amoled-2.06/homebot_ble_service.cc.obj
+[11/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/mcp_server.cc.obj
+[12/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/application.cc.obj
+[13/18] Building CXX object esp-idf/main/CMakeFiles/__idf_main.dir/boards/waveshare-s3-touch-amoled-2.06/esp32-s3-touch-amoled-2.06.cc.obj
+[14/18] Linking C static library esp-idf/main/libmain.a
+[15/18] Generating esp-idf/esp_system/ld/sections.ld
+[16/18] Linking CXX executable xiaozhi.elf
+[17/18] Generating binary image from built executable
+esptool v5.3.dev3
+Creating ESP32-S3 image...
+Merged 4 ELF sections.
+Successfully created ESP32-S3 image.
+Generated /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/xiaozhi.bin
+[18/18] cd /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2 && /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/partition_table/partition-table.bin /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/xiaozhi.bin
+xiaozhi.bin binary size 0x304db0 bytes. Smallest app partition is 0x3f0000 bytes. 0xeb250 bytes (23%) free.

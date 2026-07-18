@@ -8,6 +8,7 @@
 #include "led/single_led.h"
 #include "mcp_server.h"
 #include "config.h"
+#include "assets/lang_config.h"
 #include "power_save_timer.h"
 #include "axp2101.h"
 #include "i2c_device.h"
@@ -20,6 +21,7 @@
 
 #include <esp_log.h>
 #include <esp_err.h>
+#include <esp_system.h>
 #include <esp_lcd_panel_io.h>
 #include <esp_lcd_panel_ops.h>
 #include <esp_lcd_panel_vendor.h>
@@ -207,6 +209,14 @@ public:
         bool discharging = false;
         if (Board::GetInstance().GetBatteryLevel(level, charging, discharging)) {
             cat_->SetBatteryStatus(level, charging);
+            // Low-battery chime: fire once when discharging below the threshold,
+            // re-arm only after the level recovers (hysteresis) to avoid spam.
+            if (charging || level >= kLowBatteryClearPct) {
+                low_batt_warned_ = false;
+            } else if (!low_batt_warned_ && level <= kLowBatteryWarnPct) {
+                low_batt_warned_ = true;
+                Application::GetInstance().PlaySound(Lang::Sounds::OGG_LOW_BATTERY);
+            }
         }
         cat_->Update();
     }
@@ -231,8 +241,12 @@ public:
     }
 
 private:
+    static constexpr int kLowBatteryWarnPct  = 20;  // chime at/below this while discharging
+    static constexpr int kLowBatteryClearPct  = 25;  // re-arm once level recovers to this
+
     CatDisplay*       cat_          = nullptr;
     CustomLcdDisplay* lvgl_display_ = nullptr;
+    bool              low_batt_warned_ = false;
 };
 
 // ── Board class ───────────────────────────────────────────────────────────────
@@ -303,6 +317,7 @@ private:
             if (servo_controller_) {
                 servo_controller_->SetPowerSaveMode(false);
             }
+            Application::GetInstance().PlaySound(Lang::Sounds::OGG_VIBRATION);
         });
         power_save_timer_->SetEnabled(true);
     }
@@ -759,7 +774,9 @@ private:
                 return;
             }
             if (duration_ms >= 0 && duration_ms < 1200) {
-                Application::GetInstance().ToggleChatState();
+                Application::GetInstance().Schedule([]() {
+                    Application::GetInstance().ToggleChatState();
+                });
             } else if (duration_ms >= 1200 && duration_ms < 5000) {
                 char event_context[96];
                 snprintf(event_context, sizeof(event_context),
@@ -871,6 +888,9 @@ private:
                     if (board->cat_display_) {
                         board->cat_display_->SpawnTouchBubbles(x, y);
                     }
+                }
+                if (board->cat_display_) {
+                    board->cat_display_->AddTrailPoint(x, y);
                 }
             } else {
                 if (ret != ESP_OK && board->IsFt3168SleepError(ret)) {
@@ -1073,6 +1093,7 @@ private:
                 ResetWifiConfiguration();
                 return;
             }
+            app.PlaySound(Lang::Sounds::OGG_POPUP);
             app.ToggleChatState();
             power_save_timer_->WakeUp();
         });
@@ -1137,6 +1158,7 @@ private:
         printf("\nAMOLED console commands:\n");
         printf("  HELP\n");
         printf("  CHAT                           — toggle voice assistant\n");
+        printf("  TRANSLATE <th|ru|en|off>       — translator mode\n");
         printf("  EMOTION <happy|sad|angry|shy|love|sleep>\n");
         printf("  STATUS?\n");
         printf("  DIST?\n");
@@ -1175,6 +1197,41 @@ private:
         } else if (command == "CHAT" || command == "VOICE") {
             Application::GetInstance().ToggleChatState();
             printf("OK CHAT\n");
+            fflush(stdout);
+            return;
+        } else if (command == "TRANSLATE" || command == "TRANSLATOR") {
+            std::string target;
+            if (!(iss >> target)) {
+                printf("ERR usage: TRANSLATE <th|ru|en|off>\n");
+                fflush(stdout);
+                return;
+            }
+            std::string target_upper = Uppercase(target);
+            if (target_upper == "OFF" || target_upper == "0" || target_upper == "FALSE") {
+                Application::GetInstance().Schedule([]() {
+                    Application::GetInstance().SetTranslatorMode(false);
+                });
+                printf("OK TRANSLATE OFF\n");
+                fflush(stdout);
+                return;
+            }
+
+            std::string language = target;
+            if (target_upper == "TH" || target_upper == "THAI") {
+                language = "Thai";
+            } else if (target_upper == "RU" || target_upper == "RUSSIAN") {
+                language = "Russian";
+            } else if (target_upper == "EN" || target_upper == "ENGLISH") {
+                language = "English";
+            }
+            Application::GetInstance().Schedule([language]() {
+                auto& app = Application::GetInstance();
+                app.SetTranslatorMode(true, language, "auto");
+                if (app.GetDeviceState() == kDeviceStateIdle) {
+                    app.ToggleChatState();
+                }
+            });
+            printf("OK TRANSLATE %s\n", language.c_str());
             fflush(stdout);
             return;
         } else if (command == "EMOTION") {
@@ -1712,6 +1769,35 @@ private:
             });
     }
 
+    // Play "/sdcard/<name>_emotion.mp4" over the live UI. LVGL is paused for
+    // the whole clip and repaints the screen afterwards. Runs on the main
+    // loop (scheduled by the BLE service), so voice handling is briefly
+    // blocked — emotion clips should stay short (a few seconds).
+    void PlayEmotionVideo(const std::string& name) {
+        if (!sdcard_mounted_) {
+            ESP_LOGW(TAG, "Emotion video: SD card is not mounted");
+            return;
+        }
+        const std::string path = std::string(SDCARD_MOUNT_POINT "/") + name + "_emotion.mp4";
+        if (!lvgl_port_lock(2000)) {
+            ESP_LOGW(TAG, "Emotion video: LVGL lock timeout");
+            return;
+        }
+        // The internal DMA heap is exhausted at runtime, so the player
+        // borrows LVGL's draw buffer for its stripe transfers — LVGL is
+        // locked for the whole clip and repaints the screen afterwards.
+        lv_display_t* disp = lv_display_get_default();
+        lv_draw_buf_t* draw_buf = disp ? lv_display_get_buf_active(disp) : nullptr;
+        if (draw_buf && draw_buf->data && draw_buf->data_size > 0) {
+            startup_play_mp4_with_blit_buffer(panel_handle_, DISPLAY_WIDTH, DISPLAY_HEIGHT,
+                                              path.c_str(), draw_buf->data, draw_buf->data_size);
+        } else {
+            startup_play_mp4(panel_handle_, DISPLAY_WIDTH, DISPLAY_HEIGHT, path.c_str());
+        }
+        lv_obj_invalidate(lv_scr_act());
+        lvgl_port_unlock();
+    }
+
 public:
     WaveshareEsp32s3TouchAMOLED2inch06() : boot_button_(BOOT_BUTTON_GPIO) {
         InitializeCodecI2c();
@@ -1720,10 +1806,23 @@ public:
         InitializeSpi();
         InitializeLcdPanel();        // hardware panel only, no LVGL yet
 
-        // Show splash and play startup chime before LVGL takes over the panel.
-        startup_show_splash(panel_handle_, DISPLAY_WIDTH, DISPLAY_HEIGHT,
-                            SDCARD_MOUNT_POINT "/assets/logo_mediarise.png");
-        startup_play_wav(i2c_bus_, SDCARD_MOUNT_POINT "/assets/load.wav");
+        // Intro video from SD card root, then optional startup chime.
+        // Skip only self-inflicted restarts (panic, watchdog, esp_restart,
+        // deep-sleep wake) so a crash can never replay the intro; any kind of
+        // cold start (power button, EN reset, USB, brownout) plays it.
+        const esp_reset_reason_t reset_reason = esp_reset_reason();
+        const bool soft_restart = reset_reason == ESP_RST_SW ||
+                                  reset_reason == ESP_RST_PANIC ||
+                                  reset_reason == ESP_RST_INT_WDT ||
+                                  reset_reason == ESP_RST_TASK_WDT ||
+                                  reset_reason == ESP_RST_WDT ||
+                                  reset_reason == ESP_RST_DEEPSLEEP;
+        ESP_LOGI(TAG, "Reset reason %d, intro %s", (int)reset_reason,
+                 soft_restart ? "skipped" : "enabled");
+        if (!soft_restart) {
+            startup_play_mp4(panel_handle_, DISPLAY_WIDTH, DISPLAY_HEIGHT, STARTUP_INTRO_MP4);
+            startup_play_wav(i2c_bus_, SDCARD_MOUNT_POINT "/assets/load.wav");
+        }
 
         InitializeDisplay();         // LVGL + CatDisplay + backlight
         InitializeButtons();
@@ -1733,6 +1832,9 @@ public:
         InitializeServoController();
         InitializeMotionInteraction();
         homebot_ble_.SetXiaoController(servo_controller_);
+        homebot_ble_.SetVideoPlayer([this](const std::string& name) {
+            PlayEmotionVideo(name);
+        });
         RegisterMcpTools();
         RegisterHardwareMcpTools();
         homebot_ble_.Start();

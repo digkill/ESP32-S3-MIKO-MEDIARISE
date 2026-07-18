@@ -1,0 +1,109 @@
+Command: /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf_monitor.py -p /dev/cu.usbmodem1101 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/xiaozhi.elf /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/bootloader/bootloader.elf -m '/Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python' '/Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf.py' '-B' 'xiaozhi-esp32/build-s3-v2' '-p' '/dev/cu.usbmodem1101'
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x8 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4037ed32
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x10cc
+load:0x403c8700,len:0xc2c
+load:0x403cb700,len:0x30c0
+entry 0x403c88b8
+
+BOOT XIAO_SENSOR_BRIDGE
+Build: VL53=1 C1001=1 SERVOS=1 SD=0 AUDIO=0
+WiFi: connecting to "muza 2.4"...
+............
+WiFi: 192.168.0.58  http://192.168.0.58/
+mDNS: http://miko-cam.local/
+ESP-NOW: ready mac=90:70:69:12:BB:C8 channel=1
+SD recording: disabled (ENABLE_SD_RECORDING=0)
+LED ring gpio=9 count=8
+LED ring: OK
+Camera init...
+PSRAM: OK
+Camera: OK
+VL53L0X SDA=D4(GPIO5) SCL=D5(GPIO6)
+ESP-NOW cmd=PING reply=PONG
+ESP-NOW cmd=LEDDEFAULT reply=OK LEDDEFAULT
+ESP-NOW cmd=SERVO 60 60 reply=OK SERVO yaw=60 pitch=60
+ESP-NOW cmd=PING reply=PONG
+ESP-NOW cmd=LEDDEFAULT reply=OK LEDDEFAULT
+ESP-NOW cmd=SERVO 60 60 reply=OK SERVO yaw=60 pitch=60
+VL53L0X: begin() failed — I2C scan:
+I2C scan (Wire D4/D5):
+  (none — check wiring)
+VL53L0X: FAILED
+C1001 radar TX=D6(GPIO43) RX=D7(GPIO44) baud=115200; wire sensor RX<-D6 TX->D7
+C1001: waiting 3 s for sensor boot, then begin() waits up to 10 s...
+C1001: begin() attempt 1 → 0
+C1001: UART communication OK
+C1001: configuring falling mode (can take 10 s when mode changes)...
+C1001: falling mode attempt 1 -> 0
+C1001: applying configuration and restarting sensor (about 10 s)...
+C1001: READY for RADAR? queries
+C1001: OK
+Servos yaw=D1(GPIO2) pitch=D2(GPIO3) range=40..80 home=60
+Servos: OK
+VISION: upload enabled interval=15000ms endpoint=http://90.156.254.46:8080/api/robot/vision/frame
+Ready. Type HELP.
+VISION: upload failed status=-1 bytes=3540
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+VISION: upload failed status=-1 bytes=3526
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+VISION: upload failed status=-1 bytes=3556
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+VISION: upload failed status=-1 bytes=3505
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+VISION: upload failed status=-1 bytes=3551
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+VISION: upload failed status=-1 bytes=3565
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+VISION: upload failed status=-1 bytes=3567
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+VISION: upload failed status=-1 bytes=3637
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ESP-NOW cmd=LED 255 205 45 reply=OK LED
+ESP-NOW cmd=SERVO 40 40 reply=OK SERVO yaw=40 pitch=40
+ESP-NOW cmd=SERVO 80 40 reply=OK SERVO yaw=80 pitch=40
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=80 pitch=40 wifi=1 espnow=1 channel=1 power_save=0
+ESP-NOW cmd=SERVO 80 80 reply=OK SERVO yaw=80 pitch=80
+ESP-NOW cmd=SERVO 40 80 reply=OK SERVO yaw=40 pitch=80
+ESP-NOW cmd=SERVO 60 60 reply=OK SERVO yaw=60 pitch=60
+ESP-NOW cmd=LED 0 120 255 reply=OK LED
+ESP-NOW cmd=SERVO 40 40 reply=OK SERVO yaw=40 pitch=40
+ESP-NOW cmd=SERVO 80 40 reply=OK SERVO yaw=80 pitch=40
+ESP-NOW cmd=SERVO 80 80 reply=OK SERVO yaw=80 pitch=80
+ESP-NOW cmd=SERVO 40 80 reply=OK SERVO yaw=40 pitch=80
+VISION: upload failed status=-1 bytes=3553
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=40 pitch=80 wifi=1 espnow=1 channel=1 power_save=0
+ESP-NOW cmd=SERVO 60 60 reply=OK SERVO yaw=60 pitch=60
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ESP-NOW cmd=PITCH 40 reply=OK PITCH 40
+ESP-NOW cmd=PITCH 80 reply=OK PITCH 80
+ESP-NOW cmd=PITCH 60 reply=OK PITCH 60
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+VISION: upload failed status=-1 bytes=3548
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ESP-NOW cmd=PITCH 40 reply=OK PITCH 40
+ESP-NOW cmd=PITCH 80 reply=OK PITCH 80
+ESP-NOW cmd=PITCH 60 reply=OK PITCH 60
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0
+VISION: upload failed status=-1 bytes=3529
+ALIVE cam=1 vl53=0 c1001=1 servos=1 led=1 yaw=60 pitch=60 wifi=1 espnow=1 channel=1 power_save=0

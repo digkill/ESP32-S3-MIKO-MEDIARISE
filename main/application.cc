@@ -13,6 +13,9 @@
 #include "endpoints_config.h"
 #endif
 
+#include <algorithm>
+#include <array>
+#include <cctype>
 #include <cstring>
 #include <chrono>
 #include <esp_log.h>
@@ -21,6 +24,7 @@
 #include <arpa/inet.h>
 #include <font_awesome.h>
 #include <esp_task_wdt.h>
+#include <esp_app_desc.h>
 
 #define TAG "Application"
 static constexpr auto kMinAudioRestartInterval = std::chrono::seconds(5);
@@ -420,11 +424,12 @@ void Application::Start() {
     };
     audio_service_.SetCallbacks(callbacks);
 
-    // Start the main event loop task with priority 3
+    // Keep the event loop above real-time audio input so its watchdog can be reset
+    // even while AFE/AEC is doing long DSP bursts.
     xTaskCreate([](void* arg) {
         ((Application*)arg)->MainEventLoop();
         vTaskDelete(NULL);
-    }, "main_event_loop", 2048 * 4, this, 3, &main_event_loop_task_handle_);
+    }, "main_event_loop", 2048 * 4, this, 9, &main_event_loop_task_handle_);
 
     /* Start the clock timer to update the status bar */
     esp_timer_start_periodic(clock_timer_handle_, 1000000);
@@ -445,10 +450,7 @@ void Application::Start() {
     // Check for new assets version
     CheckAssetsVersion();
 
-    // Check for new firmware version or get the MQTT broker address
-    Ota ota;
-    // OTA disabled: server not ready, skip version check
-    // CheckNewVersion(ota);
+    // OTA fully disabled: no version check and no Ota config bootstrap.
 
     // Initialize the protocol
     display->SetStatus(Lang::Strings::LOADING_PROTOCOL);
@@ -458,19 +460,12 @@ void Application::Start() {
     mcp_server.AddCommonTools();
     mcp_server.AddUserOnlyTools();
 
-    if (ota.HasMqttConfig()) {
-        protocol_ = std::make_unique<MqttProtocol>();
-    } else if (ota.HasWebsocketConfig()) {
-        protocol_ = std::make_unique<WebsocketProtocol>();
-    } else {
+    // Protocol is fixed since OTA config is not used.
 #ifdef DEFAULT_WEBSOCKET_URL
-        ESP_LOGW(TAG, "No protocol specified in the OTA config, using WebSocket default");
-        protocol_ = std::make_unique<WebsocketProtocol>();
+    protocol_ = std::make_unique<WebsocketProtocol>();
 #else
-        ESP_LOGW(TAG, "No protocol specified in the OTA config, using MQTT");
-        protocol_ = std::make_unique<MqttProtocol>();
+    protocol_ = std::make_unique<MqttProtocol>();
 #endif
-    }
 
     protocol_->OnConnected([this]() {
         protocol_ready_ = true;
@@ -566,15 +561,16 @@ void Application::Start() {
                 auto text = cJSON_GetObjectItem(root, "text");
                 if (cJSON_IsString(text)) {
                     ESP_LOGI(TAG, "[RESPONSE] TTS sentence: %s", text->valuestring);
-                    Schedule([this, display, message = std::string(text->valuestring)]() {
-                        display->SetChatMessage("assistant", message.c_str());
-                        if (dialog_request_pending_) {
-                            if (!dialog_spoken_reply_.empty()) {
-                                dialog_spoken_reply_ += " ";
+                    if (dialog_request_pending_) {
+                        Schedule([this, message = std::string(text->valuestring)]() {
+                            if (dialog_request_pending_) {
+                                if (!dialog_spoken_reply_.empty()) {
+                                    dialog_spoken_reply_ += " ";
+                                }
+                                dialog_spoken_reply_ += message;
                             }
-                            dialog_spoken_reply_ += message;
-                        }
-                    });
+                        });
+                    }
                 }
             }
         } else if (strcmp(type->valuestring, "stt") == 0) {
@@ -664,9 +660,8 @@ void Application::Start() {
     SystemInfo::PrintHeapStats();
     SetDeviceState(kDeviceStateIdle);
 
-    has_server_time_ = ota.HasServerTime();
     if (protocol_started) {
-        std::string message = std::string(Lang::Strings::VERSION) + ota.GetCurrentVersion();
+        std::string message = std::string(Lang::Strings::VERSION) + esp_app_get_description()->version;
         display->ShowNotification(message.c_str());
         display->SetChatMessage("system", "");
         // Play the success sound to indicate the device is ready
@@ -720,19 +715,22 @@ void Application::MainEventLoop() {
         if (bits & MAIN_EVENT_SEND_AUDIO) {
             esp_task_wdt_reset(); // Сбрасываем watchdog перед отправкой аудио
             int packet_count = 0;
+            int sent_count = 0;
             while (auto packet = audio_service_.PopPacketFromSendQueue()) {
                 packet_count++;
-                if (protocol_ && !protocol_->SendAudio(std::move(packet))) {
+                if (protocol_ && protocol_->SendAudio(std::move(packet))) {
+                    sent_count++;
+                } else {
                     ESP_LOGW(TAG, "[AUDIO_SEND] Failed to send packet #%d, stopping", packet_count);
                     break;
                 }
                 // Сбрасываем watchdog каждые 10 пакетов, чтобы не было таймаута при большой очереди
-                if (packet_count % 10 == 0) {
+                if (sent_count % 10 == 0) {
                     esp_task_wdt_reset();
                 }
             }
-            if (packet_count > 0) {
-                ESP_LOGI(TAG, "[AUDIO_SEND] Sent %d audio packet(s) to server", packet_count);
+            if (sent_count > 0) {
+                ESP_LOGI(TAG, "[AUDIO_SEND] Sent %d audio packet(s) to server", sent_count);
             }
             esp_task_wdt_reset(); // Сбрасываем watchdog после отправки
         }
@@ -973,7 +971,7 @@ void Application::SetDeviceState(DeviceState state) {
                 const char* mode_str = listening_mode_ == kListeningModeRealtime ? "realtime" : 
                                       listening_mode_ == kListeningModeAutoStop ? "auto" : "manual";
                 ESP_LOGI(TAG, "[LISTENING_START] Starting to listen, mode: %s", mode_str);
-                protocol_->SendStartListening(listening_mode_);
+                protocol_->SendStartListening(listening_mode_, BuildTranslatorDirective());
                 esp_task_wdt_reset(); // Сбрасываем watchdog после отправки команды
                 audio_service_.EnableVoiceProcessing(true);
                 audio_service_.EnableWakeWordDetection(false);
@@ -1196,6 +1194,72 @@ void Application::SpeakText(const std::string& text) {
     protocol_->SendTtsRequest(text);
 }
 
+std::string Application::NormalizeLanguageName(const std::string& language) const {
+    std::string normalized;
+    normalized.reserve(language.size());
+    for (unsigned char ch : language) {
+        if (ch == '_' || ch == '-') {
+            normalized.push_back('-');
+        } else {
+            normalized.push_back((char)std::tolower(ch));
+        }
+    }
+
+    if (normalized == "th" || normalized == "th-th" || normalized == "thai") {
+        return "Thai";
+    }
+    if (normalized == "ru" || normalized == "ru-ru" || normalized == "russian") {
+        return "Russian";
+    }
+    if (normalized == "en" || normalized == "en-us" || normalized == "en-gb" ||
+        normalized == "english") {
+        return "English";
+    }
+    if (normalized == "auto" || normalized == "detect") {
+        return "auto";
+    }
+    if (normalized.empty()) {
+        return "Thai";
+    }
+    return language;
+}
+
+std::string Application::BuildTranslatorDirective() const {
+    if (!translator_mode_enabled_) {
+        return "";
+    }
+
+    std::string target = NormalizeLanguageName(translator_target_language_);
+    std::string source = NormalizeLanguageName(translator_source_language_);
+    std::string directive = "Translator mode is enabled. ";
+    if (source == "auto") {
+        directive += "Detect the user's spoken language automatically. ";
+    } else {
+        directive += "Translate from " + source + ". ";
+    }
+    directive += "Translate every user utterance to " + target +
+        ". Reply only with the translation, no explanations, no greetings, no extra comments.";
+    return directive;
+}
+
+void Application::SetTranslatorMode(
+    bool enabled, const std::string& target_language, const std::string& source_language) {
+    translator_mode_enabled_ = enabled;
+    translator_target_language_ = NormalizeLanguageName(target_language);
+    translator_source_language_ = source_language.empty() ? "auto" : source_language;
+
+    auto display = Board::GetInstance().GetDisplay();
+    if (enabled) {
+        ESP_LOGI(TAG, "[TRANSLATOR] Enabled, target=%s, source=%s",
+                 translator_target_language_.c_str(), translator_source_language_.c_str());
+        std::string message = "Translator mode: " + translator_target_language_;
+        display->SetChatMessage("system", message.c_str());
+    } else {
+        ESP_LOGI(TAG, "[TRANSLATOR] Disabled");
+        display->SetChatMessage("system", "Translator mode disabled");
+    }
+}
+
 void Application::ChatText(const std::string& text, const std::string& language) {
     if (!protocol_ || text.empty()) {
         ESP_LOGW(TAG, "Cannot send dialog message: protocol is not initialized or text is empty");
@@ -1228,7 +1292,8 @@ void Application::ChatText(const std::string& text, const std::string& language)
     auto display = Board::GetInstance().GetDisplay();
     display->SetChatMessage("user", text.c_str());
 
-    std::string prompt = "Reply in " + language +
+    std::string reply_language = NormalizeLanguageName(language);
+    std::string prompt = "Reply in " + reply_language +
         ". Keep the answer concise, at most two short sentences. User message: " + text;
     ESP_LOGI(TAG, "[BLE_DIALOG] Sending text dialog request: %.80s", text.c_str());
     protocol_->SendChatText(prompt);

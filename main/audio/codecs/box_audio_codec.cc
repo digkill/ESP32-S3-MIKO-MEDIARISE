@@ -180,8 +180,9 @@ void BoxAudioCodec::CreateDuplexChannels(gpio_num_t mclk, gpio_num_t bclk, gpio_
 }
 
 void BoxAudioCodec::SetOutputVolume(int volume) {
-    ESP_ERROR_CHECK(esp_codec_dev_set_out_vol(output_dev_, volume));
+    // Let the base class clamp to the safe range before touching hardware.
     AudioCodec::SetOutputVolume(volume);
+    ESP_ERROR_CHECK(esp_codec_dev_set_out_vol(output_dev_, output_volume_));
 }
 
 void BoxAudioCodec::EnableInput(bool enable) {
@@ -189,7 +190,14 @@ void BoxAudioCodec::EnableInput(bool enable) {
     if (enable == input_enabled_) {
         return;
     }
+    esp_err_t ret = ESP_OK;
     if (enable) {
+        // esp_codec_dev_open() reallocates the I2S DMA buffers from internal
+        // RAM and crashes deeper in the stack when that fails, so make the
+        // heap state visible in the log right before the risky call.
+        ESP_LOGI(TAG, "EnableInput: internal heap free=%u largest_block=%u",
+                 (unsigned)heap_caps_get_free_size(MALLOC_CAP_INTERNAL),
+                 (unsigned)heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL));
         esp_codec_dev_sample_info_t fs = {
             .bits_per_sample = 16,
             .channel = 4,
@@ -200,10 +208,22 @@ void BoxAudioCodec::EnableInput(bool enable) {
         if (input_reference_) {
             fs.channel_mask |= ESP_CODEC_DEV_MAKE_CHANNEL_MASK(1);
         }
-        ESP_ERROR_CHECK(esp_codec_dev_open(input_dev_, &fs));
-        ESP_ERROR_CHECK(esp_codec_dev_set_in_channel_gain(input_dev_, ESP_CODEC_DEV_MAKE_CHANNEL_MASK(0), input_gain_));
+        ret = esp_codec_dev_open(input_dev_, &fs);
+        if (ret != ESP_OK) {
+            ESP_LOGE(TAG, "Failed to open input codec: %s", esp_err_to_name(ret));
+            return;
+        }
+        ret = esp_codec_dev_set_in_channel_gain(input_dev_, ESP_CODEC_DEV_MAKE_CHANNEL_MASK(0), input_gain_);
+        if (ret != ESP_OK) {
+            ESP_LOGE(TAG, "Failed to set input gain: %s", esp_err_to_name(ret));
+            ESP_ERROR_CHECK_WITHOUT_ABORT(esp_codec_dev_close(input_dev_));
+            return;
+        }
     } else {
-        ESP_ERROR_CHECK(esp_codec_dev_close(input_dev_));
+        ret = esp_codec_dev_close(input_dev_);
+        if (ret != ESP_OK) {
+            ESP_LOGW(TAG, "Failed to close input codec: %s", esp_err_to_name(ret));
+        }
     }
     AudioCodec::EnableInput(enable);
 }
@@ -213,6 +233,7 @@ void BoxAudioCodec::EnableOutput(bool enable) {
     if (enable == output_enabled_) {
         return;
     }
+    esp_err_t ret = ESP_OK;
     if (enable) {
         // Play 16bit 1 channel
         esp_codec_dev_sample_info_t fs = {
@@ -222,10 +243,22 @@ void BoxAudioCodec::EnableOutput(bool enable) {
             .sample_rate = (uint32_t)output_sample_rate_,
             .mclk_multiple = 0,
         };
-        ESP_ERROR_CHECK(esp_codec_dev_open(output_dev_, &fs));
-        ESP_ERROR_CHECK(esp_codec_dev_set_out_vol(output_dev_, output_volume_));
+        ret = esp_codec_dev_open(output_dev_, &fs);
+        if (ret != ESP_OK) {
+            ESP_LOGE(TAG, "Failed to open output codec: %s", esp_err_to_name(ret));
+            return;
+        }
+        ret = esp_codec_dev_set_out_vol(output_dev_, output_volume_);
+        if (ret != ESP_OK) {
+            ESP_LOGE(TAG, "Failed to set output volume: %s", esp_err_to_name(ret));
+            ESP_ERROR_CHECK_WITHOUT_ABORT(esp_codec_dev_close(output_dev_));
+            return;
+        }
     } else {
-        ESP_ERROR_CHECK(esp_codec_dev_close(output_dev_));
+        ret = esp_codec_dev_close(output_dev_);
+        if (ret != ESP_OK) {
+            ESP_LOGW(TAG, "Failed to close output codec: %s", esp_err_to_name(ret));
+        }
     }
     AudioCodec::EnableOutput(enable);
 }

@@ -1,6 +1,7 @@
 #include "homebot_ble_service.h"
 
 #include <algorithm>
+#include <cctype>
 #include <cstring>
 #include <string>
 #include <sys/time.h>
@@ -8,6 +9,7 @@
 #include <cJSON.h>
 #include <esp_log.h>
 #include <esp_system.h>
+#include <esp_heap_caps.h>
 #include <host/ble_gap.h>
 #include <host/ble_gatt.h>
 #include <host/ble_hs.h>
@@ -27,12 +29,15 @@
 #include "display/display.h"
 #include "servo_controller.h"
 #include "settings.h"
+#include "time_service.h"
 
 static const char* TAG = "HomeBotBLE";
 #ifndef HOMEBOT_BLE_DEVICE_NAME
 #define HOMEBOT_BLE_DEVICE_NAME "HomeBot-C6"
 #endif
 static constexpr char kDeviceName[] = HOMEBOT_BLE_DEVICE_NAME;
+static constexpr char kDialogLanguagesJson[] =
+    R"([{"code":"en-US","name":"English"},{"code":"ru-RU","name":"Russian"},{"code":"th-TH","name":"Thai"}])";
 
 // UUID byte order is reversed for BLE_UUID128_INIT.
 static const ble_uuid128_t kServiceUuid =
@@ -56,6 +61,10 @@ HomeBotBleService::HomeBotBleService() {
 
 void HomeBotBleService::SetXiaoController(ServoController* controller) {
     xiao_controller_ = controller;
+}
+
+void HomeBotBleService::SetVideoPlayer(std::function<void(const std::string& name)> player) {
+    video_player_ = std::move(player);
 }
 
 static const ble_gatt_chr_def kCharacteristics[] = {
@@ -177,7 +186,9 @@ int HomeBotBleService::GapEvent(ble_gap_event* event, void* arg) {
     case BLE_GAP_EVENT_CONNECT:
         if (event->connect.status == 0) {
             service->connection_handle_ = event->connect.conn_handle;
-            ESP_LOGI(TAG, "iPhone connected over BLE");
+            ESP_LOGI(TAG, "iPhone connected over BLE (internal free: %u B, largest: %u B)",
+                     (unsigned)heap_caps_get_free_size(MALLOC_CAP_INTERNAL),
+                     (unsigned)heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL));
             ble_gap_security_initiate(service->connection_handle_);
         } else {
             service->Advertise();
@@ -185,7 +196,9 @@ int HomeBotBleService::GapEvent(ble_gap_event* event, void* arg) {
         return 0;
     case BLE_GAP_EVENT_DISCONNECT:
         service->connection_handle_ = BLE_HS_CONN_HANDLE_NONE;
-        ESP_LOGI(TAG, "BLE disconnected; advertising again");
+        ESP_LOGI(TAG, "BLE disconnected; advertising again (internal free: %u B, largest: %u B)",
+                 (unsigned)heap_caps_get_free_size(MALLOC_CAP_INTERNAL),
+                 (unsigned)heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL));
         service->Advertise();
         return 0;
     case BLE_GAP_EVENT_ENC_CHANGE:
@@ -296,6 +309,7 @@ void HomeBotBleService::HandleCommand(const std::string& json) {
     }
 
     std::string command_type = type->valuestring;
+    ESP_LOGI(TAG, "BLE command: %s", command_type.c_str());
     Application::GetInstance().Schedule([]() {
         Board::GetInstance().SetPowerSaveMode(false);
     });
@@ -329,6 +343,7 @@ void HomeBotBleService::HandleCommand(const std::string& json) {
             if (cJSON_IsString(timezone)) {
                 Settings settings("homebot", true);
                 settings.SetString("timezone", timezone->valuestring);
+                TimeService::GetInstance().ApplyTimezone();
             }
             SendEvent("time", "Clock synchronized", "ready");
         }
@@ -342,6 +357,33 @@ void HomeBotBleService::HandleCommand(const std::string& json) {
                 Board::GetInstance().GetDisplay()->SetEmotion(emotion.c_str());
             });
             SendEvent("emotion", "Emotion updated", "ready");
+        }
+    } else if (command_type == "emotion.video") {
+        cJSON* name = cJSON_GetObjectItem(payload, "name");
+        if (!cJSON_IsString(name) || name->valuestring[0] == '\0') {
+            SendEvent("emotion.video", "Emotion name is invalid", "invalid_emotion");
+        } else if (!video_player_) {
+            SendEvent("emotion.video", "Video playback unsupported", "unsupported");
+        } else {
+            std::string emotion = name->valuestring;
+            // The name becomes part of an SD card path — allow only a plain
+            // file-name stem.
+            bool valid = emotion.size() <= 32;
+            for (char c : emotion) {
+                if (!isalnum((unsigned char)c) && c != '_' && c != '-') {
+                    valid = false;
+                    break;
+                }
+            }
+            if (!valid) {
+                SendEvent("emotion.video", "Emotion name is invalid", "invalid_emotion");
+            } else {
+                auto player = video_player_;
+                Application::GetInstance().Schedule([player, emotion]() {
+                    player(emotion);
+                });
+                SendEvent("emotion.video", "Playing " + emotion, "ready");
+            }
         }
     } else if (command_type == "scene.play") {
         cJSON* name = cJSON_GetObjectItem(payload, "name");
@@ -455,6 +497,8 @@ void HomeBotBleService::HandleCommand(const std::string& json) {
             });
             SendEvent("speech", "Text sent for reading", "ready");
         }
+    } else if (command_type == "dialog.languages" || command_type == "translator.languages") {
+        SendEvent(command_type, kDialogLanguagesJson, "ready");
     } else if (command_type == "dialog.send") {
         cJSON* text = cJSON_GetObjectItem(payload, "text");
         cJSON* language = cJSON_GetObjectItem(payload, "language");
@@ -470,6 +514,29 @@ void HomeBotBleService::HandleCommand(const std::string& json) {
             });
             SendEvent("dialog", "Message sent to assistant", "pending");
         }
+    } else if (command_type == "translator.set") {
+        cJSON* enabled = cJSON_GetObjectItem(payload, "enabled");
+        cJSON* target_language = cJSON_GetObjectItem(payload, "targetLanguage");
+        cJSON* source_language = cJSON_GetObjectItem(payload, "sourceLanguage");
+        bool translator_enabled = !cJSON_IsBool(enabled) || cJSON_IsTrue(enabled);
+        if (translator_enabled &&
+            (!cJSON_IsString(target_language) || std::strlen(target_language->valuestring) == 0 ||
+             std::strlen(target_language->valuestring) > 32)) {
+            SendEvent("translator.error", "Target language is invalid", "invalid_language");
+        } else {
+            std::string target = cJSON_IsString(target_language) ? target_language->valuestring : "Thai";
+            std::string source = cJSON_IsString(source_language) ? source_language->valuestring : "auto";
+            Application::GetInstance().Schedule([translator_enabled, target, source]() {
+                auto& app = Application::GetInstance();
+                app.SetTranslatorMode(translator_enabled, target, source);
+                if (translator_enabled && app.GetDeviceState() == kDeviceStateIdle) {
+                    app.ToggleChatState();
+                }
+            });
+            SendEvent("translator",
+                      translator_enabled ? "Translator mode enabled" : "Translator mode disabled",
+                      "ready");
+        }
     } else if (command_type == "media.control") {
         cJSON* action = cJSON_GetObjectItem(payload, "action");
         if (cJSON_IsString(action) && std::strcmp(action->valuestring, "stop") == 0) {
@@ -480,6 +547,49 @@ void HomeBotBleService::HandleCommand(const std::string& json) {
         } else {
             SendEvent("media", "Only stop is supported by current audio pipeline", "unsupported");
         }
+    } else if (command_type == "audio.mute") {
+        // Mute/unmute all sound by driving output volume to 0 and restoring it.
+        cJSON* muted = cJSON_GetObjectItem(payload, "muted");
+        bool mute = !cJSON_IsBool(muted) || cJSON_IsTrue(muted);
+        if (mute) {
+            if (muted_saved_volume_ < 0) {
+                auto* codec = Board::GetInstance().GetAudioCodec();
+                int current = codec->output_volume();
+                muted_saved_volume_ = current > 0 ? current : 70;
+                Application::GetInstance().Schedule([]() {
+                    Board::GetInstance().GetAudioCodec()->SetOutputVolume(0);
+                });
+            }
+            SendEvent("audio", "Sound muted", "muted");
+        } else {
+            int restore = muted_saved_volume_ >= 0 ? muted_saved_volume_ : 70;
+            muted_saved_volume_ = -1;
+            Application::GetInstance().Schedule([restore]() {
+                Board::GetInstance().GetAudioCodec()->SetOutputVolume(restore);
+            });
+            SendEvent("audio", "Sound unmuted", "ready");
+        }
+    } else if (command_type == "power.save") {
+        // Enter/leave low-power mode: dim the screen, pause the display and Wi-Fi.
+        cJSON* enabled = cJSON_GetObjectItem(payload, "enabled");
+        bool on = !cJSON_IsBool(enabled) || cJSON_IsTrue(enabled);
+        Application::GetInstance().Schedule([on]() {
+            auto& board = Board::GetInstance();
+            if (on) {
+                if (auto* backlight = board.GetBacklight()) {
+                    backlight->SetBrightness(5);
+                }
+                board.GetDisplay()->SetPowerSaveMode(true);
+                board.SetPowerSaveMode(true);
+            } else {
+                board.SetPowerSaveMode(false);
+                board.GetDisplay()->SetPowerSaveMode(false);
+                if (auto* backlight = board.GetBacklight()) {
+                    backlight->RestoreBrightness();
+                }
+            }
+        });
+        SendEvent("power", on ? "Power save enabled" : "Power save disabled", "ready");
     } else if (command_type == "xiao.servo") {
         cJSON* yaw = cJSON_GetObjectItem(payload, "yaw");
         cJSON* pitch = cJSON_GetObjectItem(payload, "pitch");

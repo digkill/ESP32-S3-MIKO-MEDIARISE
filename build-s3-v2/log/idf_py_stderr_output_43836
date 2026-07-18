@@ -1,0 +1,684 @@
+Command: /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf_monitor.py -p /dev/cu.usbmodem101 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/xiaozhi.elf /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/bootloader/bootloader.elf -m '/Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python' '/Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf.py' '-B' 'xiaozhi-esp32/build-s3-v2' '-p' '/dev/cu.usbmodem101'
+[0;33m--- esp-idf-monitor 1.9.0 on /dev/cu.usbmodem101 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0m--- 0x42025806: [0;33mCatDisplay::DrawStroke(int, int, int, int, int, unsigned short)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/boards/waveshare-s3-touch-amoled-2.06/cat_display.cc[0m[0m:[1;31m503[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 4446b002f9e7fd38e14b69c39505b686a5497c21b6b45e41395982d0f78a04b9[0m
+[0m--- 0x42090de5: [0;33mes8311_set_mute[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x400570e8: [0;33mmemset[0m[0m in [0;32mROM[0m
+[0m--- 0x400570f3: [0;33mmemset[0m[0m in [0;32mROM[0m
+[0m--- 0x42090de2: [0;33mes8311_set_mute[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x42091073: [0;33mes8311_enable[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x420911db: [0;33mes8311_codec_new[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x4209046b: [0;33m_i2s_data_set_fmt[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x420121d7: [0;33mBoxAudioCodec::EnableInput(bool)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/codecs/box_audio_codec.cc[0m[0m:[1;31m206[0m
+[0m--- 0x4201160f: [0;33mAudioService::ReadAudioData(std::vector<short, std::allocator<short> >&, int, int)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/audio_service.cc[0m[0m:[1;31m146[0m
+[0m--- 0x42011988: [0;33mAudioService::AudioInputTask()[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/audio_service.cc[0m[0m:[1;31m283[0m
+[0m--- 0x42011a5a: [0;33mstd::vector<unsigned char, std::allocator<unsigned char> >::_M_default_append(unsigned int)[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/vector.tcc[0m[0m:[1;31m766[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 4446b002f9e7fd38e14b69c39505b686a5497c21b6b45e41395982d0f78a04b9[0m
+[0m--- 0x4038cefa: [0;33mesp_system_reset_modules_on_exit[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m36[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0;33m--- Warning: Checksum mismatch between flashed and built applications. Checksum of built application is 4446b002f9e7fd38e14b69c39505b686a5497c21b6b45e41395982d0f78a04b9[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420072d5: [0;33mesp_clk_tree_rc_fast_d256_get_freq_hz[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/port/esp_clk_tree_common.c[0m[0m:[1;31m89[0m
+[0m--- 0x4211f116: [0;33mread_otadata[0m[0m at [0;32mesp_ota_ops.c[0m[0m:[1;31m?[0m
+[0m--- 0x4211de33: [0;33mspi_master_init_driver[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_spi/src/gpspi/spi_master.c[0m[0m:[1;31m305[0m
+[0m--- (inlined by) [0;33mspi_bus_add_device[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_spi/src/gpspi/spi_master.c[0m[0m:[1;31m446[0m
+[0m--- 0x4211d7c3: [0;33mqmi8658_set_accel_range[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/waveshare__qmi8658/qmi8658.c[0m[0m:[1;31m88[0m
+[0m--- 0x4211d469: [0;33mspi_lcd_prepare_param_buffer[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_lcd/spi/esp_lcd_panel_io_spi.c[0m[0m:[1;31m198[0m
+[0m--- (inlined by) [0;33mpanel_io_spi_tx_param[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_lcd/spi/esp_lcd_panel_io_spi.c[0m[0m:[1;31m247[0m
+[0m--- 0x4211d9ba: [0;33mqmi8658_read_sensor_data[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/waveshare__qmi8658/qmi8658.c[0m[0m:[1;31m278[0m
+[0m--- 0x420eaeea: [0;33miot_button_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m660[0m
+[0m--- 0x420f4394: [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m395[0m
+[0m--- 0x420f555e: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m76[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f94aa: [0;33mindev_proc_pointer_diff[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/indev/lv_indev.c[0m[0m:[1;31m1561[0m
+[0m--- (inlined by) [0;33mindev_pointer_proc[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/indev/lv_indev.c[0m[0m:[1;31m744[0m
+[0m--- (inlined by) [0;33mlv_indev_read[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/indev/lv_indev.c[0m[0m:[1;31m256[0m
+[0m--- (inlined by) [0;33mlv_indev_read[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/indev/lv_indev.c[0m[0m:[1;31m211[0m
+[0m--- 0x421ea8ee: [0;33mlv_area_align[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/misc/lv_area.c[0m[0m:[1;31m332[0m
+[0m--- 0x4211302f: [0;33mlv_draw_sw_transform[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/sw/lv_draw_sw_transform.c[0m[0m:[1;31m132[0m
+[0m--- 0x420f7127: [0;33mlv_draw_rect[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_rect.c[0m[0m:[1;31m320[0m
+[0m--- 0x420f783e: [0;33mline_mask_steep[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/sw/lv_draw_sw_mask.c[0m[0m:[1;31m671[0m
+[0m--- (inlined by) [0;33mlv_draw_mask_line[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/sw/lv_draw_sw_mask.c[0m[0m:[1;31m436[0m
+[0m--- 0x4211313d: [0;33mlv_draw_sw_transform[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/sw/lv_draw_sw_transform.c[0m[0m:[1;31m190[0m
+[0m--- 0x42110347: [0;33mshadow_blur_corner[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/sw/lv_draw_sw_box_shadow.c[0m[0m:[1;31m707[0m
+[0m--- 0x420f5ec4: [0;33mlv_image_buf_get_transformed_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_image.c[0m[0m:[1;31m328[0m
+[0m--- 0x420f5f10: [0;33mlv_draw_layer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_image.c[0m[0m:[1;31m81[0m
+[0m--- 0x420f5f89: [0;33mlv_draw_image[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_image.c[0m[0m:[1;31m106[0m
+[0m--- 0x420f709a: [0;33mlv_draw_rect[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_rect.c[0m[0m:[1;31m304[0m
+[0m--- 0x4210aef0: [0;33mlv_roller_set_options[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/widgets/roller/lv_roller.c[0m[0m:[1;31m180[0m
+[0m--- (inlined by) [0;33mlv_roller_set_options[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/widgets/roller/lv_roller.c[0m[0m:[1;31m128[0m
+[0m--- 0x421ea289: [0;33mensureBits9[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/libs/lodepng/lodepng.c[0m[0m:[1;31m535[0m
+[0m--- 0x420f04f1: [0;33mlv_obj_hit_test[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_obj_pos.c[0m[0m:[1;31m956[0m
+[0m--- 0x420f451b: [0;33mlv_memzero[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/../misc/../font/../draw/../misc/../stdlib/lv_string.h[0m[0m:[1;31m75[0m
+[0m--- (inlined by) [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m420[0m
+[0m--- 0x420f484c: [0;33mrefr_invalid_areas[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m634[0m
+[0m--- (inlined by) [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m403[0m
+[0m--- 0x420f45c1: [0;33mrefr_sync_areas[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m508[0m
+[0m--- (inlined by) [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m402[0m
+[0m--- 0x420f484c: [0;33mrefr_invalid_areas[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m634[0m
+[0m--- (inlined by) [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m403[0m
+[0m--- 0x420f4c59: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m93[0m
+[0m--- 0x420f4d0b: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m142[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420ef4c8: [0;33mlv_obj_init_draw_image_dsc[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_obj_draw.c[0m[0m:[1;31m237[0m
+[0m--- 0x421ea289: [0;33mensureBits9[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/libs/lodepng/lodepng.c[0m[0m:[1;31m535[0m
+[0m--- 0x4210abd0: [0;33mtransform_vect_recursive[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/widgets/roller/lv_roller.c[0m[0m:[1;31m891[0m
+[0m--- 0x421ea289: [0;33mensureBits9[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/libs/lodepng/lodepng.c[0m[0m:[1;31m535[0m
+[0m--- 0x420f04f1: [0;33mlv_obj_hit_test[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_obj_pos.c[0m[0m:[1;31m956[0m
+[0m--- 0x420f0acd: [0;33mlv_obj_refr_size[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_obj_pos.c[0m[0m:[1;31m189[0m
+[0m--- 0x420f1f2d: [0;33mlv_obj_style_get_selector_state[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_obj_style.h[0m[0m:[1;31m186[0m
+[0m--- (inlined by) [0;33mget_prop_core[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_obj_style.c[0m[0m:[1;31m766[0m
+[0m--- 0x420f250f: [0;33mlv_obj_style_state_compare[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_obj_style.c[0m[0m:[1;31m547[0m
+[0m--- 0x420ef1d3: [0;33mlv_obj_init_draw_rect_dsc[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_obj_draw.c[0m[0m:[1;31m160[0m
+[0m--- 0x420ef816: [0;33mevent_is_bubbled[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_obj_event.c[0m[0m:[1;31m386[0m
+[0m--- (inlined by) [0;33mevent_send_core[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_obj_event.c[0m[0m:[1;31m376[0m
+[0m--- (inlined by) [0;33mlv_obj_send_event[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_obj_event.c[0m[0m:[1;31m67[0m
+[0m--- 0x421ea289: [0;33mensureBits9[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/libs/lodepng/lodepng.c[0m[0m:[1;31m535[0m
+[0m--- 0x4210abd0: [0;33mtransform_vect_recursive[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/widgets/roller/lv_roller.c[0m[0m:[1;31m891[0m
+[0m--- 0x421ea289: [0;33mensureBits9[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/libs/lodepng/lodepng.c[0m[0m:[1;31m535[0m
+[0m--- 0x420f04f1: [0;33mlv_obj_hit_test[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_obj_pos.c[0m[0m:[1;31m956[0m
+[0m--- 0x420f456d: [0;33mlv_refr_join_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m466[0m
+[0m--- (inlined by) [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m401[0m
+[0m--- 0x420f484c: [0;33mrefr_invalid_areas[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m634[0m
+[0m--- (inlined by) [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m403[0m
+[0m--- 0x420f45c1: [0;33mrefr_sync_areas[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m508[0m
+[0m--- (inlined by) [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m402[0m
+[0m--- 0x420f484c: [0;33mrefr_invalid_areas[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m634[0m
+[0m--- (inlined by) [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m403[0m
+[0m--- 0x420f4c59: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m93[0m
+[0m--- 0x420f4d0b: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m142[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40034736: [0;33m__bswapsi2[0m[0m in [0;32mROM[0m
+[0m--- 0x420f90d7: [0;33mindev_click_focus[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/indev/lv_indev.c[0m[0m:[1;31m1655[0m
+[0m--- (inlined by) [0;33mindev_proc_press[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/indev/lv_indev.c[0m[0m:[1;31m1288[0m
+[0m--- 0x420ead3e: [0;33miot_button_register_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m410[0m
+[0m--- 0x420f4394: [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m395[0m
+[0m--- 0x420f555e: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m76[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f9127: [0;33mindev_proc_release[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/indev/lv_indev.c[0m[0m:[1;31m1391[0m
+[0m--- 0x420ead3e: [0;33miot_button_register_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m410[0m
+[0m--- 0x420f4394: [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m395[0m
+[0m--- 0x420f555e: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m76[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f949e: [0;33mlv_obj_get_style_rotary_sensitivity[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/indev/../core/lv_obj_style_gen.h[0m[0m:[1;31m702[0m
+[0m--- (inlined by) [0;33mindev_proc_pointer_diff[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/indev/lv_indev.c[0m[0m:[1;31m1559[0m
+[0m--- (inlined by) [0;33mindev_pointer_proc[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/indev/lv_indev.c[0m[0m:[1;31m744[0m
+[0m--- (inlined by) [0;33mlv_indev_read[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/indev/lv_indev.c[0m[0m:[1;31m256[0m
+[0m--- (inlined by) [0;33mlv_indev_read[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/indev/lv_indev.c[0m[0m:[1;31m211[0m
+[0m--- 0x421ea8ee: [0;33mlv_area_align[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/misc/lv_area.c[0m[0m:[1;31m332[0m
+[0m--- 0x4211302f: [0;33mlv_draw_sw_transform[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/sw/lv_draw_sw_transform.c[0m[0m:[1;31m132[0m
+[0m--- 0x420f7127: [0;33mlv_draw_rect[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_rect.c[0m[0m:[1;31m320[0m
+[0m--- 0x420f783e: [0;33mline_mask_steep[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/sw/lv_draw_sw_mask.c[0m[0m:[1;31m671[0m
+[0m--- (inlined by) [0;33mlv_draw_mask_line[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/sw/lv_draw_sw_mask.c[0m[0m:[1;31m436[0m
+[0m--- 0x4211313d: [0;33mlv_draw_sw_transform[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/sw/lv_draw_sw_transform.c[0m[0m:[1;31m190[0m
+[0m--- 0x42110347: [0;33mshadow_blur_corner[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/sw/lv_draw_sw_box_shadow.c[0m[0m:[1;31m707[0m
+[0m--- 0x420f5ec4: [0;33mlv_image_buf_get_transformed_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_image.c[0m[0m:[1;31m328[0m
+[0m--- 0x420f5f10: [0;33mlv_draw_layer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_image.c[0m[0m:[1;31m81[0m
+[0m--- 0x420f5f89: [0;33mlv_draw_image[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_image.c[0m[0m:[1;31m106[0m
+[0m--- 0x420f709a: [0;33mlv_draw_rect[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_rect.c[0m[0m:[1;31m304[0m
+[0m--- 0x4210aef0: [0;33mlv_roller_set_options[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/widgets/roller/lv_roller.c[0m[0m:[1;31m180[0m
+[0m--- (inlined by) [0;33mlv_roller_set_options[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/widgets/roller/lv_roller.c[0m[0m:[1;31m128[0m
+[0m--- 0x421ea289: [0;33mensureBits9[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/libs/lodepng/lodepng.c[0m[0m:[1;31m535[0m
+[0m--- 0x420f04f1: [0;33mlv_obj_hit_test[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_obj_pos.c[0m[0m:[1;31m956[0m
+[0m--- 0x420f451b: [0;33mlv_memzero[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/../misc/../font/../draw/../misc/../stdlib/lv_string.h[0m[0m:[1;31m75[0m
+[0m--- (inlined by) [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m420[0m
+[0m--- 0x420f484c: [0;33mrefr_invalid_areas[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m634[0m
+[0m--- (inlined by) [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m403[0m
+[0m--- 0x420f45c1: [0;33mrefr_sync_areas[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m508[0m
+[0m--- (inlined by) [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m402[0m
+[0m--- 0x420f484c: [0;33mrefr_invalid_areas[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m634[0m
+[0m--- (inlined by) [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m403[0m
+[0m--- 0x420f4c59: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m93[0m
+[0m--- 0x420f4d0b: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m142[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40056f59: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x42104988: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m268[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x4211b465: [0;33mi1_image_blend[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/sw/blend/lv_draw_sw_blend_to_rgb565.c[0m[0m:[1;31m522[0m
+[0m--- (inlined by) [0;33mlv_draw_sw_blend_image_to_rgb565[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/sw/blend/lv_draw_sw_blend_to_rgb565.c[0m[0m:[1;31m428[0m
+[0m--- 0x421169ea: [0;33mal88_image_blend[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/sw/blend/lv_draw_sw_blend_to_al88.c[0m[0m:[1;31m615[0m
+[0m--- (inlined by) [0;33mlv_draw_sw_blend_image_to_al88[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/sw/blend/lv_draw_sw_blend_to_al88.c[0m[0m:[1;31m338[0m
+[0m--- 0x4211277d: [0;33mdraw_line_skew[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/sw/lv_draw_sw_line.c[0m[0m:[1;31m280[0m
+[0m--- (inlined by) [0;33mlv_draw_sw_line[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/sw/lv_draw_sw_line.c[0m[0m:[1;31m70[0m
+[0m--- 0x420f6932: [0;33mlv_draw_label_iterate_characters[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_label.c[0m[0m:[1;31m432[0m
+[0m--- 0x420f6f35: [0;33mlv_draw_rect[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_rect.c[0m[0m:[1;31m255[0m
+[0m--- 0x42112d7d: [0;33mtransform_rgb888[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/sw/lv_draw_sw_transform.c[0m[0m:[1;31m324[0m
+[0m--- 0x42110357: [0;33mshadow_blur_corner[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/sw/lv_draw_sw_box_shadow.c[0m[0m:[1;31m704[0m
+[0m--- 0x420f5ec4: [0;33mlv_image_buf_get_transformed_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_image.c[0m[0m:[1;31m328[0m
+[0m--- 0x420f5f10: [0;33mlv_draw_layer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_image.c[0m[0m:[1;31m81[0m
+[0m--- 0x420f5f89: [0;33mlv_draw_image[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_image.c[0m[0m:[1;31m106[0m
+[0m--- 0x420f6d25: [0;33mlv_draw_rect[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_rect.c[0m[0m:[1;31m145[0m
+[0m--- 0x42109fe2: [0;33mlv_obj_get_style_max_height[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/widgets/label/../../core/lv_obj_style_gen.h[0m[0m:[1;31m54[0m
+[0m--- (inlined by) [0;33mlv_label_event[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/widgets/label/lv_label.c[0m[0m:[1;31m795[0m
+[0m--- (inlined by) [0;33mlv_label_event[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/widgets/label/lv_label.c[0m[0m:[1;31m751[0m
+[0m--- 0x421ea289: [0;33mensureBits9[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/libs/lodepng/lodepng.c[0m[0m:[1;31m535[0m
+[0m--- 0x420f04f1: [0;33mlv_obj_hit_test[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_obj_pos.c[0m[0m:[1;31m956[0m
+[0m--- 0x420f451b: [0;33mlv_memzero[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/../misc/../font/../draw/../misc/../stdlib/lv_string.h[0m[0m:[1;31m75[0m
+[0m--- (inlined by) [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m420[0m
+[0m--- 0x420f484c: [0;33mrefr_invalid_areas[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m634[0m
+[0m--- (inlined by) [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m403[0m
+[0m--- 0x420f4c59: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m93[0m
+[0m--- 0x420f4d0b: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m142[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f90df: [0;33mindev_click_focus[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/indev/lv_indev.c[0m[0m:[1;31m1689[0m
+[0m--- (inlined by) [0;33mindev_proc_press[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/indev/lv_indev.c[0m[0m:[1;31m1288[0m
+[0m--- 0x420ead3e: [0;33miot_button_register_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m410[0m
+[0m--- 0x420f4394: [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m395[0m
+[0m--- 0x420f555e: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m76[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f47fa: [0;33mrefr_invalid_areas[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m645[0m
+[0m--- (inlined by) [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m403[0m
+[0m--- 0x420f4bfb: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m65[0m
+[0m--- 0x420f4d17: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m143[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f6214: [0;33mlv_draw_image_normal_helper[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_image.c[0m[0m:[1;31m234[0m
+[0m--- 0x421ea48d: [0;33mlodepng_color_mode_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/libs/lodepng/lodepng.c[0m[0m:[1;31m3117[0m
+[0m--- 0x420f6299: [0;33mlv_text_is_marker[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/../misc/lv_text_private.h[0m[0m:[1;31m189[0m
+[0m--- (inlined by) [0;33mlv_text_is_marker[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/../misc/lv_text_private.h[0m[0m:[1;31m166[0m
+[0m--- 0x420f646f: [0;33mlv_draw_unit_draw_letter[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_label.c[0m[0m:[1;31m608[0m
+[0m--- 0x420f4414: [0;33mrefr_sync_areas[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m504[0m
+[0m--- (inlined by) [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m402[0m
+[0m--- 0x420f4d92: [0;33mlv_display_send_event[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m892[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x4003474b: [0;33m__bswapsi2[0m[0m in [0;32mROM[0m
+[0m--- 0x420f90c7: [0;33mindev_click_focus[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/indev/lv_indev.c[0m[0m:[1;31m1652[0m
+[0m--- (inlined by) [0;33mindev_proc_press[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/indev/lv_indev.c[0m[0m:[1;31m1288[0m
+[0m--- 0x420ead3e: [0;33miot_button_register_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m410[0m
+[0m--- 0x420f4394: [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m395[0m
+[0m--- 0x420f555e: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m76[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x400021d5: [0;33m__call___bswapdi2[0m[0m in [0;32mROM[0m
+[0m--- 0x420ead3e: [0;33miot_button_register_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m410[0m
+[0m--- 0x420f4394: [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m395[0m
+[0m--- 0x420f555e: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m76[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40034745: [0;33m__bswapsi2[0m[0m in [0;32mROM[0m
+[0m--- 0x420f90f7: [0;33mindev_proc_release[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/indev/lv_indev.c[0m[0m:[1;31m1383[0m
+[0m--- 0x420ead3e: [0;33miot_button_register_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m410[0m
+[0m--- 0x420f4394: [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m395[0m
+[0m--- 0x420f555e: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m76[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x4211e093: [0;33mspi_bus_add_device[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_driver_spi/src/gpspi/spi_master.c[0m[0m:[1;31m500[0m
+[0m--- 0x4211d787: [0;33mqmi8658_write_register[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/waveshare__qmi8658/qmi8658.c[0m[0m:[1;31m409[0m
+[0m--- 0x4211d1e8: [0;33mpanel_io_spi_rx_param[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_lcd/spi/esp_lcd_panel_io_spi.c[0m[0m:[1;31m281[0m
+[0m--- 0x4211d3db: [0;33mpanel_io_spi_tx_param[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_lcd/spi/esp_lcd_panel_io_spi.c[0m[0m:[1;31m239[0m
+[0m--- 0x4211d9ba: [0;33mqmi8658_read_sensor_data[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/waveshare__qmi8658/qmi8658.c[0m[0m:[1;31m278[0m
+[0m--- 0x420eaeea: [0;33miot_button_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m660[0m
+[0m--- 0x420f4394: [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m395[0m
+[0m--- 0x420f555e: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m76[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f90ac: [0;33mindev_proc_press[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/indev/lv_indev.c[0m[0m:[1;31m1369[0m
+[0m--- 0x420ead3e: [0;33miot_button_register_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m410[0m
+[0m--- 0x420f4394: [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m395[0m
+[0m--- 0x420f555e: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m76[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x4003474b: [0;33m__bswapsi2[0m[0m in [0;32mROM[0m
+[0m--- 0x420f90e7: [0;33mindev_proc_press[0m[0m at [0;32mlv_indev.c[0m[0m:[1;31m?[0m
+[0m--- 0x420ead3e: [0;33miot_button_register_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m410[0m
+[0m--- 0x420f4394: [0;33mlv_display_refr_timer[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m395[0m
+[0m--- 0x420f555e: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m76[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m668[0m
+[0m--- 0x420ea551: [0;33mbutton_handler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m113[0m
+[0m--- (inlined by) [0;33mbutton_cb[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__button/iot_button.c[0m[0m:[1;31m319[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x40389ab3: [0;33mesp_ptr_executable[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/esp_memory_utils.c[0m[0m:[1;31m35[0m
+[0m--- 0x421fe107: [0;33mvQueueWaitForMessageRestricted[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/queue.c[0m[0m:[1;31m3200[0m
+[0m--- 0x421ff49b: [0;33mxTaskGenericNotify[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/freertos/FreeRTOS-Kernel/tasks.c[0m[0m:[1;31m5908[0m
+[0m--- 0x40381d3a: [0;33mesp_crosscore_int_send[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/crosscore_int.c[0m[0m:[1;31m113[0m
+[0m--- 0x403815d3: [0;33m_xt_medint2[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1288[0m
+[0m--- 0x420f4300: [0;33mlv_inv_area[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/core/lv_refr.c[0m[0m:[1;31m318[0m
+[0m--- 0x420f4c7d: [0;33mlv_display_create[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/display/lv_display.c[0m[0m:[1;31m102[0m
+[0m--- 0x420f4da7: [0;33mlv_display_send_event[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x420f554f: [0;33mlv_draw_buf_handlers_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m73[0m
+[0m--- (inlined by) [0;33mlv_draw_buf_init_with_default_handlers[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/draw/lv_draw_buf.c[0m[0m:[1;31m61[0m
+[0m--- 0x421046d0: [0;33mstyle_init[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/lvgl__lvgl/src/themes/default/lv_theme_default.c[0m[0m:[1;31m236[0m
+[0m--- (inlined by) [0;33mlv_theme_default_init[0m[0m at [0;32m/Users/dig

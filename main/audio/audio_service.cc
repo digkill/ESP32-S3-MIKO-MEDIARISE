@@ -134,6 +134,10 @@ bool AudioService::ReadAudioData(std::vector<int16_t>& data, int sample_rate, in
         esp_timer_stop(audio_power_timer_);
         esp_timer_start_periodic(audio_power_timer_, AUDIO_POWER_CHECK_INTERVAL_MS * 1000);
         codec_->EnableInput(true);
+        if (!codec_->input_enabled()) {
+            ESP_LOGW(TAG, "Audio input is not available");
+            return false;
+        }
     }
 
     if (codec_->input_sample_rate() != sample_rate) {
@@ -246,6 +250,7 @@ void AudioService::AudioInputTask() {
                     data = std::move(mono_data);
                 }
                 PushTaskToEncodeQueue(kAudioTaskTypeEncodeToTestingQueue, std::move(data));
+                vTaskDelay(1);
                 continue;
             } else {
                 handle_read_failure();
@@ -260,6 +265,7 @@ void AudioService::AudioInputTask() {
                 if (ReadAudioData(data, 16000, samples)) {
                     handle_read_success();
                     wake_word_->Feed(data);
+                    vTaskDelay(1);
                     continue;
                 } else {
                     handle_read_failure();
@@ -313,6 +319,10 @@ void AudioService::AudioOutputTask() {
             esp_timer_stop(audio_power_timer_);
             esp_timer_start_periodic(audio_power_timer_, AUDIO_POWER_CHECK_INTERVAL_MS * 1000);
             codec_->EnableOutput(true);
+            if (!codec_->output_enabled()) {
+                ESP_LOGW(TAG, "Audio output is not available, dropping playback frame");
+                continue;
+            }
         }
         codec_->OutputData(task->pcm);
 
@@ -669,6 +679,10 @@ void AudioService::PlaySound(const std::string_view& ogg) {
         esp_timer_stop(audio_power_timer_);
         esp_timer_start_periodic(audio_power_timer_, AUDIO_POWER_CHECK_INTERVAL_MS * 1000);
         codec_->EnableOutput(true);
+        if (!codec_->output_enabled()) {
+            ESP_LOGW(TAG, "Audio output is not available, skipping sound");
+            return;
+        }
     }
 
     const uint8_t* buf = reinterpret_cast<const uint8_t*>(ogg.data());
@@ -780,11 +794,11 @@ void AudioService::ResetDecoder() {
 
 void AudioService::CheckAndUpdateAudioPowerState() {
     auto now = std::chrono::steady_clock::now();
-    auto input_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - last_input_time_).count();
     auto output_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - last_output_time_).count();
-    if (input_elapsed > AUDIO_POWER_TIMEOUT_MS && codec_->input_enabled()) {
-        codec_->EnableInput(false);
-    }
+    // Keep the codec input open once it is up: closing it releases the I2S
+    // DMA buffers, and re-opening later (wake word start) has to reallocate
+    // them from an internal heap that Wi-Fi/BLE/LVGL have exhausted by then —
+    // the failed allocation crashes inside esp_codec_dev (StoreProhibited).
     if (output_elapsed > AUDIO_POWER_TIMEOUT_MS && codec_->output_enabled()) {
         codec_->EnableOutput(false);
     }

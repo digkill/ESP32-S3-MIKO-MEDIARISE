@@ -1,0 +1,28 @@
+Command: ninja all
+Loading defaults file /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/sdkconfig.defaults...
+info: /var/folders/6z/w0nwvf514mn4r3dt6kgfpjkr0000gn/T/kconfgen_tmp475cx5rd:32 CONFIG_NEWLIB_NANO_FORMAT was replaced with CONFIG_LIBC_NEWLIB_NANO_FORMAT
+Loading defaults file /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/sdkconfig.defaults.esp32s3...
+Loading defaults file /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/sdkconfig.defaults.esp32s3...
+Configuration Report                                                            
+ ────────────────────────────────────────────────────────────────────────────── 
+   Parser Version: 1                                                            
+   Verbosity: default                                                           
+   Defaults policy: sdkconfig                                                   
+   Status: Finished with notifications                                          
+                                                                                
+  Disabled Symbols/Choices With User-Set Value                                  
+   ──────────────────────────────────────────────────────────────────────────   
+    * LIBC_NEWLIB_NANO_FORMAT (defined at                                       
+    /Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_libc/Kconfig:10…    
+    with user-set value y from                                                  
+    /var/folders/6z/w0nwvf514mn4r3dt6kgfpjkr0000gn/T/kconfgen_tmp475cx5rd       
+    * LV_USE_CALENDAR_HEADER_ARROW (defined at                                  
+    /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/man…    
+    with user-set value n from                                                  
+    /var/folders/6z/w0nwvf514mn4r3dt6kgfpjkr0000gn/T/kconfgen_tmp475cx5rd       
+    * LV_USE_CALENDAR_HEADER_DROPDOWN (defined at                               
+    /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/man…    
+    with user-set value n from                                                  
+    /var/folders/6z/w0nwvf514mn4r3dt6kgfpjkr0000gn/T/kconfgen_tmp475cx5rd       
+   ──────────────────────────────────────────────────────────────────────────   
+ ────────────────────────────────────────────────────────────────────────────── 

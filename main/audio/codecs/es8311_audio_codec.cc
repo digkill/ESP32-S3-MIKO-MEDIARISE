@@ -154,8 +154,9 @@ void Es8311AudioCodec::CreateDuplexChannels(gpio_num_t mclk, gpio_num_t bclk, gp
 }
 
 void Es8311AudioCodec::SetOutputVolume(int volume) {
-    ESP_ERROR_CHECK(esp_codec_dev_set_out_vol(dev_, volume));
+    // Let the base class clamp to the safe range before touching hardware.
     AudioCodec::SetOutputVolume(volume);
+    ESP_ERROR_CHECK(esp_codec_dev_set_out_vol(dev_, output_volume_));
 }
 
 void Es8311AudioCodec::EnableInput(bool enable) {

@@ -1,0 +1,6 @@
+"-specs=/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/xiao-esp32s3-bridge/build-esp32cam/bootloader/specs/picolibc.specs"
+-Wno-frame-address
+-mlongcalls
+-fno-builtin-memcpy
+-fno-builtin-memset
+-fno-builtin-bzero

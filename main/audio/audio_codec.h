@@ -11,8 +11,12 @@
 
 #include "board.h"
 
+// 120 frames (5 ms @ 24 kHz) per descriptor: the I2S DMA buffers are
+// reallocated from internal RAM every time the codec input is re-opened
+// (wake word start, power-save resume), and by then the internal heap is
+// too fragmented for the 240-frame chunks.
 #define AUDIO_CODEC_DMA_DESC_NUM 6
-#define AUDIO_CODEC_DMA_FRAME_NUM 240
+#define AUDIO_CODEC_DMA_FRAME_NUM 120
 
 class AudioCodec {
 public:

@@ -1,0 +1,1 @@
+/Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/capture_boot.py': [Errno 2] No such file or directory

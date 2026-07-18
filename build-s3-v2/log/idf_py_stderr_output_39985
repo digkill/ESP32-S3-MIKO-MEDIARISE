@@ -1,0 +1,43 @@
+Command: /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf_monitor.py -p /dev/cu.usbmodem101 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/xiaozhi.elf /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/bootloader/bootloader.elf -m '/Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python' '/Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf.py' '-B' 'build-s3-v2' '-p' '/dev/cu.usbmodem101'
+[0;33m--- esp-idf-monitor 1.9.0 on /dev/cu.usbmodem101 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0m--- 0x40389ab6: [0;33mesp_cpu_wait_for_intr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_hw_support/cpu.c[0m[0m:[1;31m64[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c88f4: [0;33mcall_start_cpu0[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m27[0m
+[0m--- 0x42124cec: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m436[0m
+[0m--- (inlined by) [0;33mtask_wdt_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m509[0m
+[0m--- 0x403815d3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x421dec94: [0;33m.ifft_group[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__dl_fft/base/isa/esp32s3/dl_fft4r_fc32_aes3.S[0m[0m:[1;31m242[0m
+[0m--- 0x420e7c6a: [0;33mdl_irfft_f32_run[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/espressif__dl_fft/dl_rfft_f32.c[0m[0m:[1;31m108[0m
+[0m--- 0x4209761c: [0;33mesp_aec3_dlfft_process[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x42096952: [0;33maec_process[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x42095ab5: [0;33mafe_feed[0m[0m at [0;32m/Users/digkill/.espressif/tools/xtensa-esp-elf/esp-15.2.0_20251204/xtensa-esp-elf/xtensa-esp-elf/include/c++/15.2.0/bits/stl_vector.h[0m[0m:[1;31m395[0m
+[0m--- 0x421d2ee1: [0;33mAfeWakeWord::Feed(std::vector<short, std::allocator<short> > const&)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/wake_words/afe_wake_word.cc[0m[0m:[1;31m126[0m
+[0m--- 0x42011a53: [0;33mAudioService::AudioInputTask()[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/audio_service.cc[0m[0m:[1;31m266[0m
+[0m--- 0x42011b0e: [0;33mAudioService::Start()::{lambda(void*)#1}::_FUN(void*)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/audio_service.cc[0m[0m:[1;31m82[0m
+[0m--- (inlined by) [0;33m_FUN[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/audio_service.cc[0m[0m:[1;31m84[0m
+[0m--- 0x42124cec: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m436[0m
+[0m--- (inlined by) [0;33mtask_wdt_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m509[0m
+[0m--- 0x403815d3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x421d2e30: [0;33mCatDisplay::SetPixel(int, int, unsigned short)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/boards/waveshare-s3-touch-amoled-2.06/cat_display.cc[0m[0m:[1;31m536[0m
+[0m--- (inlined by) [0;33mCatDisplay::SetPixel(int, int, unsigned short)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/boards/waveshare-s3-touch-amoled-2.06/cat_display.cc[0m[0m:[1;31m527[0m
+[0m--- 0x42025a33: [0;33mCatDisplay::FillRect(int, int, int, int, unsigned short)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/boards/waveshare-s3-touch-amoled-2.06/cat_display.cc[0m[0m:[1;31m550[0m
+[0m--- 0x420266da: [0;33mCatDisplay::DrawStatusBar()[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/boards/waveshare-s3-touch-amoled-2.06/cat_display.cc[0m[0m:[1;31m701[0m
+[0m--- 0x4202749e: [0;33mCatDisplay::Redraw()[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/boards/waveshare-s3-touch-amoled-2.06/cat_display.cc[0m[0m:[1;31m473[0m
+[0m--- 0x42027e53: [0;33mCatDisplay::Update()[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/boards/waveshare-s3-touch-amoled-2.06/cat_display.cc[0m[0m:[1;31m399[0m
+[0m--- 0x42027fcd: [0;33mCatDisplay::AnimationTimerCallback(void*)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/boards/waveshare-s3-touch-amoled-2.06/cat_display.cc[0m[0m:[1;31m171[0m
+[0m--- 0x42125aa8: [0;33mtimer_process_alarm[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_timer/src/esp_timer.c[0m[0m:[1;31m437[0m
+[0m--- (inlined by) [0;33mtimer_task[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_timer/src/esp_timer.c[0m[0m:[1;31m463[0m
+[0m--- 0x42124cec: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m436[0m
+[0m--- (inlined by) [0;33mtask_wdt_isr[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m509[0m
+[0m--- 0x403815d3: [0;33m_xt_lowint1[0m[0m at [0;32m/Users/digkill/.espressif/v6.0.1/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1232[0m
+[0m--- 0x42070e6b: [0;33msilk_SMULWB_lx7[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/78__esp-opus/silk/xtensa/macros_lx7.h[0m[0m:[1;31m44[0m
+[0m--- (inlined by) [0;33msilk_resampler_private_down_FIR_INTERPOL[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/78__esp-opus/silk/resampler_private_down_FIR.c[0m[0m:[1;31m77[0m
+[0m--- (inlined by) [0;33msilk_resampler_private_down_FIR[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/78__esp-opus/silk/resampler_private_down_FIR.c[0m[0m:[1;31m177[0m
+[0m--- 0x42070c4c: [0;33msilk_resampler[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/78__esp-opus/silk/resampler.c[0m[0m:[1;31m204[0m
+[0m--- 0x42068972: [0;33mOpusResampler::Process(short const*, int, short*)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/78__esp-opus-encoder/opus_resampler.cc[0m[0m:[1;31m26[0m
+[0m--- 0x420117b6: [0;33mAudioService::ReadAudioData(std::vector<short, std::allocator<short> >&, int, int)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/audio_service.cc[0m[0m:[1;31m157[0m
+[0m--- 0x42011a3c: [0;33mAudioService::AudioInputTask()[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/audio_service.cc[0m[0m:[1;31m264[0m
+[0m--- 0x42011b0e: [0;33mAudioService::Start()::{lambda(void*)#1}::_FUN(void*)[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/audio_service.cc[0m[0m:[1;31m82[0m
+[0m--- (inlined by) [0;33m_FUN[0m[0m at [0;32m/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/main/audio/audio_service.cc[0m[0m:[1;31m84[0m
+[0m

@@ -1,0 +1,11 @@
+Command: ninja app-flash
+[1/2] cd /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2 && /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/partition_table/partition-table.bin /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/xiaozhi.bin
+xiaozhi.bin binary size 0x2f4540 bytes. Smallest app partition is 0x3f0000 bytes. 0xfbac0 bytes (25%) free.
+[1/2] Running utility command for app-flash
+esptool --chip esp32s3 -p /dev/cu.usbmodem101 -b 460800 --before=default-reset --after=hard-reset write-flash --flash-mode dio --flash-freq 80m --flash-size 32MB 0x20000 xiaozhi.bin
+esptool v5.3.dev3
+Serial port /dev/cu.usbmodem101:
+Connecting......................................
+FAILED: CMakeFiles/app-flash.util 
+cd /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32 && /opt/homebrew/bin/cmake -D IDF_PATH=/Users/digkill/.espressif/v6.0.1/esp-idf -D "SERIAL_TOOL=/Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python;-m;esptool;--chip;esp32s3" -D "SERIAL_TOOL_ARGS=--before=default-reset;--after=hard-reset;write-flash;@app-flash_args" -D WORKING_DIRECTORY=/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2 -P /Users/digkill/.espressif/v6.0.1/esp-idf/components/esptool_py/run_serial_tool.cmake
+ninja: build stopped: subcommand failed.

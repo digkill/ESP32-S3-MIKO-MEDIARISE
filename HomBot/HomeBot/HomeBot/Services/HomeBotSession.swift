@@ -42,6 +42,10 @@ final class RobotControlService: ObservableObject {
         execute(.setEmotion(emotion))
     }
 
+    func playEmotionVideo(_ emotion: String) {
+        execute(.playEmotionVideo(emotion))
+    }
+
     func playScene(_ scene: String) {
         execute(.playScene(scene))
     }

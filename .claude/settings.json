@@ -18,7 +18,18 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(gh api *)",
       "Bash(curl --version)",
-      "Bash(curl -s --max-time 30 \"https://raw.githubusercontent.com/lieff/minimp3/master/minimp3.h\" -o /tmp/minimp3.h)"
+      "Bash(curl -s --max-time 30 \"https://raw.githubusercontent.com/lieff/minimp3/master/minimp3.h\" -o /tmp/minimp3.h)",
+      "Bash(idf.py --version)",
+      "Bash(cat ~/.espressif/esp-idf/version.txt 2>/dev/null || cat /opt/esp-idf/version.txt 2>/dev/null || find ~/esp -name \"version.txt\" -maxdepth 4 2>/dev/null | head -3 | xargs cat 2>/dev/null || echo \"not found directly\" && ls /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/managed_components/ | head -10)",
+      "Read(//opt/esp-idf/**)",
+      "Bash(which idf.py 2>/dev/null || echo \"not in PATH\"; echo \"shell: $SHELL\"; ls ~/.zshrc ~/.bashrc ~/.zprofile 2>/dev/null; find /opt /Users/digkill ~/esp /usr/local -name \"idf.py\" -maxdepth 6 2>/dev/null | head -5)",
+      "Read(//opt/**)",
+      "Bash(curl -s \"https://components.espressif.com/api/components?q=esp32-camera\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); [print\\(c.get\\('name',''\\),c.get\\('version',''\\)\\) for c in d.get\\('components',d.get\\('results',[]\\)\\)[:5]]\")",
+      "Bash(grep -E \"^driver$|^esp_driver|^esp_http|^esp_wifi|^nvs|^freertos\")"
+    ],
+    "additionalDirectories": [
+      "/Users/digkill"
     ]
   }
 }

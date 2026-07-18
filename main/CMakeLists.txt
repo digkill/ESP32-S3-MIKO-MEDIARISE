@@ -33,6 +33,7 @@ set(SOURCES "audio/audio_codec.cc"
             "application.cc"
             "ota.cc"
             "settings.cc"
+            "time_service.cc"
             "device_state_event.cc"
             "assets.cc"
             "main.cc"
@@ -578,6 +579,7 @@ file(GLOB BOARD_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/boards/${BOARD_TYPE}/*.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/boards/${BOARD_TYPE}/*.c
 )
+list(APPEND INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/boards/${BOARD_TYPE})
 if(CONFIG_BOARD_TYPE_WAVESHARE_C6_TOUCH_AMOLED_2_06)
     list(APPEND BOARD_SOURCES
         ${CMAKE_CURRENT_SOURCE_DIR}/boards/waveshare-c6-touch-amoled-2.06/cat_display.cc

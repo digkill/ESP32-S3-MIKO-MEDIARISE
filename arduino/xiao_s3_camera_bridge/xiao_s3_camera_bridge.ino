@@ -27,10 +27,10 @@
 #define ENABLE_VL53 1
 #endif
 #ifndef ENABLE_SERVOS
-#define ENABLE_SERVOS 1           // D1/D2
+#define ENABLE_SERVOS 0           // head servos are driven by the AMOLED board now
 #endif
 #ifndef ENABLE_C1001
-#define ENABLE_C1001 1            // DFRobot C1001 radar on UART1 (D6/D7)
+#define ENABLE_C1001 0            // radar disabled for now (was: UART1 on D6/D7)
 #endif
 #ifndef ENABLE_SD_RECORDING
 #define ENABLE_SD_RECORDING 0     // SD shares D8/D9/D10 with LED ring + servos
@@ -42,7 +42,7 @@
 #define ENABLE_ESPNOW 1            // wireless command/reply link to Waveshare S3
 #endif
 #ifndef ENABLE_UART_LINK
-#define ENABLE_UART_LINK 0         // legacy fallback; D2 conflicts with pitch servo
+#define ENABLE_UART_LINK 1         // D2/D3 are free again with ENABLE_SERVOS=0
 #endif
 #ifndef ESPNOW_FALLBACK_CHANNEL
 #define ESPNOW_FALLBACK_CHANNEL 1  // Must match the Wi-Fi channel used by the AMOLED board.
@@ -1049,6 +1049,17 @@ static void handle_command(String cmd, Stream& out) {
   } else if (cmd == "DIST?") {
     send_distance(out);
 
+  } else if (cmd == "I2C?") {
+    i2c_scan_print(out);
+
+  } else if (cmd == "VL53 RETRY") {
+#if ENABLE_VL53
+    vl53_ok = init_vl53_sensor();
+    if (vl53_ok) send_ok(out, "VL53"); else send_err(out, "VL53L0X_NOT_READY");
+#else
+    send_err(out, "VL53_DISABLED");
+#endif
+
   } else if (cmd == "DIST_RAW?") {
     send_distance_raw(out);
 
@@ -1482,14 +1493,15 @@ void setup() {
   last_activity_ms = millis();
 
 #if ENABLE_VISION_UPLOAD
-  if (wifi_ok && camera_ok &&
-      xTaskCreate(vision_upload_worker, "vision_upload", 6144, nullptr, 1,
-                  &vision_upload_task) != pdPASS) {
-    Serial.println("VISION: failed to start upload task");
-    vision_upload_task = nullptr;
-  } else {
-    Serial.printf("VISION: upload enabled interval=%lums endpoint=%s\n",
-                  (unsigned long)VISION_UPLOAD_INTERVAL_MS, VISION_UPLOAD_URL);
+  if (wifi_ok && camera_ok) {
+    if (xTaskCreate(vision_upload_worker, "vision_upload", 6144, nullptr, 1,
+                    &vision_upload_task) != pdPASS) {
+      Serial.println("VISION: failed to start upload task");
+      vision_upload_task = nullptr;
+    } else {
+      Serial.printf("VISION: upload enabled interval=%lums endpoint=%s\n",
+                    (unsigned long)VISION_UPLOAD_INTERVAL_MS, VISION_UPLOAD_URL);
+    }
   }
 #endif
 

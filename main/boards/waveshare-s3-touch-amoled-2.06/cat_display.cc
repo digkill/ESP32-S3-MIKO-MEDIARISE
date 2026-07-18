@@ -12,7 +12,6 @@
 #include <cstdio>
 #include <ctime>
 #include <cstring>
-#include <cstdlib>
 
 #define TAG "CatDisplay"
 
@@ -124,6 +123,11 @@ CatDisplay::CatDisplay(int width, int height, lv_obj_t* canvas, float presentati
 }
 
 CatDisplay::~CatDisplay() {
+    animation_task_stop_ = true;
+    if (animation_task_) {
+        vTaskDelete(animation_task_);
+        animation_task_ = nullptr;
+    }
     if (animation_timer_) {
         esp_timer_stop(animation_timer_);
         esp_timer_delete(animation_timer_);
@@ -137,10 +141,6 @@ bool CatDisplay::Init() {
         return false;
     }
 
-    // Yekaterinburg timezone (UTC+5). POSIX sign is inverted: UTC+5 → offset -5.
-    setenv("TZ", "YEKT-5", 1);
-    tzset();
-
     // Cache draw_buf->data directly — lv_canvas_get_buf returns unaligned_data which
     // may differ if LVGL aligns the buffer internally.
     lv_draw_buf_t* draw_buf = lv_canvas_get_draw_buf(canvas_);
@@ -150,15 +150,9 @@ bool CatDisplay::Init() {
     }
     canvas_buf_ = (uint16_t*)draw_buf->data;
 
-    const esp_timer_create_args_t timer_args = {
-        .callback = &CatDisplay::AnimationTimerCallback,
-        .arg = this,
-        .dispatch_method = ESP_TIMER_TASK,
-        .name = "cat_anim",
-        .skip_unhandled_events = true,
-    };
-    if (esp_timer_create(&timer_args, &animation_timer_) == ESP_OK) {
-        esp_timer_start_periodic(animation_timer_, 110 * 1000);
+    if (xTaskCreatePinnedToCore(AnimationTask, "cat_anim", 4096, this, 1,
+                                &animation_task_, 1) != pdPASS) {
+        ESP_LOGW(TAG, "Cat animation task not started");
     }
 
     ESP_LOGI(TAG, "CatDisplay ready (LVGL canvas): physical=%dx%d logical=%dx%d rotate_cw=%d scale=%.2f",
@@ -169,6 +163,16 @@ bool CatDisplay::Init() {
 
 void CatDisplay::AnimationTimerCallback(void* arg) {
     static_cast<CatDisplay*>(arg)->Update();
+}
+
+void CatDisplay::AnimationTask(void* arg) {
+    auto* display = static_cast<CatDisplay*>(arg);
+    while (!display->animation_task_stop_) {
+        display->Update();
+        vTaskDelay(pdMS_TO_TICKS(160));
+    }
+    display->animation_task_ = nullptr;
+    vTaskDelete(nullptr);
 }
 
 uint16_t CatDisplay::Color565(uint8_t r, uint8_t g, uint8_t b) {
@@ -193,7 +197,13 @@ int CatDisplay::Y(float value) const {
     return origin_y_ + (int)lroundf(value * scale_);
 }
 
+CatDisplay::State CatDisplay::GetState() const {
+    std::lock_guard<std::recursive_mutex> lock(state_mutex_);
+    return state_;
+}
+
 void CatDisplay::SetState(State s) {
+    std::lock_guard<std::recursive_mutex> lock(state_mutex_);
     if (s == state_) return;
     state_ = s;
     state_enter_us_ = esp_timer_get_time();
@@ -208,12 +218,14 @@ void CatDisplay::SetState(State s) {
 }
 
 void CatDisplay::PlayDizzy(uint32_t duration_ms) {
+    std::lock_guard<std::recursive_mutex> lock(state_mutex_);
     SetState(State::DIZZY);
     dizzy_until_us_ = esp_timer_get_time() + (int64_t)duration_ms * 1000;
     needs_redraw_ = true;
 }
 
 void CatDisplay::SetStateFromStatus(const char* status) {
+    std::lock_guard<std::recursive_mutex> lock(state_mutex_);
     if (!status) return;
     auto ci = [&](const char* needle) -> bool {
         for (const char* h = status; *h; h++) {
@@ -232,6 +244,7 @@ void CatDisplay::SetStateFromStatus(const char* status) {
 }
 
 void CatDisplay::SetStateFromEmotion(const char* emotion) {
+    std::lock_guard<std::recursive_mutex> lock(state_mutex_);
     if (!emotion) return;
     if (strstr(emotion, "happy") || strstr(emotion, "joy") || strstr(emotion, "рад")) {
         SetState(State::HAPPY);
@@ -261,12 +274,14 @@ void CatDisplay::SetStateFromEmotion(const char* emotion) {
 }
 
 void CatDisplay::SetBatteryStatus(int level, bool charging) {
+    std::lock_guard<std::recursive_mutex> lock(state_mutex_);
     battery_level_ = std::max(0, std::min(100, level));
     battery_charging_ = charging;
     needs_redraw_ = true;
 }
 
 void CatDisplay::Update() {
+    std::lock_guard<std::recursive_mutex> lock(state_mutex_);
     const int64_t now = esp_timer_get_time();
     float dt = (float)(now - last_update_us_) * 1e-6f;
     if (dt < 0.03f) return;
@@ -276,15 +291,18 @@ void CatDisplay::Update() {
         SetState(State::IDLE);
     }
 
-    bool dirty = true;
+    bool dirty = needs_redraw_;
     const bool active = state_ == State::SPEAKING || state_ == State::LISTENING ||
                         state_ == State::CONNECTING || state_ == State::DANCE ||
                         state_ == State::CELEBRATE || state_ == State::DIZZY;
+    const bool animated = active || state_ == State::SLEEPING || state_ == State::COFFEE ||
+                          state_ == State::CURIOUS;
 
     if (!active && !blink_closing_ && now >= next_blink_us_) {
         blink_closing_ = true;
     }
     if (blink_closing_) {
+        dirty = true;
         blink_t_ += dt * 5.0f;
         if (blink_t_ >= 1.0f) {
             blink_t_ = 1.0f;
@@ -293,6 +311,7 @@ void CatDisplay::Update() {
             next_blink_us_ = now + 3500000LL + extra;
         }
     } else if (blink_t_ > 0.0f) {
+        dirty = true;
         blink_t_ -= dt * 5.0f;
         if (blink_t_ < 0.0f) blink_t_ = 0.0f;
     }
@@ -353,6 +372,9 @@ void CatDisplay::Update() {
         whisker_spread_ = 0.12f + 0.12f * (0.5f + 0.5f * sinf(breath_phase_ * 1.7f));
         break;
     }
+    if (animated) {
+        dirty = true;
+    }
 
     for (auto& b : bubbles_) {
         if (!b.active) continue;
@@ -361,6 +383,16 @@ void CatDisplay::Update() {
         b.alpha -= dt * 1.1f;
         if (b.alpha <= 0.0f) {
             b.active = false;
+        } else {
+            dirty = true;
+        }
+    }
+
+    for (auto& t : trail_) {
+        if (!t.active) continue;
+        t.alpha -= dt * 1.0f;  // 1.0s lifetime
+        if (t.alpha <= 0.0f) {
+            t.active = false;
         } else {
             dirty = true;
         }
@@ -393,6 +425,23 @@ const CatDisplay::EmotionProfile& CatDisplay::CurrentProfile() const {
     }
 }
 
+static uint16_t HsvToRgb565(uint8_t hue, float alpha) {
+    uint8_t region = hue / 43;
+    uint8_t rem    = (uint8_t)((hue - region * 43u) * 6u);
+    uint8_t q = 255u - rem, t = rem;
+    uint8_t r, g, b;
+    switch (region % 6) {
+        case 0: r=255; g=t;   b=0;   break;
+        case 1: r=q;   g=255; b=0;   break;
+        case 2: r=0;   g=255; b=t;   break;
+        case 3: r=0;   g=q;   b=255; break;
+        case 4: r=t;   g=0;   b=255; break;
+        default:r=255; g=0;   b=q;   break;
+    }
+    r = (uint8_t)(r * alpha); g = (uint8_t)(g * alpha); b = (uint8_t)(b * alpha);
+    return ((uint16_t)(r >> 3) << 11) | ((uint16_t)(g >> 2) << 5) | (uint16_t)(b >> 3);
+}
+
 static uint16_t DimColor(uint16_t color, float factor) {
     factor = std::max(0.0f, std::min(1.0f, factor));
     uint8_t r = (uint8_t)(((color >> 11) & 0x1F) * factor + 0.5f);
@@ -402,6 +451,7 @@ static uint16_t DimColor(uint16_t color, float factor) {
 }
 
 void CatDisplay::Redraw() {
+    std::lock_guard<std::recursive_mutex> lock(state_mutex_);
     if (!canvas_buf_ || !canvas_) {
         return;
     }
@@ -425,6 +475,13 @@ void CatDisplay::Redraw() {
 
     DrawBackground();
     DrawStatusBar();
+
+    for (const auto& t : trail_) {
+        if (!t.active) continue;
+        FillCircle((int)t.x, (int)t.y, 7,
+                   HsvToRgb565(t.color, t.alpha * t.alpha));
+    }
+
     DrawCatEars(face_bob, profile);
 
     const int eye_l = X(kBaseCx - 38);
@@ -586,6 +643,7 @@ void CatDisplay::DrawBubble(int cx, int cy, int radius, uint16_t color) {
 }
 
 void CatDisplay::SpawnTouchBubbles(int raw_x, int raw_y) {
+    std::lock_guard<std::recursive_mutex> lock(state_mutex_);
     // Convert physical touch coords to logical canvas coords
     float lx = rotate_cw_ ? (float)raw_y : (float)raw_x;
     float ly = rotate_cw_ ? (float)(height_ - 1 - raw_x) : (float)raw_y;
@@ -607,6 +665,24 @@ void CatDisplay::SpawnTouchBubbles(int raw_x, int raw_y) {
             b.active = true;
             break;
         }
+    }
+    needs_redraw_ = true;
+}
+
+void CatDisplay::AddTrailPoint(int raw_x, int raw_y) {
+    std::lock_guard<std::recursive_mutex> lock(state_mutex_);
+    float lx = rotate_cw_ ? (float)raw_y : (float)raw_x;
+    float ly = rotate_cw_ ? (float)(height_ - 1 - raw_x) : (float)raw_y;
+
+    for (auto& t : trail_) {
+        if (t.active) continue;
+        t.x     = lx;
+        t.y     = ly;
+        t.alpha = 1.0f;
+        t.color = trail_hue_;
+        t.active = true;
+        trail_hue_ += 8u;
+        break;
     }
     needs_redraw_ = true;
 }

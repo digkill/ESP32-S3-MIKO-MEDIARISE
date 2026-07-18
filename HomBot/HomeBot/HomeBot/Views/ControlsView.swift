@@ -16,6 +16,11 @@ struct ControlsView: View {
         ("coffee", "Кофе", "cup.and.saucer.fill")
     ]
 
+    // Names map to /sdcard/<name>_emotion.mp4 on the robot's SD card.
+    private let videoEmotions = [
+        ("happy", "Радость (видео)", "play.rectangle.fill")
+    ]
+
     private let scenes = [
         ("dance", "Танец", "music.note"),
         ("greet", "Приветствие", "hand.wave.fill"),
@@ -42,6 +47,27 @@ struct ControlsView: View {
                                     } else {
                                         Image(systemName: item.2).font(.title3)
                                     }
+                                    Text(item.1).font(.caption)
+                                }
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 10)
+                            }
+                            .buttonStyle(.bordered)
+                        }
+                    }
+                }
+
+                Section("Видео-эмоции") {
+                    Text("Проигрывает ролик с SD-карты робота на весь экран.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                    LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))], spacing: 12) {
+                        ForEach(videoEmotions, id: \.0) { item in
+                            Button {
+                                controls.playEmotionVideo(item.0)
+                            } label: {
+                                VStack(spacing: 8) {
+                                    Image(systemName: item.2).font(.title3)
                                     Text(item.1).font(.caption)
                                 }
                                 .frame(maxWidth: .infinity)

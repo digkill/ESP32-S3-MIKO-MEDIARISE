@@ -9,6 +9,7 @@
 
 #include "application.h"
 #include "system_info.h"
+#include "time_service.h"
 
 #define TAG "main"
 
@@ -25,6 +26,8 @@ extern "C" void app_main(void)
         ret = nvs_flash_init();
     }
     ESP_ERROR_CHECK(ret);
+
+    TimeService::GetInstance().ApplyTimezone();
 
     // Launch the application
     ESP_LOGI(TAG, "Getting Application instance...");

@@ -1,0 +1,10 @@
+-Wno-frame-address
+-mlongcalls
+-fno-builtin-memcpy
+-fno-builtin-memset
+-fno-builtin-bzero
+-mdisable-hardware-atomics
+"-specs=/Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/xiao-esp32s3-bridge/build-esp32cam/specs/picolibc.specs"
+-mfix-esp32-psram-cache-issue
+-mfix-esp32-psram-cache-strategy=memw
+-fno-rtti

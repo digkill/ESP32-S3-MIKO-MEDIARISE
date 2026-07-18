@@ -125,23 +125,34 @@ void Protocol::SendCharacterEvent(const std::string& event, const std::string& c
     SendText(json);
 }
 
-void Protocol::SendStartListening(ListeningMode mode) {
-    std::string message = "{\"session_id\":\"" + session_id_ + "\"";
-    message += ",\"type\":\"listen\",\"state\":\"start\"";
+void Protocol::SendStartListening(ListeningMode mode, const std::string& directive) {
+    cJSON* root = cJSON_CreateObject();
+    cJSON_AddStringToObject(root, "session_id", session_id_.c_str());
+    cJSON_AddStringToObject(root, "type", "listen");
+    cJSON_AddStringToObject(root, "state", "start");
     const char* mode_str = "";
     if (mode == kListeningModeRealtime) {
-        message += ",\"mode\":\"realtime\"";
         mode_str = "realtime";
     } else if (mode == kListeningModeAutoStop) {
-        message += ",\"mode\":\"auto\"";
         mode_str = "auto";
     } else {
-        message += ",\"mode\":\"manual\"";
         mode_str = "manual";
     }
-    message += "}";
-    ESP_LOGI(TAG, "[PROTOCOL] Sending start listening command, mode: %s", mode_str);
-    SendText(message);
+    cJSON_AddStringToObject(root, "mode", mode_str);
+    if (!directive.empty()) {
+        cJSON_AddStringToObject(root, "text", directive.c_str());
+    }
+    char* encoded = cJSON_PrintUnformatted(root);
+    cJSON_Delete(root);
+    if (encoded == nullptr) {
+        ESP_LOGE(TAG, "[PROTOCOL] Failed to encode start listening command");
+        return;
+    }
+    std::string json(encoded);
+    cJSON_free(encoded);
+    ESP_LOGI(TAG, "[PROTOCOL] Sending start listening command, mode: %s%s",
+             mode_str, directive.empty() ? "" : ", directive: translator");
+    SendText(json);
 }
 
 void Protocol::SendStopListening() {
@@ -161,7 +172,13 @@ bool Protocol::IsTimeout() const {
     auto duration = std::chrono::duration_cast<std::chrono::seconds>(now - last_incoming_time_);
     bool timeout = duration.count() > kTimeoutSeconds;
     if (timeout) {
-        ESP_LOGE(TAG, "Channel timeout %ld seconds", (long)duration.count());
+        if (!timeout_logged_) {
+            ESP_LOGE(TAG, "Channel timeout %ld seconds", (long)duration.count());
+            timeout_logged_ = true;
+        }
+    } else {
+        // Data is flowing again — re-arm so the next timeout episode logs once.
+        timeout_logged_ = false;
     }
     return timeout;
 }

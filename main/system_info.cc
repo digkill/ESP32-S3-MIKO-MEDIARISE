@@ -147,5 +147,8 @@ void SystemInfo::PrintTaskList() {
 void SystemInfo::PrintHeapStats() {
     int free_sram = heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
     int min_free_sram = heap_caps_get_minimum_free_size(MALLOC_CAP_INTERNAL);
-    ESP_LOGI(TAG, "free sram: %u minimal sram: %u", free_sram, min_free_sram);
+    int largest_block = heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL);
+    // largest_block near free_sram => healthy; much smaller => fragmentation.
+    ESP_LOGI(TAG, "free sram: %u minimal sram: %u largest block: %u",
+             free_sram, min_free_sram, largest_block);
 }

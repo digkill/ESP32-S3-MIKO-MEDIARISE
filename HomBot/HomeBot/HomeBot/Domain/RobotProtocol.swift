@@ -85,6 +85,7 @@ enum RobotCommand {
     case resetWiFi
     case setTime(date: Date, timeZone: TimeZone)
     case setEmotion(String)
+    case playEmotionVideo(String)
     case playScene(String)
     case media(MediaAction)
     case setVolume(Int)
@@ -123,6 +124,10 @@ enum RobotCommand {
         case let .setEmotion(name):
             return try encoder.encode(
                 RobotCommandEnvelope(type: "emotion.set", payload: EmotionPayload(name: name))
+            )
+        case let .playEmotionVideo(name):
+            return try encoder.encode(
+                RobotCommandEnvelope(type: "emotion.video", payload: EmotionPayload(name: name))
             )
         case let .playScene(name):
             return try encoder.encode(

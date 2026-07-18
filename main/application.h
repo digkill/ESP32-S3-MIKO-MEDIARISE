@@ -65,6 +65,10 @@ public:
     void SendMcpMessage(const std::string& payload);
     void SpeakText(const std::string& text);
     void ChatText(const std::string& text, const std::string& language);
+    void SetTranslatorMode(bool enabled, const std::string& target_language = "Thai",
+                           const std::string& source_language = "auto");
+    bool IsTranslatorModeEnabled() const { return translator_mode_enabled_; }
+    std::string GetTranslatorTargetLanguage() const { return translator_target_language_; }
     void SendCharacterEvent(const std::string& event, const std::string& context_json);
     void SetDialogReplyCallback(std::function<void(const std::string&)> callback);
     void SetDialogErrorCallback(std::function<void(const std::string&)> callback);
@@ -102,12 +106,17 @@ private:
     std::string dialog_spoken_reply_;
     std::function<void(const std::string&)> dialog_reply_callback_;
     std::function<void(const std::string&)> dialog_error_callback_;
+    bool translator_mode_enabled_ = false;
+    std::string translator_target_language_ = "Thai";
+    std::string translator_source_language_ = "auto";
 
     void OnWakeWordDetected();
     void CheckNewVersion(Ota& ota);
     void CheckAssetsVersion();
     void ShowActivationCode(const std::string& code, const std::string& message);
     void SetListeningMode(ListeningMode mode);
+    std::string NormalizeLanguageName(const std::string& language) const;
+    std::string BuildTranslatorDirective() const;
     void ResetIdleTimeoutTimer();
     void StopIdleTimeoutTimer();
 };

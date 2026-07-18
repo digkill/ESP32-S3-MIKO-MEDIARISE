@@ -3,9 +3,11 @@
 
 #include <driver/uart.h>
 #include <esp_now.h>
+#include <esp_timer.h>
 #include <freertos/FreeRTOS.h>
 #include <freertos/semphr.h>
 #include <cstddef>
+#include <cstdint>
 #include <mutex>
 #include <string>
 #include <utility>
@@ -39,15 +41,34 @@ private:
     uart_port_t uart_port_;
     bool initialized_;
     bool espnow_initialized_ = false;
+    bool espnow_peer_online_ = false;
+    bool espnow_peer_mac_known_ = false;
+    uint8_t espnow_peer_mac_[ESP_NOW_ETH_ALEN] = {};
+    int espnow_failures_ = 0;
+    int64_t last_espnow_probe_us_ = 0;
     SemaphoreHandle_t espnow_response_sem_ = nullptr;
     uint16_t espnow_sequence_ = 0;
     uint16_t espnow_waiting_sequence_ = 0;
     std::string espnow_response_;
     std::mutex uart_mutex_;
 
+    bool local_servos_ready_ = false;
+    bool local_servos_attached_ = false;
+    int local_yaw_angle_ = -1;
+    int local_pitch_angle_ = -1;
+    std::mutex local_servo_mutex_;
+    esp_timer_handle_t local_servo_release_timer_ = nullptr;
+
     static ServoController* espnow_instance_;
+    bool InitLocalServos();
+    bool SetLocalServoAngle(int servo_num, int angle);
+    bool AttachLocalServosLocked();
+    void ReleaseLocalServos(bool force);
+    static void LocalServoReleaseCallback(void* arg);
     static void EspNowReceiveCallback(const esp_now_recv_info_t* info, const uint8_t* data, int len);
-    void HandleEspNowPacket(const uint8_t* data, int len);
+    void HandleEspNowPacket(const esp_now_recv_info_t* info, const uint8_t* data, int len);
+    bool EnsureEspNowPeerLocked(const uint8_t* mac);
+    bool RefreshEspNowPeerLocked();
     bool SendEspNowCommandLocked(const std::string& command, std::string* response, int timeout_ms);
     bool SendCommandLocked(const std::string& command);
     bool SendCommand(const std::string& command);

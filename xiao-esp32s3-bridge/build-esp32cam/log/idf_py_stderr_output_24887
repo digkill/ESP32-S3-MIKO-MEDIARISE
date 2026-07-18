@@ -1,0 +1,10 @@
+Command: cmake -G Ninja -B /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/xiao-esp32s3-bridge/build-esp32cam -DPYTHON_DEPS_CHECKED=1 -DPYTHON=/Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python -DESP_PLATFORM=1 -DSDKCONFIG=sdkconfig.esp32cam -DSDKCONFIG_DEFAULTS=sdkconfig.esp32cam.defaults -DBOARD_ESP32CAM=1 -DIDF_TARGET=esp32 -DCCACHE_ENABLE=False /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/xiao-esp32s3-bridge
+Loading defaults file /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/xiao-esp32s3-bridge/sdkconfig.esp32cam.defaults...
+Configuration Report               
+ ───────────────────────────────── 
+   Parser Version: 1               
+   Verbosity: default              
+   Defaults policy: sdkconfig      
+   Status: Finished successfully   
+                                   
+ ───────────────────────────────── 

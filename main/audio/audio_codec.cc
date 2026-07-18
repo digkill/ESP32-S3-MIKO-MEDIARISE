@@ -1,12 +1,21 @@
 #include "audio_codec.h"
 #include "board.h"
 #include "settings.h"
+#include "config.h"
 
 #include <esp_log.h>
 #include <cstring>
 #include <driver/i2s_common.h>
 
 #define TAG "AudioCodec"
+
+#ifndef AUDIO_DEFAULT_OUTPUT_VOLUME
+#define AUDIO_DEFAULT_OUTPUT_VOLUME 70
+#endif
+// Volumes above this drive the DAC/PA into clipping on small speakers.
+#ifndef AUDIO_MAX_OUTPUT_VOLUME
+#define AUDIO_MAX_OUTPUT_VOLUME 100
+#endif
 
 AudioCodec::AudioCodec() {
 }
@@ -29,18 +38,26 @@ bool AudioCodec::InputData(std::vector<int16_t>& data) {
 void AudioCodec::Start() {
     {
         Settings settings("audio", false);
-        output_volume_ = settings.GetInt("output_volume", output_volume_);
+        output_volume_ = settings.GetInt("output_volume", AUDIO_DEFAULT_OUTPUT_VOLUME);
     }
     if (output_volume_ <= 0) {
-        ESP_LOGW(TAG, "Output volume value (%d) is too small, setting to default (100)", output_volume_);
-        output_volume_ = 100;
+        ESP_LOGW(TAG, "Output volume value (%d) is invalid, setting to default (%d)", output_volume_, AUDIO_DEFAULT_OUTPUT_VOLUME);
+        output_volume_ = AUDIO_DEFAULT_OUTPUT_VOLUME;
     }
-    if (output_volume_ != 100) {
-        ESP_LOGI(TAG, "Forcing output volume to maximum (100) from stored value %d", output_volume_);
-        output_volume_ = 100;
+    if (output_volume_ > AUDIO_MAX_OUTPUT_VOLUME) {
+        ESP_LOGW(TAG, "Clamping stored output volume %d to safe maximum %d", output_volume_, AUDIO_MAX_OUTPUT_VOLUME);
+        output_volume_ = AUDIO_MAX_OUTPUT_VOLUME;
         Settings writer("audio", true);
         writer.SetInt("output_volume", output_volume_);
     }
+#ifdef AUDIO_FORCE_MAX_OUTPUT_VOLUME
+    if (output_volume_ < AUDIO_MAX_OUTPUT_VOLUME) {
+        ESP_LOGW(TAG, "Forcing output volume %d up to maximum %d", output_volume_, AUDIO_MAX_OUTPUT_VOLUME);
+        output_volume_ = AUDIO_MAX_OUTPUT_VOLUME;
+        Settings writer("audio", true);
+        writer.SetInt("output_volume", output_volume_);
+    }
+#endif
 
     if (tx_handle_ != nullptr) {
         ESP_LOGI(TAG, "Enabling TX channel (speaker)");
@@ -62,6 +79,13 @@ void AudioCodec::Start() {
 }
 
 void AudioCodec::SetOutputVolume(int volume) {
+    if (volume > AUDIO_MAX_OUTPUT_VOLUME) {
+        ESP_LOGW(TAG, "Requested volume %d exceeds safe maximum, clamping to %d", volume, AUDIO_MAX_OUTPUT_VOLUME);
+        volume = AUDIO_MAX_OUTPUT_VOLUME;
+    }
+    if (volume < 0) {
+        volume = 0;
+    }
     output_volume_ = volume;
     ESP_LOGI(TAG, "Set output volume to %d", output_volume_);
     

@@ -1,0 +1,725 @@
+Command: /Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python /Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf_monitor.py -p /dev/cu.usbmodem101 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/xiaozhi.elf /Users/digkill/Projects/ESP32/mediarise-robot-console/xiaozhi-esp32/build-s3-v2/bootloader/bootloader.elf -m '/Users/digkill/.espressif/python_env/idf6.0_py3.12_env/bin/python' '/Users/digkill/.espressif/v6.0.1/esp-idf/tools/idf.py' '-B' 'xiaozhi-esp32/build-s3-v2' '-p' '/dev/cu.usbmodem101'
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x421d2a70
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (36) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (36) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (36) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (37) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (37) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (37) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (37) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (38) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (38) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (38) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (38) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (38) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (39) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (39) esp_psram: Speed: 80MHz[0m
+[0;32mI (40) cpu_start: Multicore app[0m
+[0;32mI (48) cpu_start: Pro cpu start user code[0m
+[0;32mI (48) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (48) app_init: Application information:[0m
+[0;32mI (49) app_init: Project name:     xiaozhi[0m
+[0;32mI (49) app_init: App version:      2.0.5[0m
+[0;32mI (49) app_init: Compile time:     Jun 18 2026 03:47:08[0m
+[0;32mI (49) app_init: ELF file SHA256:  10de7a008...[0m
+[0;32mI (49) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (49) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (49) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (50) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (50) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (50) heap_init: At 3FCB2310 len 00037400 (221 KiB): RAM[0m
+[0;32mI (50) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (50) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (50) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (51) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (51) spi_flash: detected chip: gd[0m
+[0;32mI (51) spi_flash: flash io: qio[0m
+[0;32mI (52) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (53) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (54) main_task: Started on CPU0[0m
+[0;32mI (64) esp_psram: Reserving pool of 128K of internal memory for DMA/internal allocations[0m
+[0;32mI (64) main_task: Calling app_main()[0m
+[0;32mI (84) main: Getting Application instance...[0m
+[0;32mI (84) main: Application instance obtained, calling Start()...[0m
+[0;32mI (84) Application: Application::Start() called[0m
+[0;32mI (84) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (84) button: IoT Button Version: 4.1.6[0m
+[0;32mI (84) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (114) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (114) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (114) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (114) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (114) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (114) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (114) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (114) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (434) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (434) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (434) Display: Power management not supported[0m
+[0;32mI (434) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (434) LcdDisplay: Размер: 410x502[0m
+[0;32mI (434) LcdDisplay: Panel handle: 0x3fcededc[0m
+[0;32mI (434) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (434) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (434) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (524) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (624) LcdDisplay: Включение дисплея...[0m
+[0;32mI (624) LcdDisplay: Дисплей включен[0m
+[0;32mI (624) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (624) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (624) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (624) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (624) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (624) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (624) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (624) LVGL: Starting LVGL task[0m
+[0;32mI (624) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (624) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (624) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (624) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (624) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (624) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (624) LcdDisplay: Настройка UI...[0m
+[0;32mI (624) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (624) LcdDisplay: Тема найдена: 0x3fcee054[0m
+[0;32mI (624) LcdDisplay: Шрифты загружены: text=0x3c26b500, icon=0x3c25d004, large_icon=0x3c25d004[0m
+[0;32mI (624) LcdDisplay: Активный экран найден: 0x3fcee9d8[0m
+[0;32mI (634) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (634) LcdDisplay:   container_: 0x3fceebbc[0m
+[0;32mI (634) LcdDisplay:   emoji_box_: 0x3fceeca4[0m
+[0;32mI (634) LcdDisplay:   emoji_label_: 0x3fceed48[0m
+[0;32mI (634) LcdDisplay:   emoji_image_: 0x3fce25c0[0m
+[0;32mI (634) LcdDisplay:   preview_image_: 0x3fce2658[0m
+[0;32mI (634) LcdDisplay:   top_bar_: 0x3fce26fc[0m
+[0;32mI (634) LcdDisplay:   status_bar_: 0x3fce2bcc[0m
+[0;32mI (634) LcdDisplay:   content_: 0[0m
+[0;32mI (634) LcdDisplay:   bottom_bar_: 0x3fce2f78[0m
+[0;32mI (634) LcdDisplay:   chat_message_label_: 0x3fce3018[0m
+[0;32mI (634) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (634) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (694) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (774) Backlight: Set brightness to 100[0m
+[0;32mI (774) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (774) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (774) WaveshareAMOLED2_06: FT3168 probe attempt 1 failed: ESP_ERR_NOT_FOUND[0m
+[1;31mE (794) i2c.master: probe device timeout. Please check if xfer_timeout_ms and pull-ups are correctly set up[0m
+[0;33mW (794) WaveshareAMOLED2_06: while waiting for FT3168 I2C scan: 0x18 0x34 0x40 0x51 0x6B[0m
+[0;32mI (1294) WaveshareAMOLED2_06: FT3168 probe: ESP_OK[0m
+[0;32mI (1294) WaveshareAMOLED2_06: FT3168 regs[2-6]: ESP_OK 00 40 C4 01 94[0m
+[0;32mI (1294) WaveshareAMOLED2_06: FT5x06-compatible touch enabled on GPIO38 falling edge[0m
+[0;32mI (1294) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+[0;32mI (1294) QMI8658: QMI8658 initialized successfully[0m
+[0;32mI (1294) XiaoBridge: Init XIAO UART bridge[0m
+[0;32mI (1294) XiaoBridge:   Port: UART_NUM_1[0m
+[0;32mI (1294) XiaoBridge:   Baud: 115200[0m
+[0;32mI (1294) XiaoBridge:   TX Pin: GPIO17[0m
+[0;32mI (1294) XiaoBridge:   RX Pin: GPIO18[0m
+[0;32mI (1294) uart: ESP_INTR_FLAG_IRAM flag not set while CONFIG_UART_ISR_IN_IRAM is enabled, flag updated[0m
+[0;32mI (1344) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (1394) XiaoBridge: Set pose: home[0m
+[0;32mI (1394) XiaoBridge: XIAO bridge UART initialized[0m
+[0;32mI (1394) WaveshareAMOLED2_06: ServoController OK[0m
+
+AMOLED command console ready. Type HELP.
+[0;32mI (1394) WaveshareAMOLED2_06: Vibration motor disabled: set VIBRATION_MOTOR_ENABLED and GPIO after wiring[0m
+[0;32mI (1394) WaveshareAMOLED2_06: Shake interaction ready[0m
+[0;32mI (1394) MCP: Add tool: self.system.reconfigure_wifi[0m
+[0;32mI (1394) MCP: Add tool: self.robot.set_servo[0m
+[0;32mI (1394) MCP: Add tool: self.robot.set_pose[0m
+[0;32mI (1394) MCP: Add tool: self.robot.move_servos[0m
+[0;32mI (1394) MCP: Add tool: self.robot.set_led[0m
+[0;32mI (1394) MCP: Add tool: self.robot.led_default[0m
+[0;32mI (1394) MCP: Add tool: self.robot.led_off[0m
+[0;32mI (1394) MCP: Add tool: self.robot.led_test[0m
+[0;32mI (1394) WaveshareAMOLED2_06: Robot MCP tools registered[0m
+[0;32mI (1394) MCP: Add tool: self.hardware.get_motion[0m
+[0;32mI (1394) MCP: Add tool: self.hardware.get_touch[0m
+[0;32mI (1394) MCP: Add tool: self.hardware.get_sdcard[0m
+[0;32mI (1394) MCP: Add tool: self.hardware.get_xiao_status[0m
+[0;32mI (1394) MCP: Add tool: self.hardware.get_proximity[0m
+[0;32mI (1394) MCP: Add tool: self.sensor.get_radar[0m
+[0;32mI (1394) MCP: Add tool: self.sensor.get_distance[0m
+[0;32mI (1394) MCP: Add tool: self.camera.get_status[0m
+[0;32mI (1394) MCP: Add tool: self.camera.capture_frame[0m
+[0;32mI (1394) MCP: Add tool: self.camera.stream_off[0m
+[0;32mI (1394) BLE_INIT: BT controller compile version [b7de11e][0m
+[0;32mI (1394) BLE_INIT: Using main XTAL as clock source[0m
+[0;32mI (1394) BLE_INIT: Feature Config, ADV:1, BLE_50:1, DTM:1, SCAN:1, CCA:0, SMP:1, CONNECT:1[0m
+[0;32mI (1394) BLE_INIT: Bluetooth MAC: 3c:dc:75:6f:cc:6e[0m
+[0;32mI (1394) phy_init: phy_version 711,97bcf0a2,Aug 25 2025,19:04:10[0m
+[0;32mI (1444) NimBLE: GAP procedure initiated: stop advertising.[0m
+
+[0;32mI (1444) NimBLE: GAP procedure initiated: stop advertising.[0m
+
+[0;32mI (1444) NimBLE: GAP procedure initiated: advertise; [0m
+[0;32mI (1444) NimBLE: disc_mode=2[0m
+[0;32mI (1444) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=0 adv_itvl_max=0[0m
+[0;32mI (1444) NimBLE: [0m
+
+[0;32mI (1444) HomeBotBLE: HomeBot BLE service starting[0m
+[0;32mI (1524) Application: Board instance obtained[0m
+[0;32mI (1524) Application: STATE: starting[0m
+[0;32mI (1524) Application: Device state set to Starting[0m
+[0;32mI (1524) Application: Getting display from board...[0m
+[0;32mI (1524) Application: Display obtained: 0x3fce34e0[0m
+[0;32mI (1524) Application: Setting chat message...[0m
+[0;32mI (1524) WaveshareAMOLED2_06: Chat [system]: waveshare-s3-touch-amoled-2.06/2.0.5[0m
+[0;32mI (1524) Application: Chat message set[0m
+[0;32mI (1524) Application: Getting audio codec from board...[0m
+[0;32mI (1524) BoxAudioCodec: Duplex channels created[0m
+[0;32mI (1534) ES8311: Work in Slave mode[0m
+[0;32mI (1544) ES7210: Work in Slave mode[0m
+[0;32mI (1544) ES7210: Enable ES7210_INPUT_MIC1[0m
+[0;32mI (1554) ES7210: Enable ES7210_INPUT_MIC2[0m
+[0;32mI (1554) ES7210: Enable ES7210_INPUT_MIC3[0m
+[0;32mI (1554) ES7210: Enable ES7210_INPUT_MIC4[0m
+[0;32mI (1564) ES7210: Enable TDM mode[0m
+[0;32mI (1564) BoxAudioCodec: BoxAudioDevice initialized[0m
+[0;32mI (1564) Application: Audio codec obtained: 0x3fcacaa8[0m
+[0;32mI (1564) Application: Initializing audio service...[0m
+[0;32mI (1564) AudioCodec: Enabling TX channel (speaker)[0m
+[0;32mI (1564) AudioCodec: Enabling RX channel (microphone)[0m
+[0;32mI (1564) I2S_IF: channel mode 2 bits:16/16 channel:4 mask:3[0m
+[0;32mI (1564) I2S_IF: TDM Mode 0 bits:16/16 channel:4 sample_rate:24000 mask:3[0m
+[0;32mI (1564) I2S_IF: channel mode 0 bits:16/16 channel:4 mask:3[0m
+[0;32mI (1564) I2S_IF: STD Mode 1 bits:32/32 channel:4 sample_rate:24000 mask:0[0m
+[0;32mI (1564) ES7210: Bits 16[0m
+[0;32mI (1574) ES7210: Enable ES7210_INPUT_MIC1[0m
+[0;32mI (1584) ES7210: Enable ES7210_INPUT_MIC2[0m
+[0;32mI (1584) ES7210: Enable ES7210_INPUT_MIC3[0m
+[0;32mI (1584) ES7210: Enable ES7210_INPUT_MIC4[0m
+[0;32mI (1594) ES7210: Enable TDM mode[0m
+[0;32mI (1594) ES7210: Unmuted[0m
+[0;32mI (1594) Adev_Codec: Open codec device OK[0m
+[0;32mI (1674) AudioCodec: Set input enable to true[0m
+[0;32mI (1674) I2S_IF: Mode 0 need extend bits 64 to 32[0m
+[0;32mI (1674) I2S_IF: channel mode 0 bits:16/32 channel:2 mask:1[0m
+[0;32mI (1674) I2S_IF: STD Mode 1 bits:16/32 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (1694) Adev_Codec: Open codec device OK[0m
+[0;32mI (1694) AudioCodec: Set output enable to true[0m
+[0;32mI (1694) AudioCodec: Audio codec started - Input: enabled, Output: enabled[0m
+[0;32mI (1694) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (1694) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (1694) OpusResampler: Resampler configured with input sample rate 16000 and output sample rate 24000[0m
+[0;32mI (1694) Application: Starting audio service...[0m
+[0;32mI (1694) Application: Audio service started[0m
+[0;32mI (1694) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (1694) Application: Starting network...[0m
+[0;32mI (1694) pp: pp rom version: e7ae62f[0m
+[0;32mI (1704) net80211: net80211 rom version: e7ae62f[0m
+[0;32mI (1714) wifi:wifi driver task: 3fcc51d0, prio:23, stack:6656, core=0[0m
+[0;32mI (1714) wifi:wifi firmware version: b37c951[0m
+[0;32mI (1714) wifi:wifi certification version: v7.0[0m
+[0;32mI (1714) wifi:config NVS flash: disabled[0m
+[0;32mI (1714) wifi:config nano formatting: disabled[0m
+[0;32mI (1714) wifi:Init data frame dynamic rx buffer num: 6[0m
+[0;32mI (1714) wifi:Init dynamic rx mgmt buffer num: 5[0m
+[0;32mI (1714) wifi:Init management short buffer num: 32[0m
+[0;32mI (1714) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (1714) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (1714) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (1714) wifi:Init static rx buffer num: 3[0m
+[0;32mI (1714) wifi:Init dynamic rx buffer num: 6[0m
+[0;32mI (1714) wifi_init: rx ba win: 3[0m
+[0;32mI (1714) wifi_init: accept mbox: 6[0m
+[0;32mI (1714) wifi_init: tcpip mbox: 16[0m
+[0;32mI (1714) wifi_init: udp mbox: 6[0m
+[0;32mI (1714) wifi_init: tcp mbox: 6[0m
+[0;32mI (1714) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1714) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1714) wifi_init: tcp mss: 1440[0m
+[0;32mI (1714) wifi:mode : sta (3c:dc:75:6f:cc:6c)[0m
+[0;32mI (1714) wifi:enable tsf[0m
+[0;33mW (1724) Display: ShowNotification: Сканирование Wi-Fi...[0m
+[0;32mI (3514) WaveshareAMOLED2_06: touch-int irq=4 int=0 ready=1[0m
+[0;32mI (3514) WaveshareAMOLED2_06: touch#1 irq=4 probe=0 int=0 ESP_OK pts=1 x=333 y=217[0m
+[0;32mI (3534) WaveshareAMOLED2_06: touch#2 irq=1 probe=0 int=0 ESP_OK pts=1 x=327 y=209[0m
+[0;32mI (3654) WaveshareAMOLED2_06: touch#3 irq=4 probe=0 int=0 ESP_OK pts=1 x=212 y=102[0m
+[0;32mI (3674) WaveshareAMOLED2_06: touch#4 irq=1 probe=0 int=0 ESP_OK pts=1 x=228 y=120[0m
+[0;32mI (3704) WaveshareAMOLED2_06: touch#5 irq=1 probe=0 int=0 ESP_OK pts=1 x=253 y=145[0m
+[0;32mI (3794) WaveshareAMOLED2_06: touch#6 irq=6 probe=0 int=0 ESP_OK pts=1 x=319 y=201[0m
+[0;32mI (3824) WaveshareAMOLED2_06: touch#7 irq=1 probe=0 int=0 ESP_OK pts=1 x=331 y=211[0m
+[0;32mI (3844) WaveshareAMOLED2_06: touch#8 irq=1 probe=0 int=0 ESP_OK pts=1 x=336 y=216[0m
+[0;32mI (3934) WaveshareAMOLED2_06: touch#9 irq=6 probe=0 int=0 ESP_OK pts=1 x=331 y=228[0m
+[0;32mI (3964) WaveshareAMOLED2_06: touch#10 irq=1 probe=0 int=0 ESP_OK pts=1 x=320 y=231[0m
+[0;32mI (3994) WaveshareAMOLED2_06: touch#11 irq=1 probe=0 int=0 ESP_OK pts=1 x=310 y=233[0m
+[0;32mI (4074) WaveshareAMOLED2_06: touch#12 irq=6 probe=0 int=0 ESP_OK pts=1 x=293 y=233[0m
+[0;32mI (4104) WaveshareAMOLED2_06: touch#13 irq=1 probe=0 int=0 ESP_OK pts=1 x=297 y=213[0m
+[0;32mI (4134) WaveshareAMOLED2_06: touch#14 irq=1 probe=0 int=0 ESP_OK pts=1 x=316 y=163[0m
+[0;32mI (4224) WaveshareAMOLED2_06: touch#15 irq=6 probe=0 int=0 ESP_OK pts=0 x=0 y=0[0m
+[0;32mI (4274) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (4274) WaveshareAMOLED2_06: touch#16 irq=0 probe=1 int=1 ESP_OK pts=0 x=0 y=0[0m
+[1;31mE (4274) Application: Protocol not initialized[0m
+[0;32mI (4354) WaveshareAMOLED2_06: touch-int irq=1 int=0 ready=1[0m
+[0;32mI (4354) WaveshareAMOLED2_06: touch#17 irq=1 probe=0 int=0 ESP_OK pts=1 x=355 y=56[0m
+[0;32mI (4384) WaveshareAMOLED2_06: touch#18 irq=1 probe=0 int=0 ESP_OK pts=1 x=355 y=56[0m
+[0;32mI (4404) WaveshareAMOLED2_06: touch#19 irq=1 probe=0 int=0 ESP_OK pts=1 x=355 y=56[0m
+[0;32mI (4464) WaveshareAMOLED2_06: touch#20 irq=3 probe=0 int=0 ESP_OK pts=1 x=339 y=109[0m
+[0;32mI (4474) WaveshareAMOLED2_06: touch#21 irq=1 probe=0 int=0 ESP_OK pts=1 x=324 y=147[0m
+[0;32mI (4504) WaveshareAMOLED2_06: touch#22 irq=1 probe=0 int=0 ESP_OK pts=1 x=307 y=185[0m
+[0;32mI (4584) WaveshareAMOLED2_06: touch#23 irq=4 probe=0 int=0 ESP_OK pts=1 x=278 y=249[0m
+[0;32mI (4604) WaveshareAMOLED2_06: touch#24 irq=1 probe=0 int=0 ESP_OK pts=1 x=273 y=261[0m
+[0;32mI (4634) WaveshareAMOLED2_06: touch#25 irq=1 probe=0 int=0 ESP_OK pts=1 x=270 y=269[0m
+[0;32mI (4724) WaveshareAMOLED2_06: touch#26 irq=6 probe=0 int=0 ESP_OK pts=1 x=267 y=283[0m
+[0;32mI (4754) WaveshareAMOLED2_06: touch#27 irq=1 probe=0 int=0 ESP_OK pts=1 x=270 y=285[0m
+[0;32mI (4774) WaveshareAMOLED2_06: touch#28 irq=1 probe=0 int=0 ESP_OK pts=1 x=284 y=275[0m
+[0;32mI (4864) WaveshareAMOLED2_06: touch#29 irq=6 probe=0 int=0 ESP_OK pts=1 x=409 y=168[0m
+[0;32mI (4924) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (4924) WaveshareAMOLED2_06: touch#30 irq=0 probe=1 int=1 ESP_OK pts=0 x=0 y=0[0m
+[0;32mI (5004) WaveshareAMOLED2_06: touch#31 irq=0 probe=1 int=1 ESP_OK pts=0 x=0 y=0[0m
+[1;31mE (5004) Application: Protocol not initialized[0m
+[0;32mI (9084) WifiStation: Found AP: muza 2.4, BSSID: 58:25:75:f4:d3:10, RSSI: -51, Channel: 1, Authmode: 4[0m
+[0;33mW (9084) Display: ShowNotification: Подключение к muza 2.4...[0m
+[0;33mW (9084) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2[0m
+[0;32mI (9364) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (9364) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (9364) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (9994) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[1;31mE (10234) wifi:Set status to INIT[0m
+[0;32mI (10234) wifi:state: assoc -> init (0x1110)[0m
+[0;32mI (10234) wifi:Coexist: Wi-Fi connect fail, apply reconnect coex policy[0m
+
+[0;32mI (10234) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (10274) WifiStation: Reconnecting muza 2.4 (attempt 1 / 5)[0m
+[0;32mI (12244) SystemInfo: free sram: 53603 minimal sram: 52331[0m
+[0;32mI (15004) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (15934) AudioCodec: Set input enable to false[0m
+[0;32mI (15944) AudioCodec: Set output enable to false[0m
+[0;32mI (17884) wifi:Coexist: Wi-Fi connect fail, apply reconnect coex policy[0m
+
+[0;32mI (17884) WifiStation: Reconnecting muza 2.4 (attempt 2 / 5)[0m
+[0;32mI (18164) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (18174) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (18174) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (18184) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (18204) wifi:connected with muza 2.4, aid = 1, channel 1, BW20, bssid = 58:25:75:f4:d3:10[0m
+[0;32mI (18214) wifi:security: WPA2-PSK, phy: bgn, rssi: -52, cipher(pairwise:0x3, group:0x1), pmf:0[0m
+[0;32mI (18214) wifi:pm start, type: 1[0m
+
+[0;32mI (18214) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (18214) wifi:set rx beacon pti, rx_bcn_pti: 14, bcn_timeout: 25000, mt_pti: 14, mt_time: 10000[0m
+[0;32mI (18214) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (20084) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (20294) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:1, winSize:64[0m
+[0;32mI (21314) esp_netif_handlers: sta ip: 192.168.0.52, mask: 255.255.255.0, gw: 192.168.0.1[0m
+[0;32mI (21314) WifiStation: Got IP: 192.168.0.52[0m
+[0;33mW (21314) Display: ShowNotification: Подключено к muza 2.4[0m
+[0;32mI (21314) ESPNOW: espnow [version: 2.0] init[0m
+[0;32mI (21314) XiaoBridge: ESP-NOW XIAO bridge enabled on Wi-Fi channel 1[0m
+[0;32mI (21854) SystemInfo: free sram: 52303 minimal sram: 51139[0m
+[0;33mW (22314) XiaoBridge: ESP-NOW timeout for command: PING[0m
+[0;33mW (22314) XiaoBridge: ESP-NOW initialized; XIAO peer has not replied yet[0m
+[0;32mI (22314) Application: Network started[0m
+[0;32mI (22314) Application: Updating status bar...[0m
+[0;32mI (22624) Application: Status bar updated[0m
+[0;32mI (22624) Assets: The storage free size is 21568 KB[0m
+[0;32mI (22624) Assets: The partition size is 8192 KB[0m
+[0;32mI (22914) Assets: The checksum calculation time is 292 ms[0m
+[0;32mI (22924) MODEL_LOADER: Successfully load srmodels[0m
+[0;32mI (22924) Assets: Refreshing display theme...[0m
+[0;33mW (22924) Ota: Serial number missing in eFuse, fallback to MAC: 3CDC756FCC6C[0m
+[0;32mI (22924) MCP: Add tool: self.get_device_status[0m
+[0;32mI (22924) MCP: Add tool: self.audio_speaker.set_volume[0m
+[0;32mI (22924) MCP: Add tool: self.screen.set_brightness[0m
+[0;32mI (22924) MCP: Add tool: self.get_system_info [user][0m
+[0;32mI (22924) MCP: Add tool: self.reboot [user][0m
+[0;32mI (22924) MCP: Add tool: self.upgrade_firmware [user][0m
+[0;32mI (22924) MCP: Add tool: self.assets.set_download_url [user][0m
+[0;33mW (22924) Application: No protocol specified in the OTA config, using WebSocket default[0m
+[0;32mI (22924) SystemInfo: free sram: 45227 minimal sram: 42803[0m
+[0;32mI (22924) Application: STATE: idle[0m
+[0;32mI (22924) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (22924) Application: [STATE] Device entering IDLE state - wake word detection enabled[0m
+[0;32mI (22924) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (22924) AudioService: [WAKE_WORD] Initializing wake word handler...[0m
+[0;32mI (22934) AfeWakeWord: Model 0: wn9_hiesp[0m
+[0;32mI (22934) AfeWakeWord: [WAKE_WORD] Loaded model: wn9_hiesp[0m
+[0;32mI (22934) AfeWakeWord: [WAKE_WORD] Available wake words: Hi,ESP[0m
+[0;32mI (22934) AfeWakeWord: [WAKE_WORD] Registered wake word: 'Hi,ESP'[0m
+[0;32mI (22934) AfeWakeWord: [WAKE_WORD] Total wake words registered: 1[0m
+[0;32mI (22934) AFE_CONFIG: Set WakeNet Model: wn9_hiesp[0m
+MC Quantized wakenet9: wakeNet9_v1h24_Hi,ESP_3_0.63_0.635, tigger:v4, mode:0, p:0, (Apr 28 2026 09:55:03)
+------ns: 
+[0;32mI (23064) AfeWakeWord: Audio detection task started, feed size: 512 fetch size: 512[0m
+[0;32mI (23064) AudioService: [WAKE_WORD] Wake word handler initialized successfully[0m
+[0;32mI (23064) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[1;31mE (23064) i2s_common: i2s_channel_disable(1260): the channel has not been enabled yet[0m
+[0;32mI (23064) I2S_IF: channel mode 2 bits:16/16 channel:4 mask:3[0m
+[0;32mI (23064) I2S_IF: TDM Mode 0 bits:16/16 channel:4 sample_rate:24000 mask:3[0m
+[1;31mE (23064) i2s_common: i2s_channel_disable(1260): the channel has not been enabled yet[0m
+[0;32mI (23064) I2S_IF: channel mode 0 bits:16/16 channel:4 mask:3[0m
+[1;31mE (23064) i2s_common: i2s_alloc_dma_desc(542): allocate DMA buffer failed[0m
+[1;31mE (23064) i2s_std: i2s_std_set_slot(158): allocate memory for dma descriptor failed[0m
+[1;31mE (23064) i2s_std: i2s_channel_reconfig_std_slot(458): set i2s standard slot failed[0m
+Guru Meditation Error: Core  0 panic'ed (StoreProhibited). Exception was unhandled.
+
+Core  0 register dump:
+PC      : 0x42090f55  PS      : 0x00060430  A0      : 0x820911e6  A1      : 0x3fcc6c10  
+A2      : 0x3c360488  A3      : 0x3fcc6c30  A4      : 0x00000020  A5      : 0x3fcf0424  
+A6      : 0x00000020  A7      : 0x00000001  A8      : 0x00000000  A9      : 0x3fcc6be0  
+A10     : 0x00000101  A11     : 0x00000101  A12     : 0x00000018  A13     : 0x00000003  
+A14     : 0x3fcf0358  A15     : 0x3fcc6c30  SAR     : 0x00000004  EXCCAUSE: 0x0000001d  
+EXCVADDR: 0x00000000  LBEG    : 0x400570e8  LEND    : 0x400570f3  LCOUNT  : 0xffffffff  
+
+
+Backtrace: 0x42090f52:0x3fcc6c10 0x420911e3:0x3fcc6ce0 0x4209134b:0x3fcc6d30 0x420905db:0x3fcc6d80 0x42012268:0x3fcc6da0 0x42011668:0x3fcc6de0 0x42011a00:0x3fcc6e50 0x42011ad2:0x3fcc6ea0
+
+
+
+
+ELF file SHA256: 10de7a008
+
+Rebooting...
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x2b (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4038cefa
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x598
+load:0x403c8700,len:0xc88
+load:0x403cb700,len:0x2ea8
+entry 0x403c88f4
+[0;32mI (36) octal_psram: vendor id    : 0x0d (AP)[0m
+[0;32mI (36) octal_psram: dev id       : 0x02 (generation 3)[0m
+[0;32mI (36) octal_psram: density      : 0x03 (64 Mbit)[0m
+[0;32mI (36) octal_psram: good-die     : 0x01 (Pass)[0m
+[0;32mI (36) octal_psram: Latency      : 0x01 (Fixed)[0m
+[0;32mI (37) octal_psram: VCC          : 0x01 (3V)[0m
+[0;32mI (37) octal_psram: SRF          : 0x01 (Fast Refresh)[0m
+[0;32mI (37) octal_psram: BurstType    : 0x01 (Hybrid Wrap)[0m
+[0;32mI (37) octal_psram: BurstLen     : 0x01 (32 Byte)[0m
+[0;32mI (37) octal_psram: Readlatency  : 0x02 (10 cycles@Fixed)[0m
+[0;32mI (38) octal_psram: DriveStrength: 0x00 (1/1)[0m
+[0;32mI (38) MSPI Timing: Enter psram timing tuning[0m
+[0;32mI (39) esp_psram: Found 8MB PSRAM device[0m
+[0;32mI (39) esp_psram: Speed: 80MHz[0m
+[0;32mI (39) cpu_start: Multicore app[0m
+[0;32mI (48) cpu_start: Pro cpu start user code[0m
+[0;32mI (48) cpu_start: cpu freq: 240000000 Hz[0m
+[0;32mI (48) app_init: Application information:[0m
+[0;32mI (48) app_init: Project name:     xiaozhi[0m
+[0;32mI (48) app_init: App version:      2.0.5[0m
+[0;32mI (48) app_init: Compile time:     Jun 18 2026 03:47:08[0m
+[0;32mI (49) app_init: ELF file SHA256:  10de7a008...[0m
+[0;32mI (49) app_init: ESP-IDF:          v6.0.1[0m
+[0;32mI (49) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (49) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (49) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (49) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (49) heap_init: At 3FCB2310 len 00037400 (221 KiB): RAM[0m
+[0;32mI (49) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (50) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (50) heap_init: At 600FE000 len 00001FD8 (7 KiB): RTCRAM[0m
+[0;32mI (50) esp_psram: Adding pool of 8192K of PSRAM memory to heap allocator[0m
+[0;32mI (51) spi_flash: detected chip: gd[0m
+[0;32mI (51) spi_flash: flash io: qio[0m
+[0;32mI (52) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (52) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (53) main_task: Started on CPU0[0m
+[0;32mI (63) esp_psram: Reserving pool of 128K of internal memory for DMA/internal allocations[0m
+[0;32mI (63) main_task: Calling app_main()[0m
+[0;32mI (83) main: Getting Application instance...[0m
+[0;32mI (83) main: Application instance obtained, calling Start()...[0m
+[0;32mI (83) Application: Application::Start() called[0m
+[0;32mI (83) Board: UUID=ad0988e5-6782-47da-8ea3-23298d329e56 SKU=waveshare-s3-touch-amoled-2.06[0m
+[0;32mI (83) button: IoT Button Version: 4.1.6[0m
+[0;32mI (83) WaveshareAMOLED2_06: Init AXP2101[0m
+[1;31mE (113) sdmmc_common: sdmmc_init_ocr: send_op_cond (1) returned 0x107[0m
+[1;31mE (113) vfs_fat_sdmmc: sdmmc_card_init failed (0x107).[0m
+[1;31mE (113) vfs_fat_sdmmc: esp_vfs_fat_sdmmc_sdcard_init failed (0x107).[0m
+[0;33mW (113) WaveshareAMOLED2_06: SD card mount skipped/failed: ESP_ERR_TIMEOUT[0m
+[0;33mW (113) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (113) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;33mW (113) spi_common: GPIO 0 is conflict with others and be overwritten[0m
+[0;32mI (113) sh8601: LCD panel create success, version: 1.0.2[0m
+[0;33mW (433) StartupMedia: Splash PNG not found: /sdcard/assets/logo_mediarise.png[0m
+[0;33mW (433) StartupMedia: Startup WAV not found: /sdcard/assets/load.wav[0m
+[0;32mI (433) Display: Power management not supported[0m
+[0;32mI (433) LcdDisplay: === SpiLcdDisplay конструктор ===[0m
+[0;32mI (433) LcdDisplay: Размер: 410x502[0m
+[0;32mI (433) LcdDisplay: Panel handle: 0x3fcededc[0m
+[0;32mI (433) LcdDisplay: Panel IO handle: 0x3c2f1734[0m
+[0;32mI (433) LcdDisplay: Отрисовка белого экрана для проверки...[0m
+[0;32mI (433) LcdDisplay: Размер буфера: 410 пикселей (ширина=410)[0m
+[0;32mI (523) LcdDisplay: Белый экран отрисован (502 строк)[0m
+[0;32mI (623) LcdDisplay: Включение дисплея...[0m
+[0;32mI (623) LcdDisplay: Дисплей включен[0m
+[0;32mI (623) LcdDisplay: Инициализация библиотеки LVGL...[0m
+[0;32mI (623) LcdDisplay: LVGL инициализирован[0m
+[0;32mI (623) LcdDisplay: Use 2MB of PSRAM for image cache[0m
+[0;32mI (623) LcdDisplay: Инициализация LVGL порта...[0m
+[0;32mI (623) LcdDisplay:   Привязка к ядру: 1[0m
+[0;32mI (623) LcdDisplay:   Приоритет задачи: 1[0m
+[0;32mI (623) LcdDisplay: LVGL порт инициализирован[0m
+[0;32mI (623) LVGL: Starting LVGL task[0m
+[0;32mI (623) LcdDisplay: Добавление LCD дисплея в LVGL...[0m
+[0;32mI (623) LcdDisplay:   Размер буфера: 8200 байт (410 пикселей x 20 строк)[0m
+[0;32mI (623) LcdDisplay:   Двойной буфер: false[0m
+[0;32mI (623) LcdDisplay:   Поворот: swap_xy=false, mirror_x=false, mirror_y=false[0m
+[0;32mI (623) LcdDisplay: Дисплей успешно добавлен в LVGL, handle: 0x3c2f1c9c[0m
+[0;32mI (623) LcdDisplay: Смещение не требуется (offset_x=0, offset_y=0)[0m
+[0;32mI (623) LcdDisplay: Настройка UI...[0m
+[0;32mI (623) LcdDisplay: === SetupUI начало ===[0m
+[0;32mI (623) LcdDisplay: Тема найдена: 0x3fcee054[0m
+[0;32mI (623) LcdDisplay: Шрифты загружены: text=0x3c26b500, icon=0x3c25d004, large_icon=0x3c25d004[0m
+[0;32mI (623) LcdDisplay: Активный экран найден: 0x3fcee9d8[0m
+[0;32mI (633) LcdDisplay: UI элементы созданы:[0m
+[0;32mI (633) LcdDisplay:   container_: 0x3fceebbc[0m
+[0;32mI (633) LcdDisplay:   emoji_box_: 0x3fceeca4[0m
+[0;32mI (633) LcdDisplay:   emoji_label_: 0x3fceed48[0m
+[0;32mI (633) LcdDisplay:   emoji_image_: 0x3fce25c0[0m
+[0;32mI (633) LcdDisplay:   preview_image_: 0x3fce2658[0m
+[0;32mI (633) LcdDisplay:   top_bar_: 0x3fce26fc[0m
+[0;32mI (633) LcdDisplay:   status_bar_: 0x3fce2bcc[0m
+[0;32mI (633) LcdDisplay:   content_: 0[0m
+[0;32mI (633) LcdDisplay:   bottom_bar_: 0x3fce2f78[0m
+[0;32mI (633) LcdDisplay:   chat_message_label_: 0x3fce3018[0m
+[0;32mI (633) LcdDisplay: === SetupUI завершена успешно ===[0m
+[0;32mI (633) LcdDisplay: === SpiLcdDisplay инициализация завершена ===[0m
+[0;32mI (693) CatDisplay: CatDisplay ready (LVGL canvas): physical=410x502 logical=502x410 rotate_cw=1 scale=2.09[0m
+[0;32mI (773) Backlight: Set brightness to 100[0m
+[0;32mI (773) PowerSaveTimer: Power save timer enabled[0m
+[0;32mI (773) WaveshareAMOLED2_06: Init FT5x06-compatible touch at 0x38[0m
+[0;33mW (773) WaveshareAMOLED2_06: FT3168 probe attempt 1 failed: ESP_ERR_NOT_FOUND[0m
+[1;31mE (783) i2c.master: probe device timeout. Please check if xfer_timeout_ms and pull-ups are correctly set up[0m
+[0;33mW (793) WaveshareAMOLED2_06: while waiting for FT3168 I2C scan: 0x18 0x34 0x40 0x51 0x6B[0m
+[0;33mW (1693) WaveshareAMOLED2_06: FT3168 probe attempt 10 failed: ESP_ERR_NOT_FOUND[0m
+[0;33mW (1703) WaveshareAMOLED2_06: while waiting for FT3168 I2C scan: 0x18 0x34 0x40 0x51 0x6B[0m
+[0;32mI (2403) WaveshareAMOLED2_06: FT3168 probe: ESP_OK[0m
+[0;32mI (2403) WaveshareAMOLED2_06: FT3168 regs[2-6]: ESP_OK 00 41 99 00 A8[0m
+[0;32mI (2403) WaveshareAMOLED2_06: FT5x06-compatible touch enabled on GPIO38 falling edge[0m
+[0;32mI (2403) WaveshareAMOLED2_06: Init QMI8658 IMU[0m
+[0;32mI (2403) QMI8658: QMI8658 initialized successfully[0m
+[0;32mI (2403) XiaoBridge: Init XIAO UART bridge[0m
+[0;32mI (2403) XiaoBridge:   Port: UART_NUM_1[0m
+[0;32mI (2403) XiaoBridge:   Baud: 115200[0m
+[0;32mI (2403) XiaoBridge:   TX Pin: GPIO17[0m
+[0;32mI (2403) XiaoBridge:   RX Pin: GPIO18[0m
+[0;32mI (2403) uart: ESP_INTR_FLAG_IRAM flag not set while CONFIG_UART_ISR_IN_IRAM is enabled, flag updated[0m
+[0;32mI (2453) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (2503) XiaoBridge: Set pose: home[0m
+[0;32mI (2503) XiaoBridge: XIAO bridge UART initialized[0m
+[0;32mI (2503) WaveshareAMOLED2_06: ServoController OK[0m
+
+AMOLED command console ready. Type HELP.
+[0;32mI (2503) WaveshareAMOLED2_06: Vibration motor disabled: set VIBRATION_MOTOR_ENABLED and GPIO after wiring[0m
+[0;32mI (2503) WaveshareAMOLED2_06: Shake interaction ready[0m
+[0;32mI (2503) MCP: Add tool: self.system.reconfigure_wifi[0m
+[0;32mI (2503) MCP: Add tool: self.robot.set_servo[0m
+[0;32mI (2503) MCP: Add tool: self.robot.set_pose[0m
+[0;32mI (2503) MCP: Add tool: self.robot.move_servos[0m
+[0;32mI (2503) MCP: Add tool: self.robot.set_led[0m
+[0;32mI (2503) MCP: Add tool: self.robot.led_default[0m
+[0;32mI (2503) MCP: Add tool: self.robot.led_off[0m
+[0;32mI (2503) MCP: Add tool: self.robot.led_test[0m
+[0;32mI (2503) WaveshareAMOLED2_06: Robot MCP tools registered[0m
+[0;32mI (2503) MCP: Add tool: self.hardware.get_motion[0m
+[0;32mI (2503) MCP: Add tool: self.hardware.get_touch[0m
+[0;32mI (2503) MCP: Add tool: self.hardware.get_sdcard[0m
+[0;32mI (2503) MCP: Add tool: self.hardware.get_xiao_status[0m
+[0;32mI (2503) MCP: Add tool: self.hardware.get_proximity[0m
+[0;32mI (2503) MCP: Add tool: self.sensor.get_radar[0m
+[0;32mI (2503) MCP: Add tool: self.sensor.get_distance[0m
+[0;32mI (2503) MCP: Add tool: self.camera.get_status[0m
+[0;32mI (2503) MCP: Add tool: self.camera.capture_frame[0m
+[0;32mI (2503) MCP: Add tool: self.camera.stream_off[0m
+[0;32mI (2503) BLE_INIT: BT controller compile version [b7de11e][0m
+[0;32mI (2503) BLE_INIT: Using main XTAL as clock source[0m
+[0;32mI (2503) BLE_INIT: Feature Config, ADV:1, BLE_50:1, DTM:1, SCAN:1, CCA:0, SMP:1, CONNECT:1[0m
+[0;32mI (2503) BLE_INIT: Bluetooth MAC: 3c:dc:75:6f:cc:6e[0m
+[0;32mI (2503) phy_init: phy_version 711,97bcf0a2,Aug 25 2025,19:04:10[0m
+[0;32mI (2553) NimBLE: GAP procedure initiated: stop advertising.[0m
+
+[0;32mI (2553) NimBLE: GAP procedure initiated: stop advertising.[0m
+
+[0;32mI (2553) NimBLE: GAP procedure initiated: advertise; [0m
+[0;32mI (2553) NimBLE: disc_mode=2[0m
+[0;32mI (2553) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=0 adv_itvl_max=0[0m
+[0;32mI (2553) NimBLE: [0m
+
+[0;32mI (2553) HomeBotBLE: HomeBot BLE service starting[0m
+[0;32mI (2633) Application: Board instance obtained[0m
+[0;32mI (2633) Application: STATE: starting[0m
+[0;32mI (2633) Application: Device state set to Starting[0m
+[0;32mI (2633) Application: Getting display from board...[0m
+[0;32mI (2633) Application: Display obtained: 0x3fce34e0[0m
+[0;32mI (2633) Application: Setting chat message...[0m
+[0;32mI (2633) WaveshareAMOLED2_06: Chat [system]: waveshare-s3-touch-amoled-2.06/2.0.5[0m
+[0;32mI (2633) Application: Chat message set[0m
+[0;32mI (2633) Application: Getting audio codec from board...[0m
+[0;32mI (2643) BoxAudioCodec: Duplex channels created[0m
+[0;32mI (2643) ES8311: Work in Slave mode[0m
+[0;32mI (2653) ES7210: Work in Slave mode[0m
+[0;32mI (2663) ES7210: Enable ES7210_INPUT_MIC1[0m
+[0;32mI (2663) ES7210: Enable ES7210_INPUT_MIC2[0m
+[0;32mI (2663) ES7210: Enable ES7210_INPUT_MIC3[0m
+[0;32mI (2673) ES7210: Enable ES7210_INPUT_MIC4[0m
+[0;32mI (2673) ES7210: Enable TDM mode[0m
+[0;32mI (2673) BoxAudioCodec: BoxAudioDevice initialized[0m
+[0;32mI (2673) Application: Audio codec obtained: 0x3fcacaa8[0m
+[0;32mI (2673) Application: Initializing audio service...[0m
+[0;32mI (2673) AudioCodec: Enabling TX channel (speaker)[0m
+[0;32mI (2683) AudioCodec: Enabling RX channel (microphone)[0m
+[0;32mI (2683) I2S_IF: channel mode 2 bits:16/16 channel:4 mask:3[0m
+[0;32mI (2683) I2S_IF: TDM Mode 0 bits:16/16 channel:4 sample_rate:24000 mask:3[0m
+[0;32mI (2683) I2S_IF: channel mode 0 bits:16/16 channel:4 mask:3[0m
+[0;32mI (2683) I2S_IF: STD Mode 1 bits:32/32 channel:4 sample_rate:24000 mask:0[0m
+[0;32mI (2683) ES7210: Bits 16[0m
+[0;32mI (2693) ES7210: Enable ES7210_INPUT_MIC1[0m
+[0;32mI (2693) ES7210: Enable ES7210_INPUT_MIC2[0m
+[0;32mI (2693) ES7210: Enable ES7210_INPUT_MIC3[0m
+[0;32mI (2703) ES7210: Enable ES7210_INPUT_MIC4[0m
+[0;32mI (2703) ES7210: Enable TDM mode[0m
+[0;32mI (2783) ES7210: Unmuted[0m
+[0;32mI (2783) Adev_Codec: Open codec device OK[0m
+[0;32mI (2783) AudioCodec: Set input enable to true[0m
+[0;32mI (2783) I2S_IF: Mode 0 need extend bits 64 to 32[0m
+[0;32mI (2783) I2S_IF: channel mode 0 bits:16/32 channel:2 mask:1[0m
+[0;32mI (2783) I2S_IF: STD Mode 1 bits:16/32 channel:2 sample_rate:24000 mask:1[0m
+[0;32mI (2803) Adev_Codec: Open codec device OK[0m
+[0;32mI (2803) AudioCodec: Set output enable to true[0m
+[0;32mI (2803) AudioCodec: Audio codec started - Input: enabled, Output: enabled[0m
+[0;32mI (2803) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (2803) OpusResampler: Resampler configured with input sample rate 24000 and output sample rate 16000[0m
+[0;32mI (2803) OpusResampler: Resampler configured with input sample rate 16000 and output sample rate 24000[0m
+[0;32mI (2803) Application: Starting audio service...[0m
+[0;32mI (2803) Application: Audio service started[0m
+[0;32mI (2803) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (2803) Application: Starting network...[0m
+[0;32mI (2813) pp: pp rom version: e7ae62f[0m
+[0;32mI (2813) net80211: net80211 rom version: e7ae62f[0m
+[0;32mI (2823) wifi:wifi driver task: 3fcc51d0, prio:23, stack:6656, core=0[0m
+[0;32mI (2823) wifi:wifi firmware version: b37c951[0m
+[0;32mI (2823) wifi:wifi certification version: v7.0[0m
+[0;32mI (2823) wifi:config NVS flash: disabled[0m
+[0;32mI (2823) wifi:config nano formatting: disabled[0m
+[0;32mI (2823) wifi:Init data frame dynamic rx buffer num: 6[0m
+[0;32mI (2823) wifi:Init dynamic rx mgmt buffer num: 5[0m
+[0;32mI (2823) wifi:Init management short buffer num: 32[0m
+[0;32mI (2823) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (2823) wifi:Init static tx FG buffer num: 2[0m
+[0;32mI (2823) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (2823) wifi:Init static rx buffer num: 3[0m
+[0;32mI (2823) wifi:Init dynamic rx buffer num: 6[0m
+[0;32mI (2823) wifi_init: rx ba win: 3[0m
+[0;32mI (2823) wifi_init: accept mbox: 6[0m
+[0;32mI (2823) wifi_init: tcpip mbox: 16[0m
+[0;32mI (2823) wifi_init: udp mbox: 6[0m
+[0;32mI (2823) wifi_init: tcp mbox: 6[0m
+[0;32mI (2823) wifi_init: tcp tx win: 5760[0m
+[0;32mI (2823) wifi_init: tcp rx win: 5760[0m
+[0;32mI (2823) wifi_init: tcp mss: 1440[0m
+[0;32mI (2823) wifi:mode : sta (3c:dc:75:6f:cc:6c)[0m
+[0;32mI (2823) wifi:enable tsf[0m
+[0;33mW (2823) Display: ShowNotification: Сканирование Wi-Fi...[0m
+[0;32mI (7503) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (10243) WifiStation: Found AP: muza 2.4, BSSID: 58:25:75:f4:d3:10, RSSI: -48, Channel: 1, Authmode: 4[0m
+[0;33mW (10243) Display: ShowNotification: Подключение к muza 2.4...[0m
+[0;33mW (10243) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2[0m
+[0;32mI (10523) wifi:new:<1,0>, old:<1,0>, ap:<255,255>, sta:<1,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (10523) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (10523) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (10543) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (10563) wifi:connected with muza 2.4, aid = 1, channel 1, BW20, bssid = 58:25:75:f4:d3:10[0m
+[0;32mI (10563) wifi:security: WPA2-PSK, phy: bgn, rssi: -51, cipher(pairwise:0x3, group:0x1), pmf:0[0m
+[0;32mI (10573) wifi:pm start, type: 1[0m
+
+[0;32mI (10573) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (10573) wifi:set rx beacon pti, rx_bcn_pti: 14, bcn_timeout: 25000, mt_pti: 14, mt_time: 10000[0m
+[0;32mI (10613) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (12583) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (12793) wifi:<ba-add>idx:0 (ifx:0, 58:25:75:f4:d3:10), tid:0, ssn:1, winSize:64[0m
+[0;32mI (13293) SystemInfo: free sram: 52483 minimal sram: 51171[0m
+[0;32mI (13833) esp_netif_handlers: sta ip: 192.168.0.52, mask: 255.255.255.0, gw: 192.168.0.1[0m
+[0;32mI (13833) WifiStation: Got IP: 192.168.0.52[0m
+[0;33mW (13833) Display: ShowNotification: Подключено к muza 2.4[0m
+[0;32mI (13833) ESPNOW: espnow [version: 2.0] init[0m
+[0;32mI (13843) XiaoBridge: ESP-NOW XIAO bridge enabled on Wi-Fi channel 1[0m
+[0;33mW (14893) XiaoBridge: ESP-NOW timeout for command: PING[0m
+[0;33mW (14893) XiaoBridge: ESP-NOW initialized; XIAO peer has not replied yet[0m
+[0;32mI (14893) Application: Network started[0m
+[0;32mI (14893) Application: Updating status bar...[0m
+[0;32mI (15173) Application: Status bar updated[0m
+[0;32mI (15173) Assets: The storage free size is 21568 KB[0m
+[0;32mI (15173) Assets: The partition size is 8192 KB[0m
+[0;32mI (15513) Assets: The checksum calculation time is 337 ms[0m
+[0;32mI (15513) MODEL_LOADER: Successfully load srmodels[0m
+[0;32mI (15523) Assets: Refreshing display theme...[0m
+[0;33mW (15523) Ota: Serial number missing in eFuse, fallback to MAC: 3CDC756FCC6C[0m
+[0;32mI (15523) MCP: Add tool: self.get_device_status[0m
+[0;32mI (15523) MCP: Add tool: self.audio_speaker.set_volume[0m
+[0;32mI (15523) MCP: Add tool: self.screen.set_brightness[0m
+[0;32mI (15523) MCP: Add tool: self.get_system_info [user][0m
+[0;32mI (15523) MCP: Add tool: self.reboot [user][0m
+[0;32mI (15523) MCP: Add tool: self.upgrade_firmware [user][0m
+[0;32mI (15523) MCP: Add tool: self.assets.set_download_url [user][0m
+[0;33mW (15523) Application: No protocol specified in the OTA config, using WebSocket default[0m
+[0;32mI (15523) SystemInfo: free sram: 44967 minimal sram: 42543[0m
+[0;32mI (15523) Application: STATE: idle[0m
+[0;32mI (15523) Application: Idle timeout timer started (5 minutes)[0m
+[0;32mI (15523) Application: [STATE] Device entering IDLE state - wake word detection enabled[0m
+[0;32mI (15523) AudioService: [WAKE_WORD] Enabling wake word detection[0m
+[0;32mI (15523) AudioService: [WAKE_WORD] Initializing wake word handler...[0m
+[0;32mI (15523) AfeWakeWord: Model 0: wn9_hiesp[0m
+[0;32mI (15523) AfeWakeWord: [WAKE_WORD] Loaded model: wn9_hiesp[0m
+[0;32mI (15523) AfeWakeWord: [WAKE_WORD] Available wake words: Hi,ESP[0m
+[0;32mI (15523) AfeWakeWord: [WAKE_WORD] Registered wake word: 'Hi,ESP'[0m
+[0;32mI (15523) AfeWakeWord: [WAKE_WORD] Total wake words registered: 1[0m
+[0;32mI (15523) AFE_CONFIG: Set WakeNet Model: wn9_hiesp[0m
+MC Quantized wakenet9: wakeNet9_v1h24_Hi,ESP_3_0.63_0.635, tigger:v4, mode:0, p:0, (Apr 28 2026 09:55:03)
+------ns: 
+[0;32mI (15673) AfeWakeWord: Audio detection task started, feed size: 512 fetch size: 512[0m
+[0;32mI (15673) AudioService: [WAKE_WORD] Wake word handler initialized successfully[0m
+[0;32mI (15673) AfeWakeWord: [WAKE_WORD] Starting wake word detection, model: wn9_hiesp, words: 1[0m
+[0;32mI (15683) AudioService: [WAKE_WORD] Wake word detection is now ACTIVE[0m
+[0;33mW (15683) Display: ShowNotification: Версия [0m
+[0;32mI (15683) AudioService: OpusHead: version=1, channels=1, sample_rate=16000[0m
+[0;32mI (15683) AudioService: DecodeQueue push #1: q=0 bytes=59 sr=16000 fd=60[0m
+[0;32mI (15683) AudioService: Resampling audio from 16000 to 24000[0m
+[0;32mI (15693) OpusResampler: Resampler configured with input sample rate 16000 and output sample rate 24000[0m
+[0;32mI (15693) AudioService: Decoded packet #1: pcm_samples=960 sr=16000[0m
+[0;32mI (15703) AudioService: DecodeQueue push #2: q=0 bytes=146 sr=16000 fd=60[0m
+[0;32mI (15713) AudioService: Decoded packet #2: pcm_samples=960 sr=16000[0m
+[0;32mI (15713) AudioService: DecodeQueue push #3: q=0 bytes=131 sr=16000 fd=60[0m
+[0;32mI (15713) AudioService: Decoded packet #3: pcm_samples=960 sr=16000[0m
+[0;32mI (15713) AudioService: DecodeQueue push #4: q=0 bytes=152 sr=16000 fd=60[0m
+[0;32mI (15723) AudioService: Decoded packet #4: pcm_samples=960 sr=16000[0m
+[0;32mI (15843) AudioService: DecodeQueue push #5: q=0 bytes=154 sr=16000 fd=60[0m
+[0;32mI (15843) AudioService: Decoded packet #5: pcm_samples=960 sr=16000[0m
+[0;32mI (16043) main: Application::Start() returned[0m
+[0;32mI (16043) main_task: Returned from app_main()[0m
+[0;32mI (17623) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (22703) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (25103) SystemInfo: free sram: 22991 minimal sram: 10783[0m
+[0;32mI (27803) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (32053) I2S_IF: Pending out channel for in channel running[0m
+[0;32mI (32053) AudioCodec: Set output enable to false[0m
+[0;32mI (32843) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (35343) SystemInfo: free sram: 22991 minimal sram: 10783[0m
+[0;32mI (37873) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (42963) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (45193) SystemInfo: free sram: 22779 minimal sram: 10783[0m
+[0;32mI (45773) wifi:<ba-add>idx:1 (ifx:0, 58:25:75:f4:d3:10), tid:5, ssn:1, winSize:64[0m
+[0;32mI (48063) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (53083) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (55223) SystemInfo: free sram: 22647 minimal sram: 10783[0m
+[0;32mI (58143) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (63293) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (64953) SystemInfo: free sram: 22111 minimal sram: 10783[0m
+[0;32mI (68393) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (73403) WaveshareAMOLED2_06: touch-int irq=0 int=1 ready=1[0m
+[0;32mI (75343) SystemInfo: free sram: 22047 minimal sram: 10783[0m
+[0;32mI (76033) PowerSaveTimer: Entering dim mode[0m
+[0;32mI (76033) Backlight: Set brightness to 30[0m
+[0;32mI (76563) wifi:[ADDBA]RX DELBA, reason:37, delete tid:5, initiator:1(originator)[0m
+[0;32mI (76563) wifi:<ba-del>idx:1, 

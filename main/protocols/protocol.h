@@ -72,7 +72,7 @@ public:
     virtual void SendTtsRequest(const std::string& text);
     virtual void SendChatText(const std::string& text);
     virtual void SendCharacterEvent(const std::string& event, const std::string& context_json);
-    virtual void SendStartListening(ListeningMode mode);
+    virtual void SendStartListening(ListeningMode mode, const std::string& directive = "");
     virtual void SendStopListening();
     virtual void SendAbortSpeaking(AbortReason reason);
     virtual void SendMcpMessage(const std::string& message);
@@ -91,6 +91,7 @@ protected:
     bool error_occurred_ = false;
     std::string session_id_;
     std::chrono::time_point<std::chrono::steady_clock> last_incoming_time_;
+    mutable bool timeout_logged_ = false;  // log a channel timeout once per episode
 
     virtual bool SendText(const std::string& text) = 0;
     virtual void SetError(const std::string& message);

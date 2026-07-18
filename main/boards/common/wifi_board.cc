@@ -4,6 +4,8 @@
 #include "application.h"
 #include "system_info.h"
 #include "settings.h"
+#include "config.h"
+#include "time_service.h"
 #include "assets/lang_config.h"
 #if __has_include("endpoints_config.h")
 #include "endpoints_config.h"
@@ -21,6 +23,50 @@
 #include <ssid_manager.h>
 
 static const char *TAG = "WifiBoard";
+
+struct DefaultWifiCredential {
+    const char* ssid;
+    const char* password;
+};
+
+static const DefaultWifiCredential kDefaultWifiCredentials[] = {
+#if defined(DEFAULT_WIFI_AP_COUNT) && DEFAULT_WIFI_AP_COUNT >= 1
+    { DEFAULT_WIFI_AP_1_SSID, DEFAULT_WIFI_AP_1_PASSWORD },
+#if DEFAULT_WIFI_AP_COUNT >= 2
+    { DEFAULT_WIFI_AP_2_SSID, DEFAULT_WIFI_AP_2_PASSWORD },
+#endif
+#if DEFAULT_WIFI_AP_COUNT >= 3
+    { DEFAULT_WIFI_AP_3_SSID, DEFAULT_WIFI_AP_3_PASSWORD },
+#endif
+#if DEFAULT_WIFI_AP_COUNT >= 4
+    { DEFAULT_WIFI_AP_4_SSID, DEFAULT_WIFI_AP_4_PASSWORD },
+#endif
+#elif defined(DEFAULT_WIFI_SSID) && defined(DEFAULT_WIFI_PASSWORD)
+    { DEFAULT_WIFI_SSID, DEFAULT_WIFI_PASSWORD },
+#endif
+};
+
+static void SeedDefaultWifiCredentials(SsidManager& ssid_manager) {
+    for (int i = (int)(sizeof(kDefaultWifiCredentials) / sizeof(kDefaultWifiCredentials[0])) - 1;
+         i >= 0; --i) {
+        const auto& credential = kDefaultWifiCredentials[i];
+        if (!credential.ssid || credential.ssid[0] == '\0') {
+            continue;
+        }
+
+        bool needs_update = true;
+        for (const auto& item : ssid_manager.GetSsidList()) {
+            if (item.ssid == credential.ssid) {
+                needs_update = item.password != credential.password;
+                break;
+            }
+        }
+        if (needs_update) {
+            ESP_LOGI(TAG, "Seeding default Wi-Fi SSID: %s", credential.ssid);
+            ssid_manager.AddSsid(credential.ssid, credential.password ? credential.password : "");
+        }
+    }
+}
 
 WifiBoard::WifiBoard() {
     Settings settings("wifi", true);
@@ -87,14 +133,8 @@ void WifiBoard::StartNetwork() {
 
     // If no WiFi SSID is configured, enter WiFi configuration mode
     auto& ssid_manager = SsidManager::GetInstance();
+    SeedDefaultWifiCredentials(ssid_manager);
     auto ssid_list = ssid_manager.GetSsidList();
-#if defined(DEFAULT_WIFI_SSID) && defined(DEFAULT_WIFI_PASSWORD)
-    if (ssid_list.empty()) {
-        ESP_LOGI(TAG, "No WiFi credentials in NVS, using default WiFi SSID");
-        ssid_manager.AddSsid(DEFAULT_WIFI_SSID, DEFAULT_WIFI_PASSWORD);
-        ssid_list = ssid_manager.GetSsidList();
-    }
-#endif
     if (ssid_list.empty()) {
 #if CONFIG_SKIP_WIFI_SOFTAP_PROVISIONING
         ESP_LOGE(TAG, "No Wi-Fi credentials and SoftAP provisioning is disabled; waiting");
@@ -144,6 +184,8 @@ void WifiBoard::StartNetwork() {
         return;
     }
 #endif
+
+    TimeService::GetInstance().Start();
 }
 
 NetworkInterface* WifiBoard::GetNetwork() {
